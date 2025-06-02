@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Trang Cá Nhân - Món Ngon Việt Nam</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #D61C4E;
+            --secondary-color: #F77E21;
+            --accent-color: #FAB207;
+            --text-color: #1F1717;
+            --light-gray: #F5F5F5;
+        }
+
+        body {
+            font-family: 'Be Vietnam Pro', sans-serif;
+            color: var(--text-color);
+            background-color: var(--light-gray);
+        }
+
+        .navbar {
+            background-color: rgba(255, 255, 255, 0.95) !important;
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            color: var(--primary-color) !important;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: var(--text-color) !important;
+            margin: 0 0.5rem;
+            position: relative;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        .profile-header {
+            background: white;
+            padding: 40px 0;
+            margin-top: 76px;
+        }
+
+        .profile-cover {
+            height: 200px;
+            background: linear-gradient(135deg, rgba(214, 28, 78, 0.8), rgba(247, 126, 33, 0.8));
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+            position: relative;
+        }
+
+        .profile-avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            position: absolute;
+            bottom: -75px;
+            left: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .profile-info {
+            text-align: center;
+            margin-top: 90px;
+        }
+
+        .profile-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .profile-nav {
+            background: white;
+            padding: 20px 0;
+            margin-bottom: 40px;
+        }
+
+        .nav-pills .nav-link {
+            color: var(--text-color);
+            padding: 10px 20px;
+            border-radius: 10px;
+            margin: 0 5px;
+        }
+
+        .nav-pills .nav-link.active {
+            background-color: var(--primary-color);
+            color: white !important;
+        }
+
+        .recipe-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+        }
+
+        .recipe-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .recipe-image {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .recipe-content {
+            padding: 20px;
+        }
+
+        .recipe-title {
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .recipe-meta {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .recipe-meta i {
+            color: var(--primary-color);
+        }
+
+        .recipe-actions {
+            margin-top: 15px;
+            display: flex;
+            gap: 10px;
+        }
+
+        .action-btn {
+            padding: 8px 15px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+        }
+
+        .edit-btn {
+            background: var(--light-gray);
+            color: var(--text-color);
+        }
+
+        .delete-btn {
+            background: #dc3545;
+            color: white;
+        }
+
+        .saved-recipe {
+            opacity: 0.7;
+        }
+
+        .saved-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: var(--primary-color);
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 0.8rem;
+        }
+
+        footer {
+            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 4rem 0 2rem;
+            margin-top: 50px;
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+
+        .empty-state i {
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin-bottom: 20px;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .btn-primary:hover {
+            background: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="/index.html">
+                <img src="/assets/images/logo.png" height="40" class="me-2" alt="Logo" />
+                Món Ngon Việt Nam
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto align-items-center">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/index.html">Trang chủ</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pages/blog.html">Blog</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/pages/user/profile.html">
+                            <img src="/assets/images/users/avatar.jpg" alt="Avatar" class="rounded-circle" width="32"
+                                height="32">
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Profile Header -->
+    <header class="profile-header">
+        <div class="container">
+            <div class="profile-cover">
+                <img src="/assets/images/users/avatar.jpg" alt="Avatar" class="profile-avatar">
+            </div>
+            <div class="profile-info">
+                <h1 class="h3 fw-bold">Nguyễn Văn A</h1>
+                <p class="text-muted mb-3">Đam mê nấu ăn và khám phá ẩm thực Việt Nam</p>
+                <div class="profile-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">25</div>
+                        <div class="stat-label">Công thức</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">1.2K</div>
+                        <div class="stat-label">Người theo dõi</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">156</div>
+                        <div class="stat-label">Đang theo dõi</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Profile Navigation -->
+    <nav class="profile-nav">
+        <div class="container">
+            <ul class="nav nav-pills justify-content-center" id="profileTabs" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" data-bs-toggle="tab" data-bs-target="#recipes">
+                        Công thức của tôi
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#saved">
+                        Đã lưu
+                    </button>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" data-bs-toggle="tab" data-bs-target="#settings">
+                        Cài đặt
+                    </button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <div class="container">
+        <div class="tab-content">
+            <!-- My Recipes Tab -->
+            <div class="tab-pane fade show active" id="recipes">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <h3 class="h4 mb-0">Công thức của tôi</h3>
+                    <a href="/pages/user/add-recipe.html" class="btn btn-primary">
+                        <i class="fas fa-plus me-2"></i>Thêm công thức
+                    </a>
+                </div>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="recipe-card">
+                            <img src="/assets/images/recipes/pho-bo.jpg" alt="Phở bò" class="recipe-image w-100">
+                            <div class="recipe-content">
+                                <h5 class="recipe-title">Phở Bò Nam Định</h5>
+                                <div class="recipe-meta">
+                                    <span><i class="fas fa-clock"></i> 45 phút</span>
+                                    <span><i class="fas fa-star"></i> 4.8</span>
+                                    <span><i class="fas fa-eye"></i> 1.2K</span>
+                                </div>
+                                <div class="recipe-actions">
+                                    <button class="action-btn edit-btn">
+                                        <i class="fas fa-edit me-2"></i>Sửa
+                                    </button>
+                                    <button class="action-btn delete-btn">
+                                        <i class="fas fa-trash me-2"></i>Xóa
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- More recipe cards... -->
+                </div>
+            </div>
+
+            <!-- Saved Recipes Tab -->
+            <div class="tab-pane fade" id="saved">
+                <h3 class="h4 mb-4">Công thức đã lưu</h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="recipe-card saved-recipe">
+                            <span class="saved-badge">Đã lưu</span>
+                            <img src="/assets/images/recipes/bun-cha.jpg" alt="Bún chả" class="recipe-image w-100">
+                            <div class="recipe-content">
+                                <h5 class="recipe-title">Bún Chả Hà Nội</h5>
+                                <div class="recipe-meta">
+                                    <span><i class="fas fa-clock"></i> 60 phút</span>
+                                    <span><i class="fas fa-star"></i> 4.9</span>
+                                    <span><i class="fas fa-user"></i> Cô Hương</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- More saved recipes... -->
+                </div>
+            </div>
+
+            <!-- Settings Tab -->
+            <div class="tab-pane fade" id="settings">
+                <div class="row">
+                    <div class="col-lg-8">
+                        <div class="bg-white p-4 rounded-3 shadow-sm">
+                            <h3 class="h4 mb-4">Thông tin cá nhân</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label class="form-label">Họ và tên</label>
+                                    <input type="text" class="form-control" value="Nguyễn Văn A">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Email</label>
+                                    <input type="email" class="form-control" value="nguyenvana@gmail.com">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Giới thiệu</label>
+                                    <textarea class="form-control"
+                                        rows="4">Đam mê nấu ăn và khám phá ẩm thực Việt Nam</textarea>
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Ảnh đại diện</label>
+                                    <input type="file" class="form-control">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Ảnh bìa</label>
+                                    <input type="file" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Lưu thay đổi</button>
+                            </form>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-3 shadow-sm mt-4">
+                            <h3 class="h4 mb-4">Đổi mật khẩu</h3>
+                            <form>
+                                <div class="mb-4">
+                                    <label class="form-label">Mật khẩu hiện tại</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Mật khẩu mới</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <div class="mb-4">
+                                    <label class="form-label">Xác nhận mật khẩu mới</label>
+                                    <input type="password" class="form-control">
+                                </div>
+                                <button type="submit" class="btn btn-primary">Đổi mật khẩu</button>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="col-lg-4">
+                        <div class="bg-white p-4 rounded-3 shadow-sm">
+                            <h3 class="h4 mb-4">Cài đặt thông báo</h3>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label">Email thông báo</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label">Thông báo bình luận mới</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox">
+                                <label class="form-check-label">Thông báo người theo dõi mới</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label">Cập nhật từ người đang theo dõi</label>
+                            </div>
+                        </div>
+
+                        <div class="bg-white p-4 rounded-3 shadow-sm mt-4">
+                            <h3 class="h4 mb-4">Quyền riêng tư</h3>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label">Hiển thị công thức với mọi người</label>
+                            </div>
+                            <div class="form-check form-switch mb-3">
+                                <input class="form-check-input" type="checkbox">
+                                <label class="form-check-label">Cho phép theo dõi</label>
+                            </div>
+                            <div class="form-check form-switch">
+                                <input class="form-check-input" type="checkbox" checked>
+                                <label class="form-check-label">Hiển thị email công khai</label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-lg-4">
+                    <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
+                    <p class="mb-4">Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất Việt Nam, nơi kết
+                        nối những người đam mê ẩm thực.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-youtube"></i></a>
+                        <a href="#"><i class="fab fa-tiktok"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2">
+                    <h5 class="mb-3 fw-bold">Khám Phá</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="/pages/recipes/list.html" class="text-white text-decoration-none">Công
+                                thức</a></li>
+                        <li class="mb-2"><a href="/pages/blog.html" class="text-white text-decoration-none">Blog</a>
+                        </li>
+                        <li class="mb-2"><a href="/pages/about.html" class="text-white text-decoration-none">Về chúng
+                                tôi</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Liên hệ</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="mb-3 fw-bold">Danh Mục</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chính</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món tráng miệng</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Đồ uống</a></li>
+                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chay</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-3">
+                    <h5 class="mb-3 fw-bold">Liên Hệ</h5>
+                    <ul class="list-unstyled">
+                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> lienhe@monngon.vn</li>
+                        <li class="mb-2"><i class="fas fa-phone me-2"></i> 0123.456.789</li>
+                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam</li>
+                    </ul>
+                </div>
+            </div>
+            <hr class="my-4 bg-white">
+            <div class="text-center">
+                <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Delete recipe confirmation
+        document.querySelectorAll('.delete-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                if (confirm('Bạn có chắc chắn muốn xóa công thức này?')) {
+                    // Add delete logic here
+                }
+            });
+        });
+
+        // Initialize Bootstrap tabs
+        var triggerTabList = [].slice.call(document.querySelectorAll('#profileTabs button'))
+        triggerTabList.forEach(function (triggerEl) {
+            var tabTrigger = new bootstrap.Tab(triggerEl)
+            triggerEl.addEventListener('click', function (event) {
+                event.preventDefault()
+                tabTrigger.show()
+            })
+        });
+    </script>
+</body>
+
+</html>

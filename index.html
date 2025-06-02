@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Món Ngon Việt Nam - Khám Phá Ẩm Thực Việt</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css"
+    />
+    <link rel="stylesheet" href="./assets/css/pages/index.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg">
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link active" href="/index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+      <div class="swiper hero-slider">
+        <div class="swiper-wrapper">
+          <!-- Slide 1 -->
+          <div class="swiper-slide hero-slide">
+            <img
+              src="/assets/images/hero/pho.jpg"
+              alt="Phở Việt Nam"
+              class="hero-image"
+            />
+            <div class="hero-content">
+              <div class="hero-subtitle">Khám phá hương vị Việt</div>
+              <h1 class="hero-title">Tinh Hoa Ẩm Thực Việt Nam</h1>
+              <p class="hero-description">
+                Hành trình khám phá những công thức nấu ăn truyền thống và hiện
+                đại, mang đến những trải nghiệm ẩm thực tuyệt vời cho gia đình
+                bạn.
+              </p>
+              <div class="hero-buttons">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="btn btn-hero btn-primary"
+                  >Khám phá công thức</a
+                >
+                <a
+                  href="/pages/auth/register.html"
+                  class="btn btn-hero btn-outline"
+                  >Tham gia ngay</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Slide 2 -->
+          <div class="swiper-slide hero-slide">
+            <img
+              src="/assets/images/hero/banh-mi.jpg"
+              alt="Bánh mì Việt Nam"
+              class="hero-image"
+            />
+            <div class="hero-content">
+              <div class="hero-subtitle">Hương vị đường phố</div>
+              <h1 class="hero-title">Bánh Mì Việt Nam</h1>
+              <p class="hero-description">
+                Khám phá bí quyết làm bánh mì giòn rụm, với nhân đặc trưng độc
+                đáo được UNESCO công nhận là di sản văn hóa.
+              </p>
+              <div class="hero-buttons">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="btn btn-hero btn-primary"
+                  >Xem công thức</a
+                >
+                <a href="/pages/blog.html" class="btn btn-hero btn-outline"
+                  >Đọc thêm</a
+                >
+              </div>
+            </div>
+          </div>
+          <!-- Slide 3 -->
+          <div class="swiper-slide hero-slide">
+            <img
+              src="/assets/images/hero/com-tam.jpg"
+              alt="Cơm tấm Sài Gòn"
+              class="hero-image"
+            />
+            <div class="hero-content">
+              <div class="hero-subtitle">Đặc sản Sài Gòn</div>
+              <h1 class="hero-title">Cơm Tấm Sài Gòn</h1>
+              <p class="hero-description">
+                Thưởng thức hương vị đậm đà của món cơm tấm sườn bì chả, một nét
+                văn hóa ẩm thực độc đáo của Sài Gòn.
+              </p>
+              <div class="hero-buttons">
+                <a
+                  href="/pages/recipes/detail.html"
+                  class="btn btn-hero btn-primary"
+                  >Nấu ngay</a
+                >
+                <a
+                  href="/pages/recipes/list.html"
+                  class="btn btn-hero btn-outline"
+                  >Món ngon khác</a
+                >
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="swiper-pagination"></div>
+      </div>
+      <div class="hero-scroll-btn">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </section>
+
+    <!-- Categories Section -->
+    <section class="categories-section py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Khám Phá Theo Danh Mục</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card">
+              <img
+                src="/assets/images/categories/mon-chinh.jpg"
+                alt="Món Chính"
+              />
+              <div class="category-overlay">
+                <h4>Món Chính</h4>
+                <p class="mb-0">150 công thức</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card">
+              <img
+                src="/assets/images/categories/trang-mieng.jpg"
+                alt="Món Tráng Miệng"
+              />
+              <div class="category-overlay">
+                <h4>Món Tráng Miệng</h4>
+                <p class="mb-0">80 công thức</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card">
+              <img src="/assets/images/categories/do-uong.jpg" alt="Đồ Uống" />
+              <div class="category-overlay">
+                <h4>Đồ Uống</h4>
+                <p class="mb-0">60 công thức</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card">
+              <img
+                src="/assets/images/categories/mon-chay.jpg"
+                alt="Món Chay"
+              />
+              <div class="category-overlay">
+                <h4>Món Chay</h4>
+                <p class="mb-0">90 công thức</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  <!-- Featured Recipes Section -->
+  <section class="featured-recipes py-5 bg-light">
+    <div class="container">
+      <div class="text-center mb-5">
+        <h2 class="section-title">Công Thức Nổi Bật</h2>
+      </div>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="featured-card">
+            <img src="/assets/images/recipes/pho-bo.jpg" alt="Phở Bò Nam Định">
+            <div class="card-body">
+              <h5 class="card-title">Phở Bò Nam Định</h5>
+              <p class="card-text text-muted">Phở truyền thống với nước dùng đậm đà, thơm ngon</p>
+              <div class="recipe-meta">
+                <span><i class="fas fa-clock"></i> 45 phút</span>
+                <span><i class="fas fa-star"></i> 4.8</span>
+                <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="featured-card">
+            <img src="/assets/images/recipes/bun-cha.jpg" alt="Bún Chả Hà Nội">
+            <div class="card-body">
+              <h5 class="card-title">Bún Chả Hà Nội</h5>
+              <p class="card-text text-muted">Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội</p>
+              <div class="recipe-meta">
+                <span><i class="fas fa-clock"></i> 60 phút</span>
+                <span><i class="fas fa-star"></i> 4.9</span>
+                <span><i class="fas fa-user"></i> Cô Hương</span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="featured-card">
+            <img src="/assets/images/recipes/banh-xeo.jpg" alt="Bánh Xèo Miền Tây">
+            <div class="card-body">
+              <h5 class="card-title">Bánh Xèo Miền Tây</h5>
+              <p class="card-text text-muted">Bánh xèo giòn rụm với nhân tôm thịt đậm đà</p>
+              <div class="recipe-meta">
+                <span><i class="fas fa-clock"></i> 30 phút</span>
+                <span><i class="fas fa-star"></i> 4.7</span>
+                <span><i class="fas fa-user"></i> Chị Mai</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+    <!-- Latest Blog Posts -->
+    <section class="latest-posts py-5">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Bài Viết Mới Nhất</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="blog-card">
+              <img
+                src="/assets/images/blog/nau-pho.jpg"
+                alt="Bí Quyết Nấu Phở"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Bí Quyết Nấu Phở Ngon Tại Nhà</h5>
+                <p class="card-text text-muted">
+                  Khám phá công thức nấu phở chuẩn vị với những nguyên liệu dễ
+                  tìm...
+                </p>
+                <div class="blog-meta">
+                  <span><i class="far fa-calendar"></i> 15/03/2024</span>
+                  <span><i class="far fa-clock"></i> 5 phút đọc</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="blog-card">
+              <img
+                src="/assets/images/blog/an-vat.jpg"
+                alt="Top 10 Món Ăn Vặt"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Top 10 Món Ăn Vặt Được Yêu Thích</h5>
+                <p class="card-text text-muted">
+                  Tổng hợp những món ăn vặt ngon, dễ làm được giới trẻ yêu
+                  thích...
+                </p>
+                <div class="blog-meta">
+                  <span><i class="far fa-calendar"></i> 14/03/2024</span>
+                  <span><i class="far fa-clock"></i> 4 phút đọc</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="blog-card">
+              <img
+                src="/assets/images/blog/banh-trung-thu.jpg"
+                alt="Cách Làm Bánh Trung Thu"
+              />
+              <div class="card-body">
+                <h5 class="card-title">
+                  Cách Làm Bánh Trung Thu Nhân Thập Cẩm
+                </h5>
+                <p class="card-text text-muted">
+                  Hướng dẫn chi tiết cách làm bánh trung thu truyền thống tại
+                  nhà...
+                </p>
+                <div class="blog-meta">
+                  <span><i class="far fa-calendar"></i> 13/03/2024</span>
+                  <span><i class="far fa-clock"></i> 7 phút đọc</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5>Về Chúng Tôi</h5>
+            <p>
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5>Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li><a href="/pages/recipes/list.html">Công thức</a></li>
+              <li><a href="/pages/blog.html">Blog</a></li>
+              <li><a href="/pages/about.html">Về chúng tôi</a></li>
+              <li><a href="#">Liên hệ</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5>Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li><a href="#">Món chính</a></li>
+              <li><a href="#">Món tráng miệng</a></li>
+              <li><a href="#">Đồ uống</a></li>
+              <li><a href="#">Món chay</a></li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5>Liên Hệ</h5>
+            <ul class="list-unstyled">
+              <li>
+                <i class="fas fa-envelope me-2"></i> monngonvietnam@gmail.com
+              </li>
+              <li><i class="fas fa-phone me-2"></i> 0909.090.909</li>
+              <li>
+                <i class="fas fa-map-marker-alt me-2"></i> Cần Thơ, Việt Nam
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr />
+        <div class="text-center">
+          <p class="mb-0">© 2025 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        </div>
+      </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script>
+      // Khởi tạo Swiper
+      const heroSlider = new Swiper(".hero-slider", {
+        loop: true,
+        effect: "fade",
+        speed: 1000,
+        autoplay: {
+          delay: 4000,
+          disableOnInteraction: false,
+        },
+        pagination: {
+          el: ".swiper-pagination",
+          clickable: true,
+        },
+      });
+
+      // Thay đổi màu navbar khi cuộn
+      window.addEventListener("scroll", function () {
+        if (window.scrollY > 50) {
+          document.querySelector(".navbar").classList.add("scrolled");
+        } else {
+          document.querySelector(".navbar").classList.remove("scrolled");
+        }
+      });
+
+      // Cuộn xuống khi nhấn nút
+      document
+        .querySelector(".hero-scroll-btn")
+        .addEventListener("click", function () {
+          window.scrollTo({
+            top: window.innerHeight,
+            behavior: "smooth",
+          });
+        });
+    </script>
+  </body>
+</html>

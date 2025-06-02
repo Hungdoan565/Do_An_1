@@ -23,6 +23,45 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
+    <style>
+      
+      .featured-slider-nav {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px; /* Add some space between the recipes and buttons */
+        gap: 16px; /* Space between the buttons */
+      }
+
+      .featured-slider-btn {
+        width: 60px; /* Increased size */
+        height: 60px; /* Increased size */
+        border-radius: 50%;
+        background: #fff;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
+        border: 2px solid #d61c4e;
+        color: #d61c4e;
+        font-size: 2rem; /* Increased icon size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.2s, color 0.2s;
+      }
+
+      .featured-slider-btn:hover {
+        background: #d61c4e;
+        color: #fff;
+      }
+
+      /* Adjust for smaller screens */
+      @media (max-width: 991px) {
+        .featured-slider-btn {
+          width: 50px; /* Slightly smaller for mobile */
+          height: 50px;
+          font-size: 1.75rem;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -225,64 +264,14 @@
         <div class="text-center mb-5">
           <h2 class="section-title">Công Thức Nổi Bật</h2>
         </div>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="featured-card">
-              <img
-                src="/assets/images/recipes/pho-bo.jpg"
-                alt="Phở Bò Nam Định"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Phở Bò Nam Định</h5>
-                <p class="card-text text-muted">
-                  Phở truyền thống với nước dùng đậm đà, thơm ngon
-                </p>
-                <div class="recipe-meta">
-                  <span><i class="fas fa-clock"></i> 45 phút</span>
-                  <span><i class="fas fa-star"></i> 4.8</span>
-                  <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="featured-card">
-              <img
-                src="/assets/images/recipes/bun-cha.jpg"
-                alt="Bún Chả Hà Nội"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Bún Chả Hà Nội</h5>
-                <p class="card-text text-muted">
-                  Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội
-                </p>
-                <div class="recipe-meta">
-                  <span><i class="fas fa-clock"></i> 60 phút</span>
-                  <span><i class="fas fa-star"></i> 4.9</span>
-                  <span><i class="fas fa-user"></i> Cô Hương</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="featured-card">
-              <img
-                src="/assets/images/recipes/banh-xeo.jpg"
-                alt="Bánh Xèo Miền Tây"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Bánh Xèo Miền Tây</h5>
-                <p class="card-text text-muted">
-                  Bánh xèo giòn rụm với nhân tôm thịt đậm đà
-                </p>
-                <div class="recipe-meta">
-                  <span><i class="fas fa-clock"></i> 30 phút</span>
-                  <span><i class="fas fa-star"></i> 4.7</span>
-                  <span><i class="fas fa-user"></i> Chị Mai</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row g-4" id="featured-row"></div>
+        <div class="featured-slider-nav">
+          <button id="featured-prev" class="featured-slider-btn">
+            <i class="fas fa-chevron-left"></i>
+          </button>
+          <button id="featured-next" class="featured-slider-btn">
+            <i class="fas fa-chevron-right"></i>
+          </button>
         </div>
       </div>
     </section>
@@ -584,6 +573,76 @@
         }
       }
       renderFeaturedRecipes();
+
+      let featuredIndex = 0;
+      const FEATURED_PER_PAGE = 3;
+      let featuredTimer;
+
+      function getFeaturedRecipes() {
+        return allRecipes
+          .filter((r) => r.image && r.title && r.description)
+          .sort((a, b) => (b.rating || 0) - (a.rating || 0));
+      }
+
+      function renderFeaturedRecipesSlider() {
+        const featured = getFeaturedRecipes();
+        const start = featuredIndex;
+        const end = start + FEATURED_PER_PAGE;
+        const recipes = featured.slice(start, end);
+        const featuredRow = document.getElementById("featured-row");
+        if (featuredRow) {
+          featuredRow.innerHTML = recipes
+            .map(
+              (recipe) => `
+          <div class="col-md-4">
+            <div class="featured-card">
+              <img src="${recipe.image}" alt="${recipe.title}" />
+              <div class="card-body">
+                <h5 class="card-title">${recipe.title}</h5>
+                <p class="card-text text-muted">${recipe.description}</p>
+                <div class="recipe-meta">
+                  <span><i class="fas fa-clock"></i> ${
+                    recipe.time || "?"
+                  } phút</span>
+                  <span><i class="fas fa-star"></i> ${
+                    recipe.rating || "?"
+                  } </span>
+                  <span><i class="fas fa-user"></i> ${
+                    recipe.author || ""
+                  }</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+            )
+            .join("");
+        }
+      }
+
+      function nextFeatured() {
+        const featured = getFeaturedRecipes();
+        featuredIndex += FEATURED_PER_PAGE;
+        if (featuredIndex >= featured.length) featuredIndex = 0;
+        renderFeaturedRecipesSlider();
+        resetFeaturedTimer();
+      }
+      function prevFeatured() {
+        const featured = getFeaturedRecipes();
+        featuredIndex -= FEATURED_PER_PAGE;
+        if (featuredIndex < 0)
+          featuredIndex = Math.max(0, featured.length - FEATURED_PER_PAGE);
+        renderFeaturedRecipesSlider();
+        resetFeaturedTimer();
+      }
+      function resetFeaturedTimer() {
+        if (featuredTimer) clearInterval(featuredTimer);
+        featuredTimer = setInterval(nextFeatured, 3000);
+      }
+      document.getElementById("featured-next").onclick = nextFeatured;
+      document.getElementById("featured-prev").onclick = prevFeatured;
+      renderFeaturedRecipesSlider();
+      resetFeaturedTimer();
     </script>
   </body>
 </html>

@@ -169,49 +169,49 @@
         <div class="text-center mb-5">
           <h2 class="section-title">Khám Phá Theo Danh Mục</h2>
         </div>
-        <div class="row g-4">
+        <div class="row g-4" id="category-list">
           <div class="col-md-6 col-lg-3">
-            <div class="category-card">
+            <div class="category-card" data-category="mon-chinh">
               <img
                 src="/assets/images/categories/mon-chinh.jpg"
                 alt="Món Chính"
               />
               <div class="category-overlay">
                 <h4>Món Chính</h4>
-                <p class="mb-0">150 công thức</p>
+                <p class="mb-0 category-count"></p>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-3">
-            <div class="category-card">
+            <div class="category-card" data-category="trang-mieng">
               <img
                 src="/assets/images/categories/trang-mieng.jpg"
                 alt="Món Tráng Miệng"
               />
               <div class="category-overlay">
                 <h4>Món Tráng Miệng</h4>
-                <p class="mb-0">80 công thức</p>
+                <p class="mb-0 category-count"></p>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-3">
-            <div class="category-card">
+            <div class="category-card" data-category="do-uong">
               <img src="/assets/images/categories/do-uong.jpg" alt="Đồ Uống" />
               <div class="category-overlay">
                 <h4>Đồ Uống</h4>
-                <p class="mb-0">60 công thức</p>
+                <p class="mb-0 category-count"></p>
               </div>
             </div>
           </div>
           <div class="col-md-6 col-lg-3">
-            <div class="category-card">
+            <div class="category-card" data-category="mon-chay">
               <img
                 src="/assets/images/categories/mon-chay.jpg"
                 alt="Món Chay"
               />
               <div class="category-overlay">
                 <h4>Món Chay</h4>
-                <p class="mb-0">90 công thức</p>
+                <p class="mb-0 category-count"></p>
               </div>
             </div>
           </div>
@@ -219,58 +219,73 @@
       </div>
     </section>
 
-  <!-- Featured Recipes Section -->
-  <section class="featured-recipes py-5 bg-light">
-    <div class="container">
-      <div class="text-center mb-5">
-        <h2 class="section-title">Công Thức Nổi Bật</h2>
+    <!-- Featured Recipes Section -->
+    <section class="featured-recipes py-5 bg-light">
+      <div class="container">
+        <div class="text-center mb-5">
+          <h2 class="section-title">Công Thức Nổi Bật</h2>
+        </div>
+        <div class="row g-4">
+          <div class="col-md-4">
+            <div class="featured-card">
+              <img
+                src="/assets/images/recipes/pho-bo.jpg"
+                alt="Phở Bò Nam Định"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Phở Bò Nam Định</h5>
+                <p class="card-text text-muted">
+                  Phở truyền thống với nước dùng đậm đà, thơm ngon
+                </p>
+                <div class="recipe-meta">
+                  <span><i class="fas fa-clock"></i> 45 phút</span>
+                  <span><i class="fas fa-star"></i> 4.8</span>
+                  <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="featured-card">
+              <img
+                src="/assets/images/recipes/bun-cha.jpg"
+                alt="Bún Chả Hà Nội"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Bún Chả Hà Nội</h5>
+                <p class="card-text text-muted">
+                  Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội
+                </p>
+                <div class="recipe-meta">
+                  <span><i class="fas fa-clock"></i> 60 phút</span>
+                  <span><i class="fas fa-star"></i> 4.9</span>
+                  <span><i class="fas fa-user"></i> Cô Hương</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4">
+            <div class="featured-card">
+              <img
+                src="/assets/images/recipes/banh-xeo.jpg"
+                alt="Bánh Xèo Miền Tây"
+              />
+              <div class="card-body">
+                <h5 class="card-title">Bánh Xèo Miền Tây</h5>
+                <p class="card-text text-muted">
+                  Bánh xèo giòn rụm với nhân tôm thịt đậm đà
+                </p>
+                <div class="recipe-meta">
+                  <span><i class="fas fa-clock"></i> 30 phút</span>
+                  <span><i class="fas fa-star"></i> 4.7</span>
+                  <span><i class="fas fa-user"></i> Chị Mai</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="row g-4">
-        <div class="col-md-4">
-          <div class="featured-card">
-            <img src="/assets/images/recipes/pho-bo.jpg" alt="Phở Bò Nam Định">
-            <div class="card-body">
-              <h5 class="card-title">Phở Bò Nam Định</h5>
-              <p class="card-text text-muted">Phở truyền thống với nước dùng đậm đà, thơm ngon</p>
-              <div class="recipe-meta">
-                <span><i class="fas fa-clock"></i> 45 phút</span>
-                <span><i class="fas fa-star"></i> 4.8</span>
-                <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="featured-card">
-            <img src="/assets/images/recipes/bun-cha.jpg" alt="Bún Chả Hà Nội">
-            <div class="card-body">
-              <h5 class="card-title">Bún Chả Hà Nội</h5>
-              <p class="card-text text-muted">Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội</p>
-              <div class="recipe-meta">
-                <span><i class="fas fa-clock"></i> 60 phút</span>
-                <span><i class="fas fa-star"></i> 4.9</span>
-                <span><i class="fas fa-user"></i> Cô Hương</span>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="col-md-4">
-          <div class="featured-card">
-            <img src="/assets/images/recipes/banh-xeo.jpg" alt="Bánh Xèo Miền Tây">
-            <div class="card-body">
-              <h5 class="card-title">Bánh Xèo Miền Tây</h5>
-              <p class="card-text text-muted">Bánh xèo giòn rụm với nhân tôm thịt đậm đà</p>
-              <div class="recipe-meta">
-                <span><i class="fas fa-clock"></i> 30 phút</span>
-                <span><i class="fas fa-star"></i> 4.7</span>
-                <span><i class="fas fa-user"></i> Chị Mai</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+    </section>
 
     <!-- Latest Blog Posts -->
     <section class="latest-posts py-5">
@@ -399,6 +414,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+    <script src="/assets/data/recipes_MonChinh.js"></script>
+    <script src="/assets/data/recipes_TrangMieng.js"></script>
+    <script src="/assets/data/recipes_ThucUong.js"></script>
+    <script src="/assets/data/recipes_AnChay.js"></script>
+    <script src="/assets/data/recipes_AnVat.js"></script>
+    <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script>
       // Khởi tạo Swiper
       const heroSlider = new Swiper(".hero-slider", {
@@ -433,6 +454,136 @@
             behavior: "smooth",
           });
         });
+
+      // Gộp tất cả công thức từ các file dữ liệu
+      const allRecipes = [
+        ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+        ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
+        ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+        ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+        ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+        ...(typeof recipesKhaivi !== "undefined" ? recipesKhaivi : []),
+      ];
+
+      // Map category slug sang tên và ảnh
+      const categoryData = {
+        "mon-chinh": {
+          name: "Món Chính",
+          image: "/assets/images/categories/mon-chinh.jpg",
+        },
+        "trang-mieng": {
+          name: "Món Tráng Miệng",
+          image: "/assets/images/categories/trang-mieng.jpg",
+        },
+        "do-uong": {
+          name: "Đồ Uống",
+          image: "/assets/images/categories/do-uong.jpg",
+        },
+        "mon-chay": {
+          name: "Món Chay",
+          image: "/assets/images/categories/mon-chay.jpg",
+        },
+      };
+
+      // Map tag tiếng Việt sang slug
+      function tagToSlug(tag) {
+        switch (tag.trim().toLowerCase()) {
+          case "món chính":
+            return "mon-chinh";
+          case "món tráng miệng":
+            return "trang-mieng";
+          case "đồ uống":
+            return "do-uong";
+          case "món chay":
+            return "mon-chay";
+          default:
+            return "";
+        }
+      }
+
+      // Đếm số lượng công thức theo category
+      const counts = {
+        "mon-chinh": 0,
+        "trang-mieng": 0,
+        "do-uong": 0,
+        "mon-chay": 0,
+      };
+      allRecipes.forEach((recipe) => {
+        if (Array.isArray(recipe.tags)) {
+          recipe.tags.forEach((tag) => {
+            const slug = tagToSlug(tag);
+            if (counts.hasOwnProperty(slug)) counts[slug]++;
+          });
+        }
+      });
+
+      // Render danh mục
+      const categoryList = document.getElementById("category-list");
+      if (categoryList) {
+        categoryList.innerHTML = Object.keys(categoryData)
+          .map(
+            (slug) => `
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card" data-category="${slug}" style="cursor:pointer">
+              <img src="${categoryData[slug].image}" alt="${categoryData[slug].name}" />
+              <div class="category-overlay">
+                <h4>${categoryData[slug].name}</h4>
+                <p class="mb-0 category-count">${counts[slug]} công thức</p>
+              </div>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+        // Thêm sự kiện click
+        categoryList.querySelectorAll(".category-card").forEach((card) => {
+          card.addEventListener("click", function () {
+            const cat = card.getAttribute("data-category");
+            window.location.href = "/pages/recipes/list.html?category=" + cat;
+          });
+        });
+      }
+
+      // Render công thức nổi bật (top 3 rating cao nhất)
+      function renderFeaturedRecipes() {
+        // Lấy 3 công thức có rating cao nhất
+        const featured = allRecipes
+          .filter((r) => r.image && r.title && r.description)
+          .sort((a, b) => (b.rating || 0) - (a.rating || 0))
+          .slice(0, 3);
+        const featuredRow = document.querySelector(
+          ".featured-recipes .row.g-4"
+        );
+        if (featuredRow) {
+          featuredRow.innerHTML = featured
+            .map(
+              (recipe) => `
+          <div class="col-md-4">
+            <div class="featured-card">
+              <img src="${recipe.image}" alt="${recipe.title}" />
+              <div class="card-body">
+                <h5 class="card-title">${recipe.title}</h5>
+                <p class="card-text text-muted">${recipe.description}</p>
+                <div class="recipe-meta">
+                  <span><i class="fas fa-clock"></i> ${
+                    recipe.time || "?"
+                  } phút</span>
+                  <span><i class="fas fa-star"></i> ${
+                    recipe.rating || "?"
+                  } </span>
+                  <span><i class="fas fa-user"></i> ${
+                    recipe.author || ""
+                  }</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        `
+            )
+            .join("");
+        }
+      }
+      renderFeaturedRecipes();
     </script>
   </body>
 </html>

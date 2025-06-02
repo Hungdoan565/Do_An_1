@@ -2,7 +2,7 @@ const recipesAnVat= [
     {
     "id": "banh-trang-tron",
     "title": "Bánh Tráng Trộn",
-    "description": "Bánh tráng trộn Sài Gòn, dai ngon, vị chua cay mặn ngọt hấp dẫn",
+    "description": "Bánh tráng trộn Sài Gòn dai ngon, vị chua cay mặn ngọt, kết hợp xoài xanh, khô bò, trứng cút, đậu phộng, rau răm hấp dẫn",
     "image": "/assets/images/mon-an/an-vat/banhtrangtron.jpg",
     "time": 15,
     "rating": 4.8,
@@ -54,7 +54,7 @@ const recipesAnVat= [
   {
   "id": "khoai-tay-chien",
   "title": "Khoai Tây Chiên",
-  "description": "Khoai tây chiên là món ăn vặt quốc dân, với những miếng khoai tây vàng ươm, giòn rụm bên ngoài và mềm bùi bên trong. Món này cực kỳ dễ làm và phù hợp với mọi lứa tuổi, thường được ăn kèm tương ớt, tương cà hoặc sốt mayonnaise.",
+  "description": "Khoai tây chiên giòn rụm, vàng ươm, mềm bùi bên trong, ăn kèm tương ớt hoặc mayonnaise, món ăn vặt phổ biến, dễ làm, phù hợp mọi lứa tuổi.",
   "image": "/assets/images/mon-an/an-vat/khoaitaychien.jpg",
   "time": 20,
   "rating": 4.7,
@@ -114,7 +114,7 @@ const recipesAnVat= [
   {
   "id": "banh-trang-nuong",
   "title": "Bánh Tráng Nướng Đà Lạt",
-  "description": "Bánh tráng nướng Đà Lạt giòn rụm, topping đa dạng, sốt mayonnaise béo ngậy",
+  "description": "Bánh tráng nướng Đà Lạt giòn rụm, topping đa dạng như trứng cút, xúc xích, phô mai, sốt mayonnaise béo ngậy, đậm chất ẩm thực đường phố.",
   "image": "/assets/images/mon-an/an-vat/banhtrangnuong.jpg",
   "time": 15,
   "rating": 4.8,
@@ -198,7 +198,7 @@ const recipesAnVat= [
 {
   "id": "chagio",
   "title": "Chả Giò",
-  "description": "Chả giò, hay nem rán, là món ăn truyền thống quen thuộc của người Việt với lớp vỏ ram giòn rụm màu vàng óng, nhân bên trong đầy đặn gồm thịt băm, tôm, miến, mộc nhĩ và rau củ, tạo nên hương vị đậm đà, thơm ngon khó cưỡng. Món này thường được ăn kèm bún tươi, rau sống và nước mắm chua ngọt.",
+  "description": "Chả giò vàng giòn, nhân thịt băm, tôm, miến, mộc nhĩ, rau củ, ăn kèm bún, rau sống và nước mắm chua ngọt đậm đà.",
   "image": "/assets/images/mon-an/khai-vi/chagio.jpg",
   "time": 40,
   "rating": 4.8,
@@ -272,7 +272,7 @@ const recipesAnVat= [
 {
   "id": "mochi",
   "title": "Bánh Mochi",
-  "description": "Bánh mochi Nhật Bản mềm dẻo, nhân đậu đỏ ngọt ngào, bọc bên ngoài lớp bột nếp thơm ngon.",
+  "description": "Bánh mochi Nhật Bản mềm dẻo, nhân đậu đỏ ngọt ngào, vỏ bột nếp thơm, món tráng miệng tinh tế, dễ làm, hấp dẫn mọi lứa tuổi.",
   "image": "/assets/images/mon-an/an-vat/mochi.jpg",
   "time": 40,
   "rating": 4.8,
@@ -361,7 +361,7 @@ const recipesAnVat= [
 {
   "id": "banh-bot-loc",
   "title": "Bánh Bột Lọc",
-  "description": "Bánh trong suốt dai dai với nhân tôm thịt, gói lá chuối",
+  "description": "Bánh bột lọc Huế trong suốt, dai dai, nhân tôm thịt đậm đà, gói lá chuối thơm, ăn kèm nước mắm chua ngọt, đậm chất truyền thống.",
   "image": "/assets/images/mon-an/an-vat/banhbotloc.jpg",
   "time": 50,
   "rating": 4.7,
@@ -444,7 +444,7 @@ const recipesAnVat= [
 {
   "id": "banh-nam",
   "title": "Bánh Nậm",
-  "description": "Bánh nậm Huế mềm mịn với nhân tôm thịt đậm đà, gói lá chuối thơm",
+  "description": "Bánh nậm Huế mềm mịn, nhân tôm thịt thơm ngon, gói lá chuối, chan nước mắm chua ngọt, món ăn vặt dân dã, đậm đà.",
   "image": "/assets/images/mon-an/an-vat/banhnam.jpg",
   "time": 40,
   "rating": 4.6,
@@ -532,7 +532,7 @@ const recipesAnVat= [
 {
   "id": "banh-it-tran",
   "title": "Bánh Ít Trần",
-  "description": "Bánh dẻo thơm từ nếp, nhân đậu xanh hoặc tôm thịt, gói lá chuối",
+  "description": "Bánh ít trần Huế dẻo thơm, nhân đậu xanh hoặc tôm thịt, gói lá chuối, món ăn vặt truyền thống, vị ngọt bùi, dễ thực hiện.",
   "image": "/assets/images/mon-an/an-vat/banhittran.jpg",
   "time": 45,
   "rating": 4.5,
@@ -615,7 +615,7 @@ const recipesAnVat= [
 {
   "id": "banh-chuoi-chien",
   "title": "Bánh Chuối Chiên",
-  "description": "Bánh chuối chiên vàng giòn, thơm mùi chuối chín, ăn vặt hấp dẫn",
+  "description": "Bánh chuối chiên vàng giòn, thơm mùi chuối chín, vỏ bột giòn rụm, ngọt mềm bên trong, món ăn vặt dân dã, thưởng thức khi nóng.",
   "image": "/assets/images/mon-an/an-vat/banhchuoichien.jpg",
   "time": 20,
   "rating": 4.7,
@@ -682,7 +682,7 @@ const recipesAnVat= [
 {
   "id": "banh-duc",
   "title": "Bánh Đúc Nóng",
-  "description": "Bánh đúc nóng mềm mịn, nước mắm mặn ngọt, thịt băm và mộc nhĩ",
+  "description": "Bánh đúc nóng Hà Nội mềm mịn, chan nước mắm chua ngọt, ăn kèm thịt băm, mộc nhĩ, hành phi, món ăn vặt ấm áp, dân dã.",
   "image": "/assets/images/mon-an/an-vat/banhduc.jpg",
   "time": 30,
   "rating": 4.8,
@@ -750,7 +750,7 @@ const recipesAnVat= [
 {
   "id": "banh-tam-bi",
   "title": "Bánh Tằm Bì",
-  "description": "Bánh tằm bì là món ăn đặc trưng của miền Tây sông nước.",
+  "description": "Bánh tằm bì miền Tây, sợi bánh mềm, bì heo thơm, nước cốt dừa béo ngậy, ăn kèm rau sống, nước mắm chua ngọt đậm đà.",
   "image": "/assets/images/mon-an/mon-chinh/banhtam.jpg",
   "time": 35,
   "rating": 4.7,
@@ -824,7 +824,7 @@ const recipesAnVat= [
 {
   "id": "sun-ga-rang-muoi",
   "title": "Sụn Gà Rang Muối",
-  "description": "Sụn gà rang muối giòn rụm, thơm phức, ăn kèm với rau sống và chanh ớt",
+  "description": "Sụn gà rang muối giòn rụm, thơm phức với sả, lá chanh, ăn kèm rau sống, chấm muối tiêu chanh, món ăn vặt đường phố hấp dẫn.",
   "image": "/assets/images/mon-an/an-vat/sunga.jpg",
   "time": 40,
   "rating": 4.7,
@@ -901,7 +901,7 @@ const recipesAnVat= [
 {
   "id": "banh-khoai-mi-nuong",
   "title": "Bánh Khoai Mì Nướng",
-  "description": "Bánh khoai mì nướng vàng ruộm, thơm mùi dừa, vị ngọt thanh, là món tráng miệng hoặc ăn vặt hấp dẫn.",
+  "description": "Bánh khoai mì nướng vàng ruộm, thơm mùi dừa, vị ngọt thanh, mềm mịn, món tráng miệng hoặc ăn vặt dân dã, dễ làm, hấp dẫn.",
   "image": "/assets/images/mon-an/an-vat/banhkhoaimi.jpg",
   "time": 50,
   "rating": 4.8,
@@ -969,7 +969,7 @@ const recipesAnVat= [
 {
   "id": "banh-duc-la-dua",
   "title": "Bánh Đúc Lá Dứa",
-  "description": "Bánh đúc lá dứa mềm mịn, thơm mùi lá dứa tự nhiên, ăn kèm nước cốt dừa béo ngậy và mè rang thơm lừng, là món tráng miệng hoặc ăn vặt thanh mát.",
+  "description": "Bánh đúc lá dứa mềm mịn, thơm mùi lá dứa, ăn kèm nước cốt dừa béo ngậy, mè rang, món tráng miệng thanh mát, dân dã.",
   "image": "/assets/images/mon-an/trang-mieng/banhducladua.jpg",
   "time": 30,
   "rating": 4.8,
@@ -1042,7 +1042,7 @@ const recipesAnVat= [
 {
   "id": "banh-da-kep-kem",
   "title": "Bánh Đa Kẹp Kem",
-  "description": "Bánh đa kẹp kem mát lạnh, giòn rụm, là món ăn vặt gắn liền với tuổi thơ của nhiều người Sài Gòn. Sự kết hợp hoàn hảo giữa độ giòn tan của bánh đa và vị kem béo ngậy.",
+  "description": "Bánh đa kẹp kem Sài Gòn giòn tan, kem béo ngậy, dừa nạo, đậu phộng, món ăn vặt mát lạnh, gợi ký ức tuổi thơ.",
   "image": "/assets/images/mon-an/trang-mieng/banhdakepkem.jpg",
   "time": 10,
   "rating": 4.7,
@@ -1103,7 +1103,7 @@ const recipesAnVat= [
 {
   "id": "banh-cam",
   "title": "Bánh Cam",
-  "description": "Bánh cam chiên giòn rụm bên ngoài, bọc lấy nhân đậu xanh ngọt bùi thơm lừng, phủ mè rang vàng óng. Đây là món bánh truyền thống quen thuộc, hấp dẫn mọi lứa tuổi.",
+  "description": "Bánh cam chiên giòn rụm, nhân đậu xanh ngọt bùi, vỏ ngoài phủ mè rang, món ăn vặt truyền thống, hấp dẫn mọi lứa tuổi.",
   "image": "/assets/images/mon-an/trang-mieng/banhcam.jpg",
   "time": 40,
   "rating": 4.7,
@@ -1177,7 +1177,7 @@ const recipesAnVat= [
 {
   "id": "banh-tep-chien-gion",
   "title": "Bánh Tép Chiên Giòn",
-  "description": "Bánh tép chiên giòn rụm, thơm lừng mùi tép tươi, hòa quyện với vị ngọt bùi của khoai môn hoặc khoai lang, là món ăn vặt hoặc khai vị hấp dẫn, ăn kèm rau sống và nước mắm chua ngọt.",
+  "description": "Bánh cam chiên giòn rụm, nhân đậu xanh ngọt bùi, vỏ ngoài phủ mè rang, món ăn vặt truyền thống, hấp dẫn mọi lứa tuổi.",
   "image": "/assets/images/mon-an/an-vat/banhtep.jpg",
   "time": 25,
   "rating": 4.8,
@@ -1248,7 +1248,7 @@ const recipesAnVat= [
 {
   "id": "xoi-man",
   "title": "Xôi Mặn",
-  "description": "Xôi mặn là món ăn sáng hoặc ăn vặt quen thuộc với hương vị đậm đà, hạt xôi dẻo thơm quyện cùng các loại topping hấp dẫn như chả lụa, lạp xưởng, trứng cút, pate và hành phi giòn rụm.",
+  "description": "Xôi mặn dẻo thơm, topping chả lụa, lạp xưởng, trứng cút, pate, hành phi, chan nước tương, lý tưởng cho bữa sáng.",
   "image": "/assets/images/mon-an/an-vat/xoiman.jpg",
   "time": 30,
   "rating": 4.8,
@@ -1320,7 +1320,7 @@ const recipesAnVat= [
 {
   "id": "bap-xao-bo",
   "title": "Bắp Xào Bơ",
-  "description": "Bắp xào bơ là món ăn vặt đường phố quen thuộc, hấp dẫn với hạt bắp ngọt mềm, thơm lừng mùi bơ, quyện cùng tôm khô dai dai và chút hành lá xanh mướt. Đơn giản mà ngon khó cưỡng!",
+  "description": "Bắp xào bơ thơm ngậy, hạt bắp ngọt mềm, tôm khô dai dai, hành lá, là món ăn vặt đường phố khó cưỡng.",
   "image": "/assets/images/mon-an/an-vat/bapxao.jpg",
   "time": 15,
   "rating": 4.7,
@@ -1381,7 +1381,7 @@ const recipesAnVat= [
 {
   "id": "banh-gao-cay-tokbokki",
   "title": "Bánh Gạo Cay Tokbokki",
-  "description": "Tokbokki là món bánh gạo Hàn Quốc nổi tiếng, với sợi bánh gạo dẻo dai, chả cá mềm ngọt, hòa quyện trong sốt tương ớt Gochujang cay nồng, đậm đà, mang đến hương vị đặc trưng của ẩm thực đường phố xứ kim chi.",
+  "description": "Tokbokki Hàn Quốc dẻo dai, chả cá mềm ngọt, sốt Gochujang cay nồng, đậm chất ẩm thực đường phố xứ kim chi.",
   "image": "/assets/images/mon-an/an-vat/tokkboki.jpg",
   "time": 30,
   "rating": 4.8,
@@ -1455,7 +1455,7 @@ const recipesAnVat= [
 {
   "id": "banh-ran-doremon",
   "title": "Bánh Rán Doremon",
-  "description": "Bánh rán Doremon, hay Dorayaki, là món bánh nổi tiếng của Nhật Bản với lớp vỏ bánh mềm xốp. Đây là món ăn vặt yêu thích của chú mèo máy Doraemon và nhiều người trên khắp thế giới.",
+  "description": "Bánh rán Doremon Nhật Bản mềm xốp, nhân đậu đỏ ngọt bùi, là món ăn vặt yêu thích của mọi lứa tuổi.",
   "image": "/assets/images/mon-an/trang-mieng/banhrandoremon.jpg",
   "time": 25,
   "rating": 4.8,
@@ -1524,7 +1524,7 @@ const recipesAnVat= [
 {
   "id": "banh-bao-chien",
   "title": "Bánh Bao Chiên",
-  "description": "Bánh bao chiên vàng giòn rụm bên ngoài, nhân thịt đậm đà, nóng hổi bên trong, là món ăn vặt hấp dẫn hoặc bữa sáng tiện lợi, thường được ăn kèm tương ớt hoặc nước mắm pha.",
+  "description": "Bánh bao chiên vàng giòn, nhân thịt đậm đà, nóng hổi, ăn kèm tương ớt hoặc nước mắm, phù hợp bữa sáng.",
   "image": "/assets/images/mon-an/an-vat/banhbaochien.jpg",
   "time": 30,
   "rating": 4.8,
@@ -1593,7 +1593,7 @@ const recipesAnVat= [
 {
   "id": "banh-goi",
   "title": "Bánh Gối",
-  "description": "Bánh gối Hà Nội với lớp vỏ giòn rụm, nhân thịt băm, miến, mộc nhĩ đậm đà, nấm hương thơm lừng, ăn kèm nước mắm chua ngọt và rau sống là món ăn vặt trứ danh của thủ đô.",
+  "description": "Bánh gối Hà Nội giòn rụm, nhân thịt băm, miến, mộc nhĩ, nấm hương, ăn kèm nước mắm chua ngọt, rau sống.",
   "image": "/assets/images/mon-an/an-vat/banhgoi.jpg",
   "time": 35,
   "rating": 4.7,
@@ -1664,7 +1664,7 @@ const recipesAnVat= [
 {
   "id": "banh-duc-nong",
   "title": "Bánh Đúc Nóng",
-  "description": "Bánh đúc nóng là món ăn dân dã nhưng đầy tinh tế của ẩm thực Hà Nội. Sợi bánh đúc mềm mịn, trắng ngần, chan cùng nước mắm chua ngọt đậm đà, ăn kèm thịt băm xào mộc nhĩ thơm lừng và hành phi giòn rụm, tạo nên hương vị ấm áp, quen thuộc.",
+  "description": "Bánh đúc nóng là món ăn dân dã nhưng đầy tinh tế của ẩm thực Hà Nội. Sợi bánh đúc mềm mịn, trắng ngần, tạo nên hương vị ấm áp, quen thuộc.",
   "image": "/assets/images/mon-an/an-vat/banhduc.jpg",
   "time": 30,
   "rating": 4.8,
@@ -1736,7 +1736,7 @@ const recipesAnVat= [
 {
   "id": "nem-chua-ran",
   "title": "Nem Chua Rán",
-  "description": "Nem chua rán là món ăn vặt đặc trưng của Hà Nội, được nhiều người yêu thích bởi lớp vỏ ngoài vàng ruộm, giòn tan. Món này thường được ăn kèm với dưa chuột, củ đậu và tương ớt.",
+  "description": "Nem chua rán Hà Nội vàng giòn, vị chua cay đặc trưng, ăn kèm dưa chuột, củ đậu và tương ớt.",
   "image": "/assets/images/mon-an/an-vat/nemchua.jpg",
   "time": 25,
   "rating": 4.7,
@@ -1802,7 +1802,7 @@ const recipesAnVat= [
 {
   "id": "banh-chuoi-chien",
   "title": "Bánh Chuối Chiên",
-  "description": "Bánh chuối chiên là món ăn vặt dân dã nhưng vô cùng hấp dẫn với lớp vỏ bột chiên vàng giòn rụm, ôm trọn miếng chuối chín mềm ngọt, thơm lừng. Món này thường được thưởng thức nóng, là lựa chọn tuyệt vời cho những buổi xế chiều.",
+  "description": "Bánh chuối chiên là món ăn vặt dân dã nhưng vô cùng hấp dẫn. Món này thường được thưởng thức nóng, là lựa chọn tuyệt vời cho những buổi xế chiều.",
   "image": "/assets/images/mon-an/an-vat/banhchuoichien.jpg",
   "time": 20,
   "rating": 4.7,

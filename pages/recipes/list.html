@@ -1,424 +1,514 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Công Thức Nấu Ăn - Món Ngon Việt Nam</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-color: #D61C4E;
-            --secondary-color: #F77E21;
-            --accent-color: #FAB207;
-            --text-color: #1F1717;
-            --light-gray: #F5F5F5;
-        }
+      :root {
+        --primary-color: #d61c4e;
+        --secondary-color: #f77e21;
+        --accent-color: #fab207;
+        --text-color: #1f1717;
+        --light-gray: #f5f5f5;
+      }
 
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            color: var(--text-color);
-            background-color: var(--light-gray);
-        }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-gray);
+      }
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      }
 
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--primary-color) !important;
+      }
 
-        .nav-link {
-            font-weight: 500;
-            color: var(--text-color) !important;
-            margin: 0 0.5rem;
-            position: relative;
-        }
+      .nav-link {
+        font-weight: 500;
+        color: var(--text-color) !important;
+        margin: 0 0.5rem;
+        position: relative;
+      }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+      .nav-link:hover::after {
+        width: 100%;
+      }
 
-        .page-header {
-            background: linear-gradient(135deg, rgba(214, 28, 78, 0.8), rgba(247, 126, 33, 0.8));
-            background-size: cover;
-            background-position: center;
-            padding: 100px 0;
-            color: white;
-            text-align: center;
-            margin-bottom: 50px;
-        }
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          rgba(214, 28, 78, 0.8),
+          rgba(247, 126, 33, 0.8)
+        );
+        background-size: cover;
+        background-position: center;
+        padding: 100px 0;
+        color: white;
+        text-align: center;
+        margin-bottom: 50px;
+      }
 
-        .filter-section {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            margin-bottom: 30px;
-        }
+      .filter-section {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        margin-bottom: 30px;
+      }
 
-        .filter-btn {
-            border: 1px solid #ddd;
-            padding: 8px 20px;
-            border-radius: 20px;
-            margin: 5px;
-            background: white;
-            color: var(--text-color);
-            transition: all 0.3s ease;
-        }
+      .filter-btn {
+        border: 1px solid #ddd;
+        padding: 8px 20px;
+        border-radius: 20px;
+        margin: 5px;
+        background: white;
+        color: var(--text-color);
+        transition: all 0.3s ease;
+      }
 
-        .filter-btn:hover,
-        .filter-btn.active {
-            background: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
+      .filter-btn:hover,
+      .filter-btn.active {
+        background: var(--primary-color);
+        color: white;
+        border-color: var(--primary-color);
+      }
 
-        .recipe-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-            transition: all 0.3s ease;
-            margin-bottom: 30px;
-        }
+      .recipe-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+      }
 
-        .recipe-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
+      .recipe-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+      }
 
-        .recipe-image {
-            height: 200px;
-            object-fit: cover;
-        }
+      .recipe-image {
+        height: 200px;
+        object-fit: cover;
+      }
 
-        .recipe-info {
-            padding: 20px;
-        }
+      .recipe-info {
+        padding: 20px;
+      }
 
-        .recipe-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 10px;
-            color: var(--text-color);
-        }
+      .recipe-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 10px;
+        color: var(--text-color);
+      }
 
-        .recipe-meta {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            color: #666;
-            font-size: 0.9rem;
-        }
+      .recipe-meta {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        color: #666;
+        font-size: 0.9rem;
+      }
 
-        .recipe-meta i {
-            color: var(--primary-color);
-        }
+      .recipe-meta i {
+        color: var(--primary-color);
+      }
 
-        .recipe-tags {
-            margin-top: 15px;
-        }
+      .recipe-tags {
+        margin-top: 15px;
+      }
 
-        .recipe-tag {
-            display: inline-block;
-            padding: 4px 12px;
-            background: var(--light-gray);
-            border-radius: 15px;
-            font-size: 0.8rem;
-            margin-right: 8px;
-            color: var(--text-color);
-        }
+      .recipe-tag {
+        display: inline-block;
+        padding: 4px 12px;
+        background: var(--light-gray);
+        border-radius: 15px;
+        font-size: 0.8rem;
+        margin-right: 8px;
+        color: var(--text-color);
+      }
 
-        .pagination {
-            margin-top: 40px;
-        }
+      .pagination {
+        margin-top: 40px;
+      }
 
-        .page-link {
-            color: var(--text-color);
-            border: none;
-            margin: 0 5px;
-            border-radius: 5px;
-            padding: 8px 16px;
-        }
+      .page-link {
+        color: var(--text-color);
+        border: none;
+        margin: 0 5px;
+        border-radius: 5px;
+        padding: 8px 16px;
+      }
 
-        .page-link:hover,
-        .page-item.active .page-link {
-            background: var(--primary-color);
-            color: white;
-        }
+      .page-link:hover,
+      .page-item.active .page-link {
+        background: var(--primary-color);
+        color: white;
+      }
 
-        .search-box {
-            position: relative;
-            margin-bottom: 30px;
-        }
+      .search-box {
+        position: relative;
+        margin-bottom: 30px;
+      }
 
-        .search-input {
-            width: 100%;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 10px;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        }
+      .search-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 10px;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      }
 
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-        }
+      .search-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 5px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/index.html">
-                <img src="/assets/images/logo.png" height="40" class="me-2" alt="Logo" />
-                Món Ngon Việt Nam
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/pages/recipes/list.html">Công thức</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/auth/login.html" id="loginBtn">Đăng nhập</a>
-                    </li>
-                    <li class="nav-item ms-2">
-                        <a class="btn btn-primary px-4 py-2" href="/pages/user/add-recipe.html" id="addRecipeBtn"
-                            style="display: none">
-                            <i class="fas fa-plus-circle me-2"></i>Chia sẻ công thức
-                        </a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/pages/recipes/list.html"
+                >Công thức</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/auth/login.html" id="loginBtn"
+                >Đăng nhập</a
+              >
+            </li>
+            <li class="nav-item ms-2">
+              <a
+                class="btn btn-primary px-4 py-2"
+                href="/pages/user/add-recipe.html"
+                id="addRecipeBtn"
+                style="display: none"
+              >
+                <i class="fas fa-plus-circle me-2"></i>Chia sẻ công thức
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Page Header -->
     <header class="page-header">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Khám Phá Công Thức</h1>
-            <p class="lead">Hàng ngàn công thức nấu ăn từ cộng đồng yêu bếp Việt Nam</p>
-        </div>
+      <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Khám Phá Công Thức</h1>
+        <p class="lead">
+          Hàng ngàn công thức nấu ăn từ cộng đồng yêu bếp Việt Nam
+        </p>
+      </div>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <!-- Search Box -->
-        <div class="search-box">
-            <input type="text" class="search-input" placeholder="Tìm kiếm công thức...">
-            <button class="search-btn">
-                <i class="fas fa-search me-2"></i>Tìm kiếm
-            </button>
-        </div>
+      <!-- Search Box -->
+      <div class="search-box">
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Tìm kiếm công thức..."
+        />
+        <button class="search-btn">
+          <i class="fas fa-search me-2"></i>Tìm kiếm
+        </button>
+      </div>
 
-        <!-- Filters -->
-        <div class="filter-section">
-            <div class="d-flex flex-wrap justify-content-center">
-                <button class="filter-btn active">Tất cả</button>
-                <button class="filter-btn">Món chính</button>
-                <button class="filter-btn">Món tráng miệng</button>
-                <button class="filter-btn">Đồ uống</button>
-                <button class="filter-btn">Món chay</button>
-                <button class="filter-btn">Ăn vặt</button>
-                <button class="filter-btn">Món khai vị</button>
-            </div>
+      <!-- Filters -->
+      <div class="filter-section">
+        <div class="d-flex flex-wrap justify-content-center">
+          <button class="filter-btn active">Tất cả</button>
+          <button class="filter-btn">Món chính</button>
+          <button class="filter-btn">Món tráng miệng</button>
+          <button class="filter-btn">Đồ uống</button>
+          <button class="filter-btn">Món chay</button>
+          <button class="filter-btn">Ăn vặt</button>
+          <button class="filter-btn">Món khai vị</button>
         </div>
+      </div>
 
-        <!-- Recipe Grid -->
-        <div class="row" id="recipeGrid">
-            <!-- Recipe cards will be inserted here by JavaScript -->
-        </div>
+      <!-- Recipe Grid -->
+      <div class="row" id="recipeGrid">
+        <!-- Recipe cards will be inserted here by JavaScript -->
+      </div>
 
-        <!-- Pagination -->
-        <nav aria-label="Page navigation" class="d-flex justify-content-center">
-            <ul class="pagination">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>
-                <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+      <!-- Pagination -->
+      <nav aria-label="Page navigation" class="d-flex justify-content-center">
+        <ul class="pagination">
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Previous">
+              <span aria-hidden="true">&laquo;</span>
+            </a>
+          </li>
+          <li class="page-item active"><a class="page-link" href="#">1</a></li>
+          <li class="page-item"><a class="page-link" href="#">2</a></li>
+          <li class="page-item"><a class="page-link" href="#">3</a></li>
+          <li class="page-item">
+            <a class="page-link" href="#" aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
     </div>
 
     <!-- Footer -->
-    <footer class="footer mt-5 py-5"
-        style="background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
-                    <p class="mb-4 text-white">Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất Việt
-                        Nam, nơi kết nối những người đam mê ẩm thực.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/pages/recipes/list.html" class="text-white text-decoration-none">Công
-                                thức</a></li>
-                        <li class="mb-2"><a href="/pages/blog.html" class="text-white text-decoration-none">Blog</a>
-                        </li>
-                        <li class="mb-2"><a href="/pages/about.html" class="text-white text-decoration-none">Về chúng
-                                tôi</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chính</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món tráng miệng</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Đồ uống</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chay</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
-                    <ul class="list-unstyled text-white">
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> lienhe@monngon.vn</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> 0123.456.789</li>
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam</li>
-                    </ul>
-                </div>
+    <footer
+      class="footer mt-5 py-5"
+      style="
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      "
+    >
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
+            <p class="mb-4 text-white">
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
-            <hr class="my-4 bg-white">
-            <div class="text-center text-white">
-                <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
-            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Đồ uống</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Món chay</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
+            <ul class="list-unstyled text-white">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              </li>
+            </ul>
+          </div>
         </div>
+        <hr class="my-4 bg-white" />
+        <div class="text-center text-white">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/assets/data/recipes_MonChinh.js"></script>
+    <script src="/assets/data/recipes_TrangMieng.js"></script>
+    <script src="/assets/data/recipes_ThucUong.js"></script>
+    <script src="/assets/data/recipes_AnChay.js"></script>
+    <script src="/assets/data/recipes_AnVat.js"></script>
+    <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
 
-        // Sample recipe data
-        const recipes = [
-            {
-                name: 'Phở Bò Nam Định',
-                description: 'Phở truyền thống với nước dùng đậm đà, thơm ngon',
-                image: '/assets/images/recipes/pho-bo.jpg',
-                time: 45,
-                rating: 4.8,
-                author: 'Đầu Bếp Việt',
-                difficulty: 'Trung bình',
-                tags: ['Món chính', 'Truyền thống']
-            },
-            {
-                name: 'Bún Chả Hà Nội',
-                description: 'Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội',
-                image: '/assets/images/recipes/bun-cha.jpg',
-                time: 60,
-                rating: 4.9,
-                author: 'Cô Hương',
-                difficulty: 'Trung bình',
-                tags: ['Món chính', 'Hà Nội']
-            },
-            {
-                name: 'Bánh Xèo Miền Tây',
-                description: 'Bánh xèo giòn rụm với nhân tôm thịt đậm đà',
-                image: '/assets/images/recipes/banh-xeo.jpg',
-                time: 30,
-                rating: 4.7,
-                author: 'Chị Mai',
-                difficulty: 'Dễ',
-                tags: ['Món chính', 'Miền Tây']
-            },
-            {
-                name: 'Chè Sen Hạt Lựu',
-                description: 'Chè sen thanh mát, bổ dưỡng với hạt lựu đẹp mắt',
-                image: '/assets/images/recipes/che-sen.jpg',
-                time: 40,
-                rating: 4.6,
-                author: 'Cô Thảo',
-                difficulty: 'Dễ',
-                tags: ['Tráng miệng', 'Chè']
-            },
-            {
-                name: 'Cà Phê Trứng Hà Nội',
-                description: 'Cà phê trứng béo ngậy, thơm nồng đặc trưng',
-                image: '/assets/images/recipes/ca-phe-trung.jpg',
-                time: 15,
-                rating: 4.9,
-                author: 'Anh Tuấn',
-                difficulty: 'Trung bình',
-                tags: ['Đồ uống', 'Hà Nội']
-            },
-            {
-                name: 'Gỏi Cuốn Tôm Thịt',
-                description: 'Gỏi cuốn tươi mát với nhân tôm thịt và rau herbs',
-                image: '/assets/images/recipes/goi-cuon.jpg',
-                time: 25,
-                rating: 4.5,
-                author: 'Chị Lan',
-                difficulty: 'Dễ',
-                tags: ['Khai vị', 'Healthy']
-            }
-        ];
+      // Sample recipe data
+      const recipes = [
+        {
+          name: "Phở Bò Nam Định",
+          description: "Phở truyền thống với nước dùng đậm đà, thơm ngon",
+          image: "/assets/images/recipes/pho-bo.jpg",
+          time: 45,
+          rating: 4.8,
+          author: "Đầu Bếp Việt",
+          difficulty: "Trung bình",
+          tags: ["Món chính", "Truyền thống"],
+        },
+        {
+          name: "Bún Chả Hà Nội",
+          description: "Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội",
+          image: "/assets/images/recipes/bun-cha.jpg",
+          time: 60,
+          rating: 4.9,
+          author: "Cô Hương",
+          difficulty: "Trung bình",
+          tags: ["Món chính", "Hà Nội"],
+        },
+        {
+          name: "Bánh Xèo Miền Tây",
+          description: "Bánh xèo giòn rụm với nhân tôm thịt đậm đà",
+          image: "/assets/images/recipes/banh-xeo.jpg",
+          time: 30,
+          rating: 4.7,
+          author: "Chị Mai",
+          difficulty: "Dễ",
+          tags: ["Món chính", "Miền Tây"],
+        },
+        {
+          name: "Chè Sen Hạt Lựu",
+          description: "Chè sen thanh mát, bổ dưỡng với hạt lựu đẹp mắt",
+          image: "/assets/images/recipes/che-sen.jpg",
+          time: 40,
+          rating: 4.6,
+          author: "Cô Thảo",
+          difficulty: "Dễ",
+          tags: ["Tráng miệng", "Chè"],
+        },
+        {
+          name: "Cà Phê Trứng Hà Nội",
+          description: "Cà phê trứng béo ngậy, thơm nồng đặc trưng",
+          image: "/assets/images/recipes/ca-phe-trung.jpg",
+          time: 15,
+          rating: 4.9,
+          author: "Anh Tuấn",
+          difficulty: "Trung bình",
+          tags: ["Đồ uống", "Hà Nội"],
+        },
+        {
+          name: "Gỏi Cuốn Tôm Thịt",
+          description: "Gỏi cuốn tươi mát với nhân tôm thịt và rau herbs",
+          image: "/assets/images/recipes/goi-cuon.jpg",
+          time: 25,
+          rating: 4.5,
+          author: "Chị Lan",
+          difficulty: "Dễ",
+          tags: ["Khai vị", "Healthy"],
+        },
+      ];
 
-        // Render recipes
-        document.getElementById('recipeGrid').innerHTML = recipes.map(recipe => `
+      // Render recipes
+      document.getElementById("recipeGrid").innerHTML = recipes
+        .map(
+          (recipe) => `
       <div class="col-md-6 col-lg-4" data-aos="fade-up">
         <div class="recipe-card">
-          <img src="${recipe.image}" class="recipe-image w-100" alt="${recipe.name}">
+          <img src="${recipe.image}" class="recipe-image w-100" alt="${
+            recipe.name
+          }">
           <div class="recipe-info">
             <h3 class="recipe-title">${recipe.name}</h3>
             <p class="text-muted mb-3">${recipe.description}</p>
@@ -431,23 +521,26 @@
               <span><i class="fas fa-signal"></i> ${recipe.difficulty}</span>
             </div>
             <div class="recipe-tags">
-              ${recipe.tags.map(tag => `<span class="recipe-tag">${tag}</span>`).join('')}
+              ${recipe.tags
+                .map((tag) => `<span class="recipe-tag">${tag}</span>`)
+                .join("")}
             </div>
           </div>
         </div>
       </div>
-    `).join('');
+    `
+        )
+        .join("");
 
-        // Filter functionality
-        const filterBtns = document.querySelectorAll('.filter-btn');
-        filterBtns.forEach(btn => {
-            btn.addEventListener('click', function () {
-                filterBtns.forEach(b => b.classList.remove('active'));
-                this.classList.add('active');
-                // Add filter logic here
-            });
+      // Filter functionality
+      const filterBtns = document.querySelectorAll(".filter-btn");
+      filterBtns.forEach((btn) => {
+        btn.addEventListener("click", function () {
+          filterBtns.forEach((b) => b.classList.remove("active"));
+          this.classList.add("active");
+          // Add filter logic here
         });
+      });
     </script>
-</body>
-
+  </body>
 </html>

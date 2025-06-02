@@ -1,551 +1,648 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Chi Tiết Công Thức - Món Ngon Việt Nam</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-color: #D61C4E;
-            --secondary-color: #F77E21;
-            --accent-color: #FAB207;
-            --text-color: #1F1717;
-            --light-gray: #F5F5F5;
-        }
+      :root {
+        --primary-color: #d61c4e;
+        --secondary-color: #f77e21;
+        --accent-color: #fab207;
+        --text-color: #1f1717;
+        --light-gray: #f5f5f5;
+      }
 
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            color: var(--text-color);
-            background-color: var(--light-gray);
-        }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-gray);
+      }
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      }
 
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--primary-color) !important;
+      }
 
-        .nav-link {
-            font-weight: 500;
-            color: var(--text-color) !important;
-            margin: 0 0.5rem;
-            position: relative;
-        }
+      .nav-link {
+        font-weight: 500;
+        color: var(--text-color) !important;
+        margin: 0 0.5rem;
+        position: relative;
+      }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+      .nav-link:hover::after {
+        width: 100%;
+      }
 
-        .recipe-header {
-            background: white;
-            padding: 40px 0;
-            margin-top: 76px;
-        }
+      .recipe-header {
+        background: white;
+        padding: 40px 0;
+        margin-top: 76px;
+      }
 
-        .recipe-title {
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-        }
+      .recipe-title {
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+      }
 
-        .recipe-meta {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            color: #666;
-            font-size: 1rem;
-            margin-bottom: 2rem;
-        }
+      .recipe-meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: #666;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+      }
 
-        .recipe-meta i {
-            color: var(--primary-color);
-        }
+      .recipe-meta i {
+        color: var(--primary-color);
+      }
 
-        .recipe-image {
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-        }
+      .recipe-image {
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+      }
 
-        .recipe-image img {
-            width: 100%;
-            height: 500px;
-            object-fit: cover;
-        }
+      .recipe-image img {
+        width: 100%;
+        height: 500px;
+        object-fit: cover;
+      }
 
-        .recipe-content {
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            margin-top: -100px;
-            position: relative;
-            z-index: 1;
-        }
+      .recipe-content {
+        background: white;
+        padding: 40px;
+        border-radius: 20px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        margin-top: -100px;
+        position: relative;
+        z-index: 1;
+      }
 
-        .recipe-info {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 20px;
-            margin-bottom: 30px;
-        }
+      .recipe-info {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin-bottom: 30px;
+      }
 
-        .info-card {
-            background: var(--light-gray);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-        }
+      .info-card {
+        background: var(--light-gray);
+        padding: 20px;
+        border-radius: 15px;
+        text-align: center;
+      }
 
-        .info-card i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 10px;
-        }
+      .info-card i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 10px;
+      }
 
-        .ingredients-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+      .ingredients-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
 
-        .ingredients-list li {
-            display: flex;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--light-gray);
-        }
+      .ingredients-list li {
+        display: flex;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--light-gray);
+      }
 
-        .ingredients-list li::before {
-            content: '\f058';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            color: var(--primary-color);
-            margin-right: 10px;
-        }
+      .ingredients-list li::before {
+        content: "\f058";
+        font-family: "Font Awesome 6 Free";
+        font-weight: 900;
+        color: var(--primary-color);
+        margin-right: 10px;
+      }
 
-        .step-card {
-            background: var(--light-gray);
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
+      .step-card {
+        background: var(--light-gray);
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+      }
 
-        .step-number {
-            width: 40px;
-            height: 40px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            margin-bottom: 15px;
-        }
+      .step-number {
+        width: 40px;
+        height: 40px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+        margin-bottom: 15px;
+      }
 
-        .recipe-actions {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-        }
+      .recipe-actions {
+        display: flex;
+        gap: 15px;
+        margin-top: 30px;
+      }
 
-        .action-btn {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            font-weight: 500;
-            transition: all 0.3s ease;
-        }
+      .action-btn {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 20px;
+        border-radius: 10px;
+        border: none;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
 
-        .save-btn {
-            background: var(--primary-color);
-            color: white;
-        }
+      .save-btn {
+        background: var(--primary-color);
+        color: white;
+      }
 
-        .print-btn {
-            background: var(--light-gray);
-            color: var(--text-color);
-        }
+      .print-btn {
+        background: var(--light-gray);
+        color: var(--text-color);
+      }
 
-        .action-btn:hover {
-            transform: translateY(-2px);
-        }
+      .action-btn:hover {
+        transform: translateY(-2px);
+      }
 
-        .comments-section {
-            margin-top: 40px;
-        }
+      .comments-section {
+        margin-top: 40px;
+      }
 
-        .comment-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 20px;
-        }
+      .comment-card {
+        background: white;
+        padding: 20px;
+        border-radius: 15px;
+        margin-bottom: 20px;
+      }
 
-        .comment-header {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+      .comment-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
 
-        .comment-avatar {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            object-fit: cover;
-        }
+      .comment-avatar {
+        width: 50px;
+        height: 50px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
 
-        .rating {
-            color: var(--accent-color);
-        }
+      .rating {
+        color: var(--accent-color);
+      }
 
-        .related-recipes {
-            margin-top: 40px;
-        }
+      .related-recipes {
+        margin-top: 40px;
+      }
 
-        .related-card {
-            background: white;
-            border-radius: 15px;
-            overflow: hidden;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
+      .related-card {
+        background: white;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+      }
 
-        .related-card:hover {
-            transform: translateY(-5px);
-        }
+      .related-card:hover {
+        transform: translateY(-5px);
+      }
 
-        .related-image {
-            height: 200px;
-            object-fit: cover;
-        }
+      .related-image {
+        height: 200px;
+        object-fit: cover;
+      }
 
-        .related-info {
-            padding: 20px;
-        }
+      .related-info {
+        padding: 20px;
+      }
 
-        .related-title {
-            font-weight: 600;
-            margin-bottom: 10px;
-        }
+      .related-title {
+        font-weight: 600;
+        margin-bottom: 10px;
+      }
 
-        footer {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 4rem 0 2rem;
-            margin-top: 50px;
-        }
+      footer {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 4rem 0 2rem;
+        margin-top: 50px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/index.html">
-                <img src="/assets/images/logo.png" height="40" class="me-2" alt="Logo" />
-                Món Ngon Việt Nam
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/pages/recipes/list.html">Công thức</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/auth/login.html" id="loginBtn">Đăng nhập</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/pages/recipes/list.html"
+                >Công thức</a
+              >
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/auth/login.html" id="loginBtn"
+                >Đăng nhập</a
+              >
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Recipe Header -->
     <header class="recipe-header">
-        <div class="container">
-            <h1 class="recipe-title">Phở Bò Nam Định</h1>
-            <div class="recipe-meta">
-                <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
-                <span><i class="fas fa-calendar"></i> 15/03/2024</span>
-                <span><i class="fas fa-clock"></i> 45 phút</span>
-                <span><i class="fas fa-signal"></i> Trung bình</span>
-                <span><i class="fas fa-star"></i> 4.8 (156 đánh giá)</span>
-            </div>
-            <div class="recipe-image">
-                <img src="/assets/images/recipes/pho-bo.jpg" alt="Phở Bò Nam Định">
-            </div>
+      <div class="container">
+        <h1 class="recipe-title">Phở Bò Nam Định</h1>
+        <div class="recipe-meta">
+          <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
+          <span><i class="fas fa-calendar"></i> 15/03/2024</span>
+          <span><i class="fas fa-clock"></i> 45 phút</span>
+          <span><i class="fas fa-signal"></i> Trung bình</span>
+          <span><i class="fas fa-star"></i> 4.8 (156 đánh giá)</span>
         </div>
+        <div class="recipe-image">
+          <img src="/assets/images/recipes/pho-bo.jpg" alt="Phở Bò Nam Định" />
+        </div>
+      </div>
     </header>
 
     <!-- Recipe Content -->
     <section class="py-5">
-        <div class="container">
-            <div class="recipe-content">
-                <div class="recipe-info">
-                    <div class="info-card">
-                        <i class="fas fa-clock"></i>
-                        <h5>Thời gian</h5>
-                        <p class="mb-0">45 phút</p>
-                    </div>
-                    <div class="info-card">
-                        <i class="fas fa-users"></i>
-                        <h5>Khẩu phần</h5>
-                        <p class="mb-0">4 người</p>
-                    </div>
-                    <div class="info-card">
-                        <i class="fas fa-signal"></i>
-                        <h5>Độ khó</h5>
-                        <p class="mb-0">Trung bình</p>
-                    </div>
-                    <div class="info-card">
-                        <i class="fas fa-fire"></i>
-                        <h5>Calories</h5>
-                        <p class="mb-0">520 kcal</p>
-                    </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-4">
-                        <h3 class="mb-4">Nguyên liệu</h3>
-                        <ul class="ingredients-list">
-                            <li>Xương bò - 1kg</li>
-                            <li>Thịt bò phi lê - 500g</li>
-                            <li>Bánh phở - 1kg</li>
-                            <li>Hành tây - 2 củ</li>
-                            <li>Gừng - 100g</li>
-                            <li>Hoa hồi - 3 cái</li>
-                            <li>Quế - 2 cây</li>
-                            <li>Hành lá, ngò - 100g</li>
-                            <li>Giá đỗ - 200g</li>
-                            <li>Gia vị: muối, đường, nước mắm</li>
-                        </ul>
-                    </div>
-                    <div class="col-lg-8">
-                        <h3 class="mb-4">Các bước thực hiện</h3>
-                        <div class="step-card">
-                            <div class="step-number">1</div>
-                            <h5>Chuẩn bị nước dùng</h5>
-                            <p>Xương bò rửa sạch, chần qua nước sôi. Sau đó cho vào nồi nước lạnh, thêm hành tây, gừng
-                                đã nướng thơm. Nấu với lửa nhỏ trong 6-8 tiếng.</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">2</div>
-                            <h5>Ướp và thái thịt</h5>
-                            <p>Thịt bò phi lê thái mỏng, ướp với chút muối, tiêu. Để trong tủ lạnh ít nhất 30 phút.</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">3</div>
-                            <h5>Nêm nếm nước dùng</h5>
-                            <p>Cho hoa hồi, quế vào nước dùng. Nêm nếm với muối, đường, nước mắm vừa ăn. Nước dùng phải
-                                trong và ngọt thanh.</p>
-                        </div>
-                        <div class="step-card">
-                            <div class="step-number">4</div>
-                            <h5>Trình bày và thưởng thức</h5>
-                            <p>Trụng bánh phở, xếp thịt bò, chan nước dùng sôi. Dùng kèm với giá đỗ, hành lá, ngò,
-                                chanh, ớt.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="recipe-actions">
-                    <button class="action-btn save-btn">
-                        <i class="fas fa-bookmark"></i>
-                        Lưu công thức
-                    </button>
-                    <button class="action-btn print-btn">
-                        <i class="fas fa-print"></i>
-                        In công thức
-                    </button>
-                </div>
+      <div class="container">
+        <div class="recipe-content">
+          <div class="recipe-info">
+            <div class="info-card">
+              <i class="fas fa-clock"></i>
+              <h5>Thời gian</h5>
+              <p class="mb-0">45 phút</p>
             </div>
-
-            <!-- Comments Section -->
-            <div class="comments-section">
-                <h3 class="mb-4">Bình luận (12)</h3>
-                <div class="comment-card">
-                    <div class="comment-header">
-                        <img src="/assets/images/users/user-1.jpg" alt="User" class="comment-avatar">
-                        <div>
-                            <h6 class="mb-1">Nguyễn Văn A</h6>
-                            <div class="rating">
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                                <i class="fas fa-star"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <p>Công thức rất chi tiết và dễ làm theo. Nước dùng ngọt, thơm đúng vị phở Nam Định. Cảm ơn tác giả!
-                    </p>
-                </div>
-                <!-- More comments... -->
+            <div class="info-card">
+              <i class="fas fa-users"></i>
+              <h5>Khẩu phần</h5>
+              <p class="mb-0">4 người</p>
             </div>
-
-            <!-- Related Recipes -->
-            <div class="related-recipes">
-                <h3 class="mb-4">Công thức liên quan</h3>
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="related-card">
-                            <img src="/assets/images/recipes/bun-bo.jpg" alt="Bún bò Huế" class="related-image w-100">
-                            <div class="related-info">
-                                <h5 class="related-title">Bún bò Huế</h5>
-                                <div class="recipe-meta">
-                                    <span><i class="fas fa-clock"></i> 60 phút</span>
-                                    <span><i class="fas fa-star"></i> 4.7</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="related-card">
-                            <img src="/assets/images/recipes/hu-tieu.jpg" alt="Hủ tiếu Nam Vang"
-                                class="related-image w-100">
-                            <div class="related-info">
-                                <h5 class="related-title">Hủ tiếu Nam Vang</h5>
-                                <div class="recipe-meta">
-                                    <span><i class="fas fa-clock"></i> 50 phút</span>
-                                    <span><i class="fas fa-star"></i> 4.6</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="related-card">
-                            <img src="/assets/images/recipes/banh-canh.jpg" alt="Bánh canh cua"
-                                class="related-image w-100">
-                            <div class="related-info">
-                                <h5 class="related-title">Bánh canh cua</h5>
-                                <div class="recipe-meta">
-                                    <span><i class="fas fa-clock"></i> 45 phút</span>
-                                    <span><i class="fas fa-star"></i> 4.8</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="info-card">
+              <i class="fas fa-signal"></i>
+              <h5>Độ khó</h5>
+              <p class="mb-0">Trung bình</p>
             </div>
+            <div class="info-card">
+              <i class="fas fa-fire"></i>
+              <h5>Calories</h5>
+              <p class="mb-0">520 kcal</p>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-lg-4">
+              <h3 class="mb-4">Nguyên liệu</h3>
+              <ul class="ingredients-list">
+                <li>Xương bò - 1kg</li>
+                <li>Thịt bò phi lê - 500g</li>
+                <li>Bánh phở - 1kg</li>
+                <li>Hành tây - 2 củ</li>
+                <li>Gừng - 100g</li>
+                <li>Hoa hồi - 3 cái</li>
+                <li>Quế - 2 cây</li>
+                <li>Hành lá, ngò - 100g</li>
+                <li>Giá đỗ - 200g</li>
+                <li>Gia vị: muối, đường, nước mắm</li>
+              </ul>
+            </div>
+            <div class="col-lg-8">
+              <h3 class="mb-4">Các bước thực hiện</h3>
+              <div class="step-card">
+                <div class="step-number">1</div>
+                <h5>Chuẩn bị nước dùng</h5>
+                <p>
+                  Xương bò rửa sạch, chần qua nước sôi. Sau đó cho vào nồi nước
+                  lạnh, thêm hành tây, gừng đã nướng thơm. Nấu với lửa nhỏ trong
+                  6-8 tiếng.
+                </p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">2</div>
+                <h5>Ướp và thái thịt</h5>
+                <p>
+                  Thịt bò phi lê thái mỏng, ướp với chút muối, tiêu. Để trong tủ
+                  lạnh ít nhất 30 phút.
+                </p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">3</div>
+                <h5>Nêm nếm nước dùng</h5>
+                <p>
+                  Cho hoa hồi, quế vào nước dùng. Nêm nếm với muối, đường, nước
+                  mắm vừa ăn. Nước dùng phải trong và ngọt thanh.
+                </p>
+              </div>
+              <div class="step-card">
+                <div class="step-number">4</div>
+                <h5>Trình bày và thưởng thức</h5>
+                <p>
+                  Trụng bánh phở, xếp thịt bò, chan nước dùng sôi. Dùng kèm với
+                  giá đỗ, hành lá, ngò, chanh, ớt.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="recipe-actions">
+            <button class="action-btn save-btn">
+              <i class="fas fa-bookmark"></i>
+              Lưu công thức
+            </button>
+            <button class="action-btn print-btn">
+              <i class="fas fa-print"></i>
+              In công thức
+            </button>
+          </div>
         </div>
+
+        <!-- Comments Section -->
+        <div class="comments-section">
+          <h3 class="mb-4">Bình luận (12)</h3>
+          <div class="comment-card">
+            <div class="comment-header">
+              <img
+                src="/assets/images/users/user-1.jpg"
+                alt="User"
+                class="comment-avatar"
+              />
+              <div>
+                <h6 class="mb-1">Nguyễn Văn A</h6>
+                <div class="rating">
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                  <i class="fas fa-star"></i>
+                </div>
+              </div>
+            </div>
+            <p>
+              Công thức rất chi tiết và dễ làm theo. Nước dùng ngọt, thơm đúng
+              vị phở Nam Định. Cảm ơn tác giả!
+            </p>
+          </div>
+          <!-- More comments... -->
+        </div>
+
+        <!-- Related Recipes -->
+        <div class="related-recipes">
+          <h3 class="mb-4">Công thức liên quan</h3>
+          <div class="row">
+            <div class="col-md-4">
+              <div class="related-card">
+                <img
+                  src="/assets/images/recipes/bun-bo.jpg"
+                  alt="Bún bò Huế"
+                  class="related-image w-100"
+                />
+                <div class="related-info">
+                  <h5 class="related-title">Bún bò Huế</h5>
+                  <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 60 phút</span>
+                    <span><i class="fas fa-star"></i> 4.7</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="related-card">
+                <img
+                  src="/assets/images/recipes/hu-tieu.jpg"
+                  alt="Hủ tiếu Nam Vang"
+                  class="related-image w-100"
+                />
+                <div class="related-info">
+                  <h5 class="related-title">Hủ tiếu Nam Vang</h5>
+                  <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 50 phút</span>
+                    <span><i class="fas fa-star"></i> 4.6</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="related-card">
+                <img
+                  src="/assets/images/recipes/banh-canh.jpg"
+                  alt="Bánh canh cua"
+                  class="related-image w-100"
+                />
+                <div class="related-info">
+                  <h5 class="related-title">Bánh canh cua</h5>
+                  <div class="recipe-meta">
+                    <span><i class="fas fa-clock"></i> 45 phút</span>
+                    <span><i class="fas fa-star"></i> 4.8</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </section>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
-                    <p class="mb-4">Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất Việt Nam, nơi kết
-                        nối những người đam mê ẩm thực.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <h5 class="mb-3 fw-bold">Khám Phá</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/pages/recipes/list.html" class="text-white text-decoration-none">Công
-                                thức</a></li>
-                        <li class="mb-2"><a href="/pages/blog.html" class="text-white text-decoration-none">Blog</a>
-                        </li>
-                        <li class="mb-2"><a href="/pages/about.html" class="text-white text-decoration-none">Về chúng
-                                tôi</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold">Danh Mục</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chính</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món tráng miệng</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Đồ uống</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chay</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold">Liên Hệ</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> lienhe@monngon.vn</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> 0123.456.789</li>
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam</li>
-                    </ul>
-                </div>
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
+            <p class="mb-4">
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
-            <hr class="my-4 bg-white">
-            <div class="text-center">
-                <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
-            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5 class="mb-3 fw-bold">Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Đồ uống</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Món chay</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold">Liên Hệ</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              </li>
+            </ul>
+          </div>
         </div>
+        <hr class="my-4 bg-white" />
+        <div class="text-center">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/assets/data/recipes_MonChinh.js"></script>
+    <script src="/assets/data/recipes_TrangMieng.js"></script>
+    <script src="/assets/data/recipes_ThucUong.js"></script>
+    <script src="/assets/data/recipes_AnChay.js"></script>
+    <script src="/assets/data/recipes_AnVat.js"></script>
+    <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+
+      // Print recipe functionality
+      document
+        .querySelector(".print-btn")
+        .addEventListener("click", function () {
+          window.print();
         });
 
-        // Print recipe functionality
-        document.querySelector('.print-btn').addEventListener('click', function () {
-            window.print();
-        });
-
-        // Save recipe functionality
-        document.querySelector('.save-btn').addEventListener('click', function () {
-            // Check if user is logged in
-            const isLoggedIn = false; // Replace with actual auth check
-            if (!isLoggedIn) {
-                window.location.href = '/pages/auth/login.html';
-                return;
-            }
-            // Add save logic here
-            this.innerHTML = '<i class="fas fa-check"></i> Đã lưu';
-            this.disabled = true;
+      // Save recipe functionality
+      document
+        .querySelector(".save-btn")
+        .addEventListener("click", function () {
+          // Check if user is logged in
+          const isLoggedIn = false; // Replace with actual auth check
+          if (!isLoggedIn) {
+            window.location.href = "/pages/auth/login.html";
+            return;
+          }
+          // Add save logic here
+          this.innerHTML = '<i class="fas fa-check"></i> Đã lưu';
+          this.disabled = true;
         });
     </script>
-</body>
-
+  </body>
 </html>

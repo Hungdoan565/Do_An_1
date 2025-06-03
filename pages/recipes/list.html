@@ -111,7 +111,7 @@
                 class="btn btn-dark px-4 py-2"
                 ><i class="fas fa-plus-circle me-2"></i>Chia sẻ công thức</a
               >
-              <a href="#recipeGrid" class="btn btn-outline-light px-4 py-2"
+              <a href="/pages/recipes/" class="btn btn-outline-light px-4 py-2"
                 ><i class="fas fa-star me-2"></i>Xem công thức nổi bật</a
               >
             </div>
@@ -344,7 +344,6 @@
         ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
         ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
         ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
-        ...(typeof recipesKhaivi !== "undefined" ? recipesKhaivi : []), // Thêm dòng này để chắc chắn lấy đúng biến nếu bị đặt nhầm tên
       ];
 
       // Map category slug sang tên tiếng Việt
@@ -548,6 +547,7 @@
             "mon-chay": "Món chay",
             "an-vat": "Ăn vặt",
             "khai-vi": "Món khai vị",
+            "mon-khai-vi": "Món khai vị", // Thêm dòng này để đồng bộ slug truyền từ index.html
           };
           const categoryName = slugToName[catSlug] || "Tất cả";
           // Kích hoạt filter-btn tương ứng

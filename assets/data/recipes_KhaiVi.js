@@ -1,4 +1,4 @@
-const recipesKhaivi = [
+const recipesKhaiVi = [
     {
   "id": "sup-ga-ngo-non",
   "title": "Súp Gà Ngô Non",

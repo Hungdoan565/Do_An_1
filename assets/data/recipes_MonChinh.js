@@ -1601,7 +1601,7 @@ const recipesMonChinh = [
   {
   "id": "bun-mam-mien-tay",
   "title": "Bún Mắm Miền Tây",
-  "description": "Bún mắm miền Tây là đặc sản nổi tiếng với nước dùng đậm đà hương vị mắm cá linh/cá sặc đặc trưng, ngọt thanh từ xương, và phong phú topping hải sản tươi (tôm, mực, cá), thịt heo quay. Món ăn này ăn kèm rau sống đa dạng.",
+  "description": "Bún mắm miền Tây là đặc sản nổi tiếng với nước dùng đậm đà hương vị mắm cá linh/cá sặc đặc trưng, ngọt thanh từ xương, và phong phú topping hải sản tươi (tôm, mực, cá), thịt heo quay, độc đáo và hấp dẫn.",
   "image": "/assets/images/mon-an/mon-chinh/bunmam.jpg",
   "time": 60,
   "rating": 4.8,

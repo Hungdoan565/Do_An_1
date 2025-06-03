@@ -161,7 +161,7 @@ const recipesTrangMieng = [
 {
   "id": "banh-pudding-trung",
   "title": "Bánh Pudding Trứng",
-  "description": "Pudding trứng mềm mịn, vị ngọt thanh, ăn lạnh rất ngon.",
+  "description": "Pudding trứng mềm mịn, vị ngọt thanh, ăn lạnh rất ngon. Thích hợp làm món tráng miệng sau bữa ăn. Có thể thêm caramel hoặc trái cây tươi để tăng hương vị. Dễ làm tại nhà với nguyên liệu đơn giản.",
   "image": "/assets/images/mon-an/trang-mieng/puddingtrung.jpg",
   "time": 45,
   "rating": 4.8,
@@ -291,7 +291,7 @@ const recipesTrangMieng = [
   {
     "id": "banh-flan-caramel",
     "title": "Bánh Flan Caramel",
-    "description": "Bánh flan mềm mịn, caramel ngọt ngào",
+    "description": "Bánh flan mềm mịn, caramel ngọt ngào và thơm ngon. Thích hợp làm món tráng miệng sau bữa ăn.",
     "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg",
     "time": 30,
     "rating": 4.6,

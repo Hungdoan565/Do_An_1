@@ -2,7 +2,7 @@ const recipesThucUong = [
   {
   "id": "tra-sua-matcha",
   "title": "Trà Sữa Matcha",
-  "description": "Trà sữa matcha thơm vị trà xanh, béo nhẹ, topping trân châu hấp dẫn.",
+  "description": "Trà sữa matcha thơm vị trà xanh, béo nhẹ, topping trân châu hấp dẫn. Thức uống giải nhiệt mùa hè, dễ làm tại nhà, phù hợp với mọi lứa tuổi.",
   "image": "/assets/images/mon-an/thuc-uong/trasua_matcha.jpg",
   "time": 12,
   "rating": 4.8,
@@ -77,7 +77,7 @@ const recipesThucUong = [
   {
   "id": "sua-ngo",
   "title": "Sữa Ngô",
-  "description": "Sữa ngô thơm ngậy, bổ dưỡng, thích hợp cho mọi lứa tuổi.",
+  "description": "Sữa ngô thơm ngậy, bổ dưỡng, thích hợp cho mọi lứa tuổi. Món uống giải nhiệt mùa hè, dễ làm tại nhà, phù hợp với trẻ em và người lớn.",
   "image": "/assets/images/mon-an/thuc-uong/suango.jpg",
   "time": 20,
   "rating": 4.6,
@@ -151,7 +151,7 @@ const recipesThucUong = [
 {
   "id": "sinh-to-dau",
   "title": "Sinh Tố Dâu",
-  "description": "Sinh tố dâu tây tươi, vị chua ngọt, màu sắc bắt mắt.",
+  "description": "Sinh tố dâu tây tươi, vị chua ngọt, màu sắc bắt mắt. Món uống giải nhiệt mùa hè, dễ làm tại nhà, phù hợp với mọi lứa tuổi.",
   "image": "/assets/images/mon-an/thuc-uong/sinhto_dau.jpg",
   "time": 10,
   "rating": 4.7,
@@ -209,7 +209,7 @@ const recipesThucUong = [
       "id": "nuoc-cam-ep",
       "title": "Nước Cam Ép",
       "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg",
-      "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng.",
+      "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng. Món uống giải nhiệt mùa hè, dễ làm tại nhà, tốt cho sức khỏe.",
       "time": 5,
       "rating": 4.7
     },
@@ -226,7 +226,7 @@ const recipesThucUong = [
 {
   "id": "sinh-to-xoai",
   "title": "Sinh Tố Xoài",
-  "description": "Sinh tố xoài vàng ươm, ngọt dịu, giải nhiệt mùa hè.",
+  "description": "Sinh tố xoài vàng ươm, ngọt dịu, giải nhiệt mùa hè, dễ làm tại nhà. Món uống bổ dưỡng thích hợp cho những ngày hè oi ả.",
   "image": "/assets/images/mon-an/thuc-uong/sinhtoxoai.jpg",
   "time": 8,
   "rating": 4.8,
@@ -301,7 +301,7 @@ const recipesThucUong = [
 {
   "id": "ca-phe-trung-ha-noi",
   "title": "Cà Phê Trứng Hà Nội",
-  "description": "Cà phê trứng béo ngậy, thơm nồng đặc trưng của phố cổ Hà Nội.",
+  "description": "Cà phê trứng béo ngậy, thơm nồng đặc trưng của phố cổ Hà Nội. Món uống độc đáo, dễ làm tại nhà, mang hương vị truyền thống của Việt Nam.",
   "image": "/assets/images/mon-an/thuc-uong/cf_trung.jpg",
   "time": 15,
   "rating": 4.9,
@@ -377,7 +377,7 @@ const recipesThucUong = [
 {
     "id": "tra-sua",
     "title": "Trà Sữa Trân Châu Đường Đen",
-    "description": "Trà sữa thơm béo, trân châu dai ngọt, vị đường đen đặc trưng",
+    "description": "Trà sữa thơm béo, trân châu dai ngọt, vị đường đen đặc trưng. Món uống giải nhiệt mùa hè, dễ làm tại nhà, phù hợp với các bạn trẻ.",
     "image": "/assets/images/mon-an/thuc-uong/trasua.jpg",
     "time": 20,
     "rating": 4.9,
@@ -410,7 +410,7 @@ const recipesThucUong = [
   {
     "id": "sinh-to-bo",
     "title": "Sinh Tố Bơ",
-    "description": "Sinh tố bơ mịn, béo ngậy, bổ dưỡng cho mùa hè",
+    "description": "Sinh tố bơ mịn, béo ngậy, bổ dưỡng cho mùa hè nóng bức. Món uống giải nhiệt dễ làm tại nhà, phù hợp với mọi lứa tuổi.",
     "image": "/assets/images/mon-an/thuc-uong/sinhto_bo.jpg",
     "time": 10,
     "rating": 4.8,
@@ -443,7 +443,7 @@ const recipesThucUong = [
   {
     "id": "nuoc-cam-ep",
     "title": "Nước Cam Ép",
-    "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng",
+    "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng và giải nhiệt mùa hè. Nước cam ép thơm ngon, bổ dưỡng, thích hợp cho bữa sáng hoặc giải khát.",
     "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg",
     "time": 5,
     "rating": 4.7,
@@ -473,7 +473,7 @@ const recipesThucUong = [
   {
     "id": "nuoc-mia",
     "title": "Nước Mía",
-    "description": "Nước mía ngọt mát, giải nhiệt mùa hè, thêm tắc thơm ngon",
+    "description": "Nước mía ngọt mát, giải nhiệt mùa hè, thêm tắc thơm ngon và bổ dưỡng. Món nước giải khát phổ biến ở các quán vỉa hè, dễ làm tại nhà.",
     "image": "/assets/images/mon-an/thuc-uong/nuoc_mia.jpg",
     "time": 5,
     "rating": 4.6,

@@ -11,21 +11,12 @@ function filterRecipes({
   rating = null // { min, max }
 }) {
   return recipes.filter(recipe => {
-    // Lọc theo từ khóa (tên món, mô tả, tags, nguyên liệu, CHỈ khớp từ nguyên vẹn, ƯU TIÊN tiêu đề/tags/nguyên liệu)
+    // Lọc theo từ khóa (chỉ tiêu đề và tags, cho phép chứa từ khóa, không phân biệt hoa thường)
     if (keyword) {
       const kw = keyword.toLowerCase();
-      const matchWord = (text) =>
-        text && text.toLowerCase().split(/\s|,|\./).some(word => word === kw);
-      const inTitle = matchWord(recipe.title);
-      const inTags = (recipe.tags||[]).some(tag => matchWord(tag));
-      const inIngredients = (recipe.ingredients||[]).some(ing => matchWord(ing));
-      // Ưu tiên: nếu có trong title/tags/ingredients thì nhận ngay
-      if (inTitle || inTags || inIngredients) return true;
-      // Nếu không, chỉ cho phép xuất hiện trong mô tả nếu không có từ khóa trong title/tags/ingredients
-      const inDesc = matchWord(recipe.description);
-      if (!inDesc) return false;
-      // Nếu từ khóa chỉ xuất hiện trong mô tả, loại bỏ (chỉ nhận nếu có trong title/tags/ingredients)
-      return false;
+      const inTitle = recipe.title && recipe.title.toLowerCase().includes(kw);
+      const inTags = (recipe.tags||[]).some(tag => tag.toLowerCase().includes(kw));
+      if (!(inTitle || inTags)) return false;
     }
     // Lọc theo danh mục
     if (category) {

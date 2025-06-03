@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/pages/detail.css">
+    <link rel="stylesheet" href="/assets/css/pages/detail.css" />
   </head>
 
   <body>
@@ -416,6 +416,105 @@
         duration: 800,
         once: true,
       });
+
+      // --- Render động chi tiết công thức ---
+      // 1. Lấy id hoặc slug từ URL
+      function getQueryParam(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param);
+      }
+      const recipeId = getQueryParam("id");
+      const recipeSlug = getQueryParam("slug");
+
+      // 2. Gộp tất cả recipes lại
+      const allRecipes = [
+        ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+        ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
+        ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+        ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+        ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+        ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+      ];
+
+      // 3. Tìm công thức theo id hoặc slug
+      let recipe = null;
+      if (recipeId) {
+        recipe = allRecipes.find((r) => r.id && r.id.toString() === recipeId);
+      } else if (recipeSlug) {
+        recipe = allRecipes.find((r) => r.slug === recipeSlug);
+      }
+
+      if (recipe) {
+        // Render động các phần
+        document.querySelector(".recipe-title").textContent = recipe.title;
+        document.querySelector(".recipe-meta").innerHTML = `
+          <span><i class="fas fa-user"></i> ${recipe.author || "Ẩn danh"}</span>
+          <span><i class="fas fa-calendar"></i> ${recipe.date || ""}</span>
+          <span><i class="fas fa-clock"></i> ${recipe.time || ""}</span>
+          <span><i class="fas fa-signal"></i> ${recipe.level || ""}</span>
+          <span><i class="fas fa-star"></i> ${
+            recipe.rating
+              ? recipe.rating + " (" + (recipe.reviews || 0) + " đánh giá)"
+              : ""
+          }</span>
+        `;
+        document.querySelector(".recipe-image img").src =
+          recipe.image || "/assets/images/recipes/default.jpg";
+        document.querySelector(".recipe-image img").alt = recipe.title;
+        // Nguyên liệu
+        const ingredientsList = document.querySelector(".ingredients-list");
+        if (Array.isArray(recipe.ingredients)) {
+          ingredientsList.innerHTML = recipe.ingredients
+            .map((i) => `<li>${i}</li>`)
+            .join("");
+        }
+        // Các bước
+        const stepsCol = document.querySelector(".col-lg-8");
+        if (Array.isArray(recipe.steps)) {
+          stepsCol.innerHTML =
+            `<h3 class="mb-4">Các bước thực hiện</h3>` +
+            recipe.steps
+              .map(
+                (step, idx) => `
+            <div class="step-card">
+              <div class="step-number">${idx + 1}</div>
+              <h5>${step.title || "Bước " + (idx + 1)}</h5>
+              <p>${step.desc || step}</p>
+            </div>
+          `
+              )
+              .join("");
+        }
+        // Info card
+        const infoCards = document.querySelectorAll(".info-card");
+        if (infoCards.length >= 4) {
+          infoCards[0].querySelector("p").textContent = recipe.time || "";
+          infoCards[1].querySelector("p").textContent = recipe.servings || "";
+          infoCards[2].querySelector("p").textContent = recipe.level || "";
+          infoCards[3].querySelector("p").textContent = recipe.calories || "";
+        }
+        // Related recipes (cùng category, khác id)
+        const related = allRecipes
+          .filter((r) => r.category === recipe.category && r.id !== recipe.id)
+          .slice(0, 3);
+        const relatedCards = document.querySelectorAll(".related-card");
+        related.forEach((r, i) => {
+          if (relatedCards[i]) {
+            relatedCards[i].querySelector("img").src =
+              r.image || "/assets/images/recipes/default.jpg";
+            relatedCards[i].querySelector("img").alt = r.title;
+            relatedCards[i].querySelector(".related-title").textContent =
+              r.title;
+            const meta = relatedCards[i].querySelector(".recipe-meta");
+            meta.innerHTML = `<span><i class='fas fa-clock'></i> ${
+              r.time || ""
+            }</span><span><i class='fas fa-star'></i> ${r.rating || ""}</span>`;
+            relatedCards[
+              i
+            ].parentElement.href = `/pages/recipes/detail.html?id=${r.id}`;
+          }
+        });
+      }
 
       // Print recipe functionality
       document

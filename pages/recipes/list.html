@@ -17,7 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-   <link rel="stylesheet" href="/assets/css/pages/list.css">
+    <link rel="stylesheet" href="/assets/css/pages/list.css" />
   </head>
 
   <body>
@@ -485,32 +485,53 @@
     </script>
     <script>
       // --- TỰ ĐỘNG FILTER THEO QUERY CATEGORY ---
-      (function() {
+      (function () {
         const params = new URLSearchParams(window.location.search);
-        const catSlug = params.get('category');
+        const catSlug = params.get("category");
         if (catSlug) {
           // Map slug sang tên tiếng Việt đúng với filter-btn
           const slugToName = {
-            'mon-chinh': 'Món chính',
-            'trang-mieng': 'Món tráng miệng',
-            'do-uong': 'Đồ uống',
-            'mon-chay': 'Món chay',
-            'an-vat': 'Ăn vặt',
-            'khai-vi': 'Món khai vị'
+            "mon-chinh": "Món chính",
+            "trang-mieng": "Món tráng miệng",
+            "do-uong": "Đồ uống",
+            "mon-chay": "Món chay",
+            "an-vat": "Ăn vặt",
+            "khai-vi": "Món khai vị",
           };
-          const categoryName = slugToName[catSlug] || 'Tất cả';
+          const categoryName = slugToName[catSlug] || "Tất cả";
           // Kích hoạt filter-btn tương ứng
-          const filterBtns = document.querySelectorAll('.filter-btn');
-          filterBtns.forEach(btn => {
-            if (btn.textContent.trim().toLowerCase() === categoryName.toLowerCase()) {
-              btn.classList.add('active');
+          const filterBtns = document.querySelectorAll(".filter-btn");
+          filterBtns.forEach((btn) => {
+            if (
+              btn.textContent.trim().toLowerCase() ===
+              categoryName.toLowerCase()
+            ) {
+              btn.classList.add("active");
             } else {
-              btn.classList.remove('active');
+              btn.classList.remove("active");
             }
           });
           filterRecipesByCategory(categoryName);
         }
       })();
+    </script>
+    <script>
+      // --- CLICK VÀO CARD ĐỂ ĐI ĐẾN TRANG CHI TIẾT ---
+      document.addEventListener("DOMContentLoaded", function () {
+        const grid = document.getElementById("recipeGrid");
+        if (grid) {
+          grid.addEventListener("click", function (e) {
+            let card = e.target;
+            // Tìm phần tử .recipe-card gần nhất
+            while (card && !card.classList.contains("recipe-card")) {
+              card = card.parentElement;
+            }
+            if (card && card.dataset.id) {
+              window.location.href = `/pages/recipes/detail.html?id=${card.dataset.id}`;
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>

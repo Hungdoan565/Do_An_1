@@ -385,7 +385,7 @@ const recipesKhaivi = [
     "id": "cha-gio",
     "title": "Chả Giò Truyền Thống",
     "description": "Chả giò truyền thống giòn rụm, nhân thịt, tôm, miến, mộc nhĩ, ăn kèm rau sống.",
-    "image": "/assets/images/mon-an/khai-vi/chagio.jpg",
+    "image": "/assets/images/mon-an/khai-vi/chagio1.jpg",
     "time": 35,
     "rating": 4.8,
     "ratingCount": 32,

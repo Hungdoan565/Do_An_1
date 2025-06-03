@@ -17,262 +17,7 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --primary-color: #d61c4e;
-        --secondary-color: #f77e21;
-        --accent-color: #fab207;
-        --text-color: #1f1717;
-        --light-gray: #f5f5f5;
-      }
-
-      body {
-        font-family: "Be Vietnam Pro", sans-serif;
-        color: var(--text-color);
-        background-color: var(--light-gray);
-      }
-
-      .navbar {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-      }
-
-      .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color) !important;
-      }
-
-      .nav-link {
-        font-weight: 500;
-        color: var(--text-color) !important;
-        margin: 0 0.5rem;
-        position: relative;
-      }
-
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--primary-color);
-        transition: width 0.3s ease;
-      }
-
-      .nav-link:hover::after {
-        width: 100%;
-      }
-
-      .recipe-header {
-        background: white;
-        padding: 40px 0;
-        margin-top: 76px;
-      }
-
-      .recipe-title {
-        font-size: 2.5rem;
-        font-weight: 700;
-        margin-bottom: 1rem;
-      }
-
-      .recipe-meta {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-        color: #666;
-        font-size: 1rem;
-        margin-bottom: 2rem;
-      }
-
-      .recipe-meta i {
-        color: var(--primary-color);
-      }
-
-      .recipe-image {
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .recipe-image img {
-        width: 100%;
-        height: 500px;
-        object-fit: cover;
-      }
-
-      .recipe-content {
-        background: white;
-        padding: 40px;
-        border-radius: 20px;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-        margin-top: -100px;
-        position: relative;
-        z-index: 1;
-      }
-
-      .recipe-info {
-        display: grid;
-        grid-template-columns: repeat(4, 1fr);
-        gap: 20px;
-        margin-bottom: 30px;
-      }
-
-      .info-card {
-        background: var(--light-gray);
-        padding: 20px;
-        border-radius: 15px;
-        text-align: center;
-      }
-
-      .info-card i {
-        font-size: 2rem;
-        color: var(--primary-color);
-        margin-bottom: 10px;
-      }
-
-      .ingredients-list {
-        list-style: none;
-        padding: 0;
-        margin: 0;
-      }
-
-      .ingredients-list li {
-        display: flex;
-        align-items: center;
-        padding: 10px 0;
-        border-bottom: 1px solid var(--light-gray);
-      }
-
-      .ingredients-list li::before {
-        content: "\f058";
-        font-family: "Font Awesome 6 Free";
-        font-weight: 900;
-        color: var(--primary-color);
-        margin-right: 10px;
-      }
-
-      .step-card {
-        background: var(--light-gray);
-        padding: 20px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-      }
-
-      .step-number {
-        width: 40px;
-        height: 40px;
-        background: var(--primary-color);
-        color: white;
-        border-radius: 50%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        font-weight: 600;
-        margin-bottom: 15px;
-      }
-
-      .recipe-actions {
-        display: flex;
-        gap: 15px;
-        margin-top: 30px;
-      }
-
-      .action-btn {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        padding: 10px 20px;
-        border-radius: 10px;
-        border: none;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .save-btn {
-        background: var(--primary-color);
-        color: white;
-      }
-
-      .print-btn {
-        background: var(--light-gray);
-        color: var(--text-color);
-      }
-
-      .action-btn:hover {
-        transform: translateY(-2px);
-      }
-
-      .comments-section {
-        margin-top: 40px;
-      }
-
-      .comment-card {
-        background: white;
-        padding: 20px;
-        border-radius: 15px;
-        margin-bottom: 20px;
-      }
-
-      .comment-header {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        margin-bottom: 15px;
-      }
-
-      .comment-avatar {
-        width: 50px;
-        height: 50px;
-        border-radius: 50%;
-        object-fit: cover;
-      }
-
-      .rating {
-        color: var(--accent-color);
-      }
-
-      .related-recipes {
-        margin-top: 40px;
-      }
-
-      .related-card {
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-      }
-
-      .related-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .related-image {
-        height: 200px;
-        object-fit: cover;
-      }
-
-      .related-info {
-        padding: 20px;
-      }
-
-      .related-title {
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-
-      footer {
-        background: linear-gradient(
-          45deg,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-        color: white;
-        padding: 4rem 0 2rem;
-        margin-top: 50px;
-      }
-    </style>
+    <link rel="stylesheet" href="/assets/css/pages/detail.css">
   </head>
 
   <body>
@@ -312,10 +57,31 @@
             <li class="nav-item">
               <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/pages/auth/login.html" id="loginBtn"
-                >Đăng nhập</a
+            <li class="nav-item ms-3">
+              <a
+                class="btn btn-outline-primary px-4 py-2 ms-2"
+                href="/pages/auth/login.html"
+                id="loginBtn"
               >
+                Đăng nhập
+              </a>
+              <a
+                class="btn btn-primary px-4 py-2 ms-2"
+                href="/pages/auth/register.html"
+                id="registerBtn"
+              >
+                Đăng ký
+              </a>
+            </li>
+            <li class="nav-item ms-2">
+              <a
+                class="btn btn-primary px-4 py-2"
+                href="/pages/user/add-recipe.html"
+                id="addRecipeBtn"
+                style="display: none"
+              >
+                <i class="fas fa-plus-circle me-2"></i>Chia sẻ công thức
+              </a>
             </li>
           </ul>
         </div>
@@ -519,24 +285,53 @@
     </section>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer
+      class="footer mt-5 py-5"
+      style="
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      "
+    >
       <div class="container">
         <div class="row g-4">
           <div class="col-lg-4">
-            <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
-            <p class="mb-4">
+            <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
+            <p class="mb-4 text-white">
               Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
               Việt Nam, nơi kết nối những người đam mê ẩm thực.
             </p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-youtube"></i></a>
-              <a href="#"><i class="fab fa-tiktok"></i></a>
+            <div class="social-links d-flex gap-3">
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-tiktok"></i
+              ></a>
             </div>
           </div>
           <div class="col-lg-2">
-            <h5 class="mb-3 fw-bold">Khám Phá</h5>
+            <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
             <ul class="list-unstyled">
               <li class="mb-2">
                 <a
@@ -565,7 +360,7 @@
             </ul>
           </div>
           <div class="col-lg-3">
-            <h5 class="mb-3 fw-bold">Danh Mục</h5>
+            <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
             <ul class="list-unstyled">
               <li class="mb-2">
                 <a href="#" class="text-white text-decoration-none"
@@ -586,8 +381,8 @@
             </ul>
           </div>
           <div class="col-lg-3">
-            <h5 class="mb-3 fw-bold">Liên Hệ</h5>
-            <ul class="list-unstyled">
+            <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
+            <ul class="list-unstyled text-white">
               <li class="mb-2">
                 <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
               </li>
@@ -601,7 +396,7 @@
           </div>
         </div>
         <hr class="my-4 bg-white" />
-        <div class="text-center">
+        <div class="text-center text-white">
           <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
         </div>
       </div>

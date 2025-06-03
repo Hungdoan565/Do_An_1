@@ -1,485 +1,605 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blog - Món Ngon Việt Nam</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
     <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-color: #D61C4E;
-            --secondary-color: #F77E21;
-            --accent-color: #FAB207;
-            --text-color: #1F1717;
-            --light-gray: #F5F5F5;
-        }
+      :root {
+        --primary-color: #d61c4e;
+        --secondary-color: #f77e21;
+        --accent-color: #fab207;
+        --text-color: #1f1717;
+        --light-gray: #f5f5f5;
+      }
 
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            color: var(--text-color);
-            background-color: var(--light-gray);
-        }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-gray);
+      }
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      }
 
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--primary-color) !important;
+      }
 
-        .nav-link {
-            font-weight: 500;
-            color: var(--text-color) !important;
-            margin: 0 0.5rem;
-            position: relative;
-        }
+      .nav-link {
+        font-weight: 500;
+        color: var(--text-color) !important;
+        margin: 0 0.5rem;
+        position: relative;
+      }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+      .nav-link:hover::after {
+        width: 100%;
+      }
 
-        .page-header {
-            background: linear-gradient(135deg, rgba(214, 28, 78, 0.8), rgba(247, 126, 33, 0.8));
-            background-size: cover;
-            background-position: center;
-            padding: 100px 0;
-            color: white;
-            text-align: center;
-            margin-bottom: 50px;
-        }
+      .page-header {
+        background: linear-gradient(
+          135deg,
+          rgba(214, 28, 78, 0.8),
+          rgba(247, 126, 33, 0.8)
+        );
+        background-size: cover;
+        background-position: center;
+        padding: 100px 0;
+        color: white;
+        text-align: center;
+        margin-bottom: 50px;
+      }
 
-        .blog-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-            margin-bottom: 30px;
-            text-decoration: none;
-            color: var(--text-color);
-        }
+      .blog-card {
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        transition: all 0.3s ease;
+        margin-bottom: 30px;
+        text-decoration: none;
+        color: var(--text-color);
+      }
 
-        .blog-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
-        }
+      .blog-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 8px 35px rgba(0, 0, 0, 0.15);
+      }
 
-        .blog-image {
-            height: 250px;
-            object-fit: cover;
-        }
+      .blog-image {
+        height: 250px;
+        object-fit: cover;
+      }
 
-        .blog-content {
-            padding: 25px;
-        }
+      .blog-content {
+        padding: 25px;
+      }
 
-        .blog-title {
-            font-size: 1.4rem;
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: var(--text-color);
-        }
+      .blog-title {
+        font-size: 1.4rem;
+        font-weight: 600;
+        margin-bottom: 15px;
+        color: var(--text-color);
+      }
 
-        .blog-meta {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            color: #666;
-            font-size: 0.9rem;
-            margin-bottom: 15px;
-        }
+      .blog-meta {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        color: #666;
+        font-size: 0.9rem;
+        margin-bottom: 15px;
+      }
 
-        .blog-meta i {
-            color: var(--primary-color);
-        }
+      .blog-meta i {
+        color: var(--primary-color);
+      }
 
-        .blog-excerpt {
-            color: #666;
-            margin-bottom: 20px;
-            line-height: 1.6;
-        }
+      .blog-excerpt {
+        color: #666;
+        margin-bottom: 20px;
+        line-height: 1.6;
+      }
 
-        .blog-tags {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+      .blog-tags {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+      }
 
-        .blog-tag {
-            background: var(--light-gray);
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            color: var(--text-color);
-        }
+      .blog-tag {
+        background: var(--light-gray);
+        padding: 5px 15px;
+        border-radius: 20px;
+        font-size: 0.8rem;
+        color: var(--text-color);
+      }
 
-        .sidebar {
-            position: sticky;
-            top: 100px;
-        }
+      .sidebar {
+        position: sticky;
+        top: 100px;
+      }
 
-        .sidebar-card {
-            background: white;
-            border-radius: 20px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-        }
+      .sidebar-card {
+        background: white;
+        border-radius: 20px;
+        padding: 25px;
+        margin-bottom: 30px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+      }
 
-        .sidebar-title {
-            font-size: 1.2rem;
-            font-weight: 600;
-            margin-bottom: 20px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--light-gray);
-        }
+      .sidebar-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 20px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--light-gray);
+      }
 
-        .category-list {
-            list-style: none;
-            padding: 0;
-            margin: 0;
-        }
+      .category-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
 
-        .category-item {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 10px 0;
-            border-bottom: 1px solid var(--light-gray);
-            color: var(--text-color);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
+      .category-item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 0;
+        border-bottom: 1px solid var(--light-gray);
+        color: var(--text-color);
+        text-decoration: none;
+        transition: all 0.3s ease;
+      }
 
-        .category-item:hover {
-            color: var(--primary-color);
-            transform: translateX(10px);
-        }
+      .category-item:hover {
+        color: var(--primary-color);
+        transform: translateX(10px);
+      }
 
-        .popular-post {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 15px 0;
-            border-bottom: 1px solid var(--light-gray);
-            color: var(--text-color);
-            text-decoration: none;
-        }
+      .popular-post {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        padding: 15px 0;
+        border-bottom: 1px solid var(--light-gray);
+        color: var(--text-color);
+        text-decoration: none;
+      }
 
-        .popular-post:hover {
-            color: var(--primary-color);
-        }
+      .popular-post:hover {
+        color: var(--primary-color);
+      }
 
-        .popular-post img {
-            width: 80px;
-            height: 80px;
-            border-radius: 10px;
-            object-fit: cover;
-        }
+      .popular-post img {
+        width: 80px;
+        height: 80px;
+        border-radius: 10px;
+        object-fit: cover;
+      }
 
-        .popular-post-content h6 {
-            margin: 0 0 5px;
-            font-weight: 600;
-        }
+      .popular-post-content h6 {
+        margin: 0 0 5px;
+        font-weight: 600;
+      }
 
-        .popular-post-content small {
-            color: #666;
-        }
+      .popular-post-content small {
+        color: #666;
+      }
 
-        .search-box {
-            position: relative;
-            margin-bottom: 30px;
-        }
+      .search-box {
+        position: relative;
+        margin-bottom: 30px;
+      }
 
-        .search-input {
-            width: 100%;
-            padding: 15px 20px;
-            border: none;
-            border-radius: 10px;
-            background: white;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
-        }
+      .search-input {
+        width: 100%;
+        padding: 15px 20px;
+        border: none;
+        border-radius: 10px;
+        background: white;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
+      }
 
-        .search-btn {
-            position: absolute;
-            right: 10px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            padding: 8px 20px;
-            border-radius: 5px;
-        }
+      .search-btn {
+        position: absolute;
+        right: 10px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 20px;
+        border-radius: 5px;
+      }
 
-        footer {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 4rem 0 2rem;
-            margin-top: 50px;
-        }
+      .social-links a {
+        transition: background 0.3s, color 0.3s, box-shadow 0.3s;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+      }
+
+      .social-links a:hover {
+        background: #fff !important;
+        color: var(--primary-color) !important;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        text-decoration: none;
+      }
+      footer {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 4rem 0 2rem;
+        margin-top: 50px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/index.html">
-                <img src="/assets/images/logo.png" height="40" class="me-2" alt="Logo" />
-                Món Ngon Việt Nam
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link active" href="/pages/blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/auth/login.html" id="loginBtn">Đăng nhập</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/auth/login.html" id="loginBtn"
+                >Đăng nhập</a
+              >
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Page Header -->
     <header class="page-header">
-        <div class="container">
-            <h1 class="display-4 fw-bold mb-4">Blog Ẩm Thực</h1>
-            <p class="lead">Khám phá văn hóa ẩm thực Việt Nam qua những câu chuyện thú vị</p>
-        </div>
+      <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Blog Ẩm Thực</h1>
+        <p class="lead">
+          Khám phá văn hóa ẩm thực Việt Nam qua những câu chuyện thú vị
+        </p>
+      </div>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <div class="row">
-            <!-- Blog Posts -->
-            <div class="col-lg-8">
-                <!-- Search Box -->
-                <div class="search-box mb-5">
-                    <input type="text" class="search-input" placeholder="Tìm kiếm bài viết...">
-                    <button class="search-btn">
-                        <i class="fas fa-search me-2"></i>Tìm kiếm
-                    </button>
-                </div>
+      <div class="row">
+        <!-- Blog Posts -->
+        <div class="col-lg-8">
+          <!-- Search Box -->
+          <div class="search-box mb-5">
+            <input
+              type="text"
+              class="search-input"
+              placeholder="Tìm kiếm bài viết..."
+            />
+            <button class="search-btn">
+              <i class="fas fa-search me-2"></i>Tìm kiếm
+            </button>
+          </div>
 
-                <!-- Blog Posts Grid -->
-                <div class="row" id="blogPosts">
-                    <!-- Blog posts will be inserted here by JavaScript -->
-                </div>
+          <!-- Blog Posts Grid -->
+          <div class="row" id="blogPosts">
+            <!-- Blog posts will be inserted here by JavaScript -->
+          </div>
 
-                <!-- Pagination -->
-                <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
-                    <ul class="pagination">
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Previous">
-                                <span aria-hidden="true">&laquo;</span>
-                            </a>
-                        </li>
-                        <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                        <li class="page-item"><a class="page-link" href="#">2</a></li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item">
-                            <a class="page-link" href="#" aria-label="Next">
-                                <span aria-hidden="true">&raquo;</span>
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-            </div>
-
-            <!-- Sidebar -->
-            <div class="col-lg-4">
-                <div class="sidebar">
-                    <!-- Categories -->
-                    <div class="sidebar-card">
-                        <h4 class="sidebar-title">Danh Mục</h4>
-                        <div class="category-list">
-                            <a href="#" class="category-item">
-                                <span>Món Chính</span>
-                                <span class="badge bg-primary">24</span>
-                            </a>
-                            <a href="#" class="category-item">
-                                <span>Món Tráng Miệng</span>
-                                <span class="badge bg-primary">18</span>
-                            </a>
-                            <a href="#" class="category-item">
-                                <span>Đồ Uống</span>
-                                <span class="badge bg-primary">12</span>
-                            </a>
-                            <a href="#" class="category-item">
-                                <span>Món Chay</span>
-                                <span class="badge bg-primary">15</span>
-                            </a>
-                            <a href="#" class="category-item">
-                                <span>Mẹo Nấu Ăn</span>
-                                <span class="badge bg-primary">30</span>
-                            </a>
-                        </div>
-                    </div>
-
-                    <!-- Popular Posts -->
-                    <div class="sidebar-card">
-                        <h4 class="sidebar-title">Bài Viết Nổi Bật</h4>
-                        <div id="popularPosts">
-                            <!-- Popular posts will be inserted here by JavaScript -->
-                        </div>
-                    </div>
-
-                    <!-- Tags -->
-                    <div class="sidebar-card">
-                        <h4 class="sidebar-title">Thẻ</h4>
-                        <div class="blog-tags">
-                            <span class="blog-tag">Món Việt</span>
-                            <span class="blog-tag">Healthy</span>
-                            <span class="blog-tag">Ăn Chay</span>
-                            <span class="blog-tag">Đồ Ngọt</span>
-                            <span class="blog-tag">Mẹo Hay</span>
-                            <span class="blog-tag">Truyền Thống</span>
-                            <span class="blog-tag">Fusion</span>
-                            <span class="blog-tag">Đồ Uống</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <!-- Pagination -->
+          <nav
+            aria-label="Page navigation"
+            class="d-flex justify-content-center mt-5"
+          >
+            <ul class="pagination">
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Previous">
+                  <span aria-hidden="true">&laquo;</span>
+                </a>
+              </li>
+              <li class="page-item active">
+                <a class="page-link" href="#">1</a>
+              </li>
+              <li class="page-item"><a class="page-link" href="#">2</a></li>
+              <li class="page-item"><a class="page-link" href="#">3</a></li>
+              <li class="page-item">
+                <a class="page-link" href="#" aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+                </a>
+              </li>
+            </ul>
+          </nav>
         </div>
+
+        <!-- Sidebar -->
+        <div class="col-lg-4">
+          <div class="sidebar">
+            <!-- Categories -->
+            <div class="sidebar-card">
+              <h4 class="sidebar-title">Danh Mục</h4>
+              <div class="category-list">
+                <a href="#" class="category-item">
+                  <span>Món Chính</span>
+                  <span class="badge bg-primary">24</span>
+                </a>
+                <a href="#" class="category-item">
+                  <span>Món Tráng Miệng</span>
+                  <span class="badge bg-primary">18</span>
+                </a>
+                <a href="#" class="category-item">
+                  <span>Đồ Uống</span>
+                  <span class="badge bg-primary">12</span>
+                </a>
+                <a href="#" class="category-item">
+                  <span>Món Chay</span>
+                  <span class="badge bg-primary">15</span>
+                </a>
+                <a href="#" class="category-item">
+                  <span>Mẹo Nấu Ăn</span>
+                  <span class="badge bg-primary">30</span>
+                </a>
+              </div>
+            </div>
+
+            <!-- Popular Posts -->
+            <div class="sidebar-card">
+              <h4 class="sidebar-title">Bài Viết Nổi Bật</h4>
+              <div id="popularPosts">
+                <!-- Popular posts will be inserted here by JavaScript -->
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="sidebar-card">
+              <h4 class="sidebar-title">Thẻ</h4>
+              <div class="blog-tags">
+                <span class="blog-tag">Món Việt</span>
+                <span class="blog-tag">Healthy</span>
+                <span class="blog-tag">Ăn Chay</span>
+                <span class="blog-tag">Đồ Ngọt</span>
+                <span class="blog-tag">Mẹo Hay</span>
+                <span class="blog-tag">Truyền Thống</span>
+                <span class="blog-tag">Fusion</span>
+                <span class="blog-tag">Đồ Uống</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
-                    <p class="mb-4">Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất Việt Nam, nơi kết
-                        nối những
-                        người đam mê ẩm thực.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <h5 class="mb-3 fw-bold">Khám Phá</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/pages/recipes/list.html" class="text-white text-decoration-none">Công
-                                thức</a></li>
-                        <li class="mb-2"><a href="/pages/blog.html" class="text-white text-decoration-none">Blog</a>
-                        </li>
-                        <li class="mb-2"><a href="/pages/about.html" class="text-white text-decoration-none">Về chúng
-                                tôi</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold">Danh Mục</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chính</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món tráng miệng</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Đồ uống</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chay</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold">Liên Hệ</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> lienhe@monngon.vn</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> 0123.456.789</li>
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam</li>
-                    </ul>
-                </div>
+    <footer
+      class="footer mt-5 py-5"
+      style="
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      "
+    >
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
+            <p class="mb-4 text-white">
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links d-flex gap-3">
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-tiktok"></i
+              ></a>
             </div>
-            <hr class="my-4 bg-white">
-            <div class="text-center">
-                <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
-            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Đồ uống</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Món chay</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
+            <ul class="list-unstyled text-white">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              </li>
+            </ul>
+          </div>
         </div>
+        <hr class="my-4 bg-white" />
+        <div class="text-center text-white">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script>
-        // Initialize AOS
-        AOS.init({
-            duration: 800,
-            once: true
-        });
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
 
-        // Sample blog posts data
-        const blogPosts = [
-            {
-                title: 'Bí Quyết Nấu Phở Ngon Tại Nhà',
-                excerpt: 'Khám phá công thức nấu phở chuẩn vị với những nguyên liệu dễ tìm và bí quyết nấu nước dùng ngọt thanh từ các đầu bếp chuyên nghiệp...',
-                image: '/assets/images/blog/nau-pho.jpg',
-                author: 'Đầu Bếp Việt',
-                date: '15/03/2024',
-                readTime: '5 phút đọc',
-                tags: ['Món Việt', 'Truyền Thống', 'Mẹo Hay']
-            },
-            {
-                title: 'Top 10 Món Ăn Vặt Được Yêu Thích',
-                excerpt: 'Tổng hợp những món ăn vặt ngon, dễ làm được giới trẻ yêu thích. Từ bánh tráng trộn đến takoyaki phiên bản Việt...',
-                image: '/assets/images/blog/an-vat.jpg',
-                author: 'Chị Mai',
-                date: '14/03/2024',
-                readTime: '4 phút đọc',
-                tags: ['Ăn Vặt', 'Fusion']
-            },
-            {
-                title: 'Cách Làm Bánh Trung Thu Nhân Thập Cẩm',
-                excerpt: 'Hướng dẫn chi tiết cách làm bánh trung thu truyền thống tại nhà. Bí quyết để có lớp vỏ bánh mỏng, đều và nhân bánh thơm ngon...',
-                image: '/assets/images/blog/banh-trung-thu.jpg',
-                author: 'Cô Thảo',
-                date: '13/03/2024',
-                readTime: '7 phút đọc',
-                tags: ['Bánh Ngọt', 'Truyền Thống']
-            },
-            {
-                title: '5 Món Chay Ngon Cho Ngày Rằm',
-                excerpt: 'Gợi ý 5 món chay thơm ngon, đầy đủ dinh dưỡng cho ngày rằm. Dễ nấu và phù hợp với khẩu vị người Việt...',
-                image: '/assets/images/blog/mon-chay.jpg',
-                author: 'Sư Cô Hương',
-                date: '12/03/2024',
-                readTime: '6 phút đọc',
-                tags: ['Món Chay', 'Healthy']
-            }
-        ];
+      // Sample blog posts data
+      const blogPosts = [
+        {
+          title: "Bí Quyết Nấu Phở Ngon Tại Nhà",
+          excerpt:
+            "Khám phá công thức nấu phở chuẩn vị với những nguyên liệu dễ tìm và bí quyết nấu nước dùng ngọt thanh từ các đầu bếp chuyên nghiệp...",
+          image: "/assets/images/blog/nau-pho.jpg",
+          author: "Đầu Bếp Việt",
+          date: "15/03/2024",
+          readTime: "5 phút đọc",
+          tags: ["Món Việt", "Truyền Thống", "Mẹo Hay"],
+        },
+        {
+          title: "Top 10 Món Ăn Vặt Được Yêu Thích",
+          excerpt:
+            "Tổng hợp những món ăn vặt ngon, dễ làm được giới trẻ yêu thích. Từ bánh tráng trộn đến takoyaki phiên bản Việt...",
+          image: "/assets/images/blog/an-vat.jpg",
+          author: "Chị Mai",
+          date: "14/03/2024",
+          readTime: "4 phút đọc",
+          tags: ["Ăn Vặt", "Fusion"],
+        },
+        {
+          title: "Cách Làm Bánh Trung Thu Nhân Thập Cẩm",
+          excerpt:
+            "Hướng dẫn chi tiết cách làm bánh trung thu truyền thống tại nhà. Bí quyết để có lớp vỏ bánh mỏng, đều và nhân bánh thơm ngon...",
+          image: "/assets/images/blog/banh-trung-thu.jpg",
+          author: "Cô Thảo",
+          date: "13/03/2024",
+          readTime: "7 phút đọc",
+          tags: ["Bánh Ngọt", "Truyền Thống"],
+        },
+        {
+          title: "5 Món Chay Ngon Cho Ngày Rằm",
+          excerpt:
+            "Gợi ý 5 món chay thơm ngon, đầy đủ dinh dưỡng cho ngày rằm. Dễ nấu và phù hợp với khẩu vị người Việt...",
+          image: "/assets/images/blog/mon-chay.jpg",
+          author: "Sư Cô Hương",
+          date: "12/03/2024",
+          readTime: "6 phút đọc",
+          tags: ["Món Chay", "Healthy"],
+        },
+      ];
 
-        // Render blog posts
-        document.getElementById('blogPosts').innerHTML = blogPosts.map(post => `
+      // Render blog posts
+      document.getElementById("blogPosts").innerHTML = blogPosts
+        .map(
+          (post) => `
       <div class="col-md-6 mb-4" data-aos="fade-up">
         <a href="#" class="blog-card d-block">
           <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
@@ -492,34 +612,40 @@
             </div>
             <p class="blog-excerpt">${post.excerpt}</p>
             <div class="blog-tags">
-              ${post.tags.map(tag => `<span class="blog-tag">${tag}</span>`).join('')}
+              ${post.tags
+                .map((tag) => `<span class="blog-tag">${tag}</span>`)
+                .join("")}
             </div>
           </div>
         </a>
       </div>
-    `).join('');
+    `
+        )
+        .join("");
 
-        // Sample popular posts data
-        const popularPosts = [
-            {
-                title: 'Cách Làm Cơm Tấm Sườn Bì Chả',
-                image: '/assets/images/blog/com-tam.jpg',
-                date: '10/03/2024'
-            },
-            {
-                title: 'Bí Quyết Làm Bánh Mì Việt Nam',
-                image: '/assets/images/blog/banh-mi.jpg',
-                date: '08/03/2024'
-            },
-            {
-                title: 'Top 5 Quán Phở Ngon Hà Nội',
-                image: '/assets/images/blog/quan-pho.jpg',
-                date: '05/03/2024'
-            }
-        ];
+      // Sample popular posts data
+      const popularPosts = [
+        {
+          title: "Cách Làm Cơm Tấm Sườn Bì Chả",
+          image: "/assets/images/blog/com-tam.jpg",
+          date: "10/03/2024",
+        },
+        {
+          title: "Bí Quyết Làm Bánh Mì Việt Nam",
+          image: "/assets/images/blog/banh-mi.jpg",
+          date: "08/03/2024",
+        },
+        {
+          title: "Top 5 Quán Phở Ngon Hà Nội",
+          image: "/assets/images/blog/quan-pho.jpg",
+          date: "05/03/2024",
+        },
+      ];
 
-        // Render popular posts
-        document.getElementById('popularPosts').innerHTML = popularPosts.map(post => `
+      // Render popular posts
+      document.getElementById("popularPosts").innerHTML = popularPosts
+        .map(
+          (post) => `
       <a href="#" class="popular-post">
         <img src="${post.image}" alt="${post.title}">
         <div class="popular-post-content">
@@ -527,8 +653,9 @@
           <small><i class="far fa-calendar me-2"></i>${post.date}</small>
         </div>
       </a>
-    `).join('');
+    `
+        )
+        .join("");
     </script>
-</body>
-
+  </body>
 </html>

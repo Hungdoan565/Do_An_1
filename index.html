@@ -267,6 +267,27 @@
               </div>
             </div>
           </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card" data-category="an-vat">
+              <img src="/assets/images/categories/an-vat.jpg" alt="Ăn Vặt" />
+              <div class="category-overlay">
+                <h4>Ăn Vặt</h4>
+                <p class="mb-0 category-count"></p>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-3">
+            <div class="category-card" data-category="mon-khai-vi">
+              <img
+                src="/assets/images/categories/khai-vi.jpg"
+                alt="Món Khai Vị"
+              />
+              <div class="category-overlay">
+                <h4>Khai Vị</h4>
+                <p class="mb-0 category-count"></p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </section>
@@ -392,6 +413,8 @@
               <li><a href="#">Món tráng miệng</a></li>
               <li><a href="#">Đồ uống</a></li>
               <li><a href="#">Món chay</a></li>
+              <li><a href="#">Ăn vặt</a></li>
+              <li><a href="#">Khai vị</a></li>
             </ul>
           </div>
           <div class="col-lg-3">
@@ -485,6 +508,14 @@
           name: "Món Chay",
           image: "/assets/images/categories/mon-chay.jpg",
         },
+        "an-vat": {
+          name: "Ăn Vặt",
+          image: "/assets/images/categories/an-vat.jpg",
+        },
+        "mon-khai-vi": {
+          name: "Món Khai Vị",
+          image: "/assets/images/categories/khai-vi.jpg",
+        },
       };
 
       // Map tag tiếng Việt sang slug
@@ -499,6 +530,9 @@
         )
           return "do-uong";
         if (t.includes("chay")) return "mon-chay";
+        if (t.includes("ăn vặt")) return "an-vat";
+        if (t.includes("khai vị") || t.includes("khai-vi"))
+          return "mon-khai-vi";
         return "";
       }
 
@@ -508,6 +542,8 @@
         "trang-mieng": 0,
         "do-uong": 0,
         "mon-chay": 0,
+        "an-vat": 0,
+        "mon-khai-vi": 0,
       };
       allRecipes.forEach((recipe) => {
         if (Array.isArray(recipe.tags)) {
@@ -518,29 +554,34 @@
         }
       });
 
-      // Render danh mục
+      // Render danh mục: 6 mục, 2 hàng, mỗi hàng 3 mục
       const categoryList = document.getElementById("category-list");
       if (categoryList) {
-        categoryList.innerHTML = Object.keys(categoryData)
-          .map(
-            (slug) => `
-          <div class="col-md-6 col-lg-3">
-            <div class="category-card" data-category="${slug}" style="cursor:pointer">
-              <img src="${categoryData[slug].image}" alt="${categoryData[slug].name}" />
-              <div class="category-overlay">
-                <h4>${categoryData[slug].name}</h4>
-                <p class="mb-0 category-count">${counts[slug]} công thức</p>
-              </div>
+        const slugs = Object.keys(categoryData);
+        let html = "";
+        for (let i = 0; i < slugs.length; i += 3) {
+          html += '<div class="row g-4 justify-content-center mb-2">';
+          for (let j = i; j < i + 3 && j < slugs.length; j++) {
+            const slug = slugs[j];
+            html += `
+        <div class="col-md-4 col-6 d-flex align-items-stretch">
+          <div class="category-card w-100" data-category="${slug}" style="cursor:pointer">
+            <img src="${categoryData[slug].image}" alt="${categoryData[slug].name}" />
+            <div class="category-overlay">
+              <h4>${categoryData[slug].name}</h4>
+              <p class="mb-0 category-count">${counts[slug]} công thức</p>
             </div>
           </div>
-        `
-          )
-          .join("");
+        </div>
+      `;
+          }
+          html += "</div>";
+        }
+        categoryList.innerHTML = html;
         // Thêm sự kiện click
         categoryList.querySelectorAll(".category-card").forEach((card) => {
           card.addEventListener("click", function () {
             const cat = card.getAttribute("data-category");
-            // Chuyển sang list.html với filter đúng danh mục
             window.location.href =
               "/pages/recipes/list.html?category=" + encodeURIComponent(cat);
           });

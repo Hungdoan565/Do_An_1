@@ -60,6 +60,20 @@
           font-size: 1.75rem;
         }
       }
+
+      /* Hiệu ứng mượt cho slider featured */
+      #featured-row.featured-fade-out {
+        opacity: 0;
+        transform: translateY(30px) scale(0.98);
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      #featured-row.featured-fade-in {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      }
     </style>
   </head>
 
@@ -415,7 +429,7 @@
         effect: "fade",
         speed: 1000,
         autoplay: {
-          delay: 4000,
+          delay: 2500,
           disableOnInteraction: false,
         },
         pagination: {
@@ -475,18 +489,17 @@
 
       // Map tag tiếng Việt sang slug
       function tagToSlug(tag) {
-        switch (tag.trim().toLowerCase()) {
-          case "món chính":
-            return "mon-chinh";
-          case "món tráng miệng":
-            return "trang-mieng";
-          case "đồ uống":
-            return "do-uong";
-          case "món chay":
-            return "mon-chay";
-          default:
-            return "";
-        }
+        const t = tag.trim().toLowerCase();
+        if (t.includes("chính")) return "mon-chinh";
+        if (t.includes("tráng miệng")) return "trang-mieng";
+        if (
+          t.includes("đồ uống") ||
+          t.includes("thức uống") ||
+          t.includes("uống")
+        )
+          return "do-uong";
+        if (t.includes("chay")) return "mon-chay";
+        return "";
       }
 
       // Đếm số lượng công thức theo category
@@ -576,7 +589,7 @@
       renderFeaturedRecipes();
 
       let featuredIndex = 0;
-      const FEATURED_PER_PAGE = 3;
+      const FEATURED_PER_PAGE = 6;
       let featuredTimer;
 
       function getFeaturedRecipes() {
@@ -621,11 +634,28 @@
         }
       }
 
+      // Hiệu ứng chuyển slider featured mượt hơn
+      function animateFeaturedTransition(direction = 1) {
+        const featuredRow = document.getElementById("featured-row");
+        if (!featuredRow) return;
+        // Thêm class animate-out để mờ dần
+        featuredRow.classList.add("featured-fade-out");
+        setTimeout(() => {
+          // Sau khi mờ dần, render slide mới và animate-in
+          renderFeaturedRecipesSlider();
+          featuredRow.classList.remove("featured-fade-out");
+          featuredRow.classList.add("featured-fade-in");
+          setTimeout(() => {
+            featuredRow.classList.remove("featured-fade-in");
+          }, 400);
+        }, 400);
+      }
+      // Thay thế next/prev bằng hiệu ứng animate
       function nextFeatured() {
         const featured = getFeaturedRecipes();
         featuredIndex += FEATURED_PER_PAGE;
         if (featuredIndex >= featured.length) featuredIndex = 0;
-        renderFeaturedRecipesSlider();
+        animateFeaturedTransition(1);
         resetFeaturedTimer();
       }
       function prevFeatured() {
@@ -633,12 +663,12 @@
         featuredIndex -= FEATURED_PER_PAGE;
         if (featuredIndex < 0)
           featuredIndex = Math.max(0, featured.length - FEATURED_PER_PAGE);
-        renderFeaturedRecipesSlider();
+        animateFeaturedTransition(-1);
         resetFeaturedTimer();
       }
       function resetFeaturedTimer() {
         if (featuredTimer) clearInterval(featuredTimer);
-        featuredTimer = setInterval(nextFeatured, 3000);
+        featuredTimer = setInterval(nextFeatured, 3500);
       }
       document.getElementById("featured-next").onclick = nextFeatured;
       document.getElementById("featured-prev").onclick = prevFeatured;

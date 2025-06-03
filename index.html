@@ -644,6 +644,31 @@
       document.getElementById("featured-prev").onclick = prevFeatured;
       renderFeaturedRecipesSlider();
       resetFeaturedTimer();
+
+      // --- CLICK VÀO CARD CÔNG THỨC NỔI BẬT ĐỂ ĐI ĐẾN TRANG CHI TIẾT ---
+      document.addEventListener("DOMContentLoaded", function () {
+        const featuredRow = document.getElementById("featured-row");
+        if (featuredRow) {
+          featuredRow.addEventListener("click", function (e) {
+            let card = e.target;
+            while (card && !card.classList.contains("featured-card")) {
+              card = card.parentElement;
+            }
+            if (card) {
+              // Lấy tên món từ thẻ h5
+              const title = card
+                .querySelector(".card-title")
+                ?.textContent?.trim();
+              if (!title) return;
+              // Tìm đúng recipe trong allRecipes
+              const recipe = allRecipes.find((r) => r.title === title);
+              if (recipe && recipe.id) {
+                window.location.href = `/pages/recipes/detail.html?id=${recipe.id}`;
+              }
+            }
+          });
+        }
+      });
     </script>
   </body>
 </html>

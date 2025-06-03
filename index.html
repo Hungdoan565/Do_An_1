@@ -24,7 +24,6 @@
       rel="stylesheet"
     />
     <style>
-      
       .featured-slider-nav {
         display: flex;
         justify-content: center;
@@ -528,7 +527,9 @@
         categoryList.querySelectorAll(".category-card").forEach((card) => {
           card.addEventListener("click", function () {
             const cat = card.getAttribute("data-category");
-            window.location.href = "/pages/recipes/list.html?category=" + cat;
+            // Chuyển sang list.html với filter đúng danh mục
+            window.location.href =
+              "/pages/recipes/list.html?category=" + encodeURIComponent(cat);
           });
         });
       }

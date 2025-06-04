@@ -253,6 +253,48 @@
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
         text-decoration: none;
       }
+      .navbar-nav .btn {
+        font-weight: 600;
+        border-radius: 8px;
+        margin-left: 10px;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      .navbar-nav .btn-outline-primary {
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        background: white;
+      }
+      .navbar-nav .btn-outline-primary:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+      .navbar-nav .btn-primary {
+        background: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        color: white;
+      }
+      .navbar-nav .btn-primary:hover {
+        background: #1abc9c;
+        border-color: #1abc9c;
+        color: white;
+      }
+      .navbar-nav .btn-danger {
+        background: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        color: #fff;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      .navbar-nav .btn-danger:hover {
+        background: #1abc9c;
+        border-color: #1abc9c;
+        color: #fff;
+      }
+      @media (max-width: 991px) {
+        .navbar-nav .btn {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+      }
       footer {
         background: linear-gradient(
           45deg,
@@ -302,10 +344,21 @@
             <li class="nav-item">
               <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/pages/auth/login.html" id="loginBtn"
-                >Đăng nhập</a
+            <li class="nav-item ms-3">
+              <a
+                class="btn btn-outline-primary px-4 py-2 ms-2"
+                href="/pages/auth/login.html"
+                id="loginBtn"
               >
+                Đăng nhập
+              </a>
+              <a
+                class="btn btn-primary px-4 py-2 ms-2"
+                href="/pages/auth/register.html"
+                id="registerBtn"
+              >
+                Đăng ký
+              </a>
             </li>
           </ul>
         </div>
@@ -589,7 +642,7 @@
           title: "5 Món Chay Ngon Cho Ngày Rằm",
           excerpt:
             "Gợi ý 5 món chay thơm ngon, đầy đủ dinh dưỡng cho ngày rằm. Dễ nấu và phù hợp với khẩu vị người Việt...",
-          image: "/assets/images/blog/mon-chay.jpg",
+          image: "/assets/images/blog/top5.jpg",
           author: "Sư Cô Hương",
           date: "12/03/2024",
           readTime: "6 phút đọc",

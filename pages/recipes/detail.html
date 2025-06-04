@@ -91,16 +91,35 @@
     <!-- Recipe Header -->
     <header class="recipe-header">
       <div class="container">
-        <h1 class="recipe-title">Phở Bò Nam Định</h1>
+        <h1 class="recipe-title"></h1>
         <div class="recipe-meta">
-          <span><i class="fas fa-user"></i> Đầu Bếp Việt</span>
-          <span><i class="fas fa-calendar"></i> 15/03/2024</span>
-          <span><i class="fas fa-clock"></i> 45 phút</span>
-          <span><i class="fas fa-signal"></i> Trung bình</span>
-          <span><i class="fas fa-star"></i> 4.8 (156 đánh giá)</span>
+          <span><i class="fas fa-user"></i> </span>
+          <span><i class="fas fa-calendar"></i> </span>
+          <span><i class="fas fa-clock"></i> </span>
+          <span><i class="fas fa-signal"></i> </span>
+          <span><i class="fas fa-star"></i> </span>
         </div>
-        <div class="recipe-image">
-          <img src="/assets/images/recipes/pho-bo.jpg" alt="Phở Bò Nam Định" />
+        <div
+          class="recipe-image"
+          style="
+            max-width: 520px;
+            margin: 0 auto;
+            border-radius: 24px;
+            overflow: hidden;
+            box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+            height: 340px;
+          "
+        >
+          <img
+            src="/assets/images/"
+            alt=""
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              border-radius: 0;
+            "
+          />
         </div>
       </div>
     </header>
@@ -410,11 +429,25 @@
     <script src="/assets/data/recipes_AnChay.js"></script>
     <script src="/assets/data/recipes_AnVat.js"></script>
     <script src="/assets/data/recipes_KhaiVi.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/navbar-user.js"></script>
     <script>
       // Initialize AOS
       AOS.init({
         duration: 800,
         once: true,
+      });
+
+      // --- Hiển thị nút user/avatar, ẩn nút đăng nhập/đăng ký nếu đã đăng nhập ---
+      document.addEventListener("DOMContentLoaded", function () {
+        const user = window.getCurrentUser && window.getCurrentUser();
+        const loginBtn = document.getElementById("loginBtn");
+        const registerBtn = document.getElementById("registerBtn");
+        if (user) {
+          if (loginBtn) loginBtn.style.display = "none";
+          if (registerBtn) registerBtn.style.display = "none";
+          // Hiển thị avatar + tên + dropdown nếu muốn (tùy bạn copy code từ profile.html)
+        }
       });
 
       // --- Render động chi tiết công thức ---

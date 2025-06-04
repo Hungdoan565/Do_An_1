@@ -16,246 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      :root {
-        --primary-color: #d61c4e;
-        --secondary-color: #f77e21;
-        --accent-color: #fab207;
-        --text-color: #1f1717;
-        --light-gray: #f5f5f5;
-      }
-
-      body {
-        font-family: "Be Vietnam Pro", sans-serif;
-        color: var(--text-color);
-        background-color: var(--light-gray);
-      }
-
-      .navbar {
-        background-color: rgba(255, 255, 255, 0.95) !important;
-        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-      }
-
-      .navbar-brand {
-        font-weight: 700;
-        color: var(--primary-color) !important;
-      }
-
-      .nav-link {
-        font-weight: 500;
-        color: var(--text-color) !important;
-        margin: 0 0.5rem;
-        position: relative;
-      }
-
-      .nav-link::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 0;
-        height: 2px;
-        background: var(--primary-color);
-        transition: width 0.3s ease;
-      }
-
-      .nav-link:hover::after {
-        width: 100%;
-      }
-
-      .profile-header {
-        background: white;
-        padding: 40px 0;
-        margin-top: 76px;
-      }
-
-      .profile-cover {
-        height: 200px;
-        background: linear-gradient(
-          135deg,
-          rgba(214, 28, 78, 0.8),
-          rgba(247, 126, 33, 0.8)
-        );
-        background-size: cover;
-        background-position: center;
-        border-radius: 20px;
-        position: relative;
-      }
-
-      .profile-avatar {
-        width: 150px;
-        height: 150px;
-        border-radius: 50%;
-        border: 5px solid white;
-        position: absolute;
-        bottom: -75px;
-        left: 50%;
-        transform: translateX(-50%);
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-      }
-
-      .profile-info {
-        text-align: center;
-        margin-top: 90px;
-      }
-
-      .profile-stats {
-        display: flex;
-        justify-content: center;
-        gap: 30px;
-        margin-top: 20px;
-      }
-
-      .stat-item {
-        text-align: center;
-      }
-
-      .stat-number {
-        font-size: 1.5rem;
-        font-weight: 700;
-        color: var(--primary-color);
-      }
-
-      .stat-label {
-        color: #666;
-        font-size: 0.9rem;
-      }
-
-      .profile-nav {
-        background: white;
-        padding: 20px 0;
-        margin-bottom: 40px;
-      }
-
-      .nav-pills .nav-link {
-        color: var(--text-color);
-        padding: 10px 20px;
-        border-radius: 10px;
-        margin: 0 5px;
-      }
-
-      .nav-pills .nav-link.active {
-        background-color: var(--primary-color);
-        color: white !important;
-      }
-
-      .recipe-card {
-        background: white;
-        border-radius: 15px;
-        overflow: hidden;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-        transition: all 0.3s ease;
-        margin-bottom: 30px;
-      }
-
-      .recipe-card:hover {
-        transform: translateY(-5px);
-      }
-
-      .recipe-image {
-        height: 200px;
-        object-fit: cover;
-      }
-
-      .recipe-content {
-        padding: 20px;
-      }
-
-      .recipe-title {
-        font-weight: 600;
-        margin-bottom: 10px;
-      }
-
-      .recipe-meta {
-        display: flex;
-        align-items: center;
-        gap: 15px;
-        color: #666;
-        font-size: 0.9rem;
-      }
-
-      .recipe-meta i {
-        color: var(--primary-color);
-      }
-
-      .recipe-actions {
-        margin-top: 15px;
-        display: flex;
-        gap: 10px;
-      }
-
-      .action-btn {
-        padding: 8px 15px;
-        border-radius: 8px;
-        border: none;
-        font-size: 0.9rem;
-        transition: all 0.3s ease;
-      }
-
-      .edit-btn {
-        background: var(--light-gray);
-        color: var(--text-color);
-      }
-
-      .delete-btn {
-        background: #dc3545;
-        color: white;
-      }
-
-      .saved-recipe {
-        opacity: 0.7;
-      }
-
-      .saved-badge {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        background: var(--primary-color);
-        color: white;
-        padding: 5px 10px;
-        border-radius: 5px;
-        font-size: 0.8rem;
-      }
-
-      footer {
-        background: linear-gradient(
-          45deg,
-          var(--primary-color),
-          var(--secondary-color)
-        );
-        color: white;
-        padding: 4rem 0 2rem;
-        margin-top: 50px;
-      }
-
-      .empty-state {
-        text-align: center;
-        padding: 40px;
-        background: white;
-        border-radius: 15px;
-        margin-bottom: 30px;
-      }
-
-      .empty-state i {
-        font-size: 3rem;
-        color: var(--primary-color);
-        margin-bottom: 20px;
-      }
-
-      .btn-primary {
-        background: var(--primary-color);
-        border: none;
-        padding: 10px 20px;
-        border-radius: 10px;
-        font-weight: 500;
-        transition: all 0.3s ease;
-      }
-
-      .btn-primary:hover {
-        background: var(--secondary-color);
-        transform: translateY(-2px);
-      }
-    </style>
+    <link rel="stylesheet" href="/assets/css/pages/profile.css" />
   </head>
 
   <body>
@@ -322,24 +83,25 @@
             src="/assets/images/users/avatar.jpg"
             alt="Avatar"
             class="profile-avatar"
+            id="profileAvatar"
           />
         </div>
         <div class="profile-info">
-          <h1 class="h3 fw-bold">Nguyễn Văn A</h1>
-          <p class="text-muted mb-3">
+          <h1 class="h3 fw-bold" id="profileName">Nguyễn Văn A</h1>
+          <p class="text-muted mb-3" id="profileBio">
             Đam mê nấu ăn và khám phá ẩm thực Việt Nam
           </p>
           <div class="profile-stats">
             <div class="stat-item">
-              <div class="stat-number">25</div>
+              <div class="stat-number" id="profileRecipeCount">25</div>
               <div class="stat-label">Công thức</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">1.2K</div>
+              <div class="stat-number" id="profileFollowerCount">1.2K</div>
               <div class="stat-label">Người theo dõi</div>
             </div>
             <div class="stat-item">
-              <div class="stat-number">156</div>
+              <div class="stat-number" id="profileFollowingCount">156</div>
               <div class="stat-label">Đang theo dõi</div>
             </div>
           </div>
@@ -575,8 +337,8 @@
       <div class="container">
         <div class="row g-4">
           <div class="col-lg-4">
-            <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
-            <p class="mb-4">
+            <h5>Về Chúng Tôi</h5>
+            <p>
               Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
               Việt Nam, nơi kết nối những người đam mê ẩm thực.
             </p>
@@ -588,73 +350,41 @@
             </div>
           </div>
           <div class="col-lg-2">
-            <h5 class="mb-3 fw-bold">Khám Phá</h5>
+            <h5>Khám Phá</h5>
             <ul class="list-unstyled">
-              <li class="mb-2">
-                <a
-                  href="/pages/recipes/list.html"
-                  class="text-white text-decoration-none"
-                  >Công thức</a
-                >
-              </li>
-              <li class="mb-2">
-                <a
-                  href="/pages/blog.html"
-                  class="text-white text-decoration-none"
-                  >Blog</a
-                >
-              </li>
-              <li class="mb-2">
-                <a
-                  href="/pages/about.html"
-                  class="text-white text-decoration-none"
-                  >Về chúng tôi</a
-                >
-              </li>
-              <li class="mb-2">
-                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
-              </li>
+              <li><a href="/pages/recipes/list.html">Công thức</a></li>
+              <li><a href="/pages/blog.html">Blog</a></li>
+              <li><a href="/pages/about.html">Về chúng tôi</a></li>
+              <li><a href="#">Liên hệ</a></li>
             </ul>
           </div>
           <div class="col-lg-3">
-            <h5 class="mb-3 fw-bold">Danh Mục</h5>
+            <h5>Danh Mục</h5>
             <ul class="list-unstyled">
-              <li class="mb-2">
-                <a href="#" class="text-white text-decoration-none"
-                  >Món chính</a
-                >
-              </li>
-              <li class="mb-2">
-                <a href="#" class="text-white text-decoration-none"
-                  >Món tráng miệng</a
-                >
-              </li>
-              <li class="mb-2">
-                <a href="#" class="text-white text-decoration-none">Đồ uống</a>
-              </li>
-              <li class="mb-2">
-                <a href="#" class="text-white text-decoration-none">Món chay</a>
-              </li>
+              <li><a href="#">Món chính</a></li>
+              <li><a href="#">Món tráng miệng</a></li>
+              <li><a href="#">Đồ uống</a></li>
+              <li><a href="#">Món chay</a></li>
+              <li><a href="#">Ăn vặt</a></li>
+              <li><a href="#">Khai vị</a></li>
             </ul>
           </div>
           <div class="col-lg-3">
-            <h5 class="mb-3 fw-bold">Liên Hệ</h5>
+            <h5>Liên Hệ</h5>
             <ul class="list-unstyled">
-              <li class="mb-2">
-                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              <li>
+                <i class="fas fa-envelope me-2"></i> monngonvietnam@gmail.com
               </li>
-              <li class="mb-2">
-                <i class="fas fa-phone me-2"></i> 0123.456.789
-              </li>
-              <li class="mb-2">
-                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              <li><i class="fas fa-phone me-2"></i> 0909.090.909</li>
+              <li>
+                <i class="fas fa-map-marker-alt me-2"></i> Cần Thơ, Việt Nam
               </li>
             </ul>
           </div>
         </div>
-        <hr class="my-4 bg-white" />
+        <hr />
         <div class="text-center">
-          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+          <p class="mb-0">© 2025 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
         </div>
       </div>
     </footer>
@@ -732,7 +462,44 @@
           };
         });
       }
+      function renderUserInfo() {
+        const user = getCurrentUser();
+        // Navbar
+        if (user) {
+          const navbarAvatar = document.getElementById("navbarAvatar");
+          const navbarUsername = document.getElementById("navbarUsername");
+          if (navbarAvatar && user.avatar) navbarAvatar.src = user.avatar;
+          if (navbarUsername)
+            navbarUsername.textContent =
+              user.name || user.username || user.email || "";
+        }
+        // Profile header
+        if (user) {
+          const profileAvatar = document.getElementById("profileAvatar");
+          const profileName = document.getElementById("profileName");
+          const profileBio = document.getElementById("profileBio");
+          if (profileAvatar && user.avatar) profileAvatar.src = user.avatar;
+          if (profileName)
+            profileName.textContent =
+              user.name || user.username || user.email || "";
+          if (profileBio) profileBio.textContent = user.bio || "";
+          // Số liệu (nếu có)
+          if (user.recipeCount) {
+            const el = document.getElementById("profileRecipeCount");
+            if (el) el.textContent = user.recipeCount;
+          }
+          if (user.followerCount) {
+            const el = document.getElementById("profileFollowerCount");
+            if (el) el.textContent = user.followerCount;
+          }
+          if (user.followingCount) {
+            const el = document.getElementById("profileFollowingCount");
+            if (el) el.textContent = user.followingCount;
+          }
+        }
+      }
       document.addEventListener("DOMContentLoaded", function () {
+        renderUserInfo();
         // Render khi chuyển tab hoặc load trang
         document
           .querySelector('button[data-bs-target="#saved"]')

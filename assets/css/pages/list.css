@@ -467,7 +467,7 @@
   background-size: cover;
   background-position: center;
   box-shadow: 0 4px 32px 0 rgba(0,0,0,0.10);
-  transition: transform 0.28s cubic-bezier(.4,1.4,.6,1), box-shadow 0.28s cubic-bezier(.4,1.4,.6,1);
+  transition: transform 0.28s cubic-bezier(.4,1.4,.6,1), box-shadow 0.28s cubic-bezier(.4,1.4,0.6,1);
   cursor: pointer;
   min-height: 220px;
   display: block;
@@ -539,4 +539,80 @@
 }
 .page-header .btn-dark:hover .fa-plus-circle {
   color: #fff !important;
+}
+/* Featured vertical card for nổi bật section */
+.featured-vertical-card {
+  border-left: 6px solid var(--primary-color);
+  transition: box-shadow 0.18s;
+  cursor: pointer;
+}
+.featured-vertical-card:hover {
+  box-shadow: 0 6px 32px 0 rgba(214,28,78,0.13);
+  background: #fff6f8;
+}
+.featured-thumb {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 14px;
+  box-shadow: 0 2px 8px 0 rgba(0,0,0,0.08);
+}
+.featured-rank {
+  font-size: 2.2rem;
+  color: #d61c4e !important;
+  min-width: 48px;
+  text-align: center;
+  font-weight: 700;
+}
+.category-featured-filter .btn.active, .category-featured-filter .btn:focus {
+  background: var(--primary-color) !important;
+  color: #fff !important;
+  border-color: var(--primary-color) !important;
+}
+.category-featured-filter .btn {
+  border-radius: 20px;
+  font-weight: 500;
+  padding: 6px 18px;
+  margin-bottom: 4px;
+  background: #fff;
+  color: var(--primary-color);
+  border: 1.5px solid var(--primary-color);
+  transition: background 0.2s, color 0.2s, border 0.2s;
+}
+.category-featured-filter .btn:hover {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+/* Nút xem chi tiết nổi bật đồng bộ style với list */
+.featured-vertical-card .btn-outline-primary {
+  border-radius: 8px;
+  border-width: 2px;
+  font-weight: 600;
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+  background: #fff;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+}
+.featured-vertical-card .btn-outline-primary:hover, .featured-vertical-card .btn-outline-primary:focus {
+  background: var(--primary-color);
+  color: #fff;
+  border-color: var(--primary-color);
+}
+@media (max-width: 767px) {
+  .featured-vertical-card {
+    flex-direction: column;
+    align-items: flex-start !important;
+    text-align: left;
+    padding: 1.2rem 0.7rem;
+  }
+  .featured-thumb {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 0.7rem;
+  }
+  .featured-rank {
+    font-size: 1.5rem;
+    min-width: 36px;
+  }
 }

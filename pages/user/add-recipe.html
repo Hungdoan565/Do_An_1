@@ -711,19 +711,21 @@
     <script>
       // Navbar: Hiển thị nút đăng nhập/đăng ký hoặc tên user + đăng xuất + link admin nếu là admin
       function renderNavbarUser() {
-        const nav = document.querySelector('.navbar-nav');
+        const nav = document.querySelector(".navbar-nav");
         if (!nav) return;
         const user = window.getCurrentUser();
         // Xóa các nav-item user/profile cũ (chỉ giữ lại các nav-item không phải user/profile)
-        nav.querySelectorAll('.nav-item').forEach(e => e.remove());
-        let html = '';
+        nav.querySelectorAll(".nav-item").forEach((e) => e.remove());
+        let html = "";
         html += `<li class="nav-item"><a class="nav-link" href="/index.html">Trang chủ</a></li>`;
         html += `<li class="nav-item"><a class="nav-link" href="/pages/recipes/list.html">Công thức</a></li>`;
         html += `<li class="nav-item"><a class="nav-link" href="/pages/blog.html">Blog</a></li>`;
         html += `<li class="nav-item"><a class="nav-link" href="/pages/about.html">Về chúng tôi</a></li>`;
         if (user) {
-          html += `<li class="nav-item"><span class="nav-link">👤 ${user.username}${user.role === 'admin' ? ' (Admin)' : ''}</span></li>`;
-          if (user.role === 'admin') {
+          html += `<li class="nav-item"><span class="nav-link">👤 ${
+            user.username
+          }${user.role === "admin" ? " (Admin)" : ""}</span></li>`;
+          if (user.role === "admin") {
             html += `<li class="nav-item"><a class="nav-link" href="/pages/admin/dashboard.html">Quản trị</a></li>`;
           }
           html += `<li class="nav-item"><a class="nav-link" href="#" id="logoutNav">Đăng xuất</a></li>`;
@@ -731,15 +733,17 @@
           html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a></li>`;
           html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/register.html">Đăng ký</a></li>`;
         }
-        nav.insertAdjacentHTML('beforeend', html);
+        nav.insertAdjacentHTML("beforeend", html);
         // Đăng xuất
-        document.getElementById('logoutNav')?.addEventListener('click', function(e) {
-          e.preventDefault();
-          window.logoutUser();
-          window.location.href = '/index.html';
-        });
+        document
+          .getElementById("logoutNav")
+          ?.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.logoutUser();
+            window.location.href = "/index.html";
+          });
       }
-      document.addEventListener('DOMContentLoaded', renderNavbarUser);
+      document.addEventListener("DOMContentLoaded", renderNavbarUser);
 
       // Điều hướng hợp lý: kiểm tra đăng nhập trước khi cho phép truy cập trang thêm công thức
       function isLoggedIn() {
@@ -747,7 +751,8 @@
         return !!window.getCurrentUser();
       }
       if (!isLoggedIn()) {
-        window.location.href = '/pages/auth/login.html?redirect=/pages/user/add-recipe.html';
+        window.location.href =
+          "/pages/auth/login.html?redirect=/pages/user/add-recipe.html";
       }
     </script>
   </body>

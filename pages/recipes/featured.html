@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Công Thức Nổi Bật - Món Ngon Việt Nam</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/pages/list.css" />
+    <style>
+      .featured-page-header {
+        background: linear-gradient(120deg, #e9647a 0%, #f7b36a 100%);
+        padding: 2.5rem 0 1.5rem 0;
+      }
+      .featured-back-btn {
+        margin-bottom: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item ms-3">
+              <a
+                class="btn btn-outline-primary px-4 py-2 ms-2"
+                href="/pages/auth/login.html"
+                id="loginBtn"
+                >Đăng nhập</a
+              >
+              <a
+                class="btn btn-primary px-4 py-2 ms-2"
+                href="/pages/auth/register.html"
+                id="registerBtn"
+                >Đăng ký</a
+              >
+            </li>
+            <li
+              class="nav-item ms-2"
+              id="addRecipeNavBtn"
+              style="display: none"
+            >
+              <a
+                class="btn btn-primary px-4 py-2"
+                href="/pages/user/add-recipe.html"
+                ><i class="fas fa-plus-circle me-2"></i>Chia sẻ công thức</a
+              >
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    <!-- Header -->
+    <header class="featured-page-header mt-5">
+      <div class="container">
+        <a
+          href="/pages/recipes/list.html"
+          class="btn btn-outline-light featured-back-btn"
+          ><i class="fas fa-arrow-left me-2"></i>Quay lại tất cả công thức</a
+        >
+        <h1 class="display-5 fw-bold text-white mb-2">Công Thức Nổi Bật</h1>
+        <p class="lead text-white mb-0">
+          <i class="fas fa-star me-2"></i>Top công thức được đánh giá cao nhất
+          từ cộng đồng, chọn lọc theo từng danh mục.
+        </p>
+      </div>
+    </header>
+    <!-- Section: Công Thức Nổi Bật Theo Danh Mục -->
+    <section class="featured-by-category my-5">
+      <div class="container">
+        <div class="d-flex flex-wrap align-items-center mb-3 gap-2">
+          <h2 class="section-title mb-0 me-3">Công Thức Nổi Bật</h2>
+          <div class="category-featured-filter d-flex gap-2 flex-wrap">
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn active"
+              data-cat="all"
+            >
+              Tất cả
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn"
+              data-cat="mon-chinh"
+            >
+              Món chính
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn"
+              data-cat="trang-mieng"
+            >
+              Tráng miệng
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn"
+              data-cat="do-uong"
+            >
+              Đồ uống
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn"
+              data-cat="mon-chay"
+            >
+              Món chay
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn"
+              data-cat="an-vat"
+            >
+              Ăn vặt
+            </button>
+            <button
+              class="btn btn-outline-primary btn-sm featured-cat-btn"
+              data-cat="khai-vi"
+            >
+              Khai vị
+            </button>
+          </div>
+        </div>
+        <div id="featuredByCategoryList"></div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer
+      class="footer mt-5 py-5"
+      style="
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      "
+    >
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
+            <p class="mb-4 text-white">
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links d-flex gap-3">
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Đồ uống</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Món chay</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
+            <ul class="list-unstyled text-white">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              </li>
+            </ul>
+          </div>
+        </div>
+        <hr class="my-4 bg-white" />
+        <div class="text-center text-white">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        </div>
+      </div>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/data/recipes_MonChinh.js"></script>
+    <script src="/assets/data/recipes_TrangMieng.js"></script>
+    <script src="/assets/data/recipes_ThucUong.js"></script>
+    <script src="/assets/data/recipes_AnChay.js"></script>
+    <script src="/assets/data/recipes_AnVat.js"></script>
+    <script src="/assets/data/recipes_KhaiVi.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/navbar-user.js"></script>
+    <script>
+      // --- FEATURED BY CATEGORY ---
+      const recipes = [
+        ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+        ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
+        ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+        ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+        ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+        ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+      ];
+      function getCategorySlugFromTags(tags) {
+        if (!Array.isArray(tags)) return "";
+        const t = tags.map((tag) => tag.toLowerCase()).join(" ");
+        if (t.includes("món chính")) return "mon-chinh";
+        if (t.includes("tráng miệng")) return "trang-mieng";
+        if (
+          t.includes("đồ uống") ||
+          t.includes("thức uống") ||
+          t.includes("uống")
+        )
+          return "do-uong";
+        if (t.includes("món chay")) return "mon-chay";
+        if (t.includes("ăn vặt")) return "an-vat";
+        if (t.includes("khai vị") || t.includes("khai-vi")) return "khai-vi";
+        return "";
+      }
+      function getFeaturedRecipesByCategory(catSlug = "all", topN = 4) {
+        let arr = recipes.filter(
+          (r) => typeof r.rating === "number" && r.ratingCount >= 10
+        );
+        if (catSlug !== "all") {
+          arr = arr.filter((r) => getCategorySlugFromTags(r.tags) === catSlug);
+        }
+        arr = arr.sort(
+          (a, b) =>
+            (b.rating || 0) - (a.rating || 0) ||
+            (b.ratingCount || 0) - (a.ratingCount || 0)
+        );
+        return arr.slice(0, topN);
+      }
+      function renderFeaturedByCategory(catSlug = "all") {
+        const featured = getFeaturedRecipesByCategory(catSlug);
+        const container = document.getElementById("featuredByCategoryList");
+        if (!container) return;
+        if (!featured.length) {
+          container.innerHTML =
+            '<div class="alert alert-warning">Không có công thức nổi bật cho danh mục này.</div>';
+          return;
+        }
+        container.innerHTML = featured
+          .map(
+            (r, idx) => `
+          <div class="featured-vertical-card d-flex align-items-center mb-4 p-3 bg-white rounded shadow-sm flex-wrap flex-md-nowrap">
+            <div class="featured-rank me-4 display-5 fw-bold text-primary" style="min-width:48px">${
+              idx + 1
+            }</div>
+            <img src="${r.image}" alt="${
+              r.title
+            }" class="featured-thumb rounded me-4" style="width:100px;height:100px;object-fit:cover">
+            <div class="flex-grow-1">
+              <div class="d-flex align-items-center mb-1 flex-wrap">
+                <h4 class="mb-0 me-2">${r.title}</h4>
+                <span class="badge bg-warning text-dark ms-1">Nổi bật</span>
+              </div>
+              <div class="mb-2 text-muted small">${r.description || ""}</div>
+              <div class="d-flex align-items-center gap-3 flex-wrap">
+                <span><i class="fas fa-star text-warning"></i> ${r.rating} (${
+              r.ratingCount || 0
+            } đánh giá)</span>
+                <span><i class="fas fa-clock"></i> ${r.time} phút</span>
+                <span><i class="fas fa-user"></i> ${r.author || ""}</span>
+              </div>
+            </div>
+            <div class="d-flex align-items-center justify-content-center ms-md-4 mt-3 mt-md-0" style="min-width:140px;">
+              <a href="/pages/recipes/detail.html?id=${
+                r.id
+              }" class="btn btn-outline-primary w-100">Xem chi tiết</a>
+            </div>
+          </div>
+        `
+          )
+          .join("");
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        renderFeaturedByCategory("all");
+        document.querySelectorAll(".featured-cat-btn").forEach((btn) => {
+          btn.addEventListener("click", function () {
+            document
+              .querySelectorAll(".featured-cat-btn")
+              .forEach((b) => b.classList.remove("active"));
+            this.classList.add("active");
+            renderFeaturedByCategory(this.dataset.cat);
+          });
+        });
+      });
+    </script>
+  </body>
+</html>

@@ -208,7 +208,7 @@ const recipesThucUong = [
     {
       "id": "nuoc-cam-ep",
       "title": "Nước Cam Ép",
-      "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg",
+      "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg",
       "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng. Món uống giải nhiệt mùa hè, dễ làm tại nhà, tốt cho sức khỏe.",
       "time": 5,
       "rating": 4.7
@@ -275,7 +275,7 @@ const recipesThucUong = [
     {
       "id": "sinh-to-dau",
       "title": "Sinh Tố Dâu",
-      "image": "/assets/images/mon-an/thuc-uong/sinhto_dau.jpg",
+      "image": "/assets/images/mon-an/thuc_uong/sinhto_dau.jpg",
       "description": "Sinh tố dâu tây tươi, vị chua ngọt, màu sắc bắt mắt.",
       "time": 10,
       "rating": 4.7
@@ -291,7 +291,7 @@ const recipesThucUong = [
     {
       "id": "nuoc-dua-tuoi",
       "title": "Nước Dừa Tươi",
-      "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg",
+      "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg",
       "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất.",
       "time": 3,
       "rating": 4.7
@@ -351,7 +351,7 @@ const recipesThucUong = [
     {
       "id": "tra-sua",
       "title": "Trà Sữa Trân Châu Đường Đen",
-      "image": "/assets/images/mon-an/thuc_uong/trasua.jpg",
+      "image": "/assets/images/mon-an/thuc-uong/trasua.jpg",
       "description": "Trà sữa thơm béo, trân châu dai ngọt, vị đường đen đặc trưng.",
       "time": 20,
       "rating": 4.9
@@ -378,7 +378,7 @@ const recipesThucUong = [
     "id": "tra-sua",
     "title": "Trà Sữa Trân Châu Đường Đen",
     "description": "Trà sữa thơm béo, trân châu dai ngọt, vị đường đen đặc trưng. Món uống giải nhiệt mùa hè, dễ làm tại nhà, phù hợp với các bạn trẻ.",
-    "image": "/assets/images/mon-an/thuc_uong/trasua.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/trasua.jpg",
     "time": 20,
     "rating": 4.9,
     "ratingCount": 120,
@@ -411,7 +411,7 @@ const recipesThucUong = [
     "id": "sinh-to-bo",
     "title": "Sinh Tố Bơ",
     "description": "Sinh tố bơ mịn, béo ngậy, bổ dưỡng cho mùa hè nóng bức. Món uống giải nhiệt dễ làm tại nhà, phù hợp với mọi lứa tuổi.",
-    "image": "/assets/images/mon-an/thuc_uong/sinhto_bo.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/sinhto_bo.jpg",
     "time": 10,
     "rating": 4.3,
     "ratingCount": 95,
@@ -444,7 +444,7 @@ const recipesThucUong = [
     "id": "nuoc-cam-ep",
     "title": "Nước Cam Ép",
     "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng và giải nhiệt mùa hè. Nước cam ép thơm ngon, bổ dưỡng, thích hợp cho bữa sáng hoặc giải khát.",
-    "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg",
     "time": 5,
     "rating": 4.4,
     "ratingCount": 80,
@@ -459,8 +459,10 @@ const recipesThucUong = [
       "Đá viên"
     ],
     "steps": [
-      {"title": "Vắt cam", "desc": "Cam bổ đôi, vắt lấy nước, lọc bỏ hạt."},
-      {"title": "Pha nước cam", "desc": "Thêm đường, khuấy đều, cho đá viên vào ly."}
+      {"title": "Chọn cam và chuẩn bị nguyên liệu", "desc": "Chọn cam tươi mọng nước, rửa sạch. Chuẩn bị đường, đá viên."},
+      {"title": "Vắt cam", "desc": "Cam bổ đôi, vắt lấy nước, lọc bỏ hạt và tép cam nếu muốn."},
+      {"title": "Pha nước cam", "desc": "Cho nước cam vào ly, thêm đường khuấy tan. Có thể thêm chút nước lọc nếu muốn vị dịu hơn."},
+      {"title": "Hoàn thiện và thưởng thức", "desc": "Thêm đá viên vào ly nước cam, khuấy đều và thưởng thức ngay khi còn lạnh."}
     ],
     "comments": [
       {"user": "Hồng Nhung", "avatar": "/assets/images/users/user-14.jpg", "rating": 5, "text": "Nước cam tươi, vị ngọt thanh, rất thích!"}
@@ -474,7 +476,7 @@ const recipesThucUong = [
     "id": "nuoc-mia",
     "title": "Nước Mía",
     "description": "Nước mía ngọt mát, giải nhiệt mùa hè, thêm tắc thơm ngon và bổ dưỡng. Món nước giải khát phổ biến ở các quán vỉa hè, dễ làm tại nhà.",
-    "image": "/assets/images/mon-an/thuc_uong/nuoc_mia.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/nuoc_mia.jpg",
     "time": 5,
     "rating": 4.6,
     "ratingCount": 60,
@@ -489,7 +491,10 @@ const recipesThucUong = [
       "Đá viên"
     ],
     "steps": [
-      {"title": "Pha nước mía tắc", "desc": "Vắt tắc lấy nước, cho vào nước mía, khuấy đều, thêm đá viên."}
+      {"title": "Chọn mía và tắc", "desc": "Chọn mía tươi, rửa sạch. Tắc (quất) rửa sạch, cắt đôi."},
+      {"title": "Ép nước mía", "desc": "Dùng máy ép lấy nước mía tươi, lọc qua rây nếu cần."},
+      {"title": "Pha nước mía tắc", "desc": "Vắt tắc lấy nước, cho vào nước mía, khuấy đều."},
+      {"title": "Hoàn thiện và thưởng thức", "desc": "Thêm đá viên vào ly nước mía tắc, khuấy đều và thưởng thức lạnh."}
     ],
     "comments": [
       {"user": "Quốc Bảo", "avatar": "/assets/images/users/user-15.jpg", "rating": 4, "text": "Nước mía tắc mát lạnh, rất hợp mùa hè!"}
@@ -503,7 +508,7 @@ const recipesThucUong = [
     "id": "chanh-mat-ong",
     "title": "Chanh Mật Ong",
     "description": "Nước chanh mật ong thanh mát, tốt cho sức khỏe, tăng đề kháng",
-    "image": "/assets/images/mon-an/thuc_uong/chanhmatong.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/chanhmatong.jpg",
     "time": 7,
     "rating": 4.1,
     "ratingCount": 70,
@@ -519,7 +524,10 @@ const recipesThucUong = [
       "Đá viên (tùy thích)"
     ],
     "steps": [
-      {"title": "Pha nước chanh mật ong", "desc": "Vắt chanh lấy nước, hòa với mật ong, nước ấm, khuấy đều, thêm đá nếu thích."}
+      {"title": "Chọn chanh và chuẩn bị nguyên liệu", "desc": "Chọn chanh tươi, rửa sạch. Chuẩn bị mật ong, nước ấm, đá viên."},
+      {"title": "Vắt chanh", "desc": "Chanh bổ đôi, vắt lấy nước cốt, lọc bỏ hạt."},
+      {"title": "Pha nước chanh mật ong", "desc": "Cho nước cốt chanh, mật ong vào ly, thêm nước ấm, khuấy đều cho tan."},
+      {"title": "Hoàn thiện và thưởng thức", "desc": "Thêm đá viên nếu thích, khuấy đều và thưởng thức ngay."}
     ],
     "comments": [
       {"user": "Thu Hằng", "avatar": "/assets/images/users/user-16.jpg", "rating": 5, "text": "Uống buổi sáng rất tốt cho sức khỏe!"}
@@ -533,7 +541,7 @@ const recipesThucUong = [
     "id": "nuoc-dua-tuoi",
     "title": "Nước Dừa Tươi",
     "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất",
-    "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg",
     "time": 3,
     "rating": 4.7,
     "ratingCount": 65,
@@ -547,7 +555,9 @@ const recipesThucUong = [
       "Đá viên (tùy thích)"
     ],
     "steps": [
-      {"title": "Thưởng thức nước dừa", "desc": "Chặt dừa, rót nước ra ly, thêm đá nếu thích."}
+      {"title": "Chọn dừa tươi", "desc": "Chọn quả dừa tươi, rửa sạch vỏ ngoài."},
+      {"title": "Chặt dừa lấy nước", "desc": "Dùng dao chặt phần đầu quả dừa, rót nước ra ly."},
+      {"title": "Thêm đá và thưởng thức", "desc": "Thêm đá viên vào ly nước dừa nếu thích, có thể dùng thìa ăn cơm dừa non."}
     ],
     "comments": [
       {"user": "Bảo Ngọc", "avatar": "/assets/images/users/user-17.jpg", "rating": 5, "text": "Nước dừa tươi mát, tự nhiên, rất tốt cho sức khỏe!"}
@@ -561,7 +571,7 @@ const recipesThucUong = [
     "id": "nuoc-dua-hau-ep",
     "title": "Nước Dưa Hấu Ép",
     "description": "Nước ép dưa hấu ngọt mát, bổ sung vitamin, giải nhiệt",
-    "image": "/assets/images/mon-an/thuc_uong/nuocduahau.jpg",
+    "image": "/assets/images/mon-an/thuc-uong/nuocduahau.jpg",
     "time": 5,
     "rating": 4.6,
     "ratingCount": 55,
@@ -576,7 +586,10 @@ const recipesThucUong = [
       "Đá viên"
     ],
     "steps": [
-      {"title": "Ép dưa hấu", "desc": "Dưa hấu bỏ vỏ, cắt miếng, ép lấy nước, thêm đường và đá viên."}
+      {"title": "Chọn dưa hấu và chuẩn bị nguyên liệu", "desc": "Chọn dưa hấu chín, rửa sạch, cắt miếng."},
+      {"title": "Ép dưa hấu", "desc": "Dưa hấu bỏ vỏ, cắt miếng nhỏ, ép lấy nước bằng máy ép hoặc xay nhuyễn rồi lọc qua rây."},
+      {"title": "Pha nước ép", "desc": "Cho nước ép dưa hấu vào ly, thêm đường nếu muốn, khuấy đều."},
+      {"title": "Hoàn thiện và thưởng thức", "desc": "Thêm đá viên vào ly nước ép, khuấy đều và thưởng thức lạnh."}
     ],
     "comments": [
       {"user": "Hải Đăng", "avatar": "/assets/images/users/user-18.jpg", "rating": 4, "text": "Nước ép dưa hấu mát, vị ngọt tự nhiên!"}
@@ -584,36 +597,6 @@ const recipesThucUong = [
     "related": [
       {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
       {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7}
-    ]
-  },
-  {
-    "id": "sua-chua-danh-da",
-    "title": "Sữa Chua Đánh Đá",
-    "description": "Sữa chua đánh đá mát lạnh, vị chua ngọt hấp dẫn",
-    "image": "/assets/images/mon-an/thuc_uong/suachua.jpg",
-    "time": 8,
-    "rating": 4.7,
-    "ratingCount": 62,
-    "author": "Bạn Trẻ Hà Nội",
-    "difficulty": "Dễ",
-    "calories": "110 kcal",
-    "date": "18/05/2024",
-    "tags": ["Đồ uống", "Tráng miệng"],
-    "ingredients": [
-      "Sữa chua - 1 hộp",
-      "Sữa đặc - 20ml",
-      "Đá bào",
-      "Đường (tùy khẩu vị)"
-    ],
-    "steps": [
-      {"title": "Đánh sữa chua", "desc": "Cho sữa chua, sữa đặc, đường vào ly, đánh đều, thêm đá bào."}
-    ],
-    "comments": [
-      {"user": "Hoàng Yến", "avatar": "/assets/images/users/user-19.jpg", "rating": 5, "text": "Sữa chua mát lạnh, vị chua ngọt rất ngon!"}
-    ],
-    "related": [
-      {"id": "kem-dua", "title": "Kem Dừa", "image": "/assets/images/mon-an/trang-mieng/kemdua.jpg", "description": "Kem dừa mát lạnh, thơm béo, topping dừa sấy hấp dẫn", "time": 15, "rating": 4.8},
-      {"id": "sua-ngo", "title": "Sữa Ngô", "image": "/assets/images/mon-an/thuc_uong/suango.jpg", "description": "Sữa ngô thơm ngậy, bổ dưỡng, thích hợp cho mọi lứa tuổi", "time": 20, "rating": 4.6}
     ]
   }
 ];

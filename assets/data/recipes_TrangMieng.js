@@ -350,8 +350,8 @@ const recipesTrangMieng = [
       {"user": "Hà My", "avatar": "/assets/images/users/user-21.jpg", "rating": 5, "text": "Tiramisu mềm, thơm vị cà phê, rất ngon!"}
     ],
     "related": [
-      {"id": "banh-flan-caramel", "title": "Bánh Flan Caramel", "image": "/assets/images/dishes/banhflan.jpg", "description": "Bánh flan mềm mịn, caramel ngọt ngào", "time": 30, "rating": 4.3},
-      {"id": "banh-pudding-trung", "title": "Bánh Pudding Trứng", "image": "/assets/images/dishes/puddingtrung.jpg", "description": "Pudding trứng mềm mịn, vị ngọt thanh, ăn lạnh rất ngon", "time": 45, "rating": 4.8}
+      {"id": "banh-flan-caramel", "title": "Bánh Flan Caramel", "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg", "description": "Bánh flan mềm mịn, caramel ngọt ngào", "time": 30, "rating": 4.3},
+      {"id": "banh-pudding-trung", "title": "Bánh Pudding Trứng", "image": "/assets/images/mon-an/trang-mieng/puddingtrung.jpg", "description": "Pudding trứng mềm mịn, vị ngọt thanh, ăn lạnh rất ngon", "time": 45, "rating": 4.8}
     ]
   },
   {
@@ -383,7 +383,8 @@ const recipesTrangMieng = [
     ],
     "related": [
       {"id": "che-sen-hat-luu", "title": "Chè Sen Hạt Lựu", "image": "/assets/images/mon-an/trang-mieng/chesen.jpg", "description": "Chè sen thanh mát, bổ dưỡng với hạt lựu đẹp mắt", "time": 40, "rating": 4.6},
-      {"id": "che-buoi", "title": "Chè Bưởi", "image": "/assets/images/mon-an/trang-mieng/chebuoi.jpg", "description": "Chè bưởi thanh mát, hương vị độc đáo", "time": 45, "rating": 4.5}
+      {"id": "che-buoi", "title": "Chè Bưởi", "image": "/assets/images/mon-an/trang-mieng/chebuoi.jpg", "description": "Chè bưởi thanh mát, hương vị độc đáo", "time": 45, "rating": 4.5},
+      {"id": "banh-flan-caramel", "title": "Bánh Flan Caramel", "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg", "description": "Bánh flan mềm mịn, caramel ngọt ngào", "time": 30, "rating": 4.3}
     ]
   },
   {

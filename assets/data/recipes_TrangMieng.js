@@ -79,7 +79,7 @@ const recipesTrangMieng = [
       "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg",
       "description": "Bánh flan mềm mịn, caramel ngọt ngào.",
       "time": 30,
-      "rating": 4.6
+      "rating": 4.3
     }
   ]
 },
@@ -89,7 +89,7 @@ const recipesTrangMieng = [
   "description": "Bánh flan vị dừa thơm béo, mềm mịn, ăn kèm caramel.",
   "image": "/assets/images/mon-an/trang-mieng/flandua.jpg",
   "time": 35,
-  "rating": 4.7,
+  "rating": 4.8,
   "ratingCount": 60,
   "author": "Cô Lan",
   "difficulty": "Dễ",
@@ -138,7 +138,7 @@ const recipesTrangMieng = [
       "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg",
       "description": "Bánh flan mềm mịn, caramel ngọt ngào.",
       "time": 30,
-      "rating": 4.6
+      "rating": 4.3
     },
     {
       "id": "banh-pudding-trung",
@@ -212,7 +212,7 @@ const recipesTrangMieng = [
       "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg",
       "description": "Bánh flan mềm mịn, caramel ngọt ngào.",
       "time": 30,
-      "rating": 4.6
+      "rating": 4.3
     },
     {
       "id": "banh-flan-dua",
@@ -220,7 +220,7 @@ const recipesTrangMieng = [
       "image": "/assets/images/mon-an/trang-mieng/flandua.jpg",
       "description": "Bánh flan vị dừa thơm béo, mềm mịn, ăn kèm caramel.",
       "time": 35,
-      "rating": 4.7
+      "rating": 4.8
     },
     {
       "id": "che-thai-sau-rieng",
@@ -238,7 +238,7 @@ const recipesTrangMieng = [
     "description": "Chè sen thanh mát, bổ dưỡng với hạt lựu đẹp mắt",
     "image": "/assets/images/mon-an/trang-mieng/chesen.jpg",
     "time": 40,
-    "rating": 4.6,
+    "rating": 4.1,
     "ratingCount": 67,
     "author": "Cô Thảo",
     "difficulty": "Dễ",
@@ -294,7 +294,7 @@ const recipesTrangMieng = [
     "description": "Bánh flan mềm mịn, caramel ngọt ngào và thơm ngon. Thích hợp làm món tráng miệng sau bữa ăn.",
     "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg",
     "time": 30,
-    "rating": 4.6,
+    "rating": 4.3,
     "ratingCount": 54,
     "author": "Cô Lan",
     "difficulty": "Dễ",
@@ -317,7 +317,7 @@ const recipesTrangMieng = [
       {"user": "Bích Ngọc", "avatar": "/assets/images/users/user-20.jpg", "rating": 5, "text": "Bánh mềm mịn, caramel thơm ngon!"}
     ],
     "related": [
-      {"id": "banh-flan-dua", "title": "Bánh Flan Dừa", "image": "/assets/images/mon-an/trang-mieng/flandua.jpg", "description": "Bánh flan vị dừa thơm béo, mềm mịn, ăn kèm caramel", "time": 35, "rating": 4.7},
+      {"id": "banh-flan-dua", "title": "Bánh Flan Dừa", "image": "/assets/images/mon-an/trang-mieng/flandua.jpg", "description": "Bánh flan vị dừa thơm béo, mềm mịn, ăn kèm caramel", "time": 35, "rating": 4.8},
       {"id": "banh-pudding-trung", "title": "Bánh Pudding Trứng", "image": "/assets/images/mon-an/trang-mieng/puddingtrung.jpg", "description": "Pudding trứng mềm mịn, vị ngọt thanh, ăn lạnh rất ngon", "time": 45, "rating": 4.8}
     ]
   },
@@ -350,7 +350,7 @@ const recipesTrangMieng = [
       {"user": "Hà My", "avatar": "/assets/images/users/user-21.jpg", "rating": 5, "text": "Tiramisu mềm, thơm vị cà phê, rất ngon!"}
     ],
     "related": [
-      {"id": "banh-flan-caramel", "title": "Bánh Flan Caramel", "image": "/assets/images/dishes/banhflan.jpg", "description": "Bánh flan mềm mịn, caramel ngọt ngào", "time": 30, "rating": 4.6},
+      {"id": "banh-flan-caramel", "title": "Bánh Flan Caramel", "image": "/assets/images/dishes/banhflan.jpg", "description": "Bánh flan mềm mịn, caramel ngọt ngào", "time": 30, "rating": 4.3},
       {"id": "banh-pudding-trung", "title": "Bánh Pudding Trứng", "image": "/assets/images/dishes/puddingtrung.jpg", "description": "Pudding trứng mềm mịn, vị ngọt thanh, ăn lạnh rất ngon", "time": 45, "rating": 4.8}
     ]
   },
@@ -446,7 +446,7 @@ const recipesTrangMieng = [
         "image": "/assets/images/mon-an/trang-mieng/banhflan.jpg",
         "description": "Bánh flan mềm mịn, caramel ngọt ngào",
         "time": 30,
-        "rating": 4.6
+        "rating": 4.3
       },
       {
         "id": "banh-tiramisu",

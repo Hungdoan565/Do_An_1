@@ -5,7 +5,7 @@ const recipesAnVat= [
     "description": "Bánh tráng trộn Sài Gòn dai ngon, vị chua cay mặn ngọt, kết hợp xoài xanh, khô bò, trứng cút, đậu phộng, rau răm hấp dẫn",
     "image": "/assets/images/mon-an/an-vat/banhtrangtron.jpg",
     "time": 15,
-    "rating": 4.8,
+    "rating": 4.0,
     "ratingCount": 90,
     "author": "Bạn Trẻ Sài Gòn",
     "difficulty": "Dễ",
@@ -57,7 +57,7 @@ const recipesAnVat= [
   "description": "Khoai tây chiên giòn rụm, vàng ươm, mềm bùi bên trong, ăn kèm tương ớt hoặc mayonnaise, món ăn vặt phổ biến, dễ làm, phù hợp mọi lứa tuổi.",
   "image": "/assets/images/mon-an/an-vat/khoaitaychien.jpg",
   "time": 20,
-  "rating": 4.7,
+  "rating": 4.1,
   "ratingCount": 450,
   "author": "Anh Tuấn",
   "difficulty": "Dễ",
@@ -117,7 +117,7 @@ const recipesAnVat= [
   "description": "Bánh tráng nướng Đà Lạt giòn rụm, topping đa dạng như trứng cút, xúc xích, phô mai, sốt mayonnaise béo ngậy, đậm chất ẩm thực đường phố.",
   "image": "/assets/images/mon-an/an-vat/banhtrangnuong.jpg",
   "time": 15,
-  "rating": 4.8,
+  "rating": 4.2,
   "ratingCount": 68,
   "author": "Chị Mai",
   "difficulty": "Dễ",
@@ -201,7 +201,7 @@ const recipesAnVat= [
   "description": "Chả giò vàng giòn, nhân thịt băm, tôm, miến, mộc nhĩ, rau củ, ăn kèm bún, rau sống và nước mắm chua ngọt đậm đà.",
   "image": "/assets/images/mon-an/khai-vi/chagio.jpg",
   "time": 40,
-  "rating": 4.8,
+  "rating": 4.3,
   "ratingCount": 320,
   "author": "Cô Mai",
   "difficulty": "Trung bình",
@@ -275,7 +275,7 @@ const recipesAnVat= [
   "description": "Bánh mochi Nhật Bản mềm dẻo, nhân đậu đỏ ngọt ngào, vỏ bột nếp thơm, món tráng miệng tinh tế, dễ làm, hấp dẫn mọi lứa tuổi.",
   "image": "/assets/images/mon-an/an-vat/mochi.jpg",
   "time": 40,
-  "rating": 4.8,
+  "rating": 4.5,
   "ratingCount": 215,
   "author": "Chị Lan",
   "difficulty": "Dễ",
@@ -364,7 +364,7 @@ const recipesAnVat= [
   "description": "Bánh bột lọc Huế trong suốt, dai dai, nhân tôm thịt đậm đà, gói lá chuối thơm, ăn kèm nước mắm chua ngọt, đậm chất truyền thống.",
   "image": "/assets/images/mon-an/an-vat/banhbotloc.jpg",
   "time": 50,
-  "rating": 4.7,
+  "rating": 4.6,
   "ratingCount": 189,
   "author": "Chị Lan",
   "difficulty": "Trung bình",
@@ -447,7 +447,7 @@ const recipesAnVat= [
   "description": "Bánh nậm Huế mềm mịn, nhân tôm thịt thơm ngon, gói lá chuối, chan nước mắm chua ngọt, món ăn vặt dân dã, đậm đà.",
   "image": "/assets/images/mon-an/an-vat/banhnam.jpg",
   "time": 40,
-  "rating": 4.6,
+  "rating": 4.4,
   "ratingCount": 175,
   "author": "Chị Lan",
   "difficulty": "Trung bình",
@@ -618,7 +618,7 @@ const recipesAnVat= [
   "description": "Bánh chuối chiên vàng giòn, thơm mùi chuối chín, vỏ bột giòn rụm, ngọt mềm bên trong, món ăn vặt dân dã, thưởng thức khi nóng.",
   "image": "/assets/images/mon-an/an-vat/banhchuoichien.jpg",
   "time": 20,
-  "rating": 4.7,
+  "rating": 4.9,
   "ratingCount": 210,
   "author": "Cô Mai",
   "difficulty": "Dễ",
@@ -709,7 +709,7 @@ const recipesAnVat= [
     },
     {
       "title": "Pha bột",
-      "desc": "1. Trộn 200g bột gạo + 50g bột năng + 1/2 thìa muối\n2. Đổ từ từ 600ml nước lạnh, khuấy tan hoàn toàn"
+      "desc": "1. Trộn 200g bột gạo + 50g bột năng + 1/2 thìa cà phê muối\n2. Đổ từ từ 600ml nước lạnh, khuấy tan hoàn toàn"
     },
     {
       "title": "Nấu bánh",
@@ -725,7 +725,7 @@ const recipesAnVat= [
       "id": "banh-goi",
       "title": "Bánh Gối",
       "image": "/assets/images/mon-an/an-vat/banhgoi.jpg",
-      "description": "Bánh gối chiên giòn, nhân thịt, miến, mộc nhĩ",
+      "description": "Bánh gối chiên giòn, nhân thịt, miến, mộc nhĩ, ăn kèm nước mắm chua ngọt",
       "time": 35,
       "rating": 4.7
     },
@@ -1060,7 +1060,7 @@ const recipesAnVat= [
   "steps": [
     {
       "title": "Làm nhân đậu xanh",
-      "desc": "1. Đậu xanh không vỏ ngâm nước khoảng 2-3 tiếng (hoặc ngâm qua đêm) cho nở mềm.\n2. Hấp chín đậu xanh, sau đó cho vào máy xay sinh tố cùng 30g đường và một chút nước cốt dừa, xay nhuyễn mịn.\n3. Đặt hỗn hợp đậu xanh lên bếp, sên trên lửa nhỏ đến khi nhân khô ráo và không còn dính tay. Để nguội và vo thành các viên nhỏ vừa ăn."
+      "desc": "1. Đậu xanh không vỏ ngâm nước khoảng 2-3 tiếng (hoặc ngâm qua đêm) cho nở mềm.\n2. Hấp chín đậu xanh, sau đó cho vào máy xay sinh tố cùng 30g đường và một chút nước cốt dừa, xay nhuyễn mịn.\n3. Đặt hỗn hợp đậu xanh lên bếp, sên trên lửa nhỏ đến khi nhân khô ráo, đặc lại và không còn dính tay. Để nguội và vo thành các viên nhỏ vừa ăn."
     },
     {
       "title": "Làm vỏ bánh",
@@ -1623,7 +1623,7 @@ const recipesAnVat= [
   "steps": [
     {
       "title": "Sơ chế và làm nhân thịt",
-      "desc": "1. **Mộc nhĩ:** Ngâm nở trong nước ấm, rửa sạch, thái sợi nhỏ. Nếu có nấm hương, có thể ngâm và thái tương tự.\n2. **Hành khô:** Bóc vỏ, băm nhỏ.\n3. **Làm nhân:** Đặt chảo lên bếp, cho một chút dầu ăn. Phi thơm một nửa lượng hành khô băm. Cho **thịt nạc băm** vào xào săn, nêm 1 thìa canh nước mắm, một chút tiêu. Tiếp theo, cho **mộc nhĩ** (và nấm hương nếu dùng) vào xào cùng. Thêm khoảng 50ml nước lọc, rim nhỏ lửa khoảng 5 phút cho nhân thấm đều gia vị và chín tới. Nêm nếm lại cho vừa ăn, tắt bếp."
+      "desc": "1. **Mộc nhĩ:** Ngâm nở trong nước ấm, rửa sạch, thái sợi nhỏ. Nếu có nấm hương, có thể ngâm và thái tương tự.\n2. **Hành khô:** Bóc vỏ, băm nhỏ.\n3. **Làm nhân:** Đặt chảo lên bếp, cho một chút dầu ăn. Phi thơm một nửa lượng hành khô băm. Cho **thịt nạc băm** vào xào săn, nêm 1 thìa canh nước mắm, một chút tiêu. Tiếp theo, cho **mộc nhĩ** (và nấm hương nếu dùng) vào xào cùng. Thêm khoảng 50ml nước, rim nhỏ lửa khoảng 5 phút cho nhân thấm đều gia vị và chín tới. Nêm nếm lại cho vừa ăn, tắt bếp."
     },
     {
       "title": "Pha bột bánh đúc",
@@ -1631,7 +1631,7 @@ const recipesAnVat= [
     },
     {
       "title": "Nấu bánh đúc",
-      "desc": "1. Lọc hỗn hợp bột qua rây một lần nữa để loại bỏ cặn, giúp bánh mịn hơn.\n2. Đặt nồi chứa hỗn hợp bột lên bếp, đun trên lửa nhỏ. **Khuấy liên tục và đều tay** theo một chiều để bột không bị cháy hoặc dính đáy nồi. Quá trình này rất quan trọng để bánh không bị vón cục.\n3. Khi bột bắt đầu sánh đặc lại và chuyển sang màu trong hơn, tiếp tục khuấy thêm khoảng 5-7 phút nữa cho đến khi bột tạo thành một khối dẻo, mịn và có thể dễ dàng tách ra khỏi thành nồi. Tắt bếp."
+      "desc": "1. Lọc hỗn hợp bột qua rây một lần nữa để loại bỏ cặn, giúp bánh mịn hơn.\n2. Đặt nồi chứa hỗn hợp bột lên bếp, đun trên lửa nhỏ. Khuấy liên tục và đều tay để bột không bị cháy hoặc dính đáy nồi. Quá trình này rất quan trọng để bánh không bị vón cục.\n3. Khi bột bắt đầu sánh đặc lại và chuyển sang màu trong hơn, tiếp tục khuấy thêm khoảng 5-7 phút nữa cho đến khi bột tạo thành một khối dẻo, mịn và có thể dễ dàng tách ra khỏi thành nồi. Tắt bếp."
     },
     {
       "title": "Hoàn thành và làm nước chấm",
@@ -1737,7 +1737,7 @@ const recipesAnVat= [
   "description": "Bánh chuối chiên là món ăn vặt dân dã nhưng vô cùng hấp dẫn. Món này thường được thưởng thức nóng, là lựa chọn tuyệt vời cho những buổi xế chiều.",
   "image": "/assets/images/mon-an/an-vat/banhchuoichien.jpg",
   "time": 20,
-  "rating": 4.7,
+  "rating": 4.9,
   "ratingCount": 160,
   "author": "Cô Mai",
   "difficulty": "Dễ",

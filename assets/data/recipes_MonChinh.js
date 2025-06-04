@@ -5,7 +5,7 @@ const recipesMonChinh = [
   "description": "Phở truyền thống với nước dùng đậm đà, thơm ngon, là đặc sản nổi tiếng của Nam Định. Sợi phở dai mềm, thịt bò tươi ngọt, quyện cùng hương vị thanh tao của nước dùng xương hầm.",
   "image": "/assets/images/mon-an/mon-chinh/phobo.jpg",
   "time": 45,
-  "rating": 4.8,
+  "rating": 4.0,
   "ratingCount": 156,
   "author": "Đầu Bếp Việt",
   "difficulty": "Trung bình",
@@ -92,7 +92,7 @@ const recipesMonChinh = [
   "description": "Sườn non nướng mật ong là món ăn thơm lừng, hấp dẫn với sườn mềm ngọt, thấm đẫm hương vị mật ong và gia vị tẩm ướp. Lớp ngoài sườn vàng óng, hơi cháy cạnh tạo mùi thơm đặc trưng, là lựa chọn tuyệt vời cho các bữa ăn gia đình.",
   "image": "/assets/images/mon-an/mon-chinh/suonnuong.jpg",
   "time": 50,
-  "rating": 4.8,
+  "rating": 4.3,
   "ratingCount": 44,
   "author": "Anh Tuấn",
   "difficulty": "Trung bình",
@@ -227,7 +227,7 @@ const recipesMonChinh = [
   "description": "Thịt kho tàu là món ăn truyền thống không thể thiếu trong mâm cơm Việt, đặc biệt vào dịp Tết",
   "image": "/assets/images/mon-an/mon-chinh/thitkho1.jpg",
   "time": 70,
-  "rating": 4.9,
+  "rating": 4.2,
   "ratingCount": 110,
   "author": "Chú Nam",
   "difficulty": "Trung bình",
@@ -492,7 +492,7 @@ const recipesMonChinh = [
   "description": "Bún thịt nướng là món ăn thanh mát, hấp dẫn với sự kết hợp hài hòa của thịt heo nướng thơm lừng, bún tươi, rau sống thanh mát, đồ chua giòn ngon và nước mắm chua ngọt đậm đà. Đây là lựa chọn lý tưởng cho bữa trưa hoặc bữa tối.",
   "image": "/assets/images/mon-an/mon-chinh/bunthitnuong.jpg",
   "time": 35,
-  "rating": 4.7,
+  "rating": 4.4,
   "ratingCount": 150,
   "author": "Đầu Bếp Việt",
   "difficulty": "Trung bình",
@@ -582,7 +582,7 @@ const recipesMonChinh = [
   "description": "Gà kho gừng là món ăn quen thuộc trong bữa cơm gia đình Việt, với thịt gà mềm ngọt thấm vị, quyện cùng hương thơm ấm áp, cay nhẹ của gừng và vị đậm đà của nước mắm, tiêu. Món này rất hao cơm, đặc biệt vào những ngày se lạnh.",
   "image": "/assets/images/mon-an/mon-chinh/gakhogung.jpg",
   "time": 45,
-  "rating": 4.7,
+  "rating": 4.1,
   "ratingCount": 90,
   "author": "Chú Bình",
   "difficulty": "Trung bình",
@@ -666,7 +666,7 @@ const recipesMonChinh = [
   "description": "Bò kho là món ăn đậm chất ẩm thực Việt, với thịt bò mềm tan, nước sốt sánh đặc thơm lừng mùi sả, gừng, ngũ vị hương và cà rốt béo ngọt. Món này thường được dùng nóng kèm với bánh mì giòn rụm hoặc bún tươi..",
   "image": "/assets/images/mon-an/mon-chinh/bokhobanhmi.jpg",
   "time": 80,
-  "rating": 4.8,
+  "rating": 4.6,
   "ratingCount": 100,
   "author": "Đầu Bếp Việt",
   "difficulty": "Trung bình",
@@ -739,11 +739,11 @@ const recipesMonChinh = [
       "rating": 4.9
     },
     {
-      "id": "com-tam",
-      "title": "Cơm Tấm Sài Gòn",
-      "image": "/assets/images/mon-an/mon-chinh/comtam.jpg",
-      "description": "Cơm tấm Sài Gòn với sườn nướng, bì, chả trứng hấp dẫn.",
-      "time": 50,
+      "id": "ga-nuong-mat-ong",
+      "title": "Gà Nướng Mật Ong",
+      "image": "/assets/images/mon-an/mon-chinh/ganuong.jpg",
+      "description": "Gà nướng mật ong thơm lừng, da giòn, thịt mềm.",
+      "time": 80,
       "rating": 4.9
     }
   ]
@@ -847,14 +847,14 @@ const recipesMonChinh = [
       "rating": 4.5
     }
   ]
-},  
-  {
+},
+{
   "id": "banh-xeo",
   "title": "Bánh Xèo Miền Tây",
   "description": "Bánh xèo giòn rụm với nhân tôm thịt đậm đà, ăn kèm rau sống và nước chấm chua ngọt.",
   "image": "/assets/images/mon-an/an-vat/banh-xeo.jpg",
   "time": 45,
-  "rating": 4.7,
+  "rating": 4.5,
   "ratingCount": 164,
   "author": "Bếp Quê Miền Tây",
   "difficulty": "Trung bình",
@@ -933,7 +933,7 @@ const recipesMonChinh = [
   "description": "Cháo heo là món ăn thơm ngon, bổ dưỡng, dễ tiêu hóa, phù hợp mọi lứa tuổi. Với gạo nở bung mềm mịn, thịt heo ninh ngọt cùng xương tạo nước dùng đậm đà, cháo heo mang lại cảm giác ấm bụng và ngon miệng.",
   "image": "/assets/images/mon-an/mon-chinh/chaoheo.jpg",
   "time": 30,
-  "rating": 4.8,
+  "rating": 4.3,
   "ratingCount": 75,
   "author": "Chị Hằng",
   "difficulty": "Dễ",
@@ -958,7 +958,7 @@ const recipesMonChinh = [
     {
       "title": "Sơ chế nguyên liệu",
       "desc": "1. **Gạo tẻ:** Vo sạch, ngâm nước khoảng 30 phút để khi nấu cháo nhanh nhừ hơn. Có thể rang sơ gạo trên chảo nóng cho hạt gạo thơm.\n2. **Thịt heo:** Rửa sạch. Nếu là thịt nạc, thái lát mỏng hoặc băm nhỏ. Nếu là xương, chặt khúc vừa ăn, rửa sạch, chần sơ qua nước sôi có gừng đập dập để khử mùi hôi, rửa lại.\n3. **Hành tím, gừng:** Bóc vỏ, thái lát hoặc đập dập."
-    },
+       },
     {
       "title": "Ninh xương và nấu cháo",
       "desc": "1. Cho xương heo đã sơ chế vào nồi, thêm khoảng 1.5 - 2 lít nước lọc, hành tím và gừng đập dập. Đun sôi, vớt sạch bọt để nước dùng trong.\n2. Hạ lửa nhỏ, ninh xương trong khoảng 30-45 phút cho nước dùng ngọt. Vớt bỏ xương (nếu muốn, có thể gỡ thịt xương ra băm nhỏ cho vào cháo).\n3. Cho gạo đã ngâm (hoặc rang) vào nồi nước xương, đun sôi rồi hạ lửa nhỏ. Nấu liu riu, thỉnh thoảng khuấy đều để cháo không bị cháy dưới đáy nồi. Nấu khoảng 20-30 phút cho hạt gạo nở bung và cháo sánh mịn."
@@ -1080,7 +1080,7 @@ const recipesMonChinh = [
   "description": "Bánh bao nhân thịt là món ăn sáng hoặc bữa phụ quen thuộc. Hương vị thơm ngon, hấp dẫn của bánh bao luôn khiến người thưởng thức phải xuýt xoa.",
   "image": "/assets/images/mon-an/mon-chinh/banhbao.jpg",
   "time": 50,
-  "rating": 4.7,
+  "rating": 4.6,
   "ratingCount": 85,
   "author": "Chị Lan",
   "difficulty": "Trung bình",
@@ -1241,7 +1241,7 @@ const recipesMonChinh = [
   "description": "Gà nướng mật ong là món ăn hấp dẫn với lớp da vàng óng, giòn rụm và thịt mềm ngọt, thơm lừng. Hương vị đậm đà của gia vị hòa quyện cùng mật ong tạo nên món ăn hoàn hảo, thích hợp cho các bữa tiệc hoặc sum họp gia đình.",
   "image": "/assets/images/mon-an/mon-chinh/ganuong.jpg",
   "time": 80,
-  "rating": 4.9,
+  "rating": 4.4,
   "ratingCount": 95,
   "author": "Chú Bình",
   "difficulty": "Khó",
@@ -1265,7 +1265,7 @@ const recipesMonChinh = [
   "steps": [
     {
       "title": "Sơ chế gà và làm sốt ướp",
-      "desc": "1. **Sơ chế gà:** Gà làm sạch, xát muối và gừng (hoặc chanh) bên trong và ngoài để khử mùi hôi, rửa lại thật sạch và để thật ráo nước. Dùng dao khứa nhẹ vài đường trên thân gà để dễ thấm gia vị.\n2. **Làm sốt ướp:** Trong một bát lớn, trộn đều mật ong, nước mắm, đường, tiêu, dầu hào, ngũ vị hương, tỏi băm, hành tím băm và ớt băm (nếu dùng). Khuấy đều cho các gia vị tan hết."
+      "desc": "1. **Sơ chế gà:** Gà làm sạch, xát muối và gừng (hoặc chanh) bên trong và ngoài để khử mùi hôi, rửa lại thật sạch và để thật ráo. Dùng dao khứa nhẹ vài đường trên thân gà để dễ thấm gia vị.\n2. **Làm sốt ướp:** Trong một bát lớn, trộn đều mật ong, nước mắm, đường, tiêu, dầu hào, ngũ vị hương, tỏi băm, hành tím băm và ớt băm (nếu dùng). Khuấy đều cho các gia vị tan hết."
     },
     {
       "title": "Ướp gà",
@@ -1319,7 +1319,7 @@ const recipesMonChinh = [
   "description": "Chả cá Lã Vọng là món đặc sản nức tiếng Hà Thành với những miếng cá lăng (hoặc cá basa) tẩm ướp đậm đà, chiên vàng thơm trên chảo nóng cùng thì là, hành lá. Ăn kèm bún tươi, rau sống và mắm tôm pha chua ngọt.",
   "image": "/assets/images/mon-an/khai-vi/chacala.jpg",
   "time": 50,
-  "rating": 4.8,
+  "rating": 4.2,
   "ratingCount": 78,
   "author": "Chị Mai",
   "difficulty": "Trung bình",
@@ -1394,7 +1394,7 @@ const recipesMonChinh = [
   "description": "Miến trộn cua biển là món ăn thanh mát, bổ dưỡng, hấp dẫn với sợi miến dai ngon, thịt cua biển tươi ngọt tự nhiên, quyện cùng rau củ giòn mát và nước trộn chua ngọt đậm đà, tạo nên hương vị khó quên.",
   "image": "/assets/images/mon-an/mon-chinh/mientron.jpg",
   "time": 35,
-  "rating": 4.7,
+  "rating": 4.5,
   "ratingCount": 41,
   "author": "Chị Hằng",
   "difficulty": "Trung bình",
@@ -1468,7 +1468,7 @@ const recipesMonChinh = [
   "description": "Lẩu gà lá giang là món lẩu chua thanh đặc trưng của miền Nam, nổi bật với vị chua dịu nhẹ của lá giang, thịt gà mềm ngọt và nước lẩu đậm đà, thơm lừng. Món này rất thích hợp để quây quần cùng gia đình, bạn bè.",
   "image": "/assets/images/mon-an/mon-chinh/lauga.jpg",
   "time": 60,
-  "rating": 4.8,
+  "rating": 4.9,
   "ratingCount": 55,
   "author": "Chú Bình",
   "difficulty": "Trung bình",
@@ -1560,7 +1560,7 @@ const recipesMonChinh = [
   "steps": [
     {
       "title": "Sơ chế vịt và ướp gia vị",
-      "desc": "1. **Sơ chế vịt:** Vịt làm sạch, xát muối và gừng để khử mùi hôi, rửa lại thật sạch, để ráo. Treo vịt lên cao (hoặc dùng giấy thấm) để da vịt khô hoàn toàn, đây là bước quan trọng giúp da vịt giòn. (Có thể dùng bơm để bơm hơi vào dưới da vịt nếu muốn da phồng và giòn hơn).\n2. **Ướp vịt:** Trong một bát lớn, trộn đều mật ong, xì dầu, giấm gạo, đường, rượu trắng, ngũ vị hương, dầu hào. Có thể thêm chút muối và tiêu. Thoa đều hỗn hợp này lên khắp mình vịt, đặc biệt là phần da. Để vịt ướp ít nhất 4-6 giờ hoặc qua đêm trong tủ lạnh để gia vị thấm sâu và da vịt khô thêm."
+      "desc": "1. **Sơ chế vịt:** Vịt làm sạch, xát muối và gừng (hoặc chanh) bên trong và ngoài để khử mùi hôi, rửa lại thật sạch và để thật ráo. Dùng dao khứa nhẹ vài đường trên thân gà để dễ thấm gia vị.\n2. **Ướp vịt:** Trong một bát lớn, trộn đều mật ong, xì dầu, giấm gạo, đường, rượu trắng, ngũ vị hương, dầu hào. Có thể thêm chút muối và tiêu. Thoa đều hỗn hợp này lên khắp mình vịt, đặc biệt là phần da. Để vịt ướp ít nhất 4-6 giờ hoặc qua đêm trong tủ lạnh để gia vị thấm sâu và da vịt khô thêm."
     },
     {
       "title": "Quay vịt",
@@ -1568,7 +1568,7 @@ const recipesMonChinh = [
     },
     {
       "title": "Hoàn thành và thưởng thức",
-      "desc": "Khi vịt chín, lấy ra khỏi lò, để nguội bớt khoảng 10-15 phút để thịt vịt ổn định. Chặt vịt thành từng miếng vừa ăn, hoặc lọc lấy phần da và thịt riêng. Bày vịt ra đĩa cùng với bánh tráng mỏng, dưa leo thái sợi, hành lá chẻ sợi và nước sốt chấm đặc trưng (tương đen, tương hoisin). Cuốn vịt với bánh tráng, rau và chấm sốt để thưởng thức."
+      "desc": "Khi vịt chín, lấy ra khỏi lò, để nguội khoảng 10-15 phút để thịt vịt ổn định. Chặt vịt thành từng miếng vừa ăn, hoặc lọc lấy phần da và thịt riêng. Bày vịt ra đĩa cùng với bánh tráng mỏng, dưa leo thái sợi, hành lá chẻ sợi và nước sốt chấm đặc trưng (tương đen, tương hoisin). Cuốn vịt với bánh tráng, rau và chấm sốt để thưởng thức."
     }
   ],
   "comments": [
@@ -1598,7 +1598,7 @@ const recipesMonChinh = [
     }
   ]
 },
-  {
+{
   "id": "bun-mam-mien-tay",
   "title": "Bún Mắm Miền Tây",
   "description": "Bún mắm miền Tây là đặc sản nổi tiếng với nước dùng đậm đà hương vị mắm cá linh/cá sặc đặc trưng, ngọt thanh từ xương, và phong phú topping hải sản tươi (tôm, mực, cá), thịt heo quay, độc đáo và hấp dẫn.",
@@ -1673,7 +1673,7 @@ const recipesMonChinh = [
   "description": "Cà tím nhồi thịt là món ăn hấp dẫn, đưa cơm với cà tím mềm ngọt, thấm đẫm vị béo của nhân thịt băm đậm đà. Món này được kho hoặc hấp với sốt cà chua, tạo nên hương vị hài hòa, dễ ăn và bổ dưỡng.",
   "image": "/assets/images/mon-an/mon-chinh/catimnhoi.jpg",
   "time": 40,
-  "rating": 4.7,
+  "rating": 4.1,
   "ratingCount": 39,
   "author": "Cô Thảo",
   "difficulty": "Dễ",
@@ -1693,7 +1693,7 @@ const recipesMonChinh = [
   "steps": [
     {
       "title": "Sơ chế cà tím và chuẩn bị nhân thịt",
-      "desc": "1. **Cà tím:** Rửa sạch, cắt bỏ cuống. Bổ dọc quả cà tím, sau đó khứa các đường ngang nhưng không đứt hẳn để tạo thành các khe nhồi thịt. Ngâm cà tím vào nước muối loãng khoảng 10 phút để cà không bị thâm và bớt chát, vớt ra để ráo.\n2. **Nhân thịt:** Cho thịt heo xay, mộc nhĩ, nấm hương băm nhỏ, hành tím băm vào tô. Nêm 1 thìa canh nước mắm, 1/2 thìa cà phê hạt nêm, 1/4 thìa cà phê tiêu xay. Trộn đều và bóp nhẹ để nhân thấm gia vị. Sau đó, nhồi phần nhân thịt vào các khe của miếng cà tím."
+      "desc": "1. **Cà tím:** Rửa sạch, cắt bỏ cuống. Bổ dọc quả cà tím, sau đó khứa các đường ngang nhưng không đứt hẳn để tạo thành các khe nhồi thịt. Ngâm cà tím vào nước muối loãng khoảng 10 phút để cà không bị thâm và bớt chát, vớt ra để ráo.\n2. **Nhân thịt:** Cho thịt heo xay, mộc nhĩ, nấm hương băm nhỏ, hành tím băm vào tô. Nêm 1 thìa canh nước mắm, 1/2 thìa cà phê hạt nêm, 1/4 thìa cà phê tiêu xay. Trộn đều và bóp nhẹ để nhân thấm gia vị. Để nhân nghỉ khoảng 15-20 phút."
     },
     {
       "title": "Hấp hoặc kho cà tím",
@@ -1724,7 +1724,7 @@ const recipesMonChinh = [
     {
       "id": "thit-kho-tau",
       "title": "Thịt Kho Tàu",
-      "image": "/assets/images/mon-an/mon-chinh/thitkhotau.jpg",
+      "image": "/assets/images/mon-an/mon-chinh/thitkho1.jpg",
       "description": "Thịt kho tàu mềm rục, béo ngậy, nước màu đẹp mắt, thấm đẫm gia vị, ăn kèm trứng luộc và cơm trắng nóng hổi.",
       "time": 70,
       "rating": 4.9
@@ -1733,11 +1733,11 @@ const recipesMonChinh = [
 },
 {
  "id": "ba-khia-ngam-muoi",
-  "title": "Bà Khía Ngâm Muối",
-  "description": "Bà khía ngâm muối là món ăn đặc sản của miền Tây, với vị mặn mà, thơm ngon của bà khía kết hợp với các gia vị truyền thống.",
+  "title": "Ba Khía Ngâm Muối",
+  "description": "Ba khía ngâm muối là món ăn đặc sản của miền Tây, với vị mặn mà, thơm ngon của ba khía kết hợp với các gia vị truyền thống.",
   "image": "/assets/images/mon-an/mon-chinh/bakhia.jpg",
   "time": 30,
-  "rating": 4.5,
+  "rating": 4.7,
   "ratingCount": 25,
   "author": "Cô Ba",
   "difficulty": "Trung bình",
@@ -1754,16 +1754,16 @@ const recipesMonChinh = [
   ],
   "steps": [
     {
-      "title": "Sơ chế bà khía",
-      "desc": "1. **Bà khía:** Rửa sạch, để ráo. Nếu bà khía quá lớn, có thể cắt đôi. 2. **Ngâm muối:** Cho bà khía vào âu, rắc muối lên trên, trộn đều và để yên khoảng 30 phút cho thấm."
+      "title": "Sơ chế ba khía",
+      "desc": "1. **Ba khía:** Rửa sạch, để ráo. Nếu ba khía quá lớn, có thể cắt đôi. 2. **Ngâm muối:** Cho ba khía vào âu, rắc muối lên trên, trộn đều và để yên khoảng 30 phút cho thấm."
     },
     {
-      "title": "Hấp hoặc kho bà khía",
-      "desc": "1. **Phương pháp hấp:** Xếp bà khía đã ngâm muối vào xửng hấp. Hấp khoảng 15-20 phút cho bà khía chín đều. \n2. **Phương pháp kho (hoặc sốt):** Phi thơm tỏi băm với chút dầu ăn. Cho ớt băm (nếu dùng) vào xào nhuyễn. Nêm chút nước mắm, đường và chút nước lọc để tạo sốt. Cho bà khía đã ngâm muối vào, đun lửa nhỏ, đậy nắp kho khoảng 15-20 phút cho bà khía mềm và thấm sốt. Thỉnh thoảng lật nhẹ để bà khía chín đều."
+      "title": "Hấp hoặc kho ba khía",
+      "desc": "1. **Phương pháp hấp:** Xếp ba khía đã ngâm muối vào xửng hấp. Hấp khoảng 15-20 phút cho ba khía chín đều. \n2. **Phương pháp kho (hoặc sốt):** Phi thơm tỏi băm với chút dầu ăn. Cho ớt băm (nếu dùng) vào xào nhuyễn. Nêm chút nước mắm, đường và chút nước lọc để tạo sốt. Cho ba khía đã ngâm muối vào, đun lửa nhỏ, đậy nắp kho khoảng 15-20 phút cho ba khía mềm và thấm sốt. Thỉnh thoảng lật nhẹ để ba khía chín đều."
     },
     {
       "title": "Hoàn thành và thưởng thức",
-      "desc": "Bà khía ngâm muối chín mềm, thơm lừng và thấm đẫm gia vị. Bày món ăn ra đĩa, rắc hành lá thái nhỏ và chút tiêu xay lên trên. Dùng nóng với cơm trắng, rất thích hợp cho bữa cơm gia đình."
+      "desc": "Ba khía ngâm muối chín mềm, thơm lừng và thấm đẫm gia vị. Bày món ăn ra đĩa, rắc hành lá thái nhỏ và chút tiêu xay lên trên. Dùng nóng với cơm trắng, rất thích hợp cho bữa cơm gia đình."
     }
   ],
   "comments": [
@@ -1771,7 +1771,7 @@ const recipesMonChinh = [
       "user": "Kim Dung",
       "avatar": "/assets/images/users/user-36.jpg",
       "rating": 5,
-      "text": "Bà khía ngâm muối rất ngon, đậm đà hương vị!"
+      "text": "Ba khía ngâm muối rất ngon, đậm đà hương vị!"
     }
   ],
   "related": [

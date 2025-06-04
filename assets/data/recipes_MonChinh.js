@@ -1730,5 +1730,75 @@ const recipesMonChinh = [
       "rating": 4.9
     }
   ]
+},
+{
+ "id": "ba-khia-ngam-muoi",
+  "title": "Bà Khía Ngâm Muối",
+  "description": "Bà khía ngâm muối là món ăn đặc sản của miền Tây, với vị mặn mà, thơm ngon của bà khía kết hợp với các gia vị truyền thống.",
+  "image": "/assets/images/mon-an/mon-chinh/bakhia.jpg",
+  "time": 30,
+  "rating": 4.5,
+  "ratingCount": 25,
+  "author": "Cô Ba",
+  "difficulty": "Trung bình",
+  "calories": "250 kcal",
+  "date": "04/06/2025",
+  "tags": ["Món chính", "Đặc sản", "Hải sản", "Ngâm"],
+  "ingredients": [
+    "Bà khía - 500g (chọn con tươi, không quá lớn)",
+    "Muối - 100g",
+    "Đường - 50g",
+    "Nước mắm - 100ml",
+    "Tỏi - 1 củ (băm nhỏ)",
+    "Ớt - 1 quả (băm nhỏ, tùy chọn)"
+  ],
+  "steps": [
+    {
+      "title": "Sơ chế bà khía",
+      "desc": "1. **Bà khía:** Rửa sạch, để ráo. Nếu bà khía quá lớn, có thể cắt đôi. 2. **Ngâm muối:** Cho bà khía vào âu, rắc muối lên trên, trộn đều và để yên khoảng 30 phút cho thấm."
+    },
+    {
+      "title": "Hấp hoặc kho bà khía",
+      "desc": "1. **Phương pháp hấp:** Xếp bà khía đã ngâm muối vào xửng hấp. Hấp khoảng 15-20 phút cho bà khía chín đều. \n2. **Phương pháp kho (hoặc sốt):** Phi thơm tỏi băm với chút dầu ăn. Cho ớt băm (nếu dùng) vào xào nhuyễn. Nêm chút nước mắm, đường và chút nước lọc để tạo sốt. Cho bà khía đã ngâm muối vào, đun lửa nhỏ, đậy nắp kho khoảng 15-20 phút cho bà khía mềm và thấm sốt. Thỉnh thoảng lật nhẹ để bà khía chín đều."
+    },
+    {
+      "title": "Hoàn thành và thưởng thức",
+      "desc": "Bà khía ngâm muối chín mềm, thơm lừng và thấm đẫm gia vị. Bày món ăn ra đĩa, rắc hành lá thái nhỏ và chút tiêu xay lên trên. Dùng nóng với cơm trắng, rất thích hợp cho bữa cơm gia đình."
+    }
+  ],
+  "comments": [
+    {
+      "user": "Kim Dung",
+      "avatar": "/assets/images/users/user-36.jpg",
+      "rating": 5,
+      "text": "Bà khía ngâm muối rất ngon, đậm đà hương vị!"
+    }
+  ],
+  "related": [
+    {
+      "id": "ca-kho-to",
+      "title": "Cá Kho Tộ",
+      "image": "/assets/images/mon-an/mon-chinh/gachiennuocmam.jpg",
+      "description": "Cá kho tộ đậm đà hương vị truyền thống, cá mềm ngọt, thấm đẫm nước sốt sánh keo, ăn kèm cơm trắng rất đưa miệng.",
+      "time": 60,
+      "rating": 4.8
+    },
+    {
+      "id": "thit-kho-tau",
+      "title": "Thịt Kho Tàu",
+      "image": "/assets/images/mon-an/mon-chinh/thitkho1.jpg",
+      "description": "Thịt kho tàu mềm rục, béo ngậy, nước màu đẹp mắt, thấm đẫm gia vị, ăn kèm trứng luộc và cơm trắng nóng hổi.",
+      "time": 70,
+      "rating": 4.9
+    },
+    {
+      "id": "ga-chien-nuoc-mam",
+      "title": "Gà Chiên Nước Mắm",
+      "image": "/assets/images/mon-an/mon-chinh/gachiennuocmam.jpg",
+      "description": "Gà chiên nước mắm giòn rụm, thấm đẫm hương vị, ăn kèm cơm trắng rất ngon miệng.",
+      "time": 30,
+      "rating": 4.5
+    }
+  ]
 }
 ];

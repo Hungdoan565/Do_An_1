@@ -1,5 +1,5 @@
 // Hàm lọc công thức cho trang list
-// options: { keyword, category, ingredients, favorite, time, difficulty, rating }
+// options: { keyword, category, ingredients, favorite, time, difficulty, rating, sortBy }
 function filterRecipes({
   recipes,
   keyword = '',
@@ -8,9 +8,10 @@ function filterRecipes({
   favorite = false,
   time = null, // { min, max }
   difficulty = '',
-  rating = null // { min, max }
+  rating = null, // { min, max }
+  sortBy = '' // 'newest' | 'rating' | 'time'
 }) {
-  return recipes.filter(recipe => {
+  let filtered = recipes.filter(recipe => {
     // Lọc theo từ khóa (chỉ tiêu đề và tags, cho phép chứa từ khóa, không phân biệt hoa thường)
     if (keyword) {
       const kw = keyword.toLowerCase();
@@ -27,7 +28,7 @@ function filterRecipes({
       const recipeIngredients = (recipe.ingredients||[]).map(i => i.toLowerCase());
       if (!ingredients.every(ing => recipeIngredients.some(i => i.includes(ing.toLowerCase())))) return false;
     }
-    // Lọc theo yêu thích (nếu có)
+    // Lọc theo yêu thích
     if (favorite && !recipe.favorite) return false;
     // Lọc theo thời gian nấu
     if (time && (time.min || time.max)) {
@@ -45,6 +46,31 @@ function filterRecipes({
     }
     return true;
   });
+  // Sắp xếp kết quả
+  if (sortBy === 'rating') {
+    filtered = filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+  } else if (sortBy === 'time') {
+    filtered = filtered.sort((a, b) => (a.time || 9999) - (b.time || 9999));
+  } else if (sortBy === 'newest') {
+    filtered = filtered.sort((a, b) => {
+      // Ưu tiên trường createdAt (timestamp), nếu không có thì dùng date (dd/MM/yyyy), nếu không có thì giữ nguyên
+      if (a.createdAt && b.createdAt) return b.createdAt - a.createdAt;
+      if (a.date && b.date) {
+        // Chuyển date dạng dd/MM/yyyy thành số để so sánh
+        const parseDate = (d) => {
+          if (typeof d === 'number') return d;
+          if (typeof d === 'string') {
+            const [day, month, year] = d.split('/').map(Number);
+            if (!isNaN(day) && !isNaN(month) && !isNaN(year)) return year * 10000 + month * 100 + day;
+          }
+          return 0;
+        };
+        return parseDate(b.date) - parseDate(a.date);
+      }
+      return 0;
+    });
+  }
+  return filtered;
 }
 
 // --- TÍCH HỢP HÀM LỌC VÀO TRANG LIST ---
@@ -53,24 +79,27 @@ if (typeof window !== 'undefined') {
   document.addEventListener('DOMContentLoaded', function () {
     const searchInput = document.querySelector('.search-input');
     const searchBtn = document.querySelector('.search-btn');
-    if (searchInput && searchBtn) {
-      searchBtn.addEventListener('click', function () {
-        const keyword = searchInput.value.trim();
-        // recipes là mảng công thức đã load ở list.html
-        if (typeof recipes !== 'undefined') {
-          const filtered = filterRecipes({ recipes, keyword });
-          // Render lại grid (giả sử có hàm renderRecipes)
-          if (typeof renderRecipes === 'function') {
-            filteredRecipes = filtered;
-            currentPage = 1;
-            renderRecipes(currentPage);
-          }
+    const sortSelect = document.getElementById('sortSelect');
+    function doFilterAndRender() {
+      const keyword = searchInput.value.trim();
+      const sortBy = sortSelect ? sortSelect.value : '';
+      if (typeof recipes !== 'undefined') {
+        const filtered = filterRecipes({ recipes, keyword, sortBy });
+        if (typeof renderRecipes === 'function') {
+          filteredRecipes = filtered;
+          currentPage = 1;
+          renderRecipes(currentPage);
         }
-      });
-      // Cho phép nhấn Enter để tìm kiếm
+      }
+    }
+    if (searchInput && searchBtn) {
+      searchBtn.addEventListener('click', doFilterAndRender);
       searchInput.addEventListener('keydown', function(e) {
-        if (e.key === 'Enter') searchBtn.click();
+        if (e.key === 'Enter') doFilterAndRender();
       });
+    }
+    if (sortSelect) {
+      sortSelect.addEventListener('change', doFilterAndRender);
     }
   });
 }

@@ -1,507 +1,754 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Thêm Công Thức - Món Ngon Việt Nam</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
     <style>
-        :root {
-            --primary-color: #D61C4E;
-            --secondary-color: #F77E21;
-            --accent-color: #FAB207;
-            --text-color: #1F1717;
-            --light-gray: #F5F5F5;
-        }
+      :root {
+        --primary-color: #d61c4e;
+        --secondary-color: #f77e21;
+        --accent-color: #fab207;
+        --text-color: #1f1717;
+        --light-gray: #f5f5f5;
+      }
 
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            color: var(--text-color);
-            background-color: var(--light-gray);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
+      body {
+        font-family: "Be Vietnam Pro", sans-serif;
+        color: var(--text-color);
+        background-color: var(--light-gray);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+      }
 
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
+      .navbar {
+        background-color: rgba(255, 255, 255, 0.95) !important;
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
+      }
 
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
+      .navbar-brand {
+        font-weight: 700;
+        color: var(--primary-color) !important;
+      }
 
-        .nav-link {
-            font-weight: 500;
-            color: var(--text-color) !important;
-            margin: 0 0.5rem;
-            position: relative;
-        }
+      .nav-link {
+        font-weight: 500;
+        color: var(--text-color) !important;
+        margin: 0 0.5rem;
+        position: relative;
+      }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
+      .nav-link::after {
+        content: "";
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 2px;
+        background: var(--primary-color);
+        transition: width 0.3s ease;
+      }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
+      .nav-link:hover::after {
+        width: 100%;
+      }
 
-        .page-header {
-            background: white;
-            padding: 40px 0;
-            margin-top: 76px;
-            margin-bottom: 40px;
-        }
+      .page-header {
+        background: white;
+        padding: 40px 0;
+        margin-top: 76px;
+        margin-bottom: 40px;
+      }
 
-        .form-section {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            padding: 40px;
-            margin-bottom: 40px;
-        }
+      .form-section {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        padding: 40px;
+        margin-bottom: 40px;
+      }
 
-        .section-title {
-            font-size: 1.5rem;
-            font-weight: 600;
-            margin-bottom: 30px;
-            padding-bottom: 15px;
-            border-bottom: 2px solid var(--light-gray);
-        }
+      .section-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 30px;
+        padding-bottom: 15px;
+        border-bottom: 2px solid var(--light-gray);
+      }
 
-        .form-control {
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            padding: 12px 20px;
-            transition: all 0.3s ease;
-        }
+      .form-control {
+        border-radius: 10px;
+        border: 1px solid #ddd;
+        padding: 12px 20px;
+        transition: all 0.3s ease;
+      }
 
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(214, 28, 78, 0.15);
-        }
+      .form-control:focus {
+        border-color: var(--primary-color);
+        box-shadow: 0 0 0 0.2rem rgba(214, 28, 78, 0.15);
+      }
 
-        .form-label {
-            font-weight: 500;
-            margin-bottom: 10px;
-        }
+      .form-label {
+        font-weight: 500;
+        margin-bottom: 10px;
+      }
 
-        .image-upload {
-            border: 2px dashed #ddd;
-            border-radius: 10px;
-            padding: 40px;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+      .image-upload {
+        border: 2px dashed #ddd;
+        border-radius: 10px;
+        padding: 40px;
+        text-align: center;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-        .image-upload:hover {
-            border-color: var(--primary-color);
-        }
+      .image-upload:hover {
+        border-color: var(--primary-color);
+      }
 
-        .image-upload i {
-            font-size: 2rem;
-            color: var(--primary-color);
-            margin-bottom: 15px;
-        }
+      .image-upload i {
+        font-size: 2rem;
+        color: var(--primary-color);
+        margin-bottom: 15px;
+      }
 
-        .ingredient-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 15px;
-        }
+      .ingredient-item {
+        display: flex;
+        gap: 15px;
+        margin-bottom: 15px;
+      }
 
-        .remove-btn {
-            color: var(--primary-color);
-            background: none;
-            border: none;
-            padding: 0;
-            cursor: pointer;
-        }
+      .remove-btn {
+        color: var(--primary-color);
+        background: none;
+        border: none;
+        padding: 0;
+        cursor: pointer;
+      }
 
-        .add-btn {
-            color: var(--primary-color);
-            background: var(--light-gray);
-            border: none;
-            border-radius: 10px;
-            padding: 12px 20px;
-            font-weight: 500;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: all 0.3s ease;
-        }
+      .add-btn {
+        color: var(--primary-color);
+        background: var(--light-gray);
+        border: none;
+        border-radius: 10px;
+        padding: 12px 20px;
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        transition: all 0.3s ease;
+      }
 
-        .add-btn:hover {
-            background: #e9ecef;
-        }
+      .add-btn:hover {
+        background: #e9ecef;
+      }
 
-        .step-card {
-            background: var(--light-gray);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            position: relative;
-        }
+      .step-card {
+        background: var(--light-gray);
+        border-radius: 15px;
+        padding: 20px;
+        margin-bottom: 20px;
+        position: relative;
+      }
 
-        .step-number {
-            position: absolute;
-            top: -10px;
-            left: -10px;
-            width: 30px;
-            height: 30px;
-            background: var(--primary-color);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-        }
+      .step-number {
+        position: absolute;
+        top: -10px;
+        left: -10px;
+        width: 30px;
+        height: 30px;
+        background: var(--primary-color);
+        color: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 600;
+      }
 
-        .submit-btn {
-            background: var(--primary-color);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            padding: 15px 30px;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
+      .submit-btn {
+        background: var(--primary-color);
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 15px 30px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+      }
 
-        .submit-btn:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-        }
+      .submit-btn:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+      }
 
-        .preview-image {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-top: 20px;
-        }
+      .preview-image {
+        max-width: 100%;
+        border-radius: 10px;
+        margin-top: 20px;
+      }
 
-        footer {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 4rem 0 2rem;
-            margin-top: auto;
-        }
+      footer {
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+        color: white;
+        padding: 4rem 0 2rem;
+        margin-top: auto;
+      }
 
-        .tag-select {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
+      .tag-select {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        margin-top: 10px;
+      }
 
-        .tag-item {
-            background: var(--light-gray);
-            border: none;
-            border-radius: 20px;
-            padding: 8px 20px;
-            font-size: 0.9rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
+      .tag-item {
+        background: var(--light-gray);
+        border: none;
+        border-radius: 20px;
+        padding: 8px 20px;
+        font-size: 0.9rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
 
-        .tag-item.active {
-            background: var(--primary-color);
-            color: white;
-        }
+      .tag-item.active {
+        background: var(--primary-color);
+        color: white;
+      }
     </style>
-</head>
+  </head>
 
-<body>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/index.html">
-                <img src="/assets/images/logo.png" height="40" class="me-2" alt="Logo" />
-                Món Ngon Việt Nam
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
-                    </li>
-                    <li class="nav-item">
-              <a class="nav-link active" href="/pages/recipes/recipes_hot.html"
-                >Nổi bật</a
-              >
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
             </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/user/profile.html">
-                            <img src="/assets/images/users/avatar.jpg" alt="Avatar" class="rounded-circle" width="32"
-                                height="32">
-                        </a>
-                    </li>
-                </ul>
-            </div>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+            </li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/user/profile.html">
+                <img
+                  src="/assets/images/users/avatar.jpg"
+                  alt="Avatar"
+                  class="rounded-circle"
+                  width="32"
+                  height="32"
+                />
+              </a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Page Header -->
     <header class="page-header">
-        <div class="container">
-            <h1 class="h2 fw-bold">Thêm Công Thức Mới</h1>
-            <p class="text-muted mb-0">Chia sẻ công thức nấu ăn của bạn với cộng đồng</p>
-        </div>
+      <div class="container">
+        <h1 class="h2 fw-bold">Thêm Công Thức Mới</h1>
+        <p class="text-muted mb-0">
+          Chia sẻ công thức nấu ăn của bạn với cộng đồng
+        </p>
+      </div>
     </header>
 
     <!-- Main Content -->
     <div class="container">
-        <form id="recipeForm">
+      <div class="row justify-content-center">
+        <div class="col-lg-10 col-xl-8">
+          <form id="addRecipeForm">
             <!-- Basic Info Section -->
             <div class="form-section">
-                <h3 class="section-title">Thông tin cơ bản</h3>
-                <div class="row g-4">
-                    <div class="col-md-8">
-                        <div class="mb-4">
-                            <label class="form-label">Tên món ăn</label>
-                            <input type="text" class="form-control" placeholder="Nhập tên món ăn" required>
-                        </div>
-                        <div class="mb-4">
-                            <label class="form-label">Mô tả</label>
-                            <textarea class="form-control" rows="4" placeholder="Mô tả ngắn về món ăn"
-                                required></textarea>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <label class="form-label">Thời gian nấu</label>
-                                <input type="number" class="form-control" placeholder="Số phút" required>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <label class="form-label">Khẩu phần</label>
-                                <input type="number" class="form-control" placeholder="Số người" required>
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-6 mb-4">
-                                <label class="form-label">Độ khó</label>
-                                <select class="form-select">
-                                    <option value="easy">Dễ</option>
-                                    <option value="medium">Trung bình</option>
-                                    <option value="hard">Khó</option>
-                                </select>
-                            </div>
-                            <div class="col-md-6 mb-4">
-                                <label class="form-label">Calories</label>
-                                <input type="number" class="form-control" placeholder="Số calories">
-                            </div>
-                        </div>
+              <h3 class="section-title">Thông tin cơ bản</h3>
+              <div class="row g-4">
+                <div class="col-md-8">
+                  <div class="mb-4">
+                    <label class="form-label">Tên món ăn</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      name="title"
+                      placeholder="Nhập tên món ăn"
+                      required
+                    />
+                  </div>
+                  <div class="mb-4">
+                    <label class="form-label">Mô tả</label>
+                    <textarea
+                      class="form-control"
+                      name="description"
+                      rows="4"
+                      placeholder="Mô tả ngắn về món ăn"
+                      required
+                    ></textarea>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <label class="form-label">Thời gian nấu (phút)</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="time"
+                        placeholder="Số phút"
+                        required
+                      />
                     </div>
-                    <div class="col-md-4">
-                        <label class="form-label">Hình ảnh món ăn</label>
-                        <div class="image-upload" id="imageUpload">
-                            <i class="fas fa-cloud-upload-alt"></i>
-                            <p class="mb-2">Kéo thả hoặc click để tải ảnh lên</p>
-                            <small class="text-muted">PNG, JPG hoặc JPEG (tối đa 5MB)</small>
-                            <input type="file" id="imageInput" hidden accept="image/*">
-                        </div>
-                        <img id="previewImage" class="preview-image" style="display: none;">
+                    <div class="col-md-6 mb-4">
+                      <label class="form-label">Khẩu phần</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="servings"
+                        placeholder="Số người"
+                        required
+                      />
                     </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-md-6 mb-4">
+                      <label class="form-label">Độ khó</label>
+                      <select class="form-select" name="difficulty">
+                        <option value="Dễ">Dễ</option>
+                        <option value="Trung bình">Trung bình</option>
+                        <option value="Khó">Khó</option>
+                      </select>
+                    </div>
+                    <div class="col-md-6 mb-4">
+                      <label class="form-label">Calories</label>
+                      <input
+                        type="number"
+                        class="form-control"
+                        name="calories"
+                        placeholder="Số calories"
+                      />
+                    </div>
+                  </div>
                 </div>
+                <div class="col-md-4">
+                  <label class="form-label">Hình ảnh món ăn</label>
+                  <div class="image-upload" id="imageUpload">
+                    <i class="fas fa-cloud-upload-alt"></i>
+                    <p class="mb-2">Kéo thả hoặc click để tải ảnh lên</p>
+                    <small class="text-muted"
+                      >PNG, JPG hoặc JPEG (tối đa 5MB)</small
+                    >
+                    <input
+                      type="file"
+                      id="imageInput"
+                      name="image"
+                      hidden
+                      accept="image/*"
+                    />
+                  </div>
+                  <img
+                    id="previewImage"
+                    class="preview-image"
+                    style="display: none"
+                  />
+                </div>
+              </div>
             </div>
 
             <!-- Ingredients Section -->
             <div class="form-section">
-                <h3 class="section-title">Nguyên liệu</h3>
-                <div id="ingredientsList">
-                    <div class="ingredient-item">
-                        <input type="text" class="form-control" placeholder="Tên nguyên liệu">
-                        <input type="text" class="form-control" placeholder="Số lượng">
-                        <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
-                    </div>
+              <h3 class="section-title">Nguyên liệu</h3>
+              <div id="ingredientsList">
+                <div class="ingredient-item">
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="ingredientName[]"
+                    placeholder="Tên nguyên liệu"
+                  />
+                  <input
+                    type="text"
+                    class="form-control"
+                    name="ingredientAmount[]"
+                    placeholder="Số lượng"
+                  />
+                  <button type="button" class="remove-btn">
+                    <i class="fas fa-times"></i>
+                  </button>
                 </div>
-                <button type="button" class="add-btn mt-3" id="addIngredient">
-                    <i class="fas fa-plus"></i>
-                    Thêm nguyên liệu
-                </button>
+              </div>
+              <button type="button" class="add-btn mt-3" id="addIngredient">
+                <i class="fas fa-plus"></i>
+                Thêm nguyên liệu
+              </button>
             </div>
 
             <!-- Steps Section -->
             <div class="form-section">
-                <h3 class="section-title">Các bước thực hiện</h3>
-                <div id="stepsList">
-                    <div class="step-card">
-                        <div class="step-number">1</div>
-                        <textarea class="form-control" rows="3" placeholder="Mô tả bước thực hiện"></textarea>
-                    </div>
+              <h3 class="section-title">Các bước thực hiện</h3>
+              <div id="stepsList">
+                <div class="step-card">
+                  <div class="step-number">1</div>
+                  <textarea
+                    class="form-control"
+                    name="stepDesc[]"
+                    rows="3"
+                    placeholder="Mô tả bước thực hiện"
+                  ></textarea>
                 </div>
-                <button type="button" class="add-btn mt-3" id="addStep">
-                    <i class="fas fa-plus"></i>
-                    Thêm bước
-                </button>
+              </div>
+              <button type="button" class="add-btn mt-3" id="addStep">
+                <i class="fas fa-plus"></i>
+                Thêm bước
+              </button>
             </div>
 
-            <!-- Tags Section -->
+            <!-- Tags Section (Phân loại) -->
             <div class="form-section">
-                <h3 class="section-title">Phân loại</h3>
-                <label class="form-label">Chọn các thẻ phù hợp với món ăn</label>
-                <div class="tag-select" id="tagSelect">
-                    <button type="button" class="tag-item">Món chính</button>
-                    <button type="button" class="tag-item">Món tráng miệng</button>
-                    <button type="button" class="tag-item">Đồ uống</button>
-                    <button type="button" class="tag-item">Món chay</button>
-                    <button type="button" class="tag-item">Ăn vặt</button>
-                    <button type="button" class="tag-item">Món khai vị</button>
-                    <button type="button" class="tag-item">Healthy</button>
-                    <button type="button" class="tag-item">Món Việt</button>
-                    <button type="button" class="tag-item">Fusion</button>
+              <h3 class="section-title">Phân loại</h3>
+              <label class="form-label"
+                >Chọn các danh mục phù hợp với món ăn</label
+              >
+              <div class="tag-select" id="tagSelect">
+                <button type="button" class="tag-item" data-value="Món chính">
+                  Món chính
+                </button>
+                <button
+                  type="button"
+                  class="tag-item"
+                  data-value="Món tráng miệng"
+                >
+                  Món tráng miệng
+                </button>
+                <button type="button" class="tag-item" data-value="Đồ uống">
+                  Đồ uống
+                </button>
+                <button type="button" class="tag-item" data-value="Món chay">
+                  Món chay
+                </button>
+                <button type="button" class="tag-item" data-value="Ăn vặt">
+                  Ăn vặt
+                </button>
+                <button type="button" class="tag-item" data-value="Món khai vị">
+                  Món khai vị
+                </button>
+              </div>
+              <input type="hidden" name="tags" id="tagsInput" />
+            </div>
+
+            <!-- Rating Section (Trực quan) -->
+            <div class="form-section">
+              <h3 class="section-title">Đánh giá của bạn (tùy chọn)</h3>
+              <div class="mb-3">
+                <label class="form-label">Chấm điểm món ăn này</label>
+                <div
+                  id="ratingStars"
+                  style="font-size: 2rem; color: #fab207; cursor: pointer"
+                >
+                  <i class="far fa-star" data-value="1"></i>
+                  <i class="far fa-star" data-value="2"></i>
+                  <i class="far fa-star" data-value="3"></i>
+                  <i class="far fa-star" data-value="4"></i>
+                  <i class="far fa-star" data-value="5"></i>
                 </div>
+                <input type="hidden" name="rating" id="ratingInput" />
+              </div>
             </div>
 
             <!-- Submit Button -->
             <div class="text-center mb-5">
-                <button type="submit" class="submit-btn">
-                    <i class="fas fa-paper-plane me-2"></i>
-                    Đăng công thức
-                </button>
+              <button type="submit" class="submit-btn">
+                <i class="fas fa-paper-plane me-2"></i>
+                Đăng công thức
+              </button>
             </div>
-        </form>
+          </form>
+        </div>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-lg-4">
-                    <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
-                    <p class="mb-4">Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất Việt Nam, nơi kết
-                        nối những người đam mê ẩm thực.</p>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-youtube"></i></a>
-                        <a href="#"><i class="fab fa-tiktok"></i></a>
-                    </div>
-                </div>
-                <div class="col-lg-2">
-                    <h5 class="mb-3 fw-bold">Khám Phá</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="/pages/recipes/list.html" class="text-white text-decoration-none">Công
-                                thức</a></li>
-                        <li class="mb-2"><a href="/pages/blog.html" class="text-white text-decoration-none">Blog</a>
-                        </li>
-                        <li class="mb-2"><a href="/pages/about.html" class="text-white text-decoration-none">Về chúng
-                                tôi</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Liên hệ</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold">Danh Mục</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chính</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món tráng miệng</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Đồ uống</a></li>
-                        <li class="mb-2"><a href="#" class="text-white text-decoration-none">Món chay</a></li>
-                    </ul>
-                </div>
-                <div class="col-lg-3">
-                    <h5 class="mb-3 fw-bold">Liên Hệ</h5>
-                    <ul class="list-unstyled">
-                        <li class="mb-2"><i class="fas fa-envelope me-2"></i> lienhe@monngon.vn</li>
-                        <li class="mb-2"><i class="fas fa-phone me-2"></i> 0123.456.789</li>
-                        <li class="mb-2"><i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam</li>
-                    </ul>
-                </div>
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-3 fw-bold">Về Chúng Tôi</h5>
+            <p class="mb-4">
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links">
+              <a href="#"><i class="fab fa-facebook-f"></i></a>
+              <a href="#"><i class="fab fa-instagram"></i></a>
+              <a href="#"><i class="fab fa-youtube"></i></a>
+              <a href="#"><i class="fab fa-tiktok"></i></a>
             </div>
-            <hr class="my-4 bg-white">
-            <div class="text-center">
-                <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
-            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5 class="mb-3 fw-bold">Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Đồ uống</a>
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Món chay</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold">Liên Hệ</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              </li>
+            </ul>
+          </div>
         </div>
+        <hr class="my-4 bg-white" />
+        <div class="text-center">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script>
-        // Image upload preview
-        const imageUpload = document.getElementById('imageUpload');
-        const imageInput = document.getElementById('imageInput');
-        const previewImage = document.getElementById('previewImage');
+      // Image upload preview
+      const imageUpload = document.getElementById("imageUpload");
+      const imageInput = document.getElementById("imageInput");
+      const previewImage = document.getElementById("previewImage");
 
-        imageUpload.addEventListener('click', () => imageInput.click());
+      imageUpload.addEventListener("click", () => imageInput.click());
 
-        imageInput.addEventListener('change', function () {
-            const file = this.files[0];
-            if (file) {
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    previewImage.src = e.target.result;
-                    previewImage.style.display = 'block';
-                }
-                reader.readAsDataURL(file);
-            }
-        });
+      imageInput.addEventListener("change", function () {
+        const file = this.files[0];
+        if (file) {
+          const reader = new FileReader();
+          reader.onload = function (e) {
+            previewImage.src = e.target.result;
+            previewImage.style.display = "block";
+          };
+          reader.readAsDataURL(file);
+        }
+      });
 
-        // Add ingredient
-        document.getElementById('addIngredient').addEventListener('click', function () {
-            const ingredientItem = document.createElement('div');
-            ingredientItem.className = 'ingredient-item';
-            ingredientItem.innerHTML = `
-                <input type="text" class="form-control" placeholder="Tên nguyên liệu">
-                <input type="text" class="form-control" placeholder="Số lượng">
+      // Add ingredient
+      document
+        .getElementById("addIngredient")
+        .addEventListener("click", function () {
+          const ingredientItem = document.createElement("div");
+          ingredientItem.className = "ingredient-item";
+          ingredientItem.innerHTML = `
+                <input type="text" class="form-control" name="ingredientName[]" placeholder="Tên nguyên liệu">
+                <input type="text" class="form-control" name="ingredientAmount[]" placeholder="Số lượng">
                 <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
             `;
-            document.getElementById('ingredientsList').appendChild(ingredientItem);
+          document
+            .getElementById("ingredientsList")
+            .appendChild(ingredientItem);
 
-            // Add remove functionality
-            ingredientItem.querySelector('.remove-btn').addEventListener('click', function () {
-                ingredientItem.remove();
+          // Add remove functionality
+          ingredientItem
+            .querySelector(".remove-btn")
+            .addEventListener("click", function () {
+              ingredientItem.remove();
             });
         });
 
-        // Add step
-        document.getElementById('addStep').addEventListener('click', function () {
-            const stepsCount = document.querySelectorAll('.step-card').length + 1;
-            const stepCard = document.createElement('div');
-            stepCard.className = 'step-card';
-            stepCard.innerHTML = `
+      // Add step
+      document.getElementById("addStep").addEventListener("click", function () {
+        const stepsCount = document.querySelectorAll(".step-card").length + 1;
+        const stepCard = document.createElement("div");
+        stepCard.className = "step-card";
+        stepCard.innerHTML = `
                 <div class="step-number">${stepsCount}</div>
-                <textarea class="form-control" rows="3" placeholder="Mô tả bước thực hiện"></textarea>
+                <textarea class="form-control" name="stepDesc[]" rows="3" placeholder="Mô tả bước thực hiện"></textarea>
             `;
-            document.getElementById('stepsList').appendChild(stepCard);
-        });
+        document.getElementById("stepsList").appendChild(stepCard);
+      });
 
-        // Tag selection
-        document.querySelectorAll('.tag-item').forEach(tag => {
-            tag.addEventListener('click', function () {
-                this.classList.toggle('active');
+      // Tag selection logic: lưu các tag đã chọn vào input ẩn
+      const tagSelect = document.getElementById("tagSelect");
+      const tagsInput = document.getElementById("tagsInput");
+      if (tagSelect && tagsInput) {
+        tagSelect.querySelectorAll(".tag-item").forEach((tag) => {
+          tag.addEventListener("click", function () {
+            this.classList.toggle("active");
+            const selected = Array.from(
+              tagSelect.querySelectorAll(".tag-item.active")
+            ).map((t) => t.dataset.value);
+            tagsInput.value = selected.join(",");
+          });
+        });
+      }
+
+      // Rating stars logic: chọn số sao trực quan
+      const ratingStars = document.getElementById("ratingStars");
+      const ratingInput = document.getElementById("ratingInput");
+      if (ratingStars && ratingInput) {
+        ratingStars.querySelectorAll("i").forEach((star) => {
+          star.addEventListener("mouseenter", function () {
+            const val = +this.dataset.value;
+            ratingStars.querySelectorAll("i").forEach((s, i) => {
+              s.classList.toggle("fas", i < val);
+              s.classList.toggle("far", i >= val);
             });
+          });
+          star.addEventListener("mouseleave", function () {
+            const current = +ratingInput.value || 0;
+            ratingStars.querySelectorAll("i").forEach((s, i) => {
+              s.classList.toggle("fas", i < current);
+              s.classList.toggle("far", i >= current);
+            });
+          });
+          star.addEventListener("click", function () {
+            const val = +this.dataset.value;
+            ratingInput.value = val;
+            ratingStars.querySelectorAll("i").forEach((s, i) => {
+              s.classList.toggle("fas", i < val);
+              s.classList.toggle("far", i >= val);
+            });
+          });
         });
+        // Khởi tạo trạng thái sao
+        ratingStars.dispatchEvent(new Event("mouseleave"));
+      }
 
-        // Form submission
-        document.getElementById('recipeForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            // Add form submission logic here
-            alert('Công thức đã được đăng thành công!');
+      // Form submission
+      document
+        .getElementById("addRecipeForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          // Add form submission logic here
+          alert("Công thức đã được đăng thành công!");
         });
     </script>
-</body>
+    <script src="/assets/js/auth.js"></script>
+    <script>
+      // Navbar: Hiển thị nút đăng nhập/đăng ký hoặc tên user + đăng xuất + link admin nếu là admin
+      function renderNavbarUser() {
+        const nav = document.querySelector('.navbar-nav');
+        if (!nav) return;
+        const user = window.getCurrentUser();
+        // Xóa các nav-item user/profile cũ (chỉ giữ lại các nav-item không phải user/profile)
+        nav.querySelectorAll('.nav-item').forEach(e => e.remove());
+        let html = '';
+        html += `<li class="nav-item"><a class="nav-link" href="/index.html">Trang chủ</a></li>`;
+        html += `<li class="nav-item"><a class="nav-link" href="/pages/recipes/list.html">Công thức</a></li>`;
+        html += `<li class="nav-item"><a class="nav-link" href="/pages/blog.html">Blog</a></li>`;
+        html += `<li class="nav-item"><a class="nav-link" href="/pages/about.html">Về chúng tôi</a></li>`;
+        if (user) {
+          html += `<li class="nav-item"><span class="nav-link">👤 ${user.username}${user.role === 'admin' ? ' (Admin)' : ''}</span></li>`;
+          if (user.role === 'admin') {
+            html += `<li class="nav-item"><a class="nav-link" href="/pages/admin/dashboard.html">Quản trị</a></li>`;
+          }
+          html += `<li class="nav-item"><a class="nav-link" href="#" id="logoutNav">Đăng xuất</a></li>`;
+        } else {
+          html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a></li>`;
+          html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/register.html">Đăng ký</a></li>`;
+        }
+        nav.insertAdjacentHTML('beforeend', html);
+        // Đăng xuất
+        document.getElementById('logoutNav')?.addEventListener('click', function(e) {
+          e.preventDefault();
+          window.logoutUser();
+          window.location.href = '/index.html';
+        });
+      }
+      document.addEventListener('DOMContentLoaded', renderNavbarUser);
 
+      // Điều hướng hợp lý: kiểm tra đăng nhập trước khi cho phép truy cập trang thêm công thức
+      function isLoggedIn() {
+        // Kiểm tra user hiện tại qua auth.js
+        return !!window.getCurrentUser();
+      }
+      if (!isLoggedIn()) {
+        window.location.href = '/pages/auth/login.html?redirect=/pages/user/add-recipe.html';
+      }
+    </script>
+  </body>
 </html>

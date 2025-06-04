@@ -493,10 +493,48 @@
           infoCards[2].querySelector("p").textContent = recipe.level || "";
           infoCards[3].querySelector("p").textContent = recipe.calories || "";
         }
-        // Related recipes (cùng category, khác id)
-        const related = allRecipes
-          .filter((r) => r.category === recipe.category && r.id !== recipe.id)
-          .slice(0, 3);
+        // Related recipes (ưu tiên lấy từ trường related nếu có, fallback cùng category)
+        let related = [];
+        if (Array.isArray(recipe.related) && recipe.related.length > 0) {
+          // Lấy thông tin chi tiết từ allRecipes theo id trong related
+          related = recipe.related
+            .map((rel) => {
+              // Nếu object đã đủ info thì dùng luôn, nếu chỉ có id thì tìm trong allRecipes
+              if (rel.title && rel.image) return rel;
+              const found = allRecipes.find((r) => r.id === rel.id);
+              if (found) {
+                return {
+                  id: found.id,
+                  title: found.title,
+                  image: found.image,
+                  description: found.description,
+                  author: found.author,
+                  time: found.time,
+                  rating: found.rating,
+                  difficulty: found.difficulty || found.level,
+                };
+              }
+              return null;
+            })
+            .filter(Boolean)
+            .slice(0, 3);
+        } else {
+          // Fallback: cùng category, khác id
+          related = allRecipes
+            .filter((r) => r.category === recipe.category && r.id !== recipe.id)
+            .slice(0, 3)
+            .map((r) => ({
+              id: r.id,
+              title: r.title,
+              image: r.image,
+              description: r.description,
+              author: r.author,
+              time: r.time,
+              rating: r.rating,
+              difficulty: r.difficulty || r.level,
+            }));
+        }
+        // Render related cards
         const relatedCards = document.querySelectorAll(".related-card");
         related.forEach((r, i) => {
           if (relatedCards[i]) {
@@ -505,13 +543,33 @@
             relatedCards[i].querySelector("img").alt = r.title;
             relatedCards[i].querySelector(".related-title").textContent =
               r.title;
-            const meta = relatedCards[i].querySelector(".recipe-meta");
-            meta.innerHTML = `<span><i class='fas fa-clock'></i> ${
+            // Thêm mô tả, tác giả, độ khó, rating, thời gian
+            let meta = `<span><i class='fas fa-clock'></i> ${
               r.time || ""
-            }</span><span><i class='fas fa-star'></i> ${r.rating || ""}</span>`;
-            relatedCards[
-              i
-            ].parentElement.href = `/pages/recipes/detail.html?id=${r.id}`;
+            } phút</span>`;
+            meta += `<span><i class='fas fa-star'></i> ${
+              r.rating || ""
+            }</span>`;
+            if (r.author)
+              meta += `<span><i class='fas fa-user'></i> ${r.author}</span>`;
+            if (r.difficulty)
+              meta += `<span><i class='fas fa-signal'></i> ${r.difficulty}</span>`;
+            relatedCards[i].querySelector(".recipe-meta").innerHTML = meta;
+            // Thêm mô tả nếu có
+            let descEl = relatedCards[i].querySelector(".related-desc");
+            if (!descEl) {
+              descEl = document.createElement("div");
+              descEl.className = "related-desc text-muted small mt-1";
+              relatedCards[i]
+                .querySelector(".related-info")
+                .appendChild(descEl);
+            }
+            descEl.textContent = r.description || "";
+            // Click vào card chuyển trang
+            relatedCards[i].style.cursor = "pointer";
+            relatedCards[i].onclick = () => {
+              window.location.href = `/pages/recipes/detail.html?id=${r.id}`;
+            };
           }
         });
       }

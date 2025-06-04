@@ -599,20 +599,48 @@
   color: #fff;
   border-color: var(--primary-color);
 }
-@media (max-width: 767px) {
-  .featured-vertical-card {
-    flex-direction: column;
-    align-items: flex-start !important;
-    text-align: left;
-    padding: 1.2rem 0.7rem;
-  }
-  .featured-thumb {
-    width: 80px;
-    height: 80px;
-    margin-bottom: 0.7rem;
-  }
-  .featured-rank {
-    font-size: 1.5rem;
-    min-width: 36px;
-  }
+.btn-fav {
+  border-radius: 8px;
+  border-width: 2px;
+  font-weight: 600;
+  color: #d61c4e;
+  border-color: #d61c4e;
+  background: #fff;
+  transition: background 0.18s, color 0.18s, border 0.18s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4em;
+}
+.btn-fav.active, .btn-fav:hover, .btn-fav:focus {
+  background: #d61c4e;
+  color: #fff;
+  border-color: #d61c4e;
+}
+.btn-fav .fa-heart {
+  color: inherit;
+  font-size: 1.1em;
+  transition: color 0.18s;
+}
+.btn-fav.active .fa-heart,
+.btn-fav:hover .fa-heart {
+  color: #fff;
+}
+.featured-vertical-card .recipe-meta {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  color: #d61c4e;
+  font-size: 0.98rem;
+  margin-top: 0.2em;
+}
+.featured-vertical-card .recipe-meta i {
+  color: #d61c4e;
+}
+.featured-vertical-card .recipe-meta span {
+  color: #d61c4e;
+  font-weight: 500;
+}
+.navbar .username, .navbar .username-box, .navbar .username * {
+  color: #d61c4e !important;
 }

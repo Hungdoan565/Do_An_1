@@ -252,7 +252,48 @@
         box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
         text-decoration: none;
       }
-      
+       .navbar-nav .btn {
+        font-weight: 600;
+        border-radius: 8px;
+        margin-left: 10px;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      .navbar-nav .btn-outline-primary {
+        border: 2px solid var(--primary-color);
+        color: var(--primary-color);
+        background: white;
+      }
+      .navbar-nav .btn-outline-primary:hover {
+        background: var(--primary-color);
+        color: white;
+      }
+      .navbar-nav .btn-primary {
+        background: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        color: white;
+      }
+      .navbar-nav .btn-primary:hover {
+        background: #1abc9c;
+        border-color: #1abc9c;
+        color: white;
+      }
+      .navbar-nav .btn-danger {
+        background: var(--primary-color);
+        border: 2px solid var(--primary-color);
+        color: #fff;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      .navbar-nav .btn-danger:hover {
+        background: #1abc9c;
+        border-color: #1abc9c;
+        color: #fff;
+      }
+      @media (max-width: 991px) {
+        .navbar-nav .btn {
+          margin-left: 0;
+          margin-top: 10px;
+        }
+      }
 
       footer {
         background: linear-gradient(
@@ -264,3 +305,6 @@
         padding: 4rem 0 2rem;
         margin-top: 50px;
       }
+      .navbar .username, .navbar .username-box, .navbar .username * {
+  color: #d61c4e !important;
+}

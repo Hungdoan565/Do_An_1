@@ -286,3 +286,6 @@
         color: white;
         padding: 4rem 0 2rem;
       }
+      .navbar .username, .navbar .username-box, .navbar .username * {
+        color: #d61c4e !important;
+      }

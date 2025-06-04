@@ -1,20 +1,27 @@
 // Xử lý đăng ký, đăng nhập, đăng xuất, phân quyền cho user
 // Lưu user vào localStorage, role: 'guest' | 'member' | 'admin'
 
-// Đăng ký: thêm user mới vào localStorage, lưu cả thời gian tạo
-function registerUser({ username, password, role = 'member' }) {
+// Đăng ký: thêm user mới vào localStorage, email là duy nhất (không phân biệt hoa/thường)
+function registerUser({ username, email, password, role = 'member' }) {
   let users = JSON.parse(localStorage.getItem('users') || '[]');
-  if (users.find(u => u.username === username)) return { success: false, message: 'Tên đăng nhập đã tồn tại!' };
-  users.push({ username, password, role, createdAt: Date.now() });
+  const emailNorm = email.trim().toLowerCase();
+  if (users.find(u => (u.email || '').trim().toLowerCase() === emailNorm)) return { success: false, message: 'Email đã tồn tại!' };
+  users.push({ username, email: emailNorm, password, role, createdAt: Date.now() });
   localStorage.setItem('users', JSON.stringify(users));
   return { success: true };
 }
 
-// Đăng nhập: kiểm tra user, lưu user hiện tại
-function loginUser({ username, password }) {
+// Đăng nhập: kiểm tra user qua email hoặc username
+function loginUser({ email, username, password }) {
   let users = JSON.parse(localStorage.getItem('users') || '[]');
-  const user = users.find(u => u.username === username && u.password === password);
-  if (!user) return { success: false, message: 'Sai tên đăng nhập hoặc mật khẩu!' };
+  let user = null;
+  if (email) {
+    const emailNorm = email.trim().toLowerCase();
+    user = users.find(u => (u.email || '').trim().toLowerCase() === emailNorm && u.password === password);
+  } else if (username) {
+    user = users.find(u => (u.username || '').trim() === username.trim() && u.password === password);
+  }
+  if (!user) return { success: false, message: 'Sai email hoặc mật khẩu!' };
   localStorage.setItem('currentUser', JSON.stringify(user));
   return { success: true, user };
 }

@@ -1,374 +1,263 @@
 <!DOCTYPE html>
 <html lang="vi">
-
-<head>
+  <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Đăng Ký - Món Ngon Việt Nam</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-    <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
-        rel="stylesheet">
-    <style>
-        :root {
-            --primary-color: #D61C4E;
-            --secondary-color: #F77E21;
-            --accent-color: #FAB207;
-            --text-color: #1F1717;
-            --light-gray: #F5F5F5;
-        }
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/pages/register.css" />
+  </head>
 
-        body {
-            font-family: 'Be Vietnam Pro', sans-serif;
-            color: var(--text-color);
-            background-color: var(--light-gray);
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-
-        .navbar {
-            background-color: rgba(255, 255, 255, 0.95) !important;
-            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.08);
-        }
-
-        .navbar-brand {
-            font-weight: 700;
-            color: var(--primary-color) !important;
-        }
-
-        .nav-link {
-            font-weight: 500;
-            color: var(--text-color) !important;
-            margin: 0 0.5rem;
-            position: relative;
-        }
-
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary-color);
-            transition: width 0.3s ease;
-        }
-
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .register-container {
-            flex: 1;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 40px 0;
-        }
-
-        .register-card {
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
-            overflow: hidden;
-            width: 100%;
-            max-width: 1000px;
-        }
-
-        .register-image {
-            background: linear-gradient(135deg, rgba(214, 28, 78, 0.8), rgba(247, 126, 33, 0.8));
-            background-size: cover;
-            background-position: center;
-            min-height: 400px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            text-align: center;
-            padding: 40px;
-        }
-
-        .register-form {
-            padding: 40px;
-        }
-
-        .form-control {
-            height: 50px;
-            border-radius: 10px;
-            border: 1px solid #ddd;
-            padding: 0 20px;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-        }
-
-        .form-control:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 0.2rem rgba(214, 28, 78, 0.15);
-        }
-
-        .btn-primary {
-            height: 50px;
-            border-radius: 10px;
-            background: var(--primary-color);
-            border: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-        }
-
-        .btn-primary:hover {
-            background: var(--secondary-color);
-            transform: translateY(-2px);
-        }
-
-        .social-register {
-            margin-top: 30px;
-            text-align: center;
-        }
-
-        .social-btn {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 10px;
-            font-size: 1.2rem;
-            color: white;
-            transition: all 0.3s ease;
-        }
-
-        .facebook-btn {
-            background: #1877f2;
-        }
-
-        .google-btn {
-            background: #db4437;
-        }
-
-        .social-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-        }
-
-        .divider {
-            display: flex;
-            align-items: center;
-            text-align: center;
-            margin: 30px 0;
-            color: #666;
-        }
-
-        .divider::before,
-        .divider::after {
-            content: '';
-            flex: 1;
-            border-bottom: 1px solid #ddd;
-        }
-
-        .divider span {
-            padding: 0 15px;
-        }
-
-        footer {
-            background: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
-            color: white;
-            padding: 2rem 0;
-        }
-
-        .password-requirements {
-            font-size: 0.9rem;
-            color: #666;
-            margin-top: 10px;
-        }
-
-        .password-requirements ul {
-            list-style: none;
-            padding-left: 0;
-            margin-bottom: 0;
-        }
-
-        .password-requirements li {
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-        }
-
-        .password-requirements li i {
-            margin-right: 8px;
-            font-size: 0.8rem;
-        }
-
-        .requirement-met {
-            color: var(--primary-color);
-        }
-    </style>
-</head>
-
-<body>
+  <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
-        <div class="container">
-            <a class="navbar-brand" href="/index.html">
-                <img src="/assets/images/logo.png" height="40" class="me-2" alt="Logo" />
-                Món Ngon Việt Nam
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNav">
-                <ul class="navbar-nav ms-auto align-items-center">
-                    <li class="nav-item">
-                        <a class="nav-link" href="/index.html">Trang chủ</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
-                    </li>
-                    <li class="nav-item">
-              
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/blog.html">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a>
-                    </li>
-                </ul>
-            </div>
+      <div class="container">
+        <a class="navbar-brand" href="/index.html">
+          <img
+            src="/assets/images/logo.png"
+            height="40"
+            class="me-2"
+            alt="Logo"
+          />
+          Món Ngon Việt Nam
+        </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+            </li>
+            <li class="nav-item"></li>
+
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a>
+            </li>
+          </ul>
         </div>
+      </div>
     </nav>
 
     <!-- Register Section -->
     <div class="register-container">
-        <div class="container">
-            <div class="register-card">
-                <div class="row g-0">
-                    <div class="col-md-6">
-                        <div class="register-image">
-                            <div>
-                                <h2 class="display-6 fw-bold mb-4">Tham Gia Cộng Đồng</h2>
-                                <p class="lead">Chia sẻ niềm đam mê ẩm thực Việt Nam</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="register-form">
-                            <h3 class="fw-bold mb-4">Đăng Ký Tài Khoản</h3>
-                            <form>
-                                <div class="row">
-                                    <div class="col-md-6 mb-4">
-                                        <label class="form-label">Họ</label>
-                                        <input type="text" class="form-control" placeholder="Nhập họ">
-                                    </div>
-                                    <div class="col-md-6 mb-4">
-                                        <label class="form-label">Tên</label>
-                                        <input type="text" class="form-control" placeholder="Nhập tên">
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label">Email</label>
-                                    <input type="email" class="form-control" placeholder="Nhập địa chỉ email">
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label">Mật khẩu</label>
-                                    <input type="password" class="form-control" placeholder="Nhập mật khẩu">
-                                    <div class="password-requirements">
-                                        <ul>
-                                            <li><i class="fas fa-check requirement-met"></i> Ít nhất 8 ký tự</li>
-                                            <li><i class="fas fa-check"></i> Chứa chữ hoa và chữ thường</li>
-                                            <li><i class="fas fa-check"></i> Chứa số và ký tự đặc biệt</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <div class="mb-4">
-                                    <label class="form-label">Xác nhận mật khẩu</label>
-                                    <input type="password" class="form-control" placeholder="Nhập lại mật khẩu">
-                                </div>
-                                <div class="mb-4">
-                                    <div class="form-check">
-                                        <input type="checkbox" class="form-check-input" id="termsCheck">
-                                        <label class="form-check-label" for="termsCheck">
-                                            Tôi đồng ý với <a href="#" class="text-decoration-none"
-                                                style="color: var(--primary-color);">Điều khoản
-                                                sử dụng</a> và <a href="#" class="text-decoration-none"
-                                                style="color: var(--primary-color);">Chính
-                                                sách bảo mật</a>
-                                        </label>
-                                    </div>
-                                </div>
-                                <button type="submit" class="btn btn-primary w-100">Đăng ký</button>
-                            </form>
-
-                            <div class="divider">
-                                <span>hoặc đăng ký với</span>
-                            </div>
-
-                            <div class="social-register">
-                                <a href="#" class="social-btn facebook-btn">
-                                    <i class="fab fa-facebook-f"></i>
-                                </a>
-                                <a href="#" class="social-btn google-btn">
-                                    <i class="fab fa-google"></i>
-                                </a>
-                            </div>
-
-                            <p class="text-center mt-4">
-                                Đã có tài khoản?
-                                <a href="/pages/auth/login.html" class="text-decoration-none"
-                                    style="color: var(--primary-color);">
-                                    Đăng nhập ngay
-                                </a>
-                            </p>
-                        </div>
-                    </div>
+      <div class="container">
+        <div class="register-card">
+          <div class="row g-0">
+            <div class="col-md-6">
+              <div class="register-image">
+                <div>
+                  <h2 class="display-6 fw-bold mb-4">Tham Gia Cộng Đồng</h2>
+                  <p class="lead">Chia sẻ niềm đam mê ẩm thực Việt Nam</p>
                 </div>
+              </div>
             </div>
+            <div class="col-md-6">
+              <div class="register-form">
+                <h3 class="fw-bold mb-4">Đăng Ký Tài Khoản</h3>
+                <!-- Thêm id cho form và các trường, thêm các dòng điều kiện mật khẩu có id để JS highlight -->
+                <form id="registerForm" class="register-form">
+                  <div class="mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="username"
+                      name="username"
+                      placeholder="Tên tài khoản"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <input
+                      type="email"
+                      class="form-control"
+                      id="email"
+                      name="email"
+                      placeholder="Email (bắt buộc)"
+                      required
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="password"
+                      name="password"
+                      placeholder="Mật khẩu"
+                      required
+                    />
+                    <ul class="mt-2 mb-0 ps-3" style="font-size: 0.95em">
+                      <li id="pwRuleLength">
+                        <i
+                          id="pwIconLength"
+                          class="fas fa-check-circle text-secondary me-1"
+                        ></i
+                        >Ít nhất 8 ký tự
+                      </li>
+                      <li id="pwRuleUpper">
+                        <i
+                          id="pwIconUpper"
+                          class="fas fa-check-circle text-secondary me-1"
+                        ></i
+                        >Chứa chữ hoa
+                      </li>
+                      <li id="pwRuleLower">
+                        <i
+                          id="pwIconLower"
+                          class="fas fa-check-circle text-secondary me-1"
+                        ></i
+                        >Chứa chữ thường
+                      </li>
+                      <li id="pwRuleSpecial">
+                        <i
+                          id="pwIconSpecial"
+                          class="fas fa-check-circle text-secondary me-1"
+                        ></i
+                        >Chứa số và/hoặc ký tự đặc biệt
+                      </li>
+                    </ul>
+                  </div>
+                  <div class="mb-3">
+                    <input
+                      type="password"
+                      class="form-control"
+                      id="confirmPassword"
+                      name="confirmPassword"
+                      placeholder="Xác nhận mật khẩu"
+                      required
+                    />
+                  </div>
+                  <div class="form-check mb-3">
+                    <input
+                      class="form-check-input"
+                      type="checkbox"
+                      id="agreeTerms"
+                    />
+                    <label class="form-check-label" for="agreeTerms">
+                      Tôi đồng ý với
+                      <a href="#" target="_blank">Điều khoản sử dụng</a> và
+                      <a href="#" target="_blank">Chính sách bảo mật</a>
+                    </label>
+                  </div>
+                  <button type="submit" class="btn btn-primary w-100">
+                    Đăng ký
+                  </button>
+                </form>
+
+                <div class="divider">
+                  <span>hoặc đăng ký với</span>
+                </div>
+
+                <div class="social-register">
+                  <a href="#" class="social-btn facebook-btn">
+                    <i class="fab fa-facebook-f"></i>
+                  </a>
+                  <a href="#" class="social-btn google-btn">
+                    <i class="fab fa-google"></i>
+                  </a>
+                </div>
+
+                <p class="text-center mt-4">
+                  Đã có tài khoản?
+                  <a
+                    href="/pages/auth/login.html"
+                    class="text-decoration-none"
+                    style="color: var(--primary-color)"
+                  >
+                    Đăng nhập ngay
+                  </a>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="container">
-            <div class="text-center">
-                <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
-            </div>
+      <div class="container">
+        <div class="text-center">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
         </div>
+      </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/register.js"></script>
     <script>
-        // Password validation
-        const passwordInput = document.querySelector('input[type="password"]');
-        const requirements = document.querySelectorAll('.password-requirements li i');
-
-        passwordInput.addEventListener('input', function () {
-            const password = this.value;
-
-            // Length check
-            if (password.length >= 8) {
-                requirements[0].classList.add('requirement-met');
-            } else {
-                requirements[0].classList.remove('requirement-met');
-            }
-
-            // Uppercase and lowercase check
-            if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
-                requirements[1].classList.add('requirement-met');
-            } else {
-                requirements[1].classList.remove('requirement-met');
-            }
-
-            // Number and special character check
-            if (/[0-9]/.test(password) && /[!@#$%^&*]/.test(password)) {
-                requirements[2].classList.add('requirement-met');
-            } else {
-                requirements[2].classList.remove('requirement-met');
-            }
+      document
+        .getElementById("registerForm")
+        ?.addEventListener("submit", function (e) {
+          e.preventDefault();
+          const username = document.getElementById("username").value.trim();
+          const password = document.getElementById("password").value;
+          const role = "member";
+          const result = window.registerUser({ username, password, role });
+          if (result.success) {
+            alert("Đăng ký thành công! Vui lòng đăng nhập.");
+            window.location.href = "/pages/auth/login.html";
+          } else {
+            alert(result.message);
+          }
         });
     </script>
-</body>
+    <script>
+      // Password validation
+      const passwordInput = document.querySelector('input[type="password"]');
+      const requirements = document.querySelectorAll(
+        ".password-requirements li i"
+      );
 
+      passwordInput.addEventListener("input", function () {
+        const password = this.value;
+
+        // Length check
+        if (password.length >= 8) {
+          requirements[0].classList.add("requirement-met");
+        } else {
+          requirements[0].classList.remove("requirement-met");
+        }
+
+        // Uppercase and lowercase check
+        if (/[a-z]/.test(password) && /[A-Z]/.test(password)) {
+          requirements[1].classList.add("requirement-met");
+        } else {
+          requirements[1].classList.remove("requirement-met");
+        }
+
+        // Number and special character check
+        if (/[0-9]/.test(password) && /[!@#$%^&*]/.test(password)) {
+          requirements[2].classList.add("requirement-met");
+        } else {
+          requirements[2].classList.remove("requirement-met");
+        }
+      });
+    </script>
+  </body>
 </html>

@@ -1,7 +1,11 @@
-// Xử lý đăng ký, đăng nhập, đăng xuất, phân quyền cho user
-// Lưu user vào localStorage, role: 'guest' | 'member' | 'admin'
+// KHÔNG dùng import ... from ... ở đây!
+// Đảm bảo đã nhúng các file sau ở đầu file HTML:
+// <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js"></script>
+// <script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-auth.js"></script>
 
-// Đăng ký: thêm user mới vào localStorage, email là duy nhất (không phân biệt hoa/thường)
+var auth = firebase.auth();
+
 function registerUser({ username, email, password, role = 'member' }) {
   let users = JSON.parse(localStorage.getItem('users') || '[]');
   const emailNorm = email.trim().toLowerCase();
@@ -53,10 +57,120 @@ function requireRole(role) {
     localStorage.setItem('users', JSON.stringify(users));
   }
 })();
+// Xử lý đăng nhập Google
+var provider = new firebase.auth.GoogleAuthProvider();
 
-// Xuất các hàm ra window để dùng ở html
-window.registerUser = registerUser;
-window.loginUser = loginUser;
-window.logoutUser = logoutUser;
-window.getCurrentUser = getCurrentUser;
-window.requireRole = requireRole;
+document.querySelectorAll(".btn-google, .social-btn.google-btn").forEach(function(btn) {
+  btn.addEventListener("click", async function(e) {
+    e.preventDefault();
+    try {
+      var result = await auth.signInWithPopup(provider);
+      var user = result.user;
+      localStorage.setItem(
+        "currentUser",
+        JSON.stringify({
+          username: user.displayName || user.email.split("@")[0],
+          email: user.email,
+          photoURL: user.photoURL,
+          role: "member",
+          google: true,
+          createdAt: Date.now(),
+        })
+      );
+      window.location.href = "/index.html";
+    } catch (error) {
+      let errorMessage = "Đăng nhập Google thất bại: ";
+      switch (error.code) {
+        case "auth/popup-closed-by-user":
+          errorMessage += "Bạn đã đóng cửa sổ đăng nhập.";
+          break;
+        case "auth/popup-blocked":
+          errorMessage += "Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.";
+          break;
+        case "auth/cancelled-popup-request":
+          errorMessage += "Yêu cầu đăng nhập đã bị hủy.";
+          break;
+        case "auth/account-exists-with-different-credential":
+          errorMessage += "Email này đã được sử dụng với phương thức đăng nhập khác.";
+          break;
+        default:
+          errorMessage += error.message;
+      }
+      alert(errorMessage);
+      console.error("Lỗi đăng nhập Google:", error);
+    }
+  });
+});
+
+// Giám sát trạng thái xác thực
+function setupAuthStateMonitoring() {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // Người dùng đã đăng nhập - có thể cập nhật UI nếu cần
+      console.log("Đã đăng nhập với:", user.email);
+
+      // Lưu thông tin người dùng nếu chưa có
+      if (!localStorage.getItem("codemaster_user")) {
+        localStorage.setItem(
+          "codemaster_user",
+          JSON.stringify({
+            uid: user.uid,
+            email: user.email,
+            displayName: user.displayName || user.email.split("@")[0],
+            photoURL: user.photoURL,
+          })
+        );
+      }
+
+      // Cập nhật UI nếu cần
+      // ...
+    } else {
+      // Người dùng chưa đăng nhập
+      console.log("Chưa đăng nhập");
+
+      // Cập nhật UI nếu cần
+      // ...
+    }
+  });
+}
+
+// Đăng nhập Google (dùng cho login/register)
+window.googleSignIn = async function() {
+  var provider = new firebase.auth.GoogleAuthProvider();
+  try {
+    var result = await auth.signInWithPopup(provider);
+    var user = result.user;
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify({
+        username: user.displayName || user.email.split("@")[0],
+        email: user.email,
+        photoURL: user.photoURL,
+        role: "member",
+        google: true,
+        createdAt: Date.now(),
+      })
+    );
+    window.location.href = "/index.html";
+  } catch (error) {
+    let errorMessage = "Đăng nhập Google thất bại: ";
+    switch (error.code) {
+      case "auth/popup-closed-by-user":
+        errorMessage += "Bạn đã đóng cửa sổ đăng nhập.";
+        break;
+      case "auth/popup-blocked":
+        errorMessage += "Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.";
+        break;
+      case "auth/cancelled-popup-request":
+        errorMessage += "Yêu cầu đăng nhập đã bị hủy.";
+        break;
+      case "auth/account-exists-with-different-credential":
+        errorMessage += "Email này đã được sử dụng với phương thức đăng nhập khác.";
+        break;
+      default:
+        errorMessage += error.message;
+    }
+    alert(errorMessage);
+    console.error("Lỗi đăng nhập Google:", error);
+  }
+};

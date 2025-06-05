@@ -79,24 +79,10 @@ document.querySelectorAll(".btn-google, .social-btn.google-btn").forEach(functio
       );
       window.location.href = "/index.html";
     } catch (error) {
-      let errorMessage = "Đăng nhập Google thất bại: ";
-      switch (error.code) {
-        case "auth/popup-closed-by-user":
-          errorMessage += "Bạn đã đóng cửa sổ đăng nhập.";
-          break;
-        case "auth/popup-blocked":
-          errorMessage += "Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.";
-          break;
-        case "auth/cancelled-popup-request":
-          errorMessage += "Yêu cầu đăng nhập đã bị hủy.";
-          break;
-        case "auth/account-exists-with-different-credential":
-          errorMessage += "Email này đã được sử dụng với phương thức đăng nhập khác.";
-          break;
-        default:
-          errorMessage += error.message;
+      // Nếu popup bị chặn thì mới báo lỗi, còn lại im lặng
+      if (error.code === "auth/popup-blocked") {
+        alert("Đăng nhập Google thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
       }
-      alert(errorMessage);
       console.error("Lỗi đăng nhập Google:", error);
     }
   });
@@ -153,24 +139,10 @@ window.googleSignIn = async function() {
     );
     window.location.href = "/index.html";
   } catch (error) {
-    let errorMessage = "Đăng nhập Google thất bại: ";
-    switch (error.code) {
-      case "auth/popup-closed-by-user":
-        errorMessage += "Bạn đã đóng cửa sổ đăng nhập.";
-        break;
-      case "auth/popup-blocked":
-        errorMessage += "Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.";
-        break;
-      case "auth/cancelled-popup-request":
-        errorMessage += "Yêu cầu đăng nhập đã bị hủy.";
-        break;
-      case "auth/account-exists-with-different-credential":
-        errorMessage += "Email này đã được sử dụng với phương thức đăng nhập khác.";
-        break;
-      default:
-        errorMessage += error.message;
+    // Nếu popup bị chặn thì mới báo lỗi, còn lại im lặng
+    if (error.code === "auth/popup-blocked") {
+      alert("Đăng nhập Google thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
     }
-    alert(errorMessage);
     console.error("Lỗi đăng nhập Google:", error);
   }
 };

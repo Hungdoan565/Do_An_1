@@ -14,3 +14,11 @@ const firebaseConfig = {
 var app = firebase.initializeApp(firebaseConfig);
 var analytics = firebase.analytics();
 window.app = app;
+
+// Lấy dữ liệu từ Firebase Realtime Database
+function fetchData(path, callback) {
+  var db = firebase.database();
+  db.ref(path).once('value').then(function(snapshot) {
+    callback(snapshot.val());
+  });
+}

@@ -310,6 +310,10 @@
       </div>
     </footer>
 
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="/assets/js/auth.js"></script>
@@ -321,54 +325,12 @@
         once: true,
       });
 
-      // Sample blog posts data
-      const blogPosts = [
-        {
-          title: "Bí Quyết Nấu Phở Ngon Tại Nhà",
-          excerpt:
-            "Khám phá công thức nấu phở chuẩn vị với những nguyên liệu dễ tìm và bí quyết nấu nước dùng ngọt thanh từ các đầu bếp chuyên nghiệp...",
-          image: "/assets/images/blog/nau-pho.jpg",
-          author: "Đầu Bếp Việt",
-          date: "15/03/2024",
-          readTime: "5 phút đọc",
-          tags: ["Món Việt", "Truyền Thống", "Mẹo Hay"],
-        },
-        {
-          title: "Top 10 Món Ăn Vặt Được Yêu Thích",
-          excerpt:
-            "Tổng hợp những món ăn vặt ngon, dễ làm được giới trẻ yêu thích. Từ bánh tráng trộn đến takoyaki phiên bản Việt...",
-          image: "/assets/images/blog/an-vat.jpg",
-          author: "Chị Mai",
-          date: "14/03/2024",
-          readTime: "4 phút đọc",
-          tags: ["Ăn Vặt", "Fusion"],
-        },
-        {
-          title: "Cách Làm Bánh Trung Thu Nhân Thập Cẩm",
-          excerpt:
-            "Hướng dẫn chi tiết cách làm bánh trung thu truyền thống tại nhà. Bí quyết để có lớp vỏ bánh mỏng, đều và nhân bánh thơm ngon...",
-          image: "/assets/images/blog/banh-trung-thu.jpg",
-          author: "Cô Thảo",
-          date: "13/03/2024",
-          readTime: "7 phút đọc",
-          tags: ["Bánh Ngọt", "Truyền Thống"],
-        },
-        {
-          title: "5 Món Chay Ngon Cho Ngày Rằm",
-          excerpt:
-            "Gợi ý 5 món chay thơm ngon, đầy đủ dinh dưỡng cho ngày rằm. Dễ nấu và phù hợp với khẩu vị người Việt...",
-          image: "/assets/images/blog/top5.jpg",
-          author: "Sư Cô Hương",
-          date: "12/03/2024",
-          readTime: "6 phút đọc",
-          tags: ["Món Chay", "Healthy"],
-        },
-      ];
-
-      // Render blog posts
-      document.getElementById("blogPosts").innerHTML = blogPosts
-        .map(
-          (post) => `
+      // Lấy dữ liệu blog động từ file JSON
+      fetchData("blogs", function (blogPostsObj) {
+        const blogPosts = blogPostsObj ? Object.values(blogPostsObj) : [];
+        document.getElementById("blogPosts").innerHTML = blogPosts
+          .map(
+            (post) => `
       <div class="col-md-6 mb-4" data-aos="fade-up">
         <a href="#" class="blog-card d-block">
           <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
@@ -389,8 +351,9 @@
         </a>
       </div>
     `
-        )
-        .join("");
+          )
+          .join("");
+      });
 
       // Sample popular posts data
       const popularPosts = [

@@ -106,9 +106,8 @@
             <li class="nav-item">
               <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
             </li>
-
             <li class="nav-item">
-              <a class="nav-link" href="/pages/blog.html">Blog</a>
+              <a class="nav-link" href="/blog/blog.html">Blog</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
@@ -331,66 +330,11 @@
         <div class="text-center mb-5">
           <h2 class="section-title">Bài Viết Mới Nhất</h2>
         </div>
-        <div class="row g-4">
-          <div class="col-md-4">
-            <div class="blog-card">
-              <img
-                src="/assets/images/blog/nau-pho.jpg"
-                alt="Bí Quyết Nấu Phở"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Bí Quyết Nấu Phở Ngon Tại Nhà</h5>
-                <p class="card-text text-muted">
-                  Khám phá công thức nấu phở chuẩn vị với những nguyên liệu dễ
-                  tìm...
-                </p>
-                <div class="blog-meta">
-                  <span><i class="far fa-calendar"></i> 15/03/2024</span>
-                  <span><i class="far fa-clock"></i> 5 phút đọc</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="blog-card">
-              <img
-                src="/assets/images/blog/an-vat.jpg"
-                alt="Top 10 Món Ăn Vặt"
-              />
-              <div class="card-body">
-                <h5 class="card-title">Top 10 Món Ăn Vặt Được Yêu Thích</h5>
-                <p class="card-text text-muted">
-                  Tổng hợp những món ăn vặt ngon, dễ làm được giới trẻ yêu
-                  thích...
-                </p>
-                <div class="blog-meta">
-                  <span><i class="far fa-calendar"></i> 14/03/2024</span>
-                  <span><i class="far fa-clock"></i> 4 phút đọc</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-md-4">
-            <div class="blog-card">
-              <img
-                src="/assets/images/blog/banh-trung-thu.jpg"
-                alt="Cách Làm Bánh Trung Thu"
-              />
-              <div class="card-body">
-                <h5 class="card-title">
-                  Cách Làm Bánh Trung Thu Nhân Thập Cẩm
-                </h5>
-                <p class="card-text text-muted">
-                  Hướng dẫn chi tiết cách làm bánh trung thu truyền thống tại
-                  nhà...
-                </p>
-                <div class="blog-meta">
-                  <span><i class="far fa-calendar"></i> 13/03/2024</span>
-                  <span><i class="far fa-clock"></i> 7 phút đọc</span>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="row g-4" id="latestBlogPosts"></div>
+        <div class="text-center mt-4">
+          <a href="/blog/blog.html" class="btn btn-outline-primary px-4 py-2"
+            >Xem tất cả bài viết</a
+          >
         </div>
       </div>
     </section>
@@ -757,6 +701,39 @@
           });
         }
       });
+
+      // Hiển thị 3 bài viết mới nhất từ Firebase (nếu đã có fetchData)
+      if (typeof fetchData === "function") {
+        fetchData("blogs", function (blogPostsObj) {
+          const blogPosts = blogPostsObj ? Object.values(blogPostsObj) : [];
+          blogPosts.sort((a, b) => new Date(b.date) - new Date(a.date));
+          const latest = blogPosts.slice(0, 3);
+          document.getElementById("latestBlogPosts").innerHTML = latest
+            .map(
+              (post) => `
+            <div class="col-md-4">
+              <div class="blog-card">
+                <img src="${post.image}" alt="${post.title}" class="w-100" />
+                <div class="card-body">
+                  <h5 class="card-title">${post.title}</h5>
+                  <p class="card-text text-muted">${post.excerpt || ""}</p>
+                  <div class="blog-meta">
+                    <span><i class="far fa-calendar"></i> ${post.date}</span>
+                    <span><i class="far fa-clock"></i> ${
+                      post.readTime || ""
+                    }</span>
+                  </div>
+                  <a href="/blog/blog-detail.html?id=${
+                    post.id
+                  }" class="btn btn-sm btn-primary mt-2">Xem chi tiết</a>
+                </div>
+              </div>
+            </div>
+          `
+            )
+            .join("");
+        });
+      }
     </script>
   </body>
 </html>

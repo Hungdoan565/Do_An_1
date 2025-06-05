@@ -1075,7 +1075,7 @@ const recipesMonChinh = [
     ]
   },
   {
-    "id": "goi-cuon-tom-thit",
+    "id": "goi-cuon",
     "title": "Gỏi Cuốn Tôm Thịt",
     "description": "Gỏi cuốn tươi mát với nhân tôm thịt và rau herbs.",
     "image": "/assets/images/mon-an/khai-vi/goicuon.jpg",
@@ -1129,12 +1129,12 @@ const recipesMonChinh = [
     ],
     "related": [
       {
-        "id": "pho-bo",
-        "title": "Phở Bò Nam Định",
-        "image": "/assets/images/mon-an/mon-chinh/phobo.jpg",
-        "description": "Phở truyền thống với nước dùng đậm đà, thơm ngon.",
-        "time": 45,
-        "rating": 4.8
+        "id": "bun-bo-hue",
+        "title": "Bún Bò Huế",
+        "image": "/assets/images/mon-an/mon-chinh/bunbo.jpg",
+        "description": "Bún bò Huế với nước dùng đậm đà, thơm ngon.",
+        "time": 60,
+        "rating": 4.9
       },
       {
         "id": "chao-heo",

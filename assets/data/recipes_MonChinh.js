@@ -1075,6 +1075,86 @@ const recipesMonChinh = [
     ]
   },
   {
+    "id": "goi-cuon-tom-thit",
+    "title": "Gỏi Cuốn Tôm Thịt",
+    "description": "Gỏi cuốn tươi mát với nhân tôm thịt và rau herbs.",
+    "image": "/assets/images/mon-an/khai-vi/goicuon.jpg",
+    "time": 25,
+    "rating": 4.5,
+    "ratingCount": 120,
+    "date": "05/06/2025",
+    "calories": "200 kcal",
+    "author": "Chị Mai",
+    "difficulty": "Dễ",
+    "tags": ["Món chính", "Đường phố"],
+    "ingredients": [
+      "Tôm tươi - 200g",
+      "Thịt heo - 100g",
+      "Bánh tráng - 10 cái",
+      "Rau sống các loại: xà lách, húng quế, rau mùi",
+      "Bún tươi - 200g",
+      "Nước mắm, đường, chanh, tỏi, ớt"
+    ],
+    "steps": [
+      {
+        "title": "Sơ chế tôm và thịt",
+        "desc": "Tôm tươi rửa sạch, bỏ đầu, lột vỏ. Thịt heo rửa sạch, cắt lát mỏng."
+      },
+      {
+        "title":  "Luộc tôm và thịt",
+        "desc": "Cho tôm và thịt vào nồi nước sôi, luộc chín. Vớt ra, để nguội, sau đó thái lát mỏng."
+      },
+      {
+        "title": "Cuốn gỏi",
+        "desc": "Lấy bánh tráng, nhúng qua nước ấm cho mềm. Đặt một ít bún, rau sống, tôm, thịt lên bánh tráng, cuốn lại chặt tay."
+      },
+      {
+        "title": "Thưởng thức",
+        "desc": "Múc gỏi cuốn ra đĩa, dùng kèm với nước mắm chua ngọt."
+      }
+    ],
+    "comments": [
+      {
+        "user": "Nguyễn Văn A",
+        "avatar": "/assets/images/users/user-1.jpg",
+        "rating": 5,
+        "text": "Gỏi cuốn tôm thịt rất tươi ngon, nước chấm vừa miệng."
+      },
+      {
+        "user": "Lê Thị B",
+        "avatar": "/assets/images/users/user-2.jpg",
+        "rating": 4,
+        "text": "Cả nhà mình đều thích món này, ăn mát và không ngán."
+      }
+    ],
+    "related": [
+      {
+        "id": "pho-bo",
+        "title": "Phở Bò Nam Định",
+        "image": "/assets/images/mon-an/mon-chinh/phobo.jpg",
+        "description": "Phở truyền thống với nước dùng đậm đà, thơm ngon.",
+        "time": 45,
+        "rating": 4.8
+      },
+      {
+        "id": "chao-heo",
+        "title": "Cháo Heo",
+        "image": "/assets/images/mon-an/mon-chinh/chaoheo.jpg",
+        "description": "Cháo heo thơm ngon, bổ dưỡng",
+        "time": 30,
+        "rating": 4.8
+      },
+      {
+        "id": "bun-cha",
+        "title": "Bún Chả Hà Nội",
+        "image": "/assets/images/mon-an/mon-chinh/bun-cha.jpg",
+        "description": "Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội.",
+        "time": 60,
+        "rating": 4.9
+      }
+    ]
+  },
+  {
   "id": "banh-bao",
   "title": "Bánh Bao Nhân Thịt",
   "description": "Bánh bao nhân thịt là món ăn sáng hoặc bữa phụ quen thuộc. Hương vị thơm ngon, hấp dẫn của bánh bao luôn khiến người thưởng thức phải xuýt xoa.",

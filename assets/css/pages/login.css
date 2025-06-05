@@ -1,4 +1,4 @@
- :root {
+:root {
         --primary-color: #d61c4e;
         --secondary-color: #f77e21;
         --accent-color: #fab207;
@@ -129,6 +129,10 @@
         font-size: 1.2rem;
         color: white;
         transition: all 0.3s ease;
+      }
+
+      .github-btn {
+        background: #24292f;
       }
 
       .facebook-btn {

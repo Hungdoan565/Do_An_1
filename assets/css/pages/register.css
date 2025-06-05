@@ -131,6 +131,10 @@
         transition: all 0.3s ease;
       }
 
+      .github-btn {
+        background: #24292f;
+      }
+
       .facebook-btn {
         background: #1877f2;
       }

@@ -146,3 +146,29 @@ window.googleSignIn = async function() {
     console.error("Lỗi đăng nhập Google:", error);
   }
 };
+
+// Đăng nhập GitHub (dùng cho login/register)
+window.githubSignIn = async function() {
+  var provider = new firebase.auth.GithubAuthProvider();
+  try {
+    var result = await auth.signInWithPopup(provider);
+    var user = result.user;
+    localStorage.setItem(
+      "currentUser",
+      JSON.stringify({
+        username: user.displayName || user.email?.split("@")[0] || user.uid,
+        email: user.email || '',
+        photoURL: user.photoURL,
+        role: "member",
+        github: true,
+        createdAt: Date.now(),
+      })
+    );
+    window.location.href = "/index.html";
+  } catch (error) {
+    if (error.code === "auth/popup-blocked") {
+      alert("Đăng nhập GitHub thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
+    }
+    console.error("Lỗi đăng nhập GitHub:", error);
+  }
+};

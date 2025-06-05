@@ -17,9 +17,9 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/pages/login.css" />
-<script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-auth-compat.js"></script>
   </head>
 
   <body>
@@ -134,8 +134,8 @@
                 </div>
 
                 <div class="social-login">
-                  <a href="#" class="social-btn facebook-btn">
-                    <i class="fab fa-facebook-f"></i>
+                  <a href="#" class="social-btn github-btn">
+                    <i class="fab fa-github"></i>
                   </a>
                   <a href="#" class="social-btn google-btn">
                     <i class="fab fa-google"></i>
@@ -212,6 +212,17 @@
           } else {
             // fallback: click vào nút login Google nếu có
             document.querySelector(".btn-google")?.click();
+          }
+        });
+      // GitHub Login
+      document
+        .querySelector(".social-btn.github-btn")
+        ?.addEventListener("click", function (e) {
+          e.preventDefault();
+          if (window.githubSignIn) {
+            window.githubSignIn();
+          } else {
+            alert("Tính năng đăng nhập GitHub chưa khả dụng!");
           }
         });
     </script>

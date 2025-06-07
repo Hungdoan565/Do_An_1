@@ -327,16 +327,16 @@
         return arr.slice(0, topN);
       }
       function getCurrentUser() {
-        // Lấy user từ localStorage (giả lập)
+        // Lấy user từ sessionStorage (đồng bộ toàn bộ hệ thống)
         try {
-          return JSON.parse(localStorage.getItem("currentUser"));
+          return JSON.parse(sessionStorage.getItem("currentUser"));
         } catch {
           return null;
         }
       }
       // --- YÊU THÍCH CÔNG THỨC NỔI BẬT ---
       function isRecipeFavorite(recipeId) {
-        const user = getCurrentUser();
+        const user = window.getCurrentUser();
         if (!user) return false;
         const favs =
           JSON.parse(localStorage.getItem("favoriteRecipes_" + user.email)) ||
@@ -344,7 +344,7 @@
         return favs.includes(recipeId);
       }
       function toggleFavoriteRecipe(recipeId) {
-        const user = getCurrentUser();
+        const user = window.getCurrentUser();
         if (!user) return;
         const key = "favoriteRecipes_" + user.email;
         let favs = JSON.parse(localStorage.getItem(key)) || [];
@@ -364,7 +364,7 @@
             '<div class="alert alert-warning">Không có công thức nổi bật cho danh mục này.</div>';
           return;
         }
-        const user = getCurrentUser();
+        const user = window.getCurrentUser();
         container.innerHTML = featured
           .map((r, idx) => {
             const isFav = user ? isRecipeFavorite(r.id) : false;

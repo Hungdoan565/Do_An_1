@@ -14,17 +14,81 @@
     />
     <style>
       body {
-        background: #f5f5f5;
+        background: #ede7f6;
         font-family: "Be Vietnam Pro", sans-serif;
       }
-      .admin-header {
+      .sidebar {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        min-height: 90vh;
+        padding: 2rem 1rem 2rem 1.5rem;
+      }
+      .sidebar .nav-link {
+        color: #333;
+        font-weight: 500;
+        border-radius: 8px;
+        margin-bottom: 8px;
+        transition: background 0.2s;
+      }
+      .sidebar .nav-link.active,
+      .sidebar .nav-link:hover {
         background: #d61c4e;
         color: #fff;
-        padding: 2rem 0;
       }
-      .admin-header h1 {
+      .sidebar .nav-link i {
+        width: 22px;
+        text-align: center;
+      }
+      .sidebar .nav-link {
+        cursor: pointer;
+      }
+      .sidebar .nav-link.disabled {
+        pointer-events: none;
+        opacity: 0.6;
+      }
+      .admin-header {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 1.5rem 2rem;
+        margin-bottom: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+      .admin-header .admin-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .admin-header .avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #eee;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        color: #d61c4e;
+      }
+      .stat-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 1.5rem 1.2rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+      }
+      .stat-card .stat-title {
+        font-size: 1rem;
+        color: #888;
+      }
+      .stat-card .stat-value {
         font-size: 2rem;
         font-weight: 700;
+        color: #d61c4e;
       }
       .admin-section {
         background: #fff;
@@ -33,50 +97,236 @@
         padding: 2rem;
         margin-top: 2rem;
       }
-      .logout-btn {
-        float: right;
+      .table-actions button {
+        margin-right: 6px;
+      }
+      .tab-section {
+        display: none;
+      }
+      .tab-section.active {
+        display: block;
+        animation: fadeIn 0.4s;
+      }
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: none;
+        }
+      }
+      @media (max-width: 991px) {
+        .sidebar {
+          min-height: unset;
+          margin-bottom: 1.5rem;
+        }
+      }
+      @media (max-width: 767px) {
+        .admin-header {
+          flex-direction: column;
+          gap: 1rem;
+          padding: 1rem;
+        }
+        .stat-card {
+          padding: 1rem 0.5rem;
+        }
+        .admin-section {
+          padding: 1rem;
+        }
       }
     </style>
   </head>
   <body>
-    <div class="admin-header text-center">
-      <h1>Trang Quản Trị Admin</h1>
-      <button class="btn btn-light logout-btn" id="logoutBtn">
-        <i class="fas fa-sign-out-alt"></i> Đăng xuất
-      </button>
-    </div>
-    <div class="container">
-      <div class="admin-section">
-        <h3>Xin chào, <span id="adminName"></span>!</h3>
-        <p>
-          Bạn có toàn quyền quản lý hệ thống công thức, người dùng, và nội dung.
-        </p>
-        <ul>
-          <li>Xem, sửa, xóa mọi công thức</li>
-          <li>Quản lý tài khoản người dùng</li>
-          <li>Thống kê hoạt động</li>
-          <li>... (bổ sung theo nhu cầu)</li>
-        </ul>
-      </div>
-      <div class="admin-section mt-4">
-        <h4>Lịch sử tạo tài khoản người dùng</h4>
-        <table class="table table-bordered table-striped mt-3">
-          <thead class="table-light">
-            <tr>
-              <th>#</th>
-              <th>Tên đăng nhập</th>
-              <th>Quyền</th>
-              <th>Ngày tạo</th>
-            </tr>
-          </thead>
-          <tbody id="userHistoryTable"></tbody>
-        </table>
+    <div class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <div
+          class="col-lg-2 col-md-3 sidebar d-flex flex-column align-items-start"
+        >
+          <h4 class="fw-bold mb-4">
+            <i class="fas fa-cogs me-2"></i>Admin Panel
+          </h4>
+          <nav class="nav flex-column w-100">
+            <a class="nav-link active" data-tab="dashboard"
+              ><i class="fas fa-tachometer-alt me-2"></i>Dashboard</a
+            >
+            <a class="nav-link" data-tab="users"
+              ><i class="fas fa-users me-2"></i>Người dùng</a
+            >
+            <a class="nav-link" data-tab="duyet-bai"
+              ><i class="fas fa-file-alt me-2"></i>Duyệt bài</a
+            >
+            <a class="nav-link" data-tab="stats"
+              ><i class="fas fa-chart-bar me-2"></i>Thống kê</a
+            >
+            <a class="nav-link" data-tab="settings"
+              ><i class="fas fa-cog me-2"></i>Cài đặt</a
+            >
+          </nav>
+        </div>
+        <!-- Main Content -->
+        <div class="col-lg-10 col-md-9 px-4">
+          <div class="admin-header mb-4">
+            <div class="admin-info">
+              <div class="avatar"><i class="fas fa-user-circle"></i></div>
+              <div>
+                <div class="fw-bold" id="adminName">Admin</div>
+                <div class="text-muted" style="font-size: 0.95rem">
+                  Quản trị viên
+                </div>
+              </div>
+            </div>
+            <button class="btn btn-outline-danger" id="logoutBtn">
+              <i class="fas fa-sign-out-alt"></i> Đăng xuất
+            </button>
+          </div>
+          <!-- Dashboard Tab -->
+          <div class="tab-section active" id="tab-dashboard">
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <div class="stat-card">
+                  <div class="stat-title">Người dùng</div>
+                  <div class="stat-value" id="statUsers">0</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-card">
+                  <div class="stat-title">Bài viết đã duyệt</div>
+                  <div class="stat-value" id="statBlogs">0</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-card">
+                  <div class="stat-title">Bài chờ duyệt</div>
+                  <div class="stat-value" id="statPending">0</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-card">
+                  <div class="stat-title">Thống kê khác</div>
+                  <div class="stat-value">-</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Người dùng Tab -->
+          <div class="tab-section" id="tab-users">
+            <div class="admin-section">
+              <h4 class="mb-4">Quản lý Người dùng</h4>
+              <div
+                class="mb-3 d-flex justify-content-between align-items-center"
+              >
+                <input
+                  type="text"
+                  class="form-control w-50"
+                  id="userSearch"
+                  placeholder="Tìm kiếm tên người dùng..."
+                />
+                <span id="userCount" class="text-muted"></span>
+              </div>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Tên đăng nhập</th>
+                      <th>Email</th>
+                      <th>Vai trò</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="userTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Duyệt bài Tab -->
+          <div class="tab-section" id="tab-duyet-bai">
+            <div class="admin-section mb-5">
+              <h4 class="mb-4">Bài Blog Chờ Duyệt</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Tiêu đề</th>
+                      <th>Tác giả</th>
+                      <th>Ngày đăng</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pendingBlogTable"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="admin-section">
+              <h4 class="mb-4">Bài Blog Đã Duyệt</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Tiêu đề</th>
+                      <th>Tác giả</th>
+                      <th>Ngày đăng</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="approvedBlogTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Thống kê Tab -->
+          <div class="tab-section" id="tab-stats">
+            <div class="admin-section">
+              <h4 class="mb-4">Thống kê hệ thống</h4>
+              <div class="row">
+                <div class="col-md-6 mb-4">
+                  <canvas id="blogStatusChart" height="220"></canvas>
+                </div>
+                <div class="col-md-6 mb-4">
+                  <canvas id="userMonthChart" height="220"></canvas>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- Cài đặt Tab -->
+          <div class="tab-section" id="tab-settings">
+            <div class="admin-section">
+              <h4 class="mb-4">Cài đặt hệ thống</h4>
+              <p class="text-muted">Chức năng này đang phát triển...</p>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
     <script src="/assets/js/auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
+      // Sidebar tab switching
+      document.querySelectorAll(".sidebar .nav-link").forEach(function (link) {
+        link.addEventListener("click", function () {
+          document
+            .querySelectorAll(".sidebar .nav-link")
+            .forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+          const tab = this.getAttribute("data-tab");
+          document
+            .querySelectorAll(".tab-section")
+            .forEach((sec) => sec.classList.remove("active"));
+          document.getElementById("tab-" + tab).classList.add("active");
+        });
+      });
       // Kiểm tra quyền admin
-      const user = window.getCurrentUser();
+      const user = window.getCurrentUser && window.getCurrentUser();
       if (!user || user.role !== "admin") {
         window.location.href =
           "/pages/auth/login.html?redirect=/pages/admin/dashboard.html";
@@ -84,24 +334,231 @@
         document.getElementById("adminName").textContent = user.username;
       }
       document.getElementById("logoutBtn").onclick = function () {
-        window.logoutUser();
+        window.logoutUser && window.logoutUser();
         window.location.href = "/index.html";
       };
-      // Hiển thị lịch sử tạo user
-      function renderUserHistory() {
+      // Thống kê và duyệt bài
+      function renderStatsAndPendingBlogs() {
+        var db = firebase.database();
+        db.ref("blogs")
+          .once("value")
+          .then(function (snapshot) {
+            const blogs = snapshot.val() || {};
+            const all = Object.values(blogs);
+            const approved = all.filter((b) => b.status === "đã duyệt");
+            const pending = all.filter((b) => b.status === "chờ duyệt");
+            document.getElementById("statBlogs").textContent = approved.length;
+            document.getElementById("statPending").textContent = pending.length;
+            // Render bảng bài chờ duyệt
+            const tbody = document.getElementById("pendingBlogTable");
+            tbody.innerHTML = pending.length
+              ? pending
+                  .map(
+                    (b, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${b.title}</td>
+              <td>${b.author}</td>
+              <td>${b.date}</td>
+              <td><span class="badge bg-warning text-dark">Chờ duyệt</span></td>
+              <td class="table-actions">
+                <button class="btn btn-success btn-sm" onclick="approveBlog('${
+                  b.id
+                }')"><i class="fas fa-check"></i> Duyệt</button>
+                <button class="btn btn-danger btn-sm" onclick="rejectBlog('${
+                  b.id
+                }')"><i class="fas fa-times"></i> Từ chối</button>
+                <a class="btn btn-info btn-sm" href='/pages/blog-detail.html?id=${
+                  b.id
+                }' target='_blank'><i class="fas fa-eye"></i> Xem</a>
+              </td>
+            </tr>
+          `
+                  )
+                  .join("")
+              : '<tr><td colspan="6" class="text-center">Không có bài chờ duyệt</td></tr>';
+            // Render bảng bài đã duyệt
+            const tbody2 = document.getElementById("approvedBlogTable");
+            tbody2.innerHTML = approved.length
+              ? approved
+                  .map(
+                    (b, i) => `
+            <tr>
+              <td>${i + 1}</td>
+              <td>${b.title}</td>
+              <td>${b.author}</td>
+              <td>${b.date}</td>
+              <td><span class="badge bg-success">Đã duyệt</span></td>
+              <td class="table-actions">
+                <button class="btn btn-danger btn-sm" onclick="deleteApprovedBlog('${
+                  b.id
+                }')"><i class="fas fa-trash"></i> Xóa</button>
+                <a class="btn btn-info btn-sm" href='/pages/blog-detail.html?id=${
+                  b.id
+                }' target='_blank'><i class="fas fa-eye"></i> Xem</a>
+              </td>
+            </tr>
+          `
+                  )
+                  .join("")
+              : '<tr><td colspan="6" class="text-center">Không có bài đã duyệt</td></tr>';
+            // Cập nhật biểu đồ trạng thái blog
+            updateBlogStatusChart(
+              approved.length,
+              pending.length,
+              all.length - approved.length - pending.length
+            );
+          });
+        // Thống kê user
         let users = JSON.parse(localStorage.getItem("users") || "[]");
-        const tbody = document.getElementById("userHistoryTable");
-        tbody.innerHTML = "";
-        users.forEach((u, i) => {
-          const date = u.createdAt
-            ? new Date(u.createdAt).toLocaleString("vi-VN")
-            : "Không rõ";
-          tbody.innerHTML += `<tr><td>${i + 1}</td><td>${u.username}</td><td>${
-            u.role
-          }</td><td>${date}</td></tr>`;
+        document.getElementById("statUsers").textContent = users.length;
+        renderUserTable(users);
+        updateUserMonthChart(users);
+      }
+      // Duyệt bài
+      window.approveBlog = function (id) {
+        var db = firebase.database();
+        db.ref("blogs/" + id)
+          .update({ status: "đã duyệt" })
+          .then(function () {
+            alert("Duyệt bài thành công!");
+            renderStatsAndPendingBlogs();
+          });
+      };
+      // Từ chối bài
+      window.rejectBlog = function (id) {
+        if (!confirm("Bạn chắc chắn muốn từ chối/xóa bài này?")) return;
+        var db = firebase.database();
+        db.ref("blogs/" + id)
+          .remove()
+          .then(renderStatsAndPendingBlogs);
+      };
+      // Xóa bài đã duyệt
+      window.deleteApprovedBlog = function (id) {
+        if (!confirm("Bạn chắc chắn muốn xóa bài đã duyệt này?")) return;
+        var db = firebase.database();
+        db.ref("blogs/" + id)
+          .remove()
+          .then(renderStatsAndPendingBlogs);
+      };
+      // Quản lý user
+      function renderUserTable(users) {
+        const search = document
+          .getElementById("userSearch")
+          .value.trim()
+          .toLowerCase();
+        const filtered = users.filter((u) =>
+          u.username.toLowerCase().includes(search)
+        );
+        document.getElementById(
+          "userCount"
+        ).textContent = `Tổng: ${filtered.length}`;
+        document.getElementById("userTable").innerHTML = filtered.length
+          ? filtered
+              .map(
+                (u, i) => `
+          <tr>
+            <td>${i + 1}</td>
+            <td>${u.username}</td>
+            <td>${u.email || "-"}</td>
+            <td><span class="badge ${
+              u.role === "admin" ? "bg-danger" : "bg-secondary"
+            }">${u.role}</span></td>
+            <td>
+              ${
+                u.role !== "admin"
+                  ? `<button class="btn btn-danger btn-sm" onclick="deleteUser('${u.username}')"><i class="fas fa-trash"></i> Xóa</button>`
+                  : '<span class="text-muted">-</span>'
+              }
+            </td>
+          </tr>
+        `
+              )
+              .join("")
+          : '<tr><td colspan="5" class="text-center">Không có người dùng</td></tr>';
+      }
+      document
+        .getElementById("userSearch")
+        .addEventListener("input", function () {
+          let users = JSON.parse(localStorage.getItem("users") || "[]");
+          renderUserTable(users);
+        });
+      window.deleteUser = function (username) {
+        if (!confirm("Bạn chắc chắn muốn xóa user này?")) return;
+        let users = JSON.parse(localStorage.getItem("users") || "[]");
+        users = users.filter((u) => u.username !== username);
+        localStorage.setItem("users", JSON.stringify(users));
+        renderUserTable(users);
+        renderStatsAndPendingBlogs();
+      };
+      // Biểu đồ thống kê
+      let blogStatusChart, userMonthChart;
+      function updateBlogStatusChart(approved, pending, rejected) {
+        const ctx = document.getElementById("blogStatusChart").getContext("2d");
+        if (blogStatusChart) blogStatusChart.destroy();
+        blogStatusChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: ["Đã duyệt", "Chờ duyệt", "Khác"],
+            datasets: [
+              {
+                data: [approved, pending, rejected],
+                backgroundColor: ["#d61c4e", "#ffc107", "#8884d8"],
+              },
+            ],
+          },
+          options: {
+            plugins: { legend: { position: "bottom" } },
+            cutout: "65%",
+            responsive: true,
+          },
         });
       }
-      renderUserHistory();
+      function updateUserMonthChart(users) {
+        // Giả lập dữ liệu user theo tháng (nếu có trường createdAt dạng yyyy-mm)
+        const months = [
+          "01",
+          "02",
+          "03",
+          "04",
+          "05",
+          "06",
+          "07",
+          "08",
+          "09",
+          "10",
+          "11",
+          "12",
+        ];
+        const now = new Date();
+        const year = now.getFullYear();
+        const data = months.map(
+          (m) =>
+            users.filter((u) => (u.createdAt || "").startsWith(`${year}-${m}`))
+              .length
+        );
+        const ctx = document.getElementById("userMonthChart").getContext("2d");
+        if (userMonthChart) userMonthChart.destroy();
+        userMonthChart = new Chart(ctx, {
+          type: "bar",
+          data: {
+            labels: months.map((m) => `${year}-${m}`),
+            datasets: [
+              {
+                label: "User mới",
+                data: data,
+                backgroundColor: "#d61c4e",
+              },
+            ],
+          },
+          options: {
+            plugins: { legend: { display: false } },
+            responsive: true,
+            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
+          },
+        });
+      }
+      renderStatsAndPendingBlogs();
     </script>
   </body>
 </html>

@@ -18,7 +18,7 @@
     />
     <link rel="stylesheet" href="/assets/css/pages/login.css" />
     <link rel="stylesheet" href="/assets/css/pages/index.css" />
-    
+
     <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-auth-compat.js"></script>
@@ -92,9 +92,8 @@
               <div class="login-form">
                 <h3 class="fw-bold mb-4">Đăng Nhập</h3>
                 <form id="loginForm">
-                  <div class="mb-4">
+                  <div class="mb-4 position-relative">
                     <label class="form-label">Email hoặc tên tài khoản</label>
-                    <!-- Đăng nhập bằng email hoặc tên tài khoản (username) -->
                     <input
                       type="text"
                       class="form-control"
@@ -103,8 +102,27 @@
                       placeholder="Email hoặc tên tài khoản"
                       required
                     />
+                    <button
+                      type="button"
+                      tabindex="-1"
+                      class="clear-input-btn"
+                      style="
+                        position: absolute;
+                        right: 12px;
+                        top: 38px;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        display: none;
+                      "
+                    >
+                      <i
+                        class="fas fa-times-circle"
+                        style="color: #bbb; font-size: 1.2em"
+                      ></i>
+                    </button>
                   </div>
-                  <div class="mb-4">
+                  <div class="mb-4 position-relative">
                     <label class="form-label">Mật khẩu</label>
                     <input
                       type="password"
@@ -112,6 +130,25 @@
                       id="password"
                       placeholder="Nhập mật khẩu"
                     />
+                    <button
+                      type="button"
+                      tabindex="-1"
+                      class="clear-input-btn"
+                      style="
+                        position: absolute;
+                        right: 12px;
+                        top: 38px;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        display: none;
+                      "
+                    >
+                      <i
+                        class="fas fa-times-circle"
+                        style="color: #bbb; font-size: 1.2em"
+                      ></i>
+                    </button>
                   </div>
                   <div class="remember-me">
                     <div class="form-check">
@@ -161,7 +198,7 @@
       </div>
     </div>
 
-     <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="row g-4">
@@ -275,6 +312,28 @@
             alert("Tính năng đăng nhập GitHub chưa khả dụng!");
           }
         });
+      // Hiển thị/xóa input nhanh (chuẩn, mỗi nút gắn đúng input cùng hàng)
+      document.querySelectorAll(".clear-input-btn").forEach(function (btn) {
+        var input = btn.parentElement.querySelector("input");
+        if (!input) return;
+        // Luôn kiểm tra khi trang load (autofill)
+        setTimeout(function () {
+          btn.style.display = input.value ? "block" : "none";
+        }, 300);
+        // Khi nhập liệu
+        input.addEventListener("input", function () {
+          btn.style.display = this.value ? "block" : "none";
+        });
+        // Khi focus (trường hợp autofill)
+        input.addEventListener("focus", function () {
+          btn.style.display = this.value ? "block" : "none";
+        });
+        btn.addEventListener("click", function (e) {
+          input.value = "";
+          btn.style.display = "none";
+          input.focus();
+        });
+      });
     </script>
   </body>
 </html>

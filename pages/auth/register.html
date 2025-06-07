@@ -89,7 +89,7 @@
                 <h3 class="fw-bold mb-4">Đăng Ký Tài Khoản</h3>
                 <!-- Thêm id cho form và các trường, thêm các dòng điều kiện mật khẩu có id để JS highlight -->
                 <form id="registerForm" class="register-form">
-                  <div class="mb-3">
+                  <div class="mb-3 position-relative">
                     <input
                       type="text"
                       class="form-control"
@@ -97,8 +97,27 @@
                       name="username"
                       placeholder="Tên tài khoản"
                     />
+                    <button
+                      type="button"
+                      tabindex="-1"
+                      class="clear-input-btn"
+                      style="
+                        position: absolute;
+                        right: 12px;
+                        top: 12px;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        display: none;
+                      "
+                    >
+                      <i
+                        class="fas fa-times-circle"
+                        style="color: #bbb; font-size: 1.2em"
+                      ></i>
+                    </button>
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 position-relative">
                     <input
                       type="email"
                       class="form-control"
@@ -107,8 +126,27 @@
                       placeholder="Email (bắt buộc)"
                       required
                     />
+                    <button
+                      type="button"
+                      tabindex="-1"
+                      class="clear-input-btn"
+                      style="
+                        position: absolute;
+                        right: 12px;
+                        top: 12px;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        display: none;
+                      "
+                    >
+                      <i
+                        class="fas fa-times-circle"
+                        style="color: #bbb; font-size: 1.2em"
+                      ></i>
+                    </button>
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 position-relative">
                     <input
                       type="password"
                       class="form-control"
@@ -117,38 +155,57 @@
                       placeholder="Mật khẩu"
                       required
                     />
+                    <button
+                      type="button"
+                      tabindex="-1"
+                      class="clear-input-btn"
+                      style="
+                        position: absolute;
+                        right: 12px;
+                        top: 12px;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        display: none;
+                      "
+                    >
+                      <i
+                        class="fas fa-times-circle"
+                        style="color: #bbb; font-size: 1.2em"
+                      ></i>
+                    </button>
                     <ul class="mt-2 mb-0 ps-3" style="font-size: 0.95em">
                       <li id="pwRuleLength">
                         <i
                           id="pwIconLength"
                           class="fas fa-check-circle text-secondary me-1"
-                        ></i
-                        >Ít nhất 8 ký tự
+                        ></i>
+                        Ít nhất 8 ký tự
                       </li>
                       <li id="pwRuleUpper">
                         <i
                           id="pwIconUpper"
                           class="fas fa-check-circle text-secondary me-1"
-                        ></i
-                        >Chứa chữ hoa
+                        ></i>
+                        Chứa chữ hoa
                       </li>
                       <li id="pwRuleLower">
                         <i
                           id="pwIconLower"
                           class="fas fa-check-circle text-secondary me-1"
-                        ></i
-                        >Chứa chữ thường
+                        ></i>
+                        Chứa chữ thường
                       </li>
                       <li id="pwRuleSpecial">
                         <i
                           id="pwIconSpecial"
                           class="fas fa-check-circle text-secondary me-1"
-                        ></i
-                        >Chứa số và/hoặc ký tự đặc biệt
+                        ></i>
+                        Chứa số và/hoặc ký tự đặc biệt
                       </li>
                     </ul>
                   </div>
-                  <div class="mb-3">
+                  <div class="mb-3 position-relative">
                     <input
                       type="password"
                       class="form-control"
@@ -157,6 +214,25 @@
                       placeholder="Xác nhận mật khẩu"
                       required
                     />
+                    <button
+                      type="button"
+                      tabindex="-1"
+                      class="clear-input-btn"
+                      style="
+                        position: absolute;
+                        right: 12px;
+                        top: 12px;
+                        background: transparent;
+                        border: none;
+                        padding: 0;
+                        display: none;
+                      "
+                    >
+                      <i
+                        class="fas fa-times-circle"
+                        style="color: #bbb; font-size: 1.2em"
+                      ></i>
+                    </button>
                   </div>
                   <div class="form-check mb-3">
                     <input
@@ -205,7 +281,7 @@
       </div>
     </div>
 
-     <!-- Footer -->
+    <!-- Footer -->
     <footer class="footer">
       <div class="container">
         <div class="row g-4">
@@ -340,6 +416,22 @@
             alert("Tính năng đăng ký GitHub chưa khả dụng!");
           }
         });
+    </script>
+    <script>
+      // Hiển thị/xóa input nhanh (chuẩn, mỗi nút gắn đúng input cùng hàng)
+      document.querySelectorAll(".clear-input-btn").forEach(function (btn) {
+        var input = btn.parentElement.querySelector("input");
+        if (!input) return;
+        input.addEventListener("input", function () {
+          btn.style.display = this.value ? "block" : "none";
+        });
+        if (input.value) btn.style.display = "block";
+        btn.addEventListener("click", function (e) {
+          input.value = "";
+          btn.style.display = "none";
+          input.focus();
+        });
+      });
     </script>
   </body>
 </html>

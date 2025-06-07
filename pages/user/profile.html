@@ -17,6 +17,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/pages/profile.css" />
+    
   </head>
 
   <body>
@@ -43,10 +44,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto align-items-center">
             <li class="nav-item">
-              <a class="nav-link" href="/index.html">Trang chủ</a>
+              <a class="nav-link" href="../../index.html">Trang chủ</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/pages/recipes/list.html">Công thức</a>
+              <a class="nav-link" href="../recipes/list.html">Công thức</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="/pages/recipes/recipes_hot.html"
@@ -54,10 +55,10 @@
               >
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/pages/blog.html">Blog</a>
+              <a class="nav-link" href="../blog.html">Blog</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
+              <a class="nav-link" href="../about.html">Về chúng tôi</a>
             </li>
             <li class="nav-item">
               <a class="nav-link active" href="/pages/user/profile.html">
@@ -333,58 +334,123 @@
     </div>
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer
+      class="footer mt-5 py-5"
+      style="
+        background: linear-gradient(
+          45deg,
+          var(--primary-color),
+          var(--secondary-color)
+        );
+      "
+    >
       <div class="container">
         <div class="row g-4">
           <div class="col-lg-4">
-            <h5>Về Chúng Tôi</h5>
-            <p>
+            <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
+            <p class="mb-4 text-white">
               Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
               Việt Nam, nơi kết nối những người đam mê ẩm thực.
             </p>
-            <div class="social-links">
-              <a href="#"><i class="fab fa-facebook-f"></i></a>
-              <a href="#"><i class="fab fa-instagram"></i></a>
-              <a href="#"><i class="fab fa-youtube"></i></a>
-              <a href="#"><i class="fab fa-tiktok"></i></a>
+            <div class="social-links d-flex gap-3">
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-tiktok"></i
+              ></a>
             </div>
           </div>
           <div class="col-lg-2">
-            <h5>Khám Phá</h5>
+            <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
             <ul class="list-unstyled">
-              <li><a href="/pages/recipes/list.html">Công thức</a></li>
-              <li><a href="/pages/blog.html">Blog</a></li>
-              <li><a href="/pages/about.html">Về chúng tôi</a></li>
-              <li><a href="#">Liên hệ</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-3">
-            <h5>Danh Mục</h5>
-            <ul class="list-unstyled">
-              <li><a href="#">Món chính</a></li>
-              <li><a href="#">Món tráng miệng</a></li>
-              <li><a href="#">Đồ uống</a></li>
-              <li><a href="#">Món chay</a></li>
-              <li><a href="#">Ăn vặt</a></li>
-              <li><a href="#">Khai vị</a></li>
-            </ul>
-          </div>
-          <div class="col-lg-3">
-            <h5>Liên Hệ</h5>
-            <ul class="list-unstyled">
-              <li>
-                <i class="fas fa-envelope me-2"></i> monngonvietnam@gmail.com
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
               </li>
-              <li><i class="fas fa-phone me-2"></i> 0909.090.909</li>
-              <li>
-                <i class="fas fa-map-marker-alt me-2"></i> Cần Thơ, Việt Nam
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a href="/pages/recipes/list.html?category=mon-chinh" class="text-white text-decoration-none" 
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="/pages/recipes/list.html?category=trang-mieng" class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="/pages/recipes/list.html?category=do-uong" class="text-white text-decoration-none"
+                  >Đồ uống</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="/pages/recipes/list.html?category=mon-chay" class="text-white text-decoration-none"
+                  >Món chay</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
+            <ul class="list-unstyled text-white">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
               </li>
             </ul>
           </div>
         </div>
-        <hr />
-        <div class="text-center">
-          <p class="mb-0">© 2025 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
+        <hr class="my-4 bg-white" />
+        <div class="text-center text-white">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
         </div>
       </div>
     </footer>

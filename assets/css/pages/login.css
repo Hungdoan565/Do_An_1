@@ -270,3 +270,25 @@
       .forgot-password:hover {
         color: var(--secondary-color);
       }
+
+      .clear-input-btn {
+        position: absolute;
+        right: 12px;
+        top: 38px;
+        background: transparent;
+        border: none;
+        padding: 0;
+        display: none;
+        cursor: pointer;
+        z-index: 2;
+      }
+
+      .clear-input-btn i {
+        color: #bbb;
+        font-size: 1.2em;
+        transition: color 0.2s;
+      }
+
+      .clear-input-btn:hover i {
+        color: #d61c4e;
+      }

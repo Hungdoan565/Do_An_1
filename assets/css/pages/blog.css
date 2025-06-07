@@ -44,6 +44,19 @@
         width: 100%;
       }
 
+      .btn-dangbai{
+        background: var(--primary-color);
+        color: white;
+        border-radius: 12px;
+        padding: 10px 20px;
+        font-weight: 600;
+        transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      }
+      .btn-dangbai:hover {
+        background: #1abc9c;
+        color: white;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+      }
       .page-header {
         background: linear-gradient(
           135deg,
@@ -121,6 +134,28 @@
         border-radius: 20px;
         font-size: 0.8rem;
         color: var(--text-color);
+      }
+
+      .tag-chip {
+        border: 1px solid #ddd;
+    padding: 8px 20px;
+    border-radius: 20px;
+    margin: 5px;
+    background: white;
+    color: var(--text-color);
+    transition: all 0.3s ease;
+      }
+
+      .tag-chip.active,
+      .tag-chip:active,
+      .tag-chip.selected {
+        background: #d61c4e;
+        color: #fff;
+      }
+
+      .tag-chip:hover {
+        background: var(--primary-color);
+        color: #fff;
       }
 
       .sidebar {

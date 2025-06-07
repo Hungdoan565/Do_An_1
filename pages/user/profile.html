@@ -17,9 +17,298 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/pages/profile.css" />
-    
+    <style>
+      body {
+        background: #ede7f6 !important;
+        font-family: "Be Vietnam Pro", sans-serif;
+      }
+      .profile-header-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem 2rem 2rem 2rem;
+        margin-bottom: 2rem;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+        position: relative;
+        top: 40px;
+        z-index: 2;
+      }
+      .profile-header-card .profile-avatar {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        background: #eee;
+        border: 4px solid #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        object-fit: cover;
+        margin-top: -70px;
+        margin-bottom: 1rem;
+      }
+      .profile-header-card .profile-name {
+        font-size: 1.7rem;
+        font-weight: 700;
+        text-align: center;
+        margin-bottom: 0.5rem;
+      }
+      .profile-header-card .profile-bio {
+        color: #888;
+        text-align: center;
+        margin-bottom: 1.2rem;
+        max-width: 400px;
+      }
+      .profile-header-card .profile-stats {
+        display: flex;
+        justify-content: center;
+        gap: 2.5rem;
+        margin-bottom: 0.5rem;
+      }
+      .profile-header-card .stat {
+        text-align: center;
+      }
+      .profile-header-card .stat-value {
+        font-size: 2rem;
+        font-weight: 700;
+        color: #d61c4e;
+      }
+      .profile-header-card .stat-label {
+        font-size: 1rem;
+        color: #888;
+      }
+      .profile-nav-card {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 1.2rem 0.5rem;
+        margin-bottom: 2.5rem;
+        max-width: 700px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .nav-pills .nav-link {
+        color: #333;
+        font-weight: 500;
+        border-radius: 8px;
+        margin: 0 8px;
+        padding: 10px 28px;
+        transition: background 0.2s;
+      }
+      .nav-pills .nav-link.active,
+      .nav-pills .nav-link:hover {
+        background: #d61c4e;
+        color: #fff !important;
+      }
+      .profile-section {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+      @media (max-width: 767px) {
+        .profile-header-card,
+        .profile-nav-card,
+        .profile-section {
+          padding: 1rem;
+        }
+        .profile-header-card {
+          max-width: 100%;
+        }
+        .profile-nav-card {
+          max-width: 100%;
+        }
+      }
+      /* New styles for modern profile section */
+      .profile-main-section {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        margin-bottom: 2rem;
+      }
+      .profile-header-card-new {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+      .profile-avatar-wrapper {
+        flex-shrink: 0;
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-right: 1.5rem;
+      }
+      .profile-avatar-new {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+      }
+      .profile-info {
+        flex-grow: 1;
+      }
+      .profile-name-new {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .profile-bio-new {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+      .profile-stats-new {
+        display: flex;
+        gap: 2rem;
+        margin-bottom: 1rem;
+      }
+      .stat-new {
+        text-align: center;
+      }
+      .stat-value-new {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #d61c4e;
+        margin-bottom: 0.2rem;
+      }
+      .stat-label-new {
+        font-size: 0.9rem;
+        color: #888;
+      }
+      .profile-edit-btn-new {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+      }
+      .profile-nav-card-new {
+        margin-bottom: 1.5rem;
+      }
+      .profile-tab-content-new {
+        padding: 0 1rem;
+      }
+      .profile-section-new {
+        margin-bottom: 2rem;
+      }
+      .recipe-card {
+        border-radius: 12px;
+        overflow: hidden;
+        background: #f9f9f9;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        transition: transform 0.2s;
+      }
+      .recipe-card:hover {
+        transform: translateY(-4px);
+      }
+      .recipe-image {
+        width: 100%;
+        height: 150px;
+        object-fit: cover;
+      }
+      .recipe-content {
+        padding: 1rem;
+      }
+      .recipe-title {
+        font-size: 1.2rem;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+      }
+      .recipe-meta {
+        font-size: 0.9rem;
+        color: #666;
+        margin-bottom: 0.5rem;
+      }
+      .action-btn {
+        font-size: 0.9rem;
+        padding: 0.3rem 0.6rem;
+        border-radius: 8px;
+        transition: background 0.2s;
+      }
+      .action-btn.edit-btn {
+        background: #007bff;
+        color: #fff;
+      }
+      .action-btn.edit-btn:hover {
+        background: #0056b3;
+      }
+      .action-btn.delete-btn {
+        background: #dc3545;
+        color: #fff;
+      }
+      .action-btn.delete-btn:hover {
+        background: #c82333;
+      }
+      /* Horizontal profile styles */
+      .profile-horizontal-section {
+        background: #ede7f6;
+        padding: 3rem 0;
+      }
+      .profile-info-card-horizontal {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        text-align: center;
+      }
+      .profile-avatar-horizontal {
+        width: 120px;
+        height: 120px;
+        border-radius: 50%;
+        object-fit: cover;
+        margin-bottom: 1rem;
+      }
+      .profile-name-horizontal {
+        font-size: 1.8rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+      }
+      .profile-bio-horizontal {
+        color: #666;
+        margin-bottom: 1rem;
+      }
+      .profile-stats-horizontal {
+        display: flex;
+        justify-content: center;
+        gap: 2rem;
+        margin-bottom: 1rem;
+      }
+      .stat-horizontal {
+        text-align: center;
+      }
+      .stat-value-horizontal {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #d61c4e;
+        margin-bottom: 0.2rem;
+      }
+      .stat-label-horizontal {
+        font-size: 0.9rem;
+        color: #888;
+      }
+      .profile-edit-btn-horizontal {
+        font-size: 0.9rem;
+        padding: 0.4rem 1rem;
+      }
+      .profile-content-card-horizontal {
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+        padding: 2rem;
+        flex-grow: 1;
+      }
+      .profile-nav-card-horizontal {
+        margin-bottom: 1.5rem;
+      }
+      .profile-tab-content-horizontal {
+        padding: 0 1rem;
+        flex-grow: 1;
+      }
+      .profile-section-horizontal {
+        margin-bottom: 2rem;
+      }
+    </style>
   </head>
-
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
@@ -50,289 +339,224 @@
               <a class="nav-link" href="../recipes/list.html">Công thức</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/pages/recipes/recipes_hot.html"
-                >Nổi bật</a
-              >
-            </li>
-            <li class="nav-item">
               <a class="nav-link" href="../blog.html">Blog</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../about.html">Về chúng tôi</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/pages/user/profile.html">
+              <a
+                class="nav-link active d-flex align-items-center gap-2"
+                href="/pages/user/profile.html"
+              >
                 <img
                   src="/assets/images/users/avatar.jpg"
                   alt="Avatar"
                   class="rounded-circle"
                   width="32"
                   height="32"
+                  id="navbarAvatar"
                 />
+                <span id="navbarUsername" class="fw-semibold"></span>
               </a>
             </li>
           </ul>
         </div>
       </div>
     </nav>
-
-    <!-- Profile Header -->
-    <header class="profile-header">
-      <div class="container">
-        <div class="profile-cover">
-          <img
-            src="/assets/images/users/avatar.jpg"
-            alt="Avatar"
-            class="profile-avatar"
-            id="profileAvatar"
-          />
-        </div>
-        <div class="profile-info">
-          <h1 class="h3 fw-bold" id="profileName">Nguyễn Văn A</h1>
-          <p class="text-muted mb-3" id="profileBio">
-            Đam mê nấu ăn và khám phá ẩm thực Việt Nam
-          </p>
-          <div class="profile-stats">
-            <div class="stat-item">
-              <div class="stat-number" id="profileRecipeCount">25</div>
-              <div class="stat-label">Công thức</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" id="profileFollowerCount">1.2K</div>
-              <div class="stat-label">Người theo dõi</div>
-            </div>
-            <div class="stat-item">
-              <div class="stat-number" id="profileFollowingCount">156</div>
-              <div class="stat-label">Đang theo dõi</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </header>
-
-    <!-- Profile Navigation -->
-    <nav class="profile-nav">
-      <div class="container">
-        <ul
-          class="nav nav-pills justify-content-center"
-          id="profileTabs"
-          role="tablist"
-        >
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link active"
-              data-bs-toggle="tab"
-              data-bs-target="#recipes"
+    <!-- Profile Section Start -->
+    <section class="profile-horizontal-section">
+      <div class="container-xl">
+        <div class="row g-4 align-items-stretch">
+          <!-- Left: Profile Info -->
+          <div class="col-lg-4 col-md-5">
+            <div
+              class="profile-info-card-horizontal h-100 d-flex flex-column align-items-center justify-content-center"
             >
-              Công thức của tôi
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link"
-              data-bs-toggle="tab"
-              data-bs-target="#saved"
-            >
-              Yêu thích
-            </button>
-          </li>
-          <li class="nav-item" role="presentation">
-            <button
-              class="nav-link"
-              data-bs-toggle="tab"
-              data-bs-target="#settings"
-            >
-              Cài đặt
-            </button>
-          </li>
-        </ul>
-      </div>
-    </nav>
-
-    <!-- Main Content -->
-    <div class="container">
-      <div class="tab-content">
-        <!-- My Recipes Tab -->
-        <div class="tab-pane fade show active" id="recipes">
-          <div class="d-flex justify-content-between align-items-center mb-4">
-            <h3 class="h4 mb-0">Công thức của tôi</h3>
-            <a href="/pages/user/add-recipe.html" class="btn btn-primary">
-              <i class="fas fa-plus me-2"></i>Thêm công thức
-            </a>
-          </div>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="recipe-card">
-                <img
-                  src="/assets/images/recipes/pho-bo.jpg"
-                  alt="Phở bò"
-                  class="recipe-image w-100"
-                />
-                <div class="recipe-content">
-                  <h5 class="recipe-title">Phở Bò Nam Định</h5>
-                  <div class="recipe-meta">
-                    <span><i class="fas fa-clock"></i> 45 phút</span>
-                    <span><i class="fas fa-star"></i> 4.8</span>
-                    <span><i class="fas fa-eye"></i> 1.2K</span>
+              <img
+                src="/assets/images/users/avatar.jpg"
+                alt="Avatar"
+                class="profile-avatar-horizontal mb-3"
+                id="profileAvatar"
+              />
+              <div class="profile-name-horizontal mb-1" id="profileName">
+                Nguyễn Văn A
+              </div>
+              <div
+                class="profile-bio-horizontal mb-2 text-center"
+                id="profileBio"
+              >
+                Đam mê nấu ăn và khám phá ẩm thực Việt Nam
+              </div>
+              <div class="profile-stats-horizontal mb-3">
+                <div class="stat-horizontal">
+                  <div class="stat-value-horizontal" id="profileRecipeCount">
+                    25
                   </div>
-                  <div class="recipe-actions">
-                    <button class="action-btn edit-btn">
-                      <i class="fas fa-edit me-2"></i>Sửa
-                    </button>
-                    <button class="action-btn delete-btn">
-                      <i class="fas fa-trash me-2"></i>Xóa
-                    </button>
-                  </div>
+                  <div class="stat-label-horizontal">Công thức</div>
                 </div>
               </div>
+              <a
+                href="#settings"
+                class="btn btn-outline-primary btn-sm profile-edit-btn-horizontal d-none d-md-inline"
+              >
+                Chỉnh sửa
+              </a>
             </div>
-            <!-- More recipe cards... -->
           </div>
-        </div>
-
-        <!-- Saved Recipes Tab -->
-        <div class="tab-pane fade" id="saved">
-          <h3 class="h4 mb-4">Công thức yêu thích</h3>
-          <div class="row">
-            <div class="col-md-4">
-              <div class="recipe-card saved-recipe">
-                <span class="saved-badge">Đã lưu</span>
-                <img
-                  src="/assets/images/recipes/bun-cha.jpg"
-                  alt="Bún chả"
-                  class="recipe-image w-100"
-                />
-                <div class="recipe-content">
-                  <h5 class="recipe-title">Bún Chả Hà Nội</h5>
-                  <div class="recipe-meta">
-                    <span><i class="fas fa-clock"></i> 60 phút</span>
-                    <span><i class="fas fa-star"></i> 4.9</span>
-                    <span><i class="fas fa-user"></i> Cô Hương</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <!-- More saved recipes... -->
-          </div>
-        </div>
-
-        <!-- Settings Tab -->
-        <div class="tab-pane fade" id="settings">
-          <div class="row">
-            <div class="col-lg-8">
-              <div class="bg-white p-4 rounded-3 shadow-sm">
-                <h3 class="h4 mb-4">Thông tin cá nhân</h3>
-                <form>
-                  <div class="mb-4">
-                    <label class="form-label">Họ và tên</label>
-                    <input
-                      type="text"
-                      class="form-control"
-                      value="Nguyễn Văn A"
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label">Email</label>
-                    <input
-                      type="email"
-                      class="form-control"
-                      value="nguyenvana@gmail.com"
-                    />
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label">Giới thiệu</label>
-                    <textarea class="form-control" rows="4">
-Đam mê nấu ăn và khám phá ẩm thực Việt Nam</textarea
+          <!-- Right: Tabs & Content -->
+          <div class="col-lg-8 col-md-7">
+            <div
+              class="profile-content-card-horizontal h-100 d-flex flex-column"
+            >
+              <nav class="profile-nav-card-horizontal mb-3">
+                <ul class="nav nav-pills" id="profileTabs" role="tablist">
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link active"
+                      data-bs-toggle="tab"
+                      data-bs-target="#recipes"
                     >
+                      Công thức của tôi
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      data-bs-toggle="tab"
+                      data-bs-target="#saved"
+                    >
+                      Yêu thích
+                    </button>
+                  </li>
+                  <li class="nav-item" role="presentation">
+                    <button
+                      class="nav-link"
+                      data-bs-toggle="tab"
+                      data-bs-target="#settings"
+                    >
+                      Cài đặt
+                    </button>
+                  </li>
+                </ul>
+              </nav>
+              <div
+                class="tab-content profile-tab-content-horizontal flex-grow-1"
+              >
+                <!-- My Recipes Tab -->
+                <div class="tab-pane fade show active" id="recipes">
+                  <div class="profile-section-horizontal">
+                    <div
+                      class="d-flex justify-content-between align-items-center mb-4"
+                    >
+                      <h3 class="h5 mb-0">Công thức của tôi</h3>
+                      <a
+                        href="/pages/user/add-recipe.html"
+                        class="btn btn-primary btn-sm"
+                      >
+                        <i class="fas fa-plus me-2"></i>Thêm công thức
+                      </a>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-lg-6">
+                        <div class="recipe-card">
+                          <img
+                            src="/assets/images/recipes/pho-bo.jpg"
+                            alt="Phở bò"
+                            class="recipe-image w-100"
+                          />
+                          <div class="recipe-content">
+                            <h5 class="recipe-title">Phở Bò Nam Định</h5>
+                            <div class="recipe-meta">
+                              <span><i class="fas fa-clock"></i> 45 phút</span>
+                              <span><i class="fas fa-star"></i> 4.8</span>
+                              <span><i class="fas fa-eye"></i> 1.2K</span>
+                            </div>
+                            <div class="recipe-actions">
+                              <button class="action-btn edit-btn">
+                                <i class="fas fa-edit me-2"></i>Sửa
+                              </button>
+                              <button class="action-btn delete-btn">
+                                <i class="fas fa-trash me-2"></i>Xóa
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- More recipe cards... -->
+                    </div>
                   </div>
-                  <div class="mb-4">
-                    <label class="form-label">Ảnh đại diện</label>
-                    <input type="file" class="form-control" />
+                </div>
+                <!-- Saved Recipes Tab -->
+                <div class="tab-pane fade" id="saved">
+                  <div class="profile-section-horizontal">
+                    <h3 class="h5 mb-4">Công thức yêu thích</h3>
+                    <div class="row">
+                      <div class="col-md-6 col-lg-6">
+                        <div class="recipe-card saved-recipe">
+                          <span class="saved-badge">Đã lưu</span>
+                          <img
+                            src="/assets/images/recipes/bun-cha.jpg"
+                            alt="Bún chả"
+                            class="recipe-image w-100"
+                          />
+                          <div class="recipe-content">
+                            <h5 class="recipe-title">Bún Chả Hà Nội</h5>
+                            <div class="recipe-meta">
+                              <span><i class="fas fa-clock"></i> 60 phút</span>
+                              <span><i class="fas fa-star"></i> 4.9</span>
+                              <span><i class="fas fa-user"></i> Cô Hương</span>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                      <!-- More saved recipes... -->
+                    </div>
                   </div>
-                  <div class="mb-4">
-                    <label class="form-label">Ảnh bìa</label>
-                    <input type="file" class="form-control" />
+                </div>
+                <!-- Settings Tab -->
+                <div class="tab-pane fade" id="settings">
+                  <div class="profile-section-horizontal">
+                    <h3 class="h5 mb-4">Thông tin cá nhân</h3>
+                    <form>
+                      <div class="mb-3">
+                        <label class="form-label">Họ và tên</label>
+                        <input
+                          type="text"
+                          class="form-control"
+                          value="Nguyễn Văn A"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Email</label>
+                        <input
+                          type="email"
+                          class="form-control"
+                          value="nguyenvana@gmail.com"
+                        />
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Giới thiệu</label>
+                        <textarea class="form-control" rows="3">
+Đam mê nấu ăn và khám phá ẩm thực Việt Nam</textarea
+                        >
+                      </div>
+                      <div class="mb-3">
+                        <label class="form-label">Ảnh đại diện</label>
+                        <input type="file" class="form-control" />
+                      </div>
+                      <button type="submit" class="btn btn-primary btn-sm">
+                        Lưu thay đổi
+                      </button>
+                    </form>
                   </div>
-                  <button type="submit" class="btn btn-primary">
-                    Lưu thay đổi
-                  </button>
-                </form>
-              </div>
-
-              <div class="bg-white p-4 rounded-3 shadow-sm mt-4">
-                <h3 class="h4 mb-4">Đổi mật khẩu</h3>
-                <form>
-                  <div class="mb-4">
-                    <label class="form-label">Mật khẩu hiện tại</label>
-                    <input type="password" class="form-control" />
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label">Mật khẩu mới</label>
-                    <input type="password" class="form-control" />
-                  </div>
-                  <div class="mb-4">
-                    <label class="form-label">Xác nhận mật khẩu mới</label>
-                    <input type="password" class="form-control" />
-                  </div>
-                  <button type="submit" class="btn btn-primary">
-                    Đổi mật khẩu
-                  </button>
-                </form>
-              </div>
-            </div>
-
-            <div class="col-lg-4">
-              <div class="bg-white p-4 rounded-3 shadow-sm">
-                <h3 class="h4 mb-4">Cài đặt thông báo</h3>
-                <div class="form-check form-switch mb-3">
-                  <input class="form-check-input" type="checkbox" checked />
-                  <label class="form-check-label">Email thông báo</label>
-                </div>
-                <div class="form-check form-switch mb-3">
-                  <input class="form-check-input" type="checkbox" checked />
-                  <label class="form-check-label"
-                    >Thông báo bình luận mới</label
-                  >
-                </div>
-                <div class="form-check form-switch mb-3">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label"
-                    >Thông báo người theo dõi mới</label
-                  >
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" checked />
-                  <label class="form-check-label"
-                    >Cập nhật từ người đang theo dõi</label
-                  >
-                </div>
-              </div>
-
-              <div class="bg-white p-4 rounded-3 shadow-sm mt-4">
-                <h3 class="h4 mb-4">Quyền riêng tư</h3>
-                <div class="form-check form-switch mb-3">
-                  <input class="form-check-input" type="checkbox" checked />
-                  <label class="form-check-label"
-                    >Hiển thị công thức với mọi người</label
-                  >
-                </div>
-                <div class="form-check form-switch mb-3">
-                  <input class="form-check-input" type="checkbox" />
-                  <label class="form-check-label">Cho phép theo dõi</label>
-                </div>
-                <div class="form-check form-switch">
-                  <input class="form-check-input" type="checkbox" checked />
-                  <label class="form-check-label"
-                    >Hiển thị email công khai</label
-                  >
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-
+    </section>
     <!-- Footer -->
     <footer
       class="footer mt-5 py-5"
@@ -412,22 +636,30 @@
             <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
             <ul class="list-unstyled">
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=mon-chinh" class="text-white text-decoration-none" 
+                <a
+                  href="/pages/recipes/list.html?category=mon-chinh"
+                  class="text-white text-decoration-none"
                   >Món chính</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=trang-mieng" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=trang-mieng"
+                  class="text-white text-decoration-none"
                   >Món tráng miệng</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=do-uong" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=do-uong"
+                  class="text-white text-decoration-none"
                   >Đồ uống</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=mon-chay" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=mon-chay"
+                  class="text-white text-decoration-none"
                   >Món chay</a
                 >
               </li>
@@ -466,7 +698,7 @@
       // --- Render công thức yêu thích cho tab Yêu thích ---
       function getCurrentUser() {
         try {
-          return JSON.parse(localStorage.getItem("currentUser"));
+          return JSON.parse(sessionStorage.getItem("currentUser"));
         } catch {
           return null;
         }

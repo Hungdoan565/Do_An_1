@@ -39,7 +39,7 @@ document.addEventListener('DOMContentLoaded', function () {
   });
 });
 
-// Lấy user hiện tại từ localStorage (đồng bộ với auth.js)
+// Lấy user hiện tại từ sessionStorage (đồng bộ với auth.js)
 window.getCurrentUser = function() {
   try {
     return JSON.parse(sessionStorage.getItem("currentUser"));

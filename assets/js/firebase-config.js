@@ -22,3 +22,17 @@ function fetchData(path, callback) {
     callback(snapshot.val());
   });
 }
+
+// Ghi dữ liệu vào Firebase Realtime Database
+function addRecipeToFirebase(recipe, callback, errorCallback) {
+  var db = firebase.database();
+  // Tạo id tự động bằng push
+  var newRef = db.ref('recipes').push();
+  newRef.set(recipe)
+    .then(function() {
+      if (callback) callback(newRef.key);
+    })
+    .catch(function(error) {
+      if (errorCallback) errorCallback(error);
+    });
+}

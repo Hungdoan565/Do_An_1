@@ -38,3 +38,16 @@ document.addEventListener('DOMContentLoaded', function () {
     window.location.href = '/index.html';
   });
 });
+
+// Lấy user hiện tại từ localStorage (đồng bộ với auth.js)
+window.getCurrentUser = function() {
+  try {
+    return JSON.parse(sessionStorage.getItem("currentUser"));
+  } catch {
+    return null;
+  }
+};
+// Đăng xuất toàn cục (đồng bộ với auth.js)
+window.logoutUser = function() {
+  sessionStorage.removeItem('currentUser');
+};

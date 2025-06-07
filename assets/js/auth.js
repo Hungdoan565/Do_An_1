@@ -1,9 +1,4 @@
-// KHÔNG dùng import ... from ... ở đây!
-// Đảm bảo đã nhúng các file sau ở đầu file HTML:
-// <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-app.js"></script>
-// <script src="https://www.gstatic.com/firebasejs/11.8.1/firebase-analytics.js"></script>
-// <script src="https://www.gstatic.com/firebasejs/11.8.0/firebase-auth.js"></script>
-
+// Firebase configuration
 var auth = firebase.auth();
 
 function registerUser({ username, email, password, role = 'member' }) {
@@ -26,18 +21,18 @@ function loginUser({ email, username, password }) {
     user = users.find(u => (u.username || '').trim() === username.trim() && u.password === password);
   }
   if (!user) return { success: false, message: 'Sai email hoặc mật khẩu!' };
-  localStorage.setItem('currentUser', JSON.stringify(user));
+  sessionStorage.setItem('currentUser', JSON.stringify(user));
   return { success: true, user };
 }
 
 // Đăng xuất
 function logoutUser() {
-  localStorage.removeItem('currentUser');
+  sessionStorage.removeItem('currentUser');
 }
 
 // Lấy user hiện tại
 function getCurrentUser() {
-  return JSON.parse(localStorage.getItem('currentUser') || 'null');
+  return JSON.parse(sessionStorage.getItem('currentUser') || 'null');
 }
 
 // Kiểm tra quyền
@@ -66,7 +61,7 @@ document.querySelectorAll(".btn-google, .social-btn.google-btn").forEach(functio
     try {
       var result = await auth.signInWithPopup(provider);
       var user = result.user;
-      localStorage.setItem(
+      sessionStorage.setItem(
         "currentUser",
         JSON.stringify({
           username: user.displayName || user.email.split("@")[0],
@@ -126,7 +121,7 @@ window.googleSignIn = async function() {
   try {
     var result = await auth.signInWithPopup(provider);
     var user = result.user;
-    localStorage.setItem(
+    sessionStorage.setItem(
       "currentUser",
       JSON.stringify({
         username: user.displayName || user.email.split("@")[0],
@@ -139,7 +134,6 @@ window.googleSignIn = async function() {
     );
     window.location.href = "/index.html";
   } catch (error) {
-    // Nếu popup bị chặn thì mới báo lỗi, còn lại im lặng
     if (error.code === "auth/popup-blocked") {
       alert("Đăng nhập Google thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
     }
@@ -153,7 +147,7 @@ window.githubSignIn = async function() {
   try {
     var result = await auth.signInWithPopup(provider);
     var user = result.user;
-    localStorage.setItem(
+    sessionStorage.setItem(
       "currentUser",
       JSON.stringify({
         username: user.displayName || user.email?.split("@")[0] || user.uid,

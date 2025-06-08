@@ -458,10 +458,18 @@
         once: true,
       });
 
+      const BLOG_PAGE_SIZE = 4;
+      let blogCurrentPage = 1;
+      let blogFilteredPosts = [];
+
       // Lấy dữ liệu blog động từ file JSON
       let allApprovedPosts = [];
-      function renderBlogPosts(posts) {
-        document.getElementById("blogPosts").innerHTML = posts
+      function renderBlogPosts(posts, page = 1) {
+        blogFilteredPosts = posts;
+        const start = (page - 1) * BLOG_PAGE_SIZE;
+        const end = start + BLOG_PAGE_SIZE;
+        const pagePosts = posts.slice(start, end);
+        document.getElementById("blogPosts").innerHTML = pagePosts
           .map(
             (post) => `
       <div class="col-md-6 mb-4" data-aos="fade-up">
@@ -488,6 +496,59 @@
     `
           )
           .join("");
+        renderBlogPagination(posts.length, page);
+      }
+
+      function renderBlogPagination(totalPosts, currentPage) {
+        const totalPages = Math.ceil(totalPosts / BLOG_PAGE_SIZE);
+        const pagination = document.querySelector(".pagination");
+        if (!pagination) return;
+        let html = "";
+        const maxPagesToShow = 5;
+        if (totalPages <= 7) {
+          for (let i = 1; i <= totalPages; i++) {
+            html += `<li class="page-item${
+              i === currentPage ? " active" : ""
+            }"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+          }
+        } else {
+          html += `<li class="page-item${
+            currentPage === 1 ? " active" : ""
+          }"><a class="page-link" href="#" data-page="1">1</a></li>`;
+          if (currentPage > maxPagesToShow) {
+            html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+          }
+          let start = Math.max(2, currentPage - 2);
+          let end = Math.min(totalPages - 1, currentPage + 2);
+          if (currentPage <= maxPagesToShow) {
+            end = Math.max(end, maxPagesToShow);
+          }
+          if (currentPage >= totalPages - maxPagesToShow + 1) {
+            start = Math.min(start, totalPages - maxPagesToShow);
+          }
+          for (let i = start; i <= end; i++) {
+            html += `<li class="page-item${
+              i === currentPage ? " active" : ""
+            }"><a class="page-link" href="#" data-page="${i}">${i}</a></li>`;
+          }
+          if (currentPage < totalPages - maxPagesToShow + 1) {
+            html += `<li class="page-item disabled"><span class="page-link">...</span></li>`;
+          }
+          html += `<li class="page-item${
+            currentPage === totalPages ? " active" : ""
+          }"><a class="page-link" href="#" data-page="${totalPages}">${totalPages}</a></li>`;
+        }
+        pagination.innerHTML = html;
+        pagination.querySelectorAll("a.page-link").forEach((link) => {
+          link.onclick = function (e) {
+            e.preventDefault();
+            const page = this.getAttribute("data-page");
+            if (!isNaN(Number(page))) {
+              blogCurrentPage = Number(page);
+              renderBlogPosts(blogFilteredPosts, blogCurrentPage);
+            }
+          };
+        });
       }
 
       fetchData("blogs", function (blogPostsObj) {
@@ -496,7 +557,35 @@
         allApprovedPosts = blogPosts.filter(
           (post) => post.status === "đã duyệt"
         );
-        renderBlogPosts(allApprovedPosts);
+        // --- Lấy tất cả tag thực tế từ các bài blog đã duyệt ---
+        let allTags = [];
+        allApprovedPosts.forEach((post) => {
+          if (Array.isArray(post.tags)) allTags = allTags.concat(post.tags);
+        });
+        // Chuẩn hóa: Viết hoa chữ cái đầu, các chữ còn lại thường, loại trùng (không phân biệt hoa thường)
+        function normalizeTag(tag) {
+          tag = tag.trim();
+          if (!tag) return "";
+          return tag.charAt(0).toUpperCase() + tag.slice(1).toLowerCase();
+        }
+        let tagSet = new Map();
+        allTags.forEach((tag) => {
+          const norm = normalizeTag(tag);
+          if (norm && !tagSet.has(norm.toLowerCase()))
+            tagSet.set(norm.toLowerCase(), norm);
+        });
+        const uniqueTags = Array.from(tagSet.values());
+        uniqueTags.sort((a, b) => a.localeCompare(b, "vi"));
+        // Render lại dropdown tag
+        const catFilter = document.getElementById("categoryFilter");
+        if (catFilter) {
+          let html = '<option value="">Tất cả tag</option>';
+          uniqueTags.forEach((tag) => {
+            html += `<option value="${tag}">${tag}</option>`;
+          });
+          catFilter.innerHTML = html;
+        }
+        renderBlogPosts(allApprovedPosts, blogCurrentPage);
       });
 
       // Xử lý tìm kiếm và lọc
@@ -519,7 +608,8 @@
               post.tags.some((tag) => tag.toLowerCase().includes(keyword)));
           return matchCategory && matchKeyword;
         });
-        renderBlogPosts(filtered);
+        blogCurrentPage = 1;
+        renderBlogPosts(filtered, blogCurrentPage);
       }
 
       document

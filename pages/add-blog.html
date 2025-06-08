@@ -471,6 +471,7 @@
         renderTags();
         tagInput.addEventListener("keydown", function (e) {
           if (e.key === "Enter" && tagInput.value.trim()) {
+            e.preventDefault(); // Ngăn submit form khi nhập tag
             var newTag = tagInput.value.trim();
             if (!selectedTags.includes(newTag)) selectedTags.push(newTag);
             tagInput.value = "";
@@ -541,6 +542,39 @@
           var tab = new bootstrap.Tab(document.getElementById("seo-tab"));
           tab.show();
         };
+        // Lấy tag thực tế từ các bài blog đã có
+        function fetchAllBlogTags(callback) {
+          var db = firebase.database();
+          db.ref("blogs")
+            .once("value")
+            .then(function (snapshot) {
+              var blogs = snapshot.val() || {};
+              var allTags = [];
+              Object.values(blogs).forEach(function (blog) {
+                if (Array.isArray(blog.tags)) {
+                  allTags = allTags.concat(blog.tags);
+                }
+              });
+              // Loại trùng, loại rỗng, chuẩn hóa
+              allTags = Array.from(
+                new Set(allTags.map((t) => t.trim()).filter(Boolean))
+              );
+              callback(allTags);
+            });
+        }
+        // Kết hợp tag phổ biến và tag thực tế
+        function updatePopularTags() {
+          fetchAllBlogTags(function (realTags) {
+            // Giữ lại thứ tự tag phổ biến, thêm tag mới vào cuối
+            var merged = popularTags.slice();
+            realTags.forEach(function (tag) {
+              if (!merged.includes(tag)) merged.push(tag);
+            });
+            popularTags = merged;
+            renderTags();
+          });
+        }
+        updatePopularTags();
         // Submit form chỉ ở tab tổng kết
         document.getElementById("addBlogForm").onsubmit = function (e) {
           e.preventDefault();

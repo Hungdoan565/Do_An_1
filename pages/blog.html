@@ -594,11 +594,16 @@
           .getElementById("searchInput")
           .value.trim()
           .toLowerCase();
-        const category = document.getElementById("categoryFilter").value;
+        const category = document
+          .getElementById("categoryFilter")
+          .value.trim()
+          .toLowerCase();
         let filtered = allApprovedPosts.filter((post) => {
-          // Lọc theo tag nếu có
+          // Lọc theo tag nếu có, không phân biệt hoa thường, so sánh từng tag
           let matchCategory =
-            !category || (post.tags && post.tags.includes(category));
+            !category ||
+            (post.tags &&
+              post.tags.some((tag) => tag.trim().toLowerCase() === category));
           // Lọc theo từ khóa
           let matchKeyword =
             !keyword ||

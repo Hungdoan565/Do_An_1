@@ -5,10 +5,13 @@ function registerUser({ username, email, password, role = 'member' }) {
   let users = JSON.parse(localStorage.getItem('users') || '[]');
   const emailNorm = email.trim().toLowerCase();
   if (users.find(u => (u.email || '').trim().toLowerCase() === emailNorm)) return { success: false, message: 'Email đã tồn tại!' };
-  users.push({ username, email: emailNorm, password, role, createdAt: Date.now() });
+  // Tạo uid cho user local
+  const uid = 'u_' + Math.random().toString(36).substr(2, 9) + '_' + Date.now();
+  const userObj = { uid, username, email: emailNorm, password, role, createdAt: Date.now() };
+  users.push(userObj);
   localStorage.setItem('users', JSON.stringify(users));
-  sessionStorage.setItem('users', JSON.stringify(users)); // đồng bộ
-  return { success: true };
+  sessionStorage.setItem('currentUser', JSON.stringify(userObj)); // Lưu cả uid vào session
+  return { success: true, user: userObj };
 }
 
 // Đăng nhập: kiểm tra user qua email hoặc username
@@ -22,7 +25,7 @@ function loginUser({ email, username, password }) {
     user = users.find(u => (u.username || '').trim() === username.trim() && u.password === password);
   }
   if (!user) return { success: false, message: 'Sai email hoặc mật khẩu!' };
-  sessionStorage.setItem('currentUser', JSON.stringify(user));
+  sessionStorage.setItem('currentUser', JSON.stringify(user)); // Lưu cả uid vào session
   return { success: true, user };
 }
 
@@ -33,7 +36,11 @@ function logoutUser() {
 
 // Lấy user hiện tại
 function getCurrentUser() {
-  return JSON.parse(sessionStorage.getItem('currentUser') || 'null');
+  try {
+    return JSON.parse(sessionStorage.getItem('currentUser'));
+  } catch {
+    return null;
+  }
 }
 
 // Kiểm tra quyền
@@ -51,7 +58,6 @@ function requireRole(role) {
   if (!users.find(u => u.username === 'admin')) {
     users.push({ username: 'admin', password: 'admin123', role: 'admin', createdAt: Date.now() });
     localStorage.setItem('users', JSON.stringify(users));
-    sessionStorage.setItem('users', JSON.stringify(users));
   }
 })();
 // Xử lý đăng nhập Google
@@ -66,6 +72,7 @@ document.querySelectorAll(".btn-google, .social-btn.google-btn").forEach(functio
       sessionStorage.setItem(
         "currentUser",
         JSON.stringify({
+          uid: user.uid,
           username: user.displayName || user.email.split("@")[0],
           email: user.email,
           photoURL: user.photoURL,
@@ -126,6 +133,7 @@ window.googleSignIn = async function() {
     sessionStorage.setItem(
       "currentUser",
       JSON.stringify({
+        uid: user.uid,
         username: user.displayName || user.email.split("@")[0],
         email: user.email,
         photoURL: user.photoURL,
@@ -168,16 +176,3 @@ window.githubSignIn = async function() {
     console.error("Lỗi đăng nhập GitHub:", error);
   }
 };
-
-// Đổi mật khẩu (profile.html) cần đồng bộ cả localStorage và sessionStorage
-// Hãy thay đổi đoạn cập nhật mật khẩu trong profile.html như sau:
-//
-// user.password = newPassword;
-// sessionStorage.setItem("currentUser", JSON.stringify(user));
-// let users = JSON.parse(localStorage.getItem("users") || "[]");
-// const idx = users.findIndex(u => (u.email && u.email === user.email) || (u.username && u.username === user.username));
-// if (idx !== -1) {
-//   users[idx].password = newPassword;
-//   localStorage.setItem("users", JSON.stringify(users));
-//   sessionStorage.setItem("users", JSON.stringify(users));
-// }

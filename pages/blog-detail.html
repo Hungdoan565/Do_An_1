@@ -348,44 +348,94 @@
                         .join("")
                     : '<div class="text-muted">Không có bài liên quan</div>';
               });
-            // Bình luận (giả lập localStorage)
-            renderComments(id);
+            // Bình luận
+            renderCommentsArea(id);
           });
       });
-      // Bình luận (giả lập localStorage)
-      function renderComments(blogId) {
+      // --- Bình luận blog: chỉ dùng Firebase, render form vào commentFormArea ---
+      function getBlogId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+      }
+
+      function renderCommentsArea(blogId) {
         const listEl = document.getElementById("commentList");
         const formEl = document.getElementById("commentFormArea");
-        let comments = JSON.parse(localStorage.getItem("blogComments") || "[]");
-        const blogComments = comments.filter((c) => c.blogId === blogId);
-        listEl.innerHTML = blogComments.length
-          ? blogComments
-              .map(
-                (c) => `<div class='mb-2'><b>${c.username}:</b> ${c.text}</div>`
-              )
-              .join("")
-          : '<div class="text-muted">Chưa có bình luận nào.</div>';
-        // Nếu đã đăng nhập
+        // Render danh sách bình luận từ Firebase
+        var db = firebase.database();
+        db.ref("comments/" + blogId)
+          .once("value")
+          .then(function (snap) {
+            const comments = snap.val() || {};
+            listEl.innerHTML =
+              Object.values(comments).length > 0
+                ? Object.values(comments)
+                    .map(
+                      (c) =>
+                        `<div class="comment-item mb-3"><b>${c.username}</b>: ${c.content}<div class="text-muted small">${c.createdAt}</div></div>`
+                    )
+                    .join("")
+                : "<div class='text-muted'>Chưa có bình luận nào.</div>";
+          });
+        // Render form nhập bình luận nếu đã đăng nhập
         const user = window.getCurrentUser && window.getCurrentUser();
         if (user) {
           formEl.innerHTML = `
             <form id="commentForm" class="d-flex gap-2">
-              <input type="text" class="form-control" placeholder="Nhập bình luận..." required />
+              <input type="text" class="form-control" id="commentInput" placeholder="Nhập bình luận..." required />
               <button class="btn btn-primary" type="submit">Gửi</button>
             </form>
           `;
-          document.getElementById("commentForm").onsubmit = function (e) {
-            e.preventDefault();
-            const text = this.querySelector("input").value.trim();
-            if (!text) return;
-            comments.push({ blogId, username: user.username, text });
-            localStorage.setItem("blogComments", JSON.stringify(comments));
-            renderComments(blogId);
-          };
+          setTimeout(function () {
+            // Đảm bảo DOM đã cập nhật
+            const commentForm = document.getElementById("commentForm");
+            const commentInput = document.getElementById("commentInput");
+            if (!commentForm || !commentInput) {
+              console.error("Không tìm thấy form hoặc input bình luận!");
+              return;
+            }
+            // Gửi bình luận khi submit form hoặc nhấn Enter
+            commentForm.onsubmit = function (e) {
+              e.preventDefault();
+              const content = commentInput.value.trim();
+              const user = window.getCurrentUser && window.getCurrentUser();
+              if (!user || !user.uid) {
+                alert("Bạn cần đăng nhập lại để bình luận!");
+                return;
+              }
+              if (!content) return;
+              var db = firebase.database();
+              var newRef = db.ref("comments/" + blogId).push();
+              newRef.set(
+                {
+                  userId: user.uid,
+                  username: user.username || user.email || "Ẩn danh",
+                  content: content,
+                  createdAt: new Date().toLocaleString("vi-VN"),
+                },
+                function () {
+                  commentInput.value = "";
+                  renderCommentsArea(blogId);
+                }
+              );
+            };
+            // Đảm bảo nhấn Enter trong input cũng gửi bình luận
+            commentInput.addEventListener("keydown", function (e) {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                commentForm.requestSubmit();
+              }
+            });
+          }, 0);
         } else {
           formEl.innerHTML = `<div class='text-muted'>Đăng nhập để bình luận.</div>`;
         }
       }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const blogId = getBlogId();
+        renderCommentsArea(blogId);
+      });
     </script>
     <script src="/assets/js/navbar-user.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>

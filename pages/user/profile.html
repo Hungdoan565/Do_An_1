@@ -789,42 +789,83 @@
             }
           }, 400);
         }
-        // Khám phá món ngon hôm nay (nếu user chưa có gì)
+        // Khám phá món ngon hôm nay
         const explore = document.getElementById("profileExplore");
+        let exploreInterval;
         if (explore) {
+          function renderExploreRandomRecipes() {
+            if (!explore) return;
+            const random = allRecipes
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 4);
+            explore.innerHTML =
+              `<div class='mt-3 fs-2 pb-5 text-center' style='color: #D61C4E;'><strong>Khám phá các món ngon hôm nay</strong></div><div class='row g-2'>` +
+              random
+                .map(
+                  (r) => `
+              <div class='col-md-3 d-flex align-items-stretch ps-5'>${renderProfileRecipeCard(
+                r
+              )}</div>
+            `
+                )
+                .join("") +
+              `</div><div class='mt-2 text-center'><a href='/pages/recipes/list.html' class='btn btn-primary btn-sm '>Xem thêm</a></div>`;
+            // Sự kiện click
+            explore.querySelectorAll(".recipe-card").forEach((card) => {
+              card.onclick = function () {
+                const id = this.getAttribute("data-id");
+                if (id)
+                  window.location.href = `/pages/recipes/detail.html?id=${id}`;
+              };
+            });
+            // Thêm hiệu ứng fade-in từng card
+            applyFadeInToProfileCards("#profileExplore .row");
+          }
           setTimeout(() => {
             if (myRecipes.length === 0 && favRecipes.length === 0) {
-              // Lấy 3 công thức ngẫu nhiên
-              const random = allRecipes
-                .sort(() => 0.5 - Math.random())
-                .slice(0, 4);
-              explore.innerHTML =
-                `<div class='mt-3 fs-2 pb-5 text-center' style='color: #D61C4E;'><strong>Khám phá các món ngon hôm nay</strong></div><div class='row g-2'>` +
-                random
-                  .map(
-                    (r) => `
-                <div class='col-md-3 d-flex align-items-stretch ps-5'>${renderProfileRecipeCard(
-                  r
-                )}</div>
-              `
-                  )
-                  .join("") +
-                `</div><div class='mt-2'><a href='/pages/recipes/list.html' class='btn btn-link btn-sm p-0'>Xem thêm</a></div>`;
-              // Sự kiện click
-              explore.querySelectorAll(".recipe-card").forEach((card) => {
-                card.onclick = function () {
-                  const id = this.getAttribute("data-id");
-                  if (id)
-                    window.location.href = `/pages/recipes/detail.html?id=${id}`;
-                };
-              });
-              // Thêm hiệu ứng fade-in từng card
-              applyFadeInToProfileCards("#profileExplore .row");
+              renderExploreRandomRecipes();
+              // Xóa interval cũ nếu có
+              if (window._exploreInterval)
+                clearInterval(window._exploreInterval);
+              // Tự động chuyển món mỗi 2s
+              window._exploreInterval = setInterval(
+                renderExploreRandomRecipes,
+                3000
+              );
             } else {
               explore.innerHTML = "";
+              if (window._exploreInterval)
+                clearInterval(window._exploreInterval);
             }
           }, 400);
         }
+      }
+
+      // Chuyển tab sang Cài đặt khi bấm 'Chỉnh sửa hồ sơ'
+      const editProfileBtn = document.getElementById("editProfileBtn");
+      if (editProfileBtn) {
+        editProfileBtn.addEventListener("click", function () {
+          // Kích hoạt tab Cài đặt
+          document
+            .querySelectorAll(".sidebar .nav-link")
+            .forEach((l) => l.classList.remove("active"));
+          const settingsTab = document.querySelector(
+            '.sidebar .nav-link[data-tab="settings"]'
+          );
+          if (settingsTab) settingsTab.classList.add("active");
+          document
+            .querySelectorAll(".tab-section")
+            .forEach((sec) => sec.classList.remove("active"));
+          const settingsSection = document.getElementById("tab-settings");
+          if (settingsSection) {
+            settingsSection.classList.add("active");
+            // Cuộn tới phần cài đặt nếu cần
+            settingsSection.scrollIntoView({
+              behavior: "smooth",
+              block: "start",
+            });
+          }
+        });
       }
 
       // Hiệu ứng chuyển động mượt cho các card công thức profile
@@ -841,9 +882,6 @@
           }, 400);
         }, 400);
       }
-      // Ví dụ sử dụng:
-      // animateProfileCardTransition('myRecipeList', () => renderMyRecipes());
-      // animateProfileCardTransition('favoriteRecipeList', () => renderFavoriteRecipes());
 
       // Đăng xuất từ dropdown
       const navbarLogout = document.getElementById("navbarLogout");
@@ -892,6 +930,34 @@
           .forEach(function (link) {
             link.addEventListener("click", renderMyRecipes);
           });
+        // Xử lý chuyển tab khi bấm "Chỉnh sửa hồ sơ"
+        var editBtn = document.getElementById("editProfileBtn");
+        if (editBtn) {
+          editBtn.addEventListener("click", function () {
+            // Kích hoạt tab sidebar
+            document
+              .querySelectorAll(".sidebar .nav-link")
+              .forEach(function (l) {
+                l.classList.remove("active");
+              });
+            var settingsTab = document.querySelector(
+              '.sidebar .nav-link[data-tab="settings"]'
+            );
+            if (settingsTab) settingsTab.classList.add("active");
+            // Hiện tab nội dung
+            document.querySelectorAll(".tab-section").forEach(function (sec) {
+              sec.classList.remove("active");
+            });
+            var settingsSection = document.getElementById("tab-settings");
+            if (settingsSection) {
+              settingsSection.classList.add("active");
+              settingsSection.scrollIntoView({
+                behavior: "smooth",
+                block: "start",
+              });
+            }
+          });
+        }
       });
       // Delete recipe confirmation
       document.querySelectorAll(".delete-btn").forEach((btn) => {

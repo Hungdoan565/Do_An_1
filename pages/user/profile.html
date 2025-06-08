@@ -190,8 +190,7 @@
               <div id="profileBioExtended" class="mb-2"></div>
               <!-- Khu vực công thức của tôi sẽ được JS render vào đây nếu có -->
               <div id="profileRecentRecipes"></div>
-              <!-- Khu vực công thức yêu thích sẽ được JS render vào đây nếu có -->
-              <div id="profileRecentFavorites"></div>
+              <!-- ĐÃ XÓA Khu vực công thức yêu thích theo yêu cầu -->
               <!-- Khu vực khám phá sẽ được JS render vào đây nếu cần -->
               <div id="profileExplore"></div>
             </div>
@@ -785,89 +784,87 @@
               recentRecipes.innerHTML = "";
             }
           }, 400);
-        }
-        // Công thức yêu thích (nếu có)
-        const recentFav = document.getElementById("profileRecentFavorites");
-        if (recentFav) {
-          setTimeout(() => {
-            if (favRecipes.length > 0) {
-              const show = favRecipes.slice(0, 3);
-              recentFav.innerHTML =
-                `<div class='mb-2'><strong>Các công thức bạn đã yêu thích gần đây</strong></div><div class='row g-2'>` +
-                show
-                  .map(
-                    (r) => `
-                  <div class='col-md-4 d-flex align-items-stretch'>${renderProfileRecipeCard(
+        } // ...existing code...
+        // Khám phá món ngon hôm nay
+        const explore = document.getElementById("profileExplore");
+        let exploreInterval;
+        if (explore) {
+          // Hiệu ứng chuyển động mượt khi đổi 4 card
+          function fadeOutInExploreCards(callback) {
+            const row = explore.querySelector(".row");
+            if (!row) {
+              callback && callback();
+              return;
+            }
+            row.style.transition = "opacity 0.5s";
+            row.style.opacity = 0;
+            setTimeout(() => {
+              callback && callback();
+              row.style.opacity = 1;
+            }, 500);
+          }
+          function renderExploreRandomRecipes() {
+            if (!explore) return;
+            const random = allRecipes
+              .sort(() => 0.5 - Math.random())
+              .slice(0, 4);
+            // Nếu đã có row, fade out trước khi render mới
+            const oldRow = explore.querySelector(".row");
+            if (oldRow) {
+              fadeOutInExploreCards(() => {
+                explore.innerHTML =
+                  `<div class='mt-3 fs-2 pb-5 text-center' style='color: #D61C4E;'><strong>Khám phá các món ngon hôm nay</strong></div><div class='row g-2'>` +
+                  random
+                    .map(
+                      (r) => `
+                  <div class='col-md-3 d-flex align-items-stretch ps-5'>${renderProfileRecipeCard(
                     r
                   )}</div>
                 `
+                    )
+                    .join("") +
+                  `</div><div class='mt-2 text-center'><a href='/pages/recipes/list.html' class='btn btn-primary btn-sm '>Xem thêm</a></div>`;
+                // Sự kiện click
+                explore.querySelectorAll(".recipe-card").forEach((card) => {
+                  card.onclick = function () {
+                    const id = this.getAttribute("data-id");
+                    if (id)
+                      window.location.href = `/pages/recipes/detail.html?id=${id}`;
+                  };
+                });
+                // Hiệu ứng fade-in từng card
+                applyFadeInToProfileCards("#profileExplore .row");
+              });
+            } else {
+              // Lần đầu không cần fade
+              explore.innerHTML =
+                `<div class='mt-3 fs-2 pb-5 text-center' style='color: #D61C4E;'><strong>Khám phá các món ngon hôm nay</strong></div><div class='row g-2'>` +
+                random
+                  .map(
+                    (r) => `
+                <div class='col-md-3 d-flex align-items-stretch ps-5'>${renderProfileRecipeCard(
+                  r
+                )}</div>
+              `
                   )
                   .join("") +
-                `</div><div class='mt-2'><a href='/pages/user/profile.html#tab-favorite' class='btn btn-link btn-sm p-0'>Xem tất cả công thức yêu thích</a></div>`;
-              // Sự kiện click
-              recentFav.querySelectorAll(".recipe-card").forEach((card) => {
+                `</div><div class='mt-2 text-center'><a href='/pages/recipes/list.html' class='btn btn-primary btn-sm '>Xem thêm</a></div>`;
+              explore.querySelectorAll(".recipe-card").forEach((card) => {
                 card.onclick = function () {
                   const id = this.getAttribute("data-id");
                   if (id)
                     window.location.href = `/pages/recipes/detail.html?id=${id}`;
                 };
               });
-              // Thêm hiệu ứng fade-in từng card
-              applyFadeInToProfileCards("#profileRecentFavorites .row");
-            } else {
-              recentFav.innerHTML = "";
+              applyFadeInToProfileCards("#profileExplore .row");
             }
-          }, 400);
-        }
-        // Khám phá món ngon hôm nay
-        const explore = document.getElementById("profileExplore");
-        let exploreInterval;
-        if (explore) {
-          function renderExploreRandomRecipes() {
-            if (!explore) return;
-            const random = allRecipes
-              .sort(() => 0.5 - Math.random())
-              .slice(0, 4);
-            explore.innerHTML =
-              `<div class='mt-3 fs-2 pb-5 text-center' style='color: #D61C4E;'><strong>Khám phá các món ngon hôm nay</strong></div><div class='row g-2'>` +
-              random
-                .map(
-                  (r) => `
-              <div class='col-md-3 d-flex align-items-stretch ps-5'>${renderProfileRecipeCard(
-                r
-              )}</div>
-            `
-                )
-                .join("") +
-              `</div><div class='mt-2 text-center'><a href='/pages/recipes/list.html' class='btn btn-primary btn-sm '>Xem thêm</a></div>`;
-            // Sự kiện click
-            explore.querySelectorAll(".recipe-card").forEach((card) => {
-              card.onclick = function () {
-                const id = this.getAttribute("data-id");
-                if (id)
-                  window.location.href = `/pages/recipes/detail.html?id=${id}`;
-              };
-            });
-            // Thêm hiệu ứng fade-in từng card
-            applyFadeInToProfileCards("#profileExplore .row");
           }
-          setTimeout(() => {
-            if (myRecipes.length === 0 && favRecipes.length === 0) {
-              renderExploreRandomRecipes();
-              // Xóa interval cũ nếu có
-              if (window._exploreInterval)
-                clearInterval(window._exploreInterval);
-              // Tự động chuyển món mỗi 2s
-              window._exploreInterval = setInterval(
-                renderExploreRandomRecipes,
-                3000
-              );
-            } else {
-              explore.innerHTML = "";
-              if (window._exploreInterval)
-                clearInterval(window._exploreInterval);
-            }
-          }, 400);
+          // Đảm bảo chỉ có 1 interval chạy
+          if (window._exploreInterval) clearInterval(window._exploreInterval);
+          renderExploreRandomRecipes();
+          window._exploreInterval = setInterval(() => {
+            renderExploreRandomRecipes();
+          }, 3000); // 3 giây
         }
       }
 
@@ -1194,6 +1191,25 @@
               card.style.transitionDelay = "";
             }, 500 + idx * 80);
           }, idx * 80);
+        });
+      }
+
+      // Thêm CSS hiệu ứng fade cho .row trong #profileExplore và đảm bảo gọi lại renderProfileHighlights khi chuyển tab Thông tin để hiệu ứng auto-slide hoạt động.
+      const style = document.createElement("style");
+      style.innerHTML = `
+  #profileExplore .row {
+    transition: opacity 0.5s;
+  }
+`;
+      document.head.appendChild(style);
+
+      // Đảm bảo gọi lại renderProfileHighlights khi chuyển tab Thông tin
+      const tabProfileInfoBtn = document.querySelector(
+        '.sidebar .nav-link[data-tab="profile-info"]'
+      );
+      if (tabProfileInfoBtn) {
+        tabProfileInfoBtn.addEventListener("click", function () {
+          renderProfileHighlights();
         });
       }
     </script>

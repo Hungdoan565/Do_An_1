@@ -1108,6 +1108,8 @@
         settingsForm.addEventListener("submit", function (e) {
           e.preventDefault();
           const email = document.getElementById("settingEmail").value.trim();
+          const name = document.getElementById("settingName").value.trim();
+          const bio = document.getElementById("settingBio").value.trim();
           const emailError = document.getElementById("emailError");
           emailError.style.display = "none";
           if (!validateEmail(email)) {
@@ -1115,9 +1117,32 @@
             emailError.style.display = "block";
             return;
           }
-          // Giả lập lưu thành công
+          let user = getCurrentUser();
+          if (!user) {
+            showToast("Không tìm thấy thông tin người dùng.", "danger");
+            return;
+          }
+          user.name = name;
+          user.email = email;
+          user.bio = bio;
+          // Xử lý avatar nếu có file mới
+          const avatarInput = document.getElementById("settingAvatar");
+          if (avatarInput && avatarInput.files && avatarInput.files[0]) {
+            const file = avatarInput.files[0];
+            const reader = new FileReader();
+            reader.onload = function (e) {
+              user.avatar = e.target.result;
+              sessionStorage.setItem("currentUser", JSON.stringify(user));
+              showToast("Lưu thông tin thành công!", "success");
+              renderUserInfo();
+            };
+            reader.readAsDataURL(file);
+            return; // Đợi FileReader xong mới lưu
+          }
+          // Nếu không đổi avatar
+          sessionStorage.setItem("currentUser", JSON.stringify(user));
           showToast("Lưu thông tin thành công!", "success");
-          // Nếu có lỗi server, dùng: showToast('Có lỗi xảy ra, vui lòng thử lại.', 'danger');
+          renderUserInfo();
         });
       }
       // Đổi mật khẩu

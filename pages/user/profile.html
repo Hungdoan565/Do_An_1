@@ -316,7 +316,7 @@
                       style="display: none"
                     ></div>
                   </div>
-                  <button type="submit" class="btn btn-warning btn-sm">
+                  <button type="submit" class="btn btn-primary btn-sm">
                     Đổi mật khẩu
                   </button>
                 </form>
@@ -584,9 +584,22 @@
           const recipeCountEl = document.getElementById("profileRecipeCount");
           if (recipeCountEl) {
             if (user.recipeCount && user.recipeCount > 0) {
-              recipeCountEl.textContent = user.recipeCount;
+              recipeCountEl.innerHTML = `<i class='fas fa-utensils me-1 text-primary'></i> <span class='stat-number'>${user.recipeCount}</span>`;
+              recipeCountEl.removeAttribute("data-bs-toggle");
+              recipeCountEl.removeAttribute("title");
+              if (
+                recipeCountEl.nextElementSibling &&
+                recipeCountEl.nextElementSibling.classList.contains(
+                  "stat-action"
+                )
+              ) {
+                recipeCountEl.nextElementSibling.remove();
+              }
             } else {
-              recipeCountEl.innerHTML = `Chưa có công thức<br><a href='/pages/user/add-recipe.html' class='btn btn-link btn-sm p-0' >Đăng ngay</a>`;
+              recipeCountEl.innerHTML = `<i class='fas fa-utensils fa-2x text-secondary' data-bs-toggle='tooltip' title='Bạn chưa có công thức nào'></i><div class='stat-number text-muted mt-1 '>0</div><a href='/pages/user/add-recipe.html' class='btn btn-primary btn-sm mt-2'><i class='fas fa-plus me-1'></i>Đăng ngay</a>`;
+              recipeCountEl.setAttribute("data-bs-toggle", "tooltip");
+              recipeCountEl.setAttribute("title", "Bạn chưa có công thức nào");
+              // Không thêm stat-action nữa
             }
           }
           const favoriteCountEl = document.getElementById(
@@ -594,9 +607,25 @@
           );
           if (favoriteCountEl) {
             if (user.favoriteCount && user.favoriteCount > 0) {
-              favoriteCountEl.textContent = user.favoriteCount;
+              favoriteCountEl.innerHTML = `<i class='fas fa-heart me-1 text-danger'></i> <span class='stat-number'>${user.favoriteCount}</span>`;
+              favoriteCountEl.removeAttribute("data-bs-toggle");
+              favoriteCountEl.removeAttribute("title");
+              if (
+                favoriteCountEl.nextElementSibling &&
+                favoriteCountEl.nextElementSibling.classList.contains(
+                  "stat-action"
+                )
+              ) {
+                favoriteCountEl.nextElementSibling.remove();
+              }
             } else {
-              favoriteCountEl.innerHTML = `Chưa có<br>yêu thích`;
+              favoriteCountEl.innerHTML = `<i class='fas fa-heart fa-2x text-secondary' data-bs-toggle='tooltip' title='Bạn chưa yêu thích công thức nào'></i><div class='stat-number text-muted mt-1'>0</div><a href='/pages/recipes/list.html' class='btn btn-primary btn-sm mt-2'><i class='fas fa-search me-1'></i>Khám phá</a>`;
+              favoriteCountEl.setAttribute("data-bs-toggle", "tooltip");
+              favoriteCountEl.setAttribute(
+                "title",
+                "Bạn chưa yêu thích công thức nào"
+              );
+              // Không thêm stat-action nữa
             }
           }
         }
@@ -622,9 +651,10 @@
         const container = document.getElementById("recentUserRecipesRow");
         if (!container) return;
         if (recent.length === 0) {
-          container.innerHTML = `<div class='empty-state text-center py-3'><i class='fas fa-utensils fa-2x mb-2'></i><div>Chưa có công thức nào. <a href='/pages/user/add-recipe.html' class='btn btn-sm btn-primary mt-2'>Đăng công thức mới</a></div></div>`;
+          // KHÔNG hiển thị lại dòng "Chưa có công thức nào" và nút "Đăng công thức mới" ở đây nữa
+          container.innerHTML = "";
           return;
-        } // Hiệu ứng fade-out trước khi render
+        }
         setTimeout(() => {
           container.innerHTML = recent
             .map(

@@ -818,3 +818,104 @@ body {
   transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
     transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
 }
+.stat-card .btn-link.btn-sm.p-0 {
+  font-size: 1.08rem;
+  color: #d61c4e;
+  font-weight: 600;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  background: #fff0f3;
+  border: 1px solid #d61c4e;
+  transition: background 0.2s, color 0.2s;
+}
+.stat-card .btn-link.btn-sm.p-0:hover {
+  background: #d61c4e;
+  color: #fff;
+  text-decoration: none;
+}
+/* Giảm khoảng cách dưới của stat-card để phần Khám phá gần hơn */
+#tab-profile-info .row.mb-4 {
+  margin-bottom: 1.2rem !important;
+}
+#tab-profile-info .stat-card {
+  margin-bottom: 0.5rem;
+}
+#profileBioExtended {
+  margin-bottom: 0.5rem !important;
+}
+#profileRecentRecipes, #profileRecentFavorites {
+  margin-bottom: 0.5rem !important;
+}
+#profileExplore .recipe-meta i {
+  font-size: 1.1em;
+  margin-right: 2px;
+}
+#profileExplore .recipe-meta span {
+  font-size: 1.04em;
+  margin-right: 0.7em;
+}
+@media (max-width: 768px) {
+  #profileExplore .recipe-meta span {
+    font-size: 0.98em;
+    margin-right: 0.5em;
+  }
+  #profileExplore .recipe-meta i {
+    font-size: 1em;
+  }
+  #profileExplore .recipe-tags { display: none; }
+}
+.stat-card .fa-utensils,
+.stat-card .fa-heart {
+  display: block;
+  margin: 0 auto 0.2em auto;
+  color: #bbb;
+  transition: color 0.2s;
+}
+.stat-card .fa-utensils.text-primary,
+.stat-card .fa-heart.text-danger {
+  color: inherit;
+}
+.stat-card .fa-utensils.fa-2x,
+.stat-card .fa-heart.fa-2x {
+  font-size: 2.1em;
+  color: #bbb;
+}
+.stat-card .stat-number {
+  font-size: 1.3em;
+  font-weight: 600;
+  display: block;
+  text-align: center;
+}
+.stat-card .stat-action {
+  display: block;
+  width: 100%;
+  margin: 0.3em auto 0 auto;
+  font-size: 1.01em;
+  font-weight: 500;
+  border-radius: 6px;
+  text-align: center;
+  transition: background 0.2s, color 0.2s;
+}
+.stat-card .stat-action.btn-danger {
+  background: #d61c4e;
+  color: #fff;
+  border: none;
+}
+.stat-card .stat-action.btn-danger:hover {
+  background: #b71c3a;
+  color: #fff;
+}
+.stat-card .stat-action.btn-primary {
+  background: #1976d2;
+  color: #fff;
+  border: none;
+}
+.stat-card .stat-action.btn-primary:hover {
+  background: #125ea2;
+  color: #fff;
+}
+.stat-card .fa-utensils[data-bs-toggle="tooltip"],
+.stat-card .fa-heart[data-bs-toggle="tooltip"],
+.stat-number {
+  cursor: pointer;
+}

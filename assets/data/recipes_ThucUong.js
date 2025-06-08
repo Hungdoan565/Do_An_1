@@ -359,7 +359,7 @@ const recipesThucUong = [
     {
       "id": "nuoc-cam-ep",
       "title": "Nước Cam Ép",
-      "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg",
+      "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg",
       "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng.",
       "time": 5,
       "rating": 4.7
@@ -367,7 +367,7 @@ const recipesThucUong = [
      {
       "id": "sinh-to-xoai",
       "title": "Sinh Tố Xoài",
-      "image": "/assets/images/mon-an/thuc_uong/sinhtoxoai.jpg",
+      "image": "/assets/images/mon-an/thuc-uong/sinhtoxoai.jpg",
       "description": "Sinh tố xoài thơm ngon, bổ dưỡng, giải nhiệt ngày hè.",
       "time": 8,
       "rating": 4.7
@@ -403,8 +403,9 @@ const recipesThucUong = [
       {"user": "Ngọc Trâm", "avatar": "/assets/images/users/user-12.jpg", "rating": 5, "text": "Trà sữa béo, trân châu dẻo ngon, vị đường đen chuẩn!"}
     ],
     "related": [
-      {"id": "tra-sua-matcha", "title": "Trà Sữa Matcha", "image": "/assets/images/mon-an/thuc_uong/trasua_matcha.jpg", "description": "Trà sữa matcha thơm vị trà xanh, béo nhẹ, topping trân châu hấp dẫn", "time": 12, "rating": 4.8},
-      {"id": "sua-chua-danh-da", "title": "Sữa Chua Đánh Đá", "image": "/assets/images/mon-an/thuc_uong/suachua.jpg", "description": "Sữa chua đánh đá mát lạnh, vị chua ngọt hấp dẫn", "time": 8, "rating": 4.7}
+      {"id": "tra-sua-matcha", "title": "Trà Sữa Matcha", "image": "/assets/images/mon-an/thuc-uong/trasua_matcha.jpg", "description": "Trà sữa matcha thơm vị trà xanh, béo nhẹ, topping trân châu hấp dẫn", "time": 12, "rating": 4.8},
+      {"id": "sua-chua-danh-da", "title": "Sữa Chua Đánh Đá", "image": "/assets/images/mon-an/thuc-uong/suachua.jpg", "description": "Sữa chua đánh đá mát lạnh, vị chua ngọt hấp dẫn", "time": 8, "rating": 4.7},
+      {"id": "sinh-to-dau", "title": "Sinh Tố Dâu", "image": "/assets/images/mon-an/thuc-uong/sinhto_dau.jpg", "description": "Sinh tố dâu tây tươi, vị chua ngọt, màu sắc bắt mắt", "time": 10, "rating": 4.7}
     ]
   },
   {
@@ -436,8 +437,9 @@ const recipesThucUong = [
       {"user": "Minh Anh", "avatar": "/assets/images/users/user-13.jpg", "rating": 5, "text": "Sinh tố bơ béo, mịn, rất ngon và dễ làm!"}
     ],
     "related": [
-      {"id": "sinh-to-dau", "title": "Sinh Tố Dâu", "image": "/assets/images/mon-an/thuc_uong/sinhto_dau.jpg", "description": "Sinh tố dâu tây tươi, vị chua ngọt, màu sắc bắt mắt", "time": 10, "rating": 4.7},
-      {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7}
+      {"id": "sinh-to-dau", "title": "Sinh Tố Dâu", "image": "/assets/images/mon-an/thuc-uong/sinhto_dau.jpg", "description": "Sinh tố dâu tây tươi, vị chua ngọt, màu sắc bắt mắt", "time": 10, "rating": 4.7},
+      {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7},
+      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7}
     ]
   },
   {
@@ -468,8 +470,9 @@ const recipesThucUong = [
       {"user": "Hồng Nhung", "avatar": "/assets/images/users/user-14.jpg", "rating": 5, "text": "Nước cam tươi, vị ngọt thanh, rất thích!"}
     ],
     "related": [
-      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
-      {"id": "sinh-to-xoai", "title": "Sinh Tố Xoài", "image": "/assets/images/mon-an/thuc_uong/sinhtoxoai.jpg", "description": "Sinh tố xoài vàng ươm, ngọt dịu, giải nhiệt mùa hè", "time": 8, "rating": 4.8}
+      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
+      {"id": "sinh-to-xoai", "title": "Sinh Tố Xoài", "image": "/assets/images/mon-an/thuc-uong/sinhtoxoai.jpg", "description": "Sinh tố xoài vàng ươm, ngọt dịu, giải nhiệt mùa hè", "time": 8, "rating": 4.8},
+      {"id": "chanh-mat-ong", "title": "Chanh Mật Ong", "image": "/assets/images/mon-an/thuc-uong/chanhmatong.jpg", "description": "Nước chanh mật ong thanh mát, tốt cho sức khỏe, tăng đề kháng", "time": 7, "rating": 4.1}
     ]
   },
   {
@@ -500,8 +503,9 @@ const recipesThucUong = [
       {"user": "Quốc Bảo", "avatar": "/assets/images/users/user-15.jpg", "rating": 4, "text": "Nước mía tắc mát lạnh, rất hợp mùa hè!"}
     ],
     "related": [
-      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
-      {"id": "nuoc-dua-hau-ep", "title": "Nước Dưa Hấu Ép", "image": "/assets/images/mon-an/thuc_uong/nuocduahau.jpg", "description": "Nước ép dưa hấu ngọt mát, bổ sung vitamin, giải nhiệt", "time": 5, "rating": 4.6}
+      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
+      {"id": "nuoc-dua-hau-ep", "title": "Nước Dưa Hấu Ép", "image": "/assets/images/mon-an/thuc-uong/nuocduahau.jpg", "description": "Nước ép dưa hấu ngọt mát, bổ sung vitamin, giải nhiệt", "time": 5, "rating": 4.6},
+      {"id": "chanh-mat-ong", "title": "Chanh Mật Ong", "image": "/assets/images/mon-an/thuc-uong/chanhmatong.jpg", "description": "Nước chanh mật ong thanh mát, tốt cho sức khỏe, tăng đề kháng", "time": 7, "rating": 4.1}
     ]
   },
   {
@@ -533,8 +537,9 @@ const recipesThucUong = [
       {"user": "Thu Hằng", "avatar": "/assets/images/users/user-16.jpg", "rating": 5, "text": "Uống buổi sáng rất tốt cho sức khỏe!"}
     ],
     "related": [
-      {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7},
-      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7}
+      {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7},
+      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
+      {"id": "nuoc-dua-hau-ep", "title": "Nước Dưa Hấu Ép", "image": "/assets/images/mon-an/thuc-uong/nuocduahau.jpg", "description": "Nước ép dưa hấu ngọt mát, bổ sung vitamin, giải nhiệt", "time": 5, "rating": 4.6}
     ]
   },
   {
@@ -563,8 +568,9 @@ const recipesThucUong = [
       {"user": "Bảo Ngọc", "avatar": "/assets/images/users/user-17.jpg", "rating": 5, "text": "Nước dừa tươi mát, tự nhiên, rất tốt cho sức khỏe!"}
     ],
     "related": [
-      {"id": "nuoc-mia", "title": "Nước Mía", "image": "/assets/images/mon-an/thuc_uong/nuoc_mia.jpg", "description": "Nước mía ngọt mát, giải nhiệt mùa hè, thêm tắc thơm ngon", "time": 5, "rating": 4.6},
-      {"id": "nuoc-dua-hau-ep", "title": "Nước Dưa Hấu Ép", "image": "/assets/images/mon-an/thuc_uong/nuocduahau.jpg", "description": "Nước ép dưa hấu ngọt mát, bổ sung vitamin, giải nhiệt", "time": 5, "rating": 4.6}
+      {"id": "nuoc-mia", "title": "Nước Mía", "image": "/assets/images/mon-an/thuc-uong/nuoc_mia.jpg", "description": "Nước mía ngọt mát, giải nhiệt mùa hè, thêm tắc thơm ngon", "time": 5, "rating": 4.6},
+      {"id": "nuoc-dua-hau-ep", "title": "Nước Dưa Hấu Ép", "image": "/assets/images/mon-an/thuc-uong/nuocduahau.jpg", "description": "Nước ép dưa hấu ngọt mát, bổ sung vitamin, giải nhiệt", "time": 5, "rating": 4.6},
+      {"id": "chanh-mat-ong", "title": "Chanh Mật Ong", "image": "/assets/images/mon-an/thuc-uong/chanhmatong.jpg", "description": "Nước chanh mật ong thanh mát, tốt cho sức khỏe, tăng đề kháng", "time": 7, "rating": 4.1}
     ]
   },
   {
@@ -595,8 +601,9 @@ const recipesThucUong = [
       {"user": "Hải Đăng", "avatar": "/assets/images/users/user-18.jpg", "rating": 4, "text": "Nước ép dưa hấu mát, vị ngọt tự nhiên!"}
     ],
     "related": [
-      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc_uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
-      {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc_uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7}
+      {"id": "nuoc-dua-tuoi", "title": "Nước Dừa Tươi", "image": "/assets/images/mon-an/thuc-uong/nuocdua.jpg", "description": "Nước dừa tươi mát, giải khát tự nhiên, giàu khoáng chất", "time": 3, "rating": 4.7},
+      {"id": "nuoc-cam-ep", "title": "Nước Cam Ép", "image": "/assets/images/mon-an/thuc-uong/nuoccam.jpg", "description": "Nước cam tươi mát, giàu vitamin C, tăng sức đề kháng", "time": 5, "rating": 4.7},
+      {"id": "sinh-to-xoai", "title": "Sinh Tố Xoài", "image": "/assets/images/mon-an/thuc-uong/sinhtoxoai.jpg", "description": "Sinh tố xoài vàng ươm, ngọt dịu, giải nhiệt mùa hè", "time": 8, "rating": 4.8}
     ]
   }
 ];

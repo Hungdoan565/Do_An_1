@@ -149,6 +149,14 @@ const recipesMonChinh = [
       "description": "Thịt kho tàu mềm rục, béo ngậy, nước màu đẹp mắt, thấm đẫm gia vị, ăn kèm trứng luộc và cơm trắng nóng hổi.",
       "time": 70,
       "rating": 4.9
+    },
+    {
+      "id": "ga-kho-gung",
+      "title": "Gà Kho Gừng",
+      "image": "/assets/images/mon-an/mon-chinh/gakhogung.jpg",
+      "description": "Gà kho gừng cay nhẹ, thịt gà mềm, đậm vị, ăn cùng cơm trắng hoặc bún rất ngon.",
+      "time": 45,
+      "rating": 4.7
     }
   ]
 },
@@ -218,6 +226,14 @@ const recipesMonChinh = [
       "description": "Bún bò Huế cay nồng, nước dùng đậm đà, thịt bò mềm, giò heo, chả cua, thơm lừng mùi sả, ruốc.",
       "time": 60,
       "rating": 4.8
+    },
+    {
+      "id": "bun-cha",
+      "title": "Bún Chả Hà Nội",
+      "image": "/assets/images/mon-an/mon-chinh/bun-cha.jpg",
+      "description": "Bún chả Hà Nội với thịt nướng thơm lừng, nước chấm đậm đà, ăn kèm rau sống tươi ngon.",
+      "time": 60,
+      "rating": 4.9
     }
   ]
 },
@@ -1071,6 +1087,14 @@ const recipesMonChinh = [
         "description": "Cháo heo thơm ngon, bổ dưỡng",
         "time": 30,
         "rating": 4.8
+      },
+      {
+        "id": "bun-cha",
+        "title": "Bún Chả Hà Nội",
+        "image": "/assets/images/mon-an/mon-chinh/bun-cha.jpg",
+        "description": "Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội.",
+        "time": 60,
+        "rating": 4.9
       }
     ]
   },
@@ -1234,6 +1258,14 @@ const recipesMonChinh = [
       "description": "Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội.",
       "time": 60,
       "rating": 4.9
+    },
+    {
+      "id": "com-tam",
+      "title": "Cơm Tấm Sài Gòn",
+      "image": "/assets/images/mon-an/mon-chinh/comtam.jpg",
+      "description": "Cơm tấm với sườn nướng, bì, chả, mỡ hành thơm ngon.",
+      "time": 50,
+      "rating": 4.7
     }
   ]
 },
@@ -1312,7 +1344,15 @@ const recipesMonChinh = [
       "description": "Gà nướng mật ong thơm lừng, da giòn, thịt mềm.",
       "time": 80,
       "rating": 4.9
-    }
+    },
+    {
+      "id": "bun-bo-hue",
+      "title": "Bún Bò Huế",
+      "image": "/assets/images/mon-an/mon-chinh/bunbo.jpg",
+      "description": "Bún bò Huế với nước dùng đậm đà, thịt bò mềm, ăn kèm rau sống.",
+      "time": 90,
+      "rating": 4.8
+    } 
   ]
 },
 {
@@ -1390,6 +1430,14 @@ const recipesMonChinh = [
       "description": "Salad cá ngừ tươi ngon, giòn mát, kết hợp cùng rau củ và nước sốt chua ngọt.",
       "time": 20,
       "rating": 4.6
+    },
+    {
+      "id": "pho-xao",
+      "title": "Phở Xào",
+      "image": "/assets/images/mon-an/mon-chinh/phoxao.jpg",
+      "description": "Phở xào với thịt bò, rau củ tươi ngon, gia vị đậm đà, tạo nên món ăn hấp dẫn.",
+      "time": 60,
+      "rating": 4.7
     }
   ]
 },
@@ -1465,6 +1513,14 @@ const recipesMonChinh = [
       "description": "Bún chả thơm nức mũi với nước chấm chuẩn vị Hà Nội, thịt nướng cháy cạnh, rau sống thanh mát.",
       "time": 60,
       "rating": 4.9
+    },
+    {
+      "id": "com-tam",
+      "title": "Cơm Tấm Sài Gòn",
+      "image": "/assets/images/mon-an/mon-chinh/comtam.jpg",
+      "description": "Cơm tấm với sườn nướng, bì, chả, mỡ hành thơm ngon, ăn kèm với nước mắm chua ngọt.",
+      "time": 50,
+      "rating": 4.7
     }
   ]
 },
@@ -1539,6 +1595,14 @@ const recipesMonChinh = [
       "description": "Gỏi gà xé phay chua ngọt, thịt gà mềm dai, rau thơm tươi mát, ăn khai vị hoặc món ăn nhẹ rất tuyệt vời.",
       "time": 25,
       "rating": 4.8
+    },
+    {
+      "id": "ca-kho-rieng",
+      "title": "Cá Kho Riềng",
+      "image": "/assets/images/mon-an/mon-chinh/cakhorieng.jpg",
+      "description": "Cá kho riềng với nước kho đậm đà, thịt cá mềm, ăn kèm với cơm trắng rất ngon.",
+      "time": 60,
+      "rating": 4.8
     }
   ]
 },
@@ -1606,6 +1670,14 @@ const recipesMonChinh = [
       "description": "Canh chua cá lóc thanh mát, chua ngọt vừa miệng, đậm đà hương vị miền Tây sông nước, kích thích vị giác.",
       "time": 50,
       "rating": 4.7
+    },
+    {
+      "id": "bun-rieu-cua",
+      "title": "Bún Riêu Cua",
+      "image": "/assets/images/mon-an/mon-chinh/bunrieu.jpg",
+      "description": "Bún riêu cua với nước dùng ngọt thanh, riêu cua thơm ngon, ăn kèm rau sống tươi mát.",
+      "time": 60,
+      "rating": 4.8
     }
   ]
 },
@@ -1675,6 +1747,14 @@ const recipesMonChinh = [
       "description": "Thịt kho tàu mềm rục, béo ngậy, nước màu đẹp mắt, thấm đẫm gia vị, ăn kèm trứng luộc và cơm trắng nóng hổi.",
       "time": 70,
       "rating": 4.9
+    },
+    {
+      "id": "bo-nuong",
+      "title": "Bò Nướng",
+      "image": "/assets/images/mon-an/mon-chinh/bonuong.jpg",
+      "description": "Bò nướng với thịt bò mềm, gia vị đậm đà, ăn kèm với rau sống và nước chấm thơm ngon.",
+      "time": 60,
+      "rating": 4.7
     }
   ]
 },
@@ -1744,6 +1824,14 @@ const recipesMonChinh = [
       "description": "Bún thịt nướng thơm lừng, thịt nướng đậm đà, ăn kèm rau sống tươi mát và nước mắm chua ngọt.",
       "time": 35,
       "rating": 4.7
+    },
+    {
+      "id": "mi-quang-tom-thit",
+      "title": "Mì Quảng Tôm Thịt ",
+      "image": "/assets/images/mon-an/mon-chinh/miquangtomthit.jpg",
+      "description": "Mì Quảng với tôm, thịt heo, rau sống và nước dùng đậm đà, tạo nên hương vị đặc trưng của miền Trung.",
+      "time": 45,
+      "rating": 4.6
     }
   ]
 },
@@ -1808,6 +1896,14 @@ const recipesMonChinh = [
       "description": "Thịt kho tàu mềm rục, béo ngậy, nước màu đẹp mắt, thấm đẫm gia vị, ăn kèm trứng luộc và cơm trắng nóng hổi.",
       "time": 70,
       "rating": 4.9
+    },
+    {
+      "id": "ga-chien-nuoc-mam",
+      "title": "Gà Chiên Nước Mắm",
+      "image": "/assets/images/mon-an/mon-chinh/gachiennuocmam.jpg",
+      "description": "Gà chiên nước mắm giòn rụm, thấm đẫm hương vị, ăn kèm cơm trắng rất ngon miệng.",
+      "time": 30,
+      "rating": 4.5
     }
   ]
 },

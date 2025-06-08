@@ -504,37 +504,58 @@
             container.innerHTML = favRecipes
               .map(
                 (r) => `
-            <div class=\"col-md-4\">
-              <div class=\"recipe-card saved-recipe\" style=\"cursor:pointer\" data-id=\"${
-                r.id
-              }\">
-                <span class=\"saved-badge\">Yêu thích</span>
-                <img src=\"${r.image}\" alt=\"${
+      <div class=\"col-md-4\">
+        <div class=\"recipe-card saved-recipe position-relative\" style=\"cursor:pointer\" data-id=\"${
+          r.id
+        }\">
+          <img src=\"${r.image}\" alt=\"${
                   r.title
                 }\" class=\"recipe-image w-100\">
-                <div class=\"recipe-content\">
-                  <h5 class=\"recipe-title\">${r.title}</h5>
-                  <div class=\"recipe-meta\">
-                    <span><i class=\"fas fa-clock\"></i> ${
-                      r.time || ""
-                    } phút</span>
-                    <span><i class=\"fas fa-star\"></i> ${r.rating || ""}</span>
-                    <span><i class=\"fas fa-user\"></i> ${r.author || ""}</span>
-                  </div>
-                </div>
-              </div>
+          <div class=\"recipe-content\">
+            <div style=\"display:flex;align-items:center;justify-content:space-between;\">
+              <h5 class=\"recipe-title mb-0\">${r.title}</h5>
+              <button class=\"btn btn-primary btn-sm btn-remove-favorite\" title=\"Xóa\">Xóa</button>
             </div>
-          `
+            <div class=\"recipe-meta mt-2\">
+              <span><i class=\"fas fa-clock\"></i> ${r.time || ""} phút</span>
+              <span><i class=\"fas fa-star\"></i> ${r.rating || ""}</span>
+              <span><i class=\"fas fa-user\"></i> ${r.author || ""}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `
               )
               .join("");
             // Thêm sự kiện click vào card để chuyển đến trang chi tiết
             container.querySelectorAll(".recipe-card").forEach((card) => {
-              card.onclick = function () {
+              card.onclick = function (e) {
+                // Nếu click vào nút xóa thì không chuyển trang
+                if (e.target.closest(".btn-remove-favorite")) return;
                 const id = this.getAttribute("data-id");
                 if (id)
                   window.location.href = `/pages/recipes/detail.html?id=${id}`;
               };
             });
+            // Sự kiện xóa khỏi yêu thích
+            container
+              .querySelectorAll(".btn-remove-favorite")
+              .forEach((btn) => {
+                btn.onclick = function (e) {
+                  e.stopPropagation();
+                  const card = this.closest(".recipe-card");
+                  const id = card.getAttribute("data-id");
+                  if (!id) return;
+                  // Xóa khỏi localStorage
+                  const idx = favIds.indexOf(id);
+                  if (idx !== -1) {
+                    favIds.splice(idx, 1);
+                    localStorage.setItem(favKey, JSON.stringify(favIds));
+                    showToast("Đã xóa khỏi yêu thích!", "success");
+                    renderFavoriteRecipes();
+                  }
+                };
+              });
           }
           // Thêm hiệu ứng fade-in từng card
           applyFadeInToProfileCards("#favoriteRecipeList");

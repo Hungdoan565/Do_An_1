@@ -557,6 +557,16 @@
                 };
               });
           }
+          // Sau khi lấy favIds, cập nhật số lượng công thức yêu thích lên profileFavoriteCount nếu có
+          const favoriteCountEl = document.getElementById(
+            "profileFavoriteCount"
+          );
+          if (favoriteCountEl) {
+            const statNumber = favoriteCountEl.querySelector(".stat-number");
+            if (statNumber) {
+              statNumber.textContent = favIds.length;
+            }
+          }
           // Thêm hiệu ứng fade-in từng card
           applyFadeInToProfileCards("#favoriteRecipeList");
         }, 400);

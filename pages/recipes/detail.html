@@ -206,6 +206,10 @@
           </div>
 
           <div class="recipe-actions">
+            <button class="action-btn favorite-btn">
+              <i class="fas fa-heart"></i>
+              <span class="favorite-text">Yêu thích</span>
+            </button>
             <button class="action-btn save-btn">
               <i class="fas fa-bookmark"></i>
               Lưu công thức
@@ -628,6 +632,63 @@
           this.innerHTML = '<i class="fas fa-check"></i> Đã lưu';
           this.disabled = true;
         });
+
+      // --- Yêu thích ---
+      function getCurrentUser() {
+        try {
+          return JSON.parse(sessionStorage.getItem("currentUser"));
+        } catch {
+          return null;
+        }
+      }
+      function getFavKey(user) {
+        return user ? "favoriteRecipes_" + user.email : null;
+      }
+      function isRecipeFavorite(recipeId) {
+        const user = getCurrentUser();
+        const favKey = getFavKey(user);
+        if (!favKey) return false;
+        const favIds = JSON.parse(localStorage.getItem(favKey) || "[]");
+        return favIds.includes(recipeId);
+      }
+      function setFavoriteState(isFav) {
+        const btn = document.querySelector(".favorite-btn");
+        if (!btn) return;
+        if (isFav) {
+          btn.classList.add("active");
+          btn.querySelector(".fas").classList.add("text-danger");
+          btn.querySelector(".favorite-text").textContent = "Đã yêu thích";
+        } else {
+          btn.classList.remove("active");
+          btn.querySelector(".fas").classList.remove("text-danger");
+          btn.querySelector(".favorite-text").textContent = "Yêu thích";
+        }
+      }
+      function toggleFavorite() {
+        const user = getCurrentUser();
+        if (!user) {
+          window.location.href = "/pages/auth/login.html";
+          return;
+        }
+        const favKey = getFavKey(user);
+        let favIds = JSON.parse(localStorage.getItem(favKey) || "[]");
+        const idx = favIds.indexOf(recipe.id);
+        let isFav;
+        if (idx === -1) {
+          favIds.push(recipe.id);
+          isFav = true;
+        } else {
+          favIds.splice(idx, 1);
+          isFav = false;
+        }
+        localStorage.setItem(favKey, JSON.stringify(favIds));
+        setFavoriteState(isFav);
+        // Nếu có trang profile đang mở, khi quay lại sẽ tự đồng bộ số lượng
+      }
+      // Khởi tạo trạng thái nút
+      setFavoriteState(isRecipeFavorite(recipe.id));
+      // Sự kiện click
+      document.querySelector(".favorite-btn").onclick = toggleFavorite;
     </script>
   </body>
 </html>

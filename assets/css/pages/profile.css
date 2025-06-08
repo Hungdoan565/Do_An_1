@@ -124,13 +124,14 @@
         background: white;
         border-radius: 15px;
         overflow: hidden;
-        box-shadow: 0 4px 25px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 2px 15px rgba(0, 0, 0, 0.05);
         transition: all 0.3s ease;
         margin-bottom: 30px;
       }
 
       .recipe-card:hover {
         transform: translateY(-5px);
+        box-shadow: 0 5px 20px rgba(255, 143, 143, 0.1);
       }
 
       .recipe-image {
@@ -436,108 +437,124 @@
       }
 
       .profile-horizontal-section {
-        margin: 0 auto 2.5rem auto;
-        max-width: 1100px;
-        padding-top: 90px;
-      }
-      .profile-info-card-horizontal {
-        background: #fff;
-        border-radius: 18px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-        padding: 2.5rem 1.5rem 2rem 1.5rem;
-        min-height: 420px;
-        text-align: center;
-        position: relative;
-      }
-      .profile-avatar-horizontal {
-        width: 110px;
-        height: 110px;
-        border-radius: 50%;
-        border: 4px solid #fff;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.10);
-        object-fit: cover;
-        background: #f5f5f5;
-      }
-      .profile-name-horizontal {
-        font-size: 1.35rem;
-        font-weight: 700;
-        margin-bottom: 0.2rem;
-      }
-      .profile-bio-horizontal {
-        color: #888;
-        font-size: 1.01rem;
-        margin-bottom: 1.1rem;
-        max-width: 320px;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .profile-stats-horizontal {
+        background: #ede7f6;
+        /* Giả sử navbar cao 70px, nếu khác chỉnh lại giá trị này */
+        min-height: calc(100vh - 70px);
         display: flex;
+        align-items: center;
         justify-content: center;
+        margin-top: 0;
+        padding: 2.5rem 0;
+      }
+
+      .container-xl {
+        max-width: 1100px;
+        margin: 0 auto;
+        width: 100%;
+        display: flex;
         gap: 2.5rem;
-        margin-bottom: 0.7rem;
+        justify-content: center;
+        align-items: center;
       }
-      .stat-horizontal {
-        text-align: center;
-      }
-      .stat-value-horizontal {
-        font-size: 2rem;
-        font-weight: 700;
-        color: #d61c4e;
-      }
-      .stat-label-horizontal {
-        font-size: 1rem;
-        color: #888;
-      }
-      .profile-edit-btn-horizontal {
-        margin-top: 0.5rem;
-        font-size: 0.95rem;
-        padding: 2px 14px;
-        border-radius: 8px;
-      }
+
+      .profile-info-card-horizontal,
       .profile-content-card-horizontal {
-        background: #fff;
-        border-radius: 16px;
-        box-shadow: 0 2px 12px rgba(0,0,0,0.08);
-        padding: 2rem 1.5rem 2rem 1.5rem;
-        min-height: 420px;
+        height: auto;
+        min-height: 480px;
+        max-height: 90vh;
         display: flex;
         flex-direction: column;
+        justify-content: center;
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 18px;
       }
-      .profile-nav-card-horizontal .nav-pills .nav-link {
-        color: #333;
-        font-weight: 500;
-        border-radius: 8px;
-        margin: 0 8px;
-        padding: 10px 28px;
-        transition: background 0.2s;
+
+      .profile-info-card-horizontal {
+        width: 320px;
+        max-width: 90vw;
+        margin-right: 2rem;
+        align-items: center;
+        padding: 2rem 1.5rem;
       }
-      .profile-nav-card-horizontal .nav-pills .nav-link.active,
-      .profile-nav-card-horizontal .nav-pills .nav-link:hover {
-        background: #d61c4e;
-        color: #fff !important;
+
+      .profile-content-card-horizontal {
+        width: 700px;
+        max-width: 95vw;
+        padding: 2rem 1.5rem 2.5rem 1.5rem;
+        overflow-y: visible;
       }
-      .profile-tab-content-horizontal {
-        margin-top: 0.5rem;
-        flex-grow: 1;
-      }
-      .profile-section-horizontal {
-        background: transparent;
-        border-radius: 0;
-        box-shadow: none;
-        padding: 0;
-        margin-bottom: 0;
-      }
-      @media (max-width: 991px) {
-        .profile-horizontal-section .row {
-          flex-direction: column;
-        }
-        .profile-info-card-horizontal,
-        .profile-content-card-horizontal {
-          min-height: unset;
-          margin-bottom: 1.5rem;
-        }
-      }
+
+      /* Tăng kích thước sidebar và card nội dung, giảm khoảng trắng, tăng font */
+.profile-admin-layout {
+  background: #ede7f6;
+  min-height: 100vh;
+  padding-top: 140px;
+}
+.admin-sidebar {
+  min-height: 500px;
+  width: 100%;
+  max-width: 340px;
+  padding: 0;
+  border-radius: 20px;
+}
+.admin-sidebar .sidebar-header {
+  padding: 2.2rem 1.5rem 1.5rem 1.5rem;
+  font-size: 1.1rem;
+}
+.admin-sidebar .nav-link {
+  font-size: 1.1rem;
+  padding: 14px 28px;
+  margin: 0 12px 12px 12px;
+}
+.tab-content.profile-tab-content-horizontal {
+  padding: 0 2.5rem;
+}
+.profile-info-card-horizontal {
+  width: 100%;
+  max-width: 700px;
+  min-height: 320px;
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  font-size: 1.15rem;
+}
+.profile-name-horizontal {
+  font-size: 2.1rem;
+  font-weight: 800;
+}
+.profile-bio-horizontal {
+  font-size: 1.15rem;
+}
+.profile-stats-horizontal .stat-value-horizontal {
+  font-size: 2.2rem;
+}
+.profile-section-horizontal {
+  padding: 2.5rem 2.5rem 2rem 2.5rem;
+  border-radius: 18px;
+}
+@media (min-width: 1200px) {
+  .container-xl {
+    max-width: 1300px;
+    gap: 3.5rem;
+  }
+  .profile-content-card-horizontal {
+    width: 100%;
+    max-width: 900px;
+    padding: 2.5rem 2.5rem 2.5rem 2.5rem;
+  }
+}
+@media (max-width: 991px) {
+  .admin-sidebar {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+  .tab-content.profile-tab-content-horizontal {
+    padding: 0 0.5rem;
+  }
+  .profile-info-card-horizontal,
+  .profile-content-card-horizontal {
+    padding: 1.2rem 0.5rem 1.2rem 0.5rem;
+  }
+}
       @media (max-width: 767px) {
         .profile-horizontal-section {
           padding-top: 70px;
@@ -546,15 +563,258 @@
         .profile-content-card-horizontal {
           padding: 1.2rem 0.5rem 1.2rem 0.5rem;
         }
-        .profile-avatar-horizontal {
-          width: 80px;
-          height: 80px;
-        }
-        .profile-name-horizontal {
-          font-size: 1.1rem;
-        }
-        .profile-bio-horizontal {
-          font-size: 0.97rem;
-          max-width: 95vw;
-        }
       }
+body {
+  background: #ede7f6;
+  font-family: "Be Vietnam Pro", sans-serif;
+}
+.sidebar {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  min-height: 90vh;
+  padding: 2rem 1rem 2rem 1.5rem;
+}
+.sidebar .nav-link {
+  color: #333;
+  font-weight: 500;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  transition: background 0.2s;
+}
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background: #d61c4e;
+  color: #fff;
+}
+.sidebar .nav-link i {
+  width: 22px;
+  text-align: center;
+}
+.sidebar .nav-link {
+  cursor: pointer;
+}
+.sidebar .nav-link.disabled {
+  pointer-events: none;
+  opacity: 0.6;
+}
+.admin-header {
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 2rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.admin-header .admin-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.admin-header .avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  background: #eee;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  color: #d61c4e;
+}
+.stat-card {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 1.5rem 1.2rem;
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+.stat-card .stat-title {
+  font-size: 1rem;
+  color: #888;
+}
+.stat-card .stat-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #d61c4e;
+}
+.admin-section {
+  background: #fff;
+  border-radius: 16px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  margin-top: 2rem;
+}
+.table-actions button {
+  margin-right: 6px;
+}
+.tab-section {
+  display: none;
+}
+.tab-section.active {
+  display: block;
+  animation: fadeIn 0.4s;
+}
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@media (max-width: 991px) {
+  .sidebar {
+    min-height: unset;
+    margin-bottom: 1.5rem;
+  }
+}
+@media (max-width: 767px) {
+  .admin-header {
+    flex-direction: column;
+    gap: 1rem;
+    padding: 1rem;
+  }
+  .stat-card {
+    padding: 1rem 0.5rem;
+  }
+  .admin-section {
+    padding: 1rem;
+  }
+}
+
+/* --- Ưu tiên cao cho sidebar, tab, stat-card, form profile --- */
+.admin-sidebar .nav-link,
+.sidebar .nav-link {
+  color: #333 !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  margin: 0 8px 8px 8px !important;
+  padding: 10px 20px !important;
+  transition: background 0.2s !important;
+  background: none !important;
+}
+.admin-sidebar .nav-link.active,
+.admin-sidebar .nav-link:hover,
+.sidebar .nav-link.active,
+.sidebar .nav-link:hover {
+  background: #d61c4e !important;
+  color: #fff !important;
+}
+
+/* Tab pills ưu tiên cao */
+.profile-nav-card, .profile-nav-card-new, .profile-nav-card-horizontal {
+  background: #fff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+  padding: 1.2rem 0.5rem !important;
+}
+.nav-pills .nav-link {
+  color: #333 !important;
+  font-weight: 500 !important;
+  border-radius: 8px !important;
+  margin: 0 8px !important;
+  padding: 10px 28px !important;
+  transition: background 0.2s, color 0.2s !important;
+  background: none !important;
+}
+.nav-pills .nav-link.active,
+.nav-pills .nav-link:hover {
+  background: #d61c4e !important;
+  color: #fff !important;
+}
+
+/* Stat-card ưu tiên cao */
+.stat-card {
+  background: #fff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+  padding: 1.5rem 1.2rem !important;
+  text-align: center !important;
+  margin-bottom: 1.5rem !important;
+}
+.stat-card .stat-title {
+  font-size: 1rem !important;
+  color: #888 !important;
+}
+.stat-card .stat-value {
+  font-size: 2rem !important;
+  font-weight: 700 !important;
+  color: #d61c4e !important;
+}
+
+/* Form profile ưu tiên cao */
+#tab-settings .form-control {
+  background: #fff !important;
+  border-radius: 8px !important;
+  border: 1px solid #ddd !important;
+  color: #333 !important;
+  font-size: 1rem !important;
+}
+#tab-settings .form-label {
+  font-weight: 500 !important;
+  color: #333 !important;
+}
+#tab-settings .btn-primary {
+  background: #d61c4e !important;
+  border: none !important;
+  border-radius: 8px !important;
+  font-weight: 600 !important;
+}
+
+/* Đảm bảo các thành phần chính không bị index.css ghi đè */
+.profile-admin-layout, .admin-header, .admin-section, .profile-section, .profile-section-new, .profile-section-horizontal {
+  background: #fff !important;
+  border-radius: 16px !important;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.08) !important;
+  padding: 2rem !important;
+}
+
+/* Responsive ưu tiên cao */
+@media (max-width: 991px) {
+  .sidebar {
+    min-height: unset !important;
+    margin-bottom: 1.5rem !important;
+  }
+  .admin-header {
+    flex-direction: column !important;
+    gap: 1rem !important;
+    padding: 1rem !important;
+  }
+  .stat-card {
+    padding: 1rem 0.5rem !important;
+  }
+  .admin-section {
+    padding: 1rem !important;
+  }
+}
+@media (max-width: 767px) {
+  .profile-header-card, .profile-nav-card, .profile-section {
+    padding: 1rem !important;
+  }
+  .profile-header-card {
+    max-width: 100% !important;
+  }
+  .profile-nav-card {
+    max-width: 100% !important;
+  }
+}
+
+/* Hiệu ứng mượt cho card profile (reuse từ featured slider) */
+.profile-card-fade-out {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.profile-card-fade-in {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
+    transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -83,6 +83,10 @@ document.addEventListener('DOMContentLoaded', function () {
       alert(result.message);
       return;
     }
+    // Lưu user local vào node users trên Firebase
+    if (typeof saveUserToFirebase === 'function') {
+      saveUserToFirebase(result.user);
+    }
     alert('Đăng ký thành công! Vui lòng đăng nhập.');
     window.location.href = '/pages/auth/login.html';
   });

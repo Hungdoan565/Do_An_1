@@ -36,3 +36,20 @@ function addRecipeToFirebase(recipe, callback, errorCallback) {
       if (errorCallback) errorCallback(error);
     });
 }
+
+// Lưu user vào Firebase Realtime Database (node users/{uid})
+function saveUserToFirebase(user) {
+  if (!user || !user.uid) return;
+  var db = firebase.database();
+  // Chuẩn hóa dữ liệu user
+  var userData = {
+    uid: user.uid,
+    username: user.username || user.displayName || '',
+    email: user.email || '',
+    photoURL: user.photoURL || user.avatar || '',
+    role: user.role || 'member',
+    createdAt: user.createdAt || Date.now(),
+    bio: user.bio || '',
+  };
+  db.ref('users/' + user.uid).set(userData);
+}

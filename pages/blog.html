@@ -19,6 +19,70 @@
     />
     <link rel="stylesheet" href="/assets/css/pages/blog.css" />
     <link rel="stylesheet" href="/assets/css/pages/index.css" />
+    <style>
+      /* ...existing code... */
+      .search-input-group select {
+        border: 1px solid #e0e0e0 !important;
+        background: #fff !important;
+        border-radius: 2rem !important;
+        font-size: 1rem;
+        height: 40px !important;
+        padding-left: 1rem !important;
+        padding-right: 2rem !important;
+        color: #333;
+        min-width: 120px;
+        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
+        margin-left: 0.5rem;
+        appearance: auto;
+      }
+      .search-input-group select:focus {
+        border: 1.5px solid #d72660 !important;
+        outline: none !important;
+        box-shadow: 0 2px 8px 0 rgba(215, 38, 96, 0.1);
+      }
+      .search-input-group input {
+        font-size: 1rem;
+        background: transparent;
+        border: none;
+        height: 44px;
+        padding-left: 0;
+        color: #333;
+      }
+      .search-input-group {
+        background: #f6f6fa;
+        border-radius: 2rem;
+        border: 1px solid #e0e0e0;
+        min-height: 48px;
+        height: 48px;
+        padding-right: 0.5rem;
+      }
+      .search-box {
+        gap: 12px !important;
+      }
+      .search-input-group {
+        flex: 1 1 0%;
+        min-width: 0;
+      }
+      .form-select#categoryFilter {
+        max-width: 180px;
+      }
+      @media (max-width: 767px) {
+        .search-box {
+          flex-direction: column;
+          align-items: stretch;
+          gap: 0.75rem;
+        }
+        .search-btn {
+          width: 100%;
+        }
+        .search-input-group {
+          width: 100%;
+        }
+        .form-select#categoryFilter {
+          width: 100%;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -94,13 +158,54 @@
         <!-- Blog Posts -->
         <div class="col-lg-8">
           <!-- Search Box -->
-          <div class="search-box mb-5">
-            <input
-              type="text"
-              class="search-input"
-              placeholder="Tìm kiếm bài viết..."
-            />
-            <button class="search-btn">
+          <div
+            class="search-box mb-5 d-flex align-items-center gap-3 flex-nowrap"
+          >
+            <select
+              class="form-select rounded-pill text-center"
+              id="categoryFilter"
+              style="
+                min-width: 140px;
+                height: 44px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                font-size: 1rem;
+              "
+            >
+              <option value="">Tất cả tag</option>
+              <option value="Ẩm thực">Ẩm thực</option>
+              <option value="Món Việt">Món Việt</option>
+              <option value="Ăn chay">Ăn chay</option>
+              <option value="Ăn vặt">Ăn vặt</option>
+              <option value="Healthy">Healthy</option>
+              <option value="Khai vị">Khai vị</option>
+              <option value="Truyền thống">Truyền thống</option>
+              <option value="Đồ uống">Đồ uống</option>
+            </select>
+            <div
+              class="search-input-group d-flex align-items-center flex-grow-1 bg-light rounded-pill px-3"
+              style="height: 48px"
+            >
+              <span class="search-icon me-2 text-secondary"
+                ><i class="fas fa-search"></i
+              ></span>
+              <input
+                type="text"
+                class="search-input border-0 bg-transparent flex-grow-1"
+                placeholder="Tìm kiếm bài viết..."
+                id="searchInput"
+                style="
+                  outline: none;
+                  box-shadow: none;
+                  height: 44px;
+                  min-width: 120px;
+                "
+              />
+            </div>
+            <button
+              class="search-btn btn btn-primary rounded-pill px-4 fw-bold d-flex align-items-center me-0"
+              style="height: 48px; white-space: nowrap"
+            >
               <i class="fas fa-search me-2"></i>Tìm kiếm
             </button>
           </div>
@@ -142,24 +247,39 @@
             <div class="sidebar-card">
               <h4 class="sidebar-title">Danh Mục</h4>
               <div class="category-list">
-                <a href="#" class="category-item">
+                <a
+                  href="/pages/recipes/list.html?category=mon-chinh"
+                  class="category-item"
+                >
                   <span>Món Chính</span>
                   <span class="badge bg-primary">24</span>
                 </a>
-                <a href="#" class="category-item">
+                <a
+                  href="/pages/recipes/list.html?category=mon-trang-mieng"
+                  class="category-item"
+                >
                   <span>Món Tráng Miệng</span>
                   <span class="badge bg-primary">18</span>
                 </a>
-                <a href="#" class="category-item">
+                <a
+                  href="/pages/recipes/list.html?category=do-uong"
+                  class="category-item"
+                >
                   <span>Đồ Uống</span>
                   <span class="badge bg-primary">12</span>
                 </a>
-                <a href="#" class="category-item">
+                <a
+                  href="/pages/recipes/list.html?category=mon-chay"
+                  class="category-item"
+                >
                   <span>Món Chay</span>
                   <span class="badge bg-primary">15</span>
                 </a>
-                <a href="#" class="category-item">
-                  <span>Mẹo Nấu Ăn</span>
+                <a
+                  href="/pages/recipes/list.html?category=khai-vi"
+                  class="category-item"
+                >
+                  <span>Món Khai Vị</span>
                   <span class="badge bg-primary">30</span>
                 </a>
               </div>
@@ -325,6 +445,12 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="/assets/js/auth.js"></script>
     <script src="/assets/js/navbar-user.js"></script>
+    <script src="/assets/data/recipes_MonChinh.js"></script>
+    <script src="/assets/data/recipes_TrangMieng.js"></script>
+    <script src="/assets/data/recipes_ThucUong.js"></script>
+    <script src="/assets/data/recipes_AnChay.js"></script>
+    <script src="/assets/data/recipes_AnVat.js"></script>
+    <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script>
       // Initialize AOS
       AOS.init({
@@ -333,13 +459,9 @@
       });
 
       // Lấy dữ liệu blog động từ file JSON
-      fetchData("blogs", function (blogPostsObj) {
-        const blogPosts = blogPostsObj ? Object.values(blogPostsObj) : [];
-        // Chỉ lấy bài đã duyệt
-        const approvedPosts = blogPosts.filter(
-          (post) => post.status === "đã duyệt"
-        );
-        document.getElementById("blogPosts").innerHTML = approvedPosts
+      let allApprovedPosts = [];
+      function renderBlogPosts(posts) {
+        document.getElementById("blogPosts").innerHTML = posts
           .map(
             (post) => `
       <div class="col-md-6 mb-4" data-aos="fade-up">
@@ -366,41 +488,120 @@
     `
           )
           .join("");
+      }
+
+      fetchData("blogs", function (blogPostsObj) {
+        const blogPosts = blogPostsObj ? Object.values(blogPostsObj) : [];
+        // Chỉ lấy bài đã duyệt
+        allApprovedPosts = blogPosts.filter(
+          (post) => post.status === "đã duyệt"
+        );
+        renderBlogPosts(allApprovedPosts);
       });
 
-      // Sample popular posts data
-      const popularPosts = [
-        {
-          title: "Cách Làm Cơm Tấm Sườn Bì Chả",
-          image: "/assets/images/blog/com-tam.jpg",
-          date: "10/03/2024",
-        },
-        {
-          title: "Bí Quyết Làm Bánh Mì Việt Nam",
-          image: "/assets/images/blog/banh-mi.jpg",
-          date: "08/03/2024",
-        },
-        {
-          title: "Top 5 Quán Phở Ngon Hà Nội",
-          image: "/assets/images/blog/quan-pho.jpg",
-          date: "05/03/2024",
-        },
-      ];
+      // Xử lý tìm kiếm và lọc
+      function filterAndSearchPosts() {
+        const keyword = document
+          .getElementById("searchInput")
+          .value.trim()
+          .toLowerCase();
+        const category = document.getElementById("categoryFilter").value;
+        let filtered = allApprovedPosts.filter((post) => {
+          // Lọc theo tag nếu có
+          let matchCategory =
+            !category || (post.tags && post.tags.includes(category));
+          // Lọc theo từ khóa
+          let matchKeyword =
+            !keyword ||
+            (post.title && post.title.toLowerCase().includes(keyword)) ||
+            (post.excerpt && post.excerpt.toLowerCase().includes(keyword)) ||
+            (post.tags &&
+              post.tags.some((tag) => tag.toLowerCase().includes(keyword)));
+          return matchCategory && matchKeyword;
+        });
+        renderBlogPosts(filtered);
+      }
 
-      // Render popular posts
-      document.getElementById("popularPosts").innerHTML = popularPosts
-        .map(
-          (post) => `
-      <a href="#" class="popular-post">
-        <img src="${post.image}" alt="${post.title}">
-        <div class="popular-post-content">
-          <h6>${post.title}</h6>
-          <small><i class="far fa-calendar me-2"></i>${post.date}</small>
-        </div>
-      </a>
-    `
+      document
+        .querySelector(".search-btn")
+        .addEventListener("click", filterAndSearchPosts);
+      document
+        .getElementById("searchInput")
+        .addEventListener("keyup", function (e) {
+          if (e.key === "Enter") filterAndSearchPosts();
+        });
+      document
+        .getElementById("categoryFilter")
+        .addEventListener("change", filterAndSearchPosts);
+
+      // --- Đếm số lượng công thức theo category giống index.html ---
+      function tagToSlug(tag) {
+        const t = tag.trim().toLowerCase();
+        if (t.includes("chính")) return "mon-chinh";
+        if (t.includes("tráng miệng")) return "trang-mieng";
+        if (
+          t.includes("đồ uống") ||
+          t.includes("thức uống") ||
+          t.includes("uống")
         )
-        .join("");
+          return "do-uong";
+        if (t.includes("chay")) return "mon-chay";
+        if (t.includes("ăn vặt")) return "an-vat";
+        if (t.includes("khai vị") || t.includes("khai-vi"))
+          return "mon-khai-vi";
+        return "";
+      }
+      // Gộp tất cả công thức từ các file dữ liệu
+      const allRecipes = [
+        ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+        ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
+        ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+        ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+        ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+        ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+      ];
+      // Đếm số lượng công thức theo category
+      const counts = {
+        "mon-chinh": 0,
+        "trang-mieng": 0,
+        "do-uong": 0,
+        "mon-chay": 0,
+        "an-vat": 0,
+        "mon-khai-vi": 0,
+      };
+      allRecipes.forEach((recipe) => {
+        if (Array.isArray(recipe.tags)) {
+          recipe.tags.forEach((tag) => {
+            const slug = tagToSlug(tag);
+            if (counts.hasOwnProperty(slug)) counts[slug]++;
+          });
+        }
+      });
+      // Render lại số lượng ở sidebar
+      function renderSidebarCategories() {
+        const categoryMap = [
+          { key: "mon-chinh", label: "Món Chính" },
+          { key: "trang-mieng", label: "Món Tráng Miệng" },
+          { key: "do-uong", label: "Đồ Uống" },
+          { key: "mon-chay", label: "Món Chay" },
+          { key: "an-vat", label: "Ăn Vặt" },
+          { key: "mon-khai-vi", label: "Món Khai Vị" },
+        ];
+        const html = categoryMap
+          .map(
+            (cat) =>
+              `<a href="/pages/recipes/list.html?category=${
+                cat.key
+              }" class="category-item">
+              <span>${cat.label}</span>
+              <span class="badge bg-primary">${counts[cat.key] || 0}</span>
+            </a>`
+          )
+          .join("");
+        const sidebar = document.querySelector(".category-list");
+        if (sidebar) sidebar.innerHTML = html;
+      }
+      renderSidebarCategories();
     </script>
   </body>
 </html>

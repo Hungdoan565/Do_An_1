@@ -1150,11 +1150,24 @@
       if (changePasswordForm) {
         changePasswordForm.addEventListener("submit", function (e) {
           e.preventDefault();
+          const currentPassword =
+            document.getElementById("currentPassword").value;
           const newPassword = document.getElementById("newPassword").value;
           const confirmNewPassword =
             document.getElementById("confirmNewPassword").value;
           const passwordError = document.getElementById("passwordError");
           passwordError.style.display = "none";
+          let user = getCurrentUser();
+          if (!user) {
+            showToast("Không tìm thấy thông tin người dùng.", "danger");
+            return;
+          }
+          // Nếu user chưa có password thì cho phép đổi luôn, còn có thì phải kiểm tra
+          if (user.password && currentPassword !== user.password) {
+            passwordError.textContent = "Mật khẩu hiện tại không đúng.";
+            passwordError.style.display = "block";
+            return;
+          }
           if (newPassword !== confirmNewPassword) {
             passwordError.textContent = "Mật khẩu mới không khớp.";
             passwordError.style.display = "block";
@@ -1165,9 +1178,31 @@
             passwordError.style.display = "block";
             return;
           }
-          // Giả lập đổi mật khẩu thành công
+          user.password = newPassword;
+          sessionStorage.setItem("currentUser", JSON.stringify(user));
+          // --- Đồng bộ đổi mật khẩu vào localStorage và sessionStorage (danh sách users) ---
+          let users = [];
+          try {
+            users = JSON.parse(localStorage.getItem("users")) || [];
+          } catch {
+            users = [];
+          }
+          // Tìm user theo email hoặc username
+          const idx = users.findIndex(
+            (u) =>
+              (u.email && u.email === user.email) ||
+              (u.username && u.username === user.username)
+          );
+          if (idx !== -1) {
+            users[idx].password = newPassword;
+            localStorage.setItem("users", JSON.stringify(users));
+            sessionStorage.setItem("users", JSON.stringify(users));
+          }
           showToast("Đổi mật khẩu thành công!", "success");
-          // Nếu có lỗi: showToast('Đổi mật khẩu thất bại.', 'danger');
+          // Xóa input sau khi đổi
+          document.getElementById("currentPassword").value = "";
+          document.getElementById("newPassword").value = "";
+          document.getElementById("confirmNewPassword").value = "";
         });
       }
       function renderMyRecipes() {

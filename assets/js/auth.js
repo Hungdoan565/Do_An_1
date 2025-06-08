@@ -7,6 +7,7 @@ function registerUser({ username, email, password, role = 'member' }) {
   if (users.find(u => (u.email || '').trim().toLowerCase() === emailNorm)) return { success: false, message: 'Email đã tồn tại!' };
   users.push({ username, email: emailNorm, password, role, createdAt: Date.now() });
   localStorage.setItem('users', JSON.stringify(users));
+  sessionStorage.setItem('users', JSON.stringify(users)); // đồng bộ
   return { success: true };
 }
 
@@ -50,6 +51,7 @@ function requireRole(role) {
   if (!users.find(u => u.username === 'admin')) {
     users.push({ username: 'admin', password: 'admin123', role: 'admin', createdAt: Date.now() });
     localStorage.setItem('users', JSON.stringify(users));
+    sessionStorage.setItem('users', JSON.stringify(users));
   }
 })();
 // Xử lý đăng nhập Google
@@ -166,3 +168,16 @@ window.githubSignIn = async function() {
     console.error("Lỗi đăng nhập GitHub:", error);
   }
 };
+
+// Đổi mật khẩu (profile.html) cần đồng bộ cả localStorage và sessionStorage
+// Hãy thay đổi đoạn cập nhật mật khẩu trong profile.html như sau:
+//
+// user.password = newPassword;
+// sessionStorage.setItem("currentUser", JSON.stringify(user));
+// let users = JSON.parse(localStorage.getItem("users") || "[]");
+// const idx = users.findIndex(u => (u.email && u.email === user.email) || (u.username && u.username === user.username));
+// if (idx !== -1) {
+//   users[idx].password = newPassword;
+//   localStorage.setItem("users", JSON.stringify(users));
+//   sessionStorage.setItem("users", JSON.stringify(users));
+// }

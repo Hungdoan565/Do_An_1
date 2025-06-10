@@ -156,7 +156,10 @@
               ><i class="fas fa-users me-2"></i>Người dùng</a
             >
             <a class="nav-link" data-tab="duyet-bai"
-              ><i class="fas fa-file-alt me-2"></i>Duyệt bài</a
+              ><i class="fas fa-file-alt me-2"></i>Duyệt Blog</a
+            >
+            <a class="nav-link" data-tab="duyet-cong-thuc"
+              ><i class="fas fa-utensils me-2"></i>Duyệt Công Thức</a
             >
             <a class="nav-link" data-tab="stats"
               ><i class="fas fa-chart-bar me-2"></i>Thống kê</a
@@ -277,6 +280,43 @@
                     </tr>
                   </thead>
                   <tbody id="approvedBlogTable"></tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+          <!-- Duyệt Công Thức Tab -->
+          <div class="tab-section" id="tab-duyet-cong-thuc">
+            <div class="admin-section mb-5">
+              <h4 class="mb-4">Công Thức Chờ Duyệt</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Tên món</th>
+                      <th>Ngày đăng</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="pendingRecipeTable"></tbody>
+                </table>
+              </div>
+            </div>
+            <div class="admin-section">
+              <h4 class="mb-4">Công Thức Đã Duyệt</h4>
+              <div class="table-responsive">
+                <table class="table table-bordered table-striped align-middle">
+                  <thead class="table-light">
+                    <tr>
+                      <th>#</th>
+                      <th>Tên món</th>
+                      <th>Ngày đăng</th>
+                      <th>Trạng thái</th>
+                      <th>Hành động</th>
+                    </tr>
+                  </thead>
+                  <tbody id="approvedRecipeTable"></tbody>
                 </table>
               </div>
             </div>
@@ -515,7 +555,7 @@
         });
       }
       function updateUserMonthChart(users) {
-        // Giả lập dữ liệu user theo tháng (nếu có trường createdAt dạng yyyy-mm)
+        // Giả lập dữ liệu user theo tháng (nếu có trường createdAt dạng yyyy-mm hoặc timestamp)
         const months = [
           "01",
           "02",
@@ -534,8 +574,18 @@
         const year = now.getFullYear();
         const data = months.map(
           (m) =>
-            users.filter((u) => (u.createdAt || "").startsWith(`${year}-${m}`))
-              .length
+            users.filter((u) => {
+              let dateStr = "";
+              if (typeof u.createdAt === "number") {
+                const d = new Date(u.createdAt);
+                dateStr = `${d.getFullYear()}-${String(
+                  d.getMonth() + 1
+                ).padStart(2, "0")}`;
+              } else if (typeof u.createdAt === "string") {
+                dateStr = u.createdAt;
+              }
+              return dateStr.startsWith(`${year}-${m}`);
+            }).length
         );
         const ctx = document.getElementById("userMonthChart").getContext("2d");
         if (userMonthChart) userMonthChart.destroy();
@@ -552,13 +602,269 @@
             ],
           },
           options: {
-            plugins: { legend: { display: false } },
+            plugins: { legend: { position: "bottom" } },
             responsive: true,
-            scales: { y: { beginAtZero: true, ticks: { stepSize: 1 } } },
           },
         });
       }
       renderStatsAndPendingBlogs();
+      renderRecipeApproval();
+      // Thêm tab Duyệt Công Thức vào sidebar
+      const sidebarNav = document.querySelector(".sidebar nav");
+      if (
+        sidebarNav &&
+        !document.querySelector('[data-tab="duyet-cong-thuc"]')
+      ) {
+        const recipeTab = document.createElement("a");
+        recipeTab.className = "nav-link";
+        recipeTab.setAttribute("data-tab", "duyet-cong-thuc");
+        recipeTab.innerHTML =
+          '<i class="fas fa-utensils me-2"></i>Duyệt Công Thức';
+        sidebarNav.insertBefore(recipeTab, sidebarNav.children[3]); // sau Duyệt bài
+      }
+      // Tab switching cho tab mới
+      document.querySelectorAll(".sidebar .nav-link").forEach(function (link) {
+        link.addEventListener("click", function () {
+          document
+            .querySelectorAll(".sidebar .nav-link")
+            .forEach((l) => l.classList.remove("active"));
+          this.classList.add("active");
+          const tab = this.getAttribute("data-tab");
+          document
+            .querySelectorAll(".tab-section")
+            .forEach((sec) => sec.classList.remove("active"));
+          document.getElementById("tab-" + tab).classList.add("active");
+          if (tab === "duyet-cong-thuc") {
+            renderRecipeApproval();
+          }
+        });
+      });
+      // Render công thức chờ duyệt/đã duyệt
+      function renderRecipeApproval() {
+        if (typeof firebase === "undefined" || !firebase.database) {
+          console.error("Firebase chưa được khởi tạo hoặc không tồn tại!");
+          return;
+        }
+        var db = firebase.database();
+        db.ref("recipes")
+          .once("value")
+          .then(function (snapshot) {
+            const recipesObj = snapshot.val() || {};
+            const recipes = Object.entries(recipesObj).map(([id, r]) => ({
+              id,
+              ...r,
+            }));
+            const pending = recipes.filter((r) => r.pending !== false);
+            const approved = recipes.filter((r) => r.pending === false);
+            // Bảng chờ duyệt
+            const tbody = document.getElementById("pendingRecipeTable");
+            const thead = tbody.parentElement.querySelector("thead");
+            if (thead && !thead.innerHTML.trim()) {
+              thead.innerHTML = `<tr><th>#</th><th>Tên món</th><th>Ngày đăng</th><th>Trạng thái</th><th>Hành động</th></tr>`;
+            }
+            tbody.innerHTML = pending.length
+              ? pending
+                  .map(
+                    (r, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td>${r.title}</td>
+      <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"}</td>
+      <td><span class="badge bg-warning text-dark">Chờ duyệt</span></td>
+      <td class="table-actions">
+        <button class="btn btn-success btn-sm" onclick="approveRecipe('${
+          r.id
+        }')"><i class="fas fa-check"></i> Duyệt</button>
+        <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${
+          r.id
+        }')"><i class="fas fa-trash"></i> Xóa</button>
+        <button class="btn btn-info btn-sm" onclick="viewRecipeDetail('${
+          r.id
+        }')"><i class="fas fa-eye"></i> Xem</button>
+      </td>
+    </tr>
+  `
+                  )
+                  .join("")
+              : '<tr><td colspan="5" class="text-center">Không có công thức chờ duyệt</td></tr>';
+            // Bảng đã duyệt
+            const tbody2 = document.getElementById("approvedRecipeTable");
+            const thead2 = tbody2.parentElement.querySelector("thead");
+            if (thead2 && !thead2.innerHTML.trim()) {
+              thead2.innerHTML = `<tr><th>#</th><th>Tên món</th><th>Ngày đăng</th><th>Trạng thái</th><th>Hành động</th></tr>`;
+            }
+            tbody2.innerHTML = approved.length
+              ? approved
+                  .map(
+                    (r, i) => `
+    <tr>
+      <td>${i + 1}</td>
+      <td>${r.title}</td>
+      <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"}</td>
+      <td><span class="badge bg-success">Đã duyệt</span></td>
+      <td class="table-actions">
+        <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${
+          r.id
+        }')"><i class="fas fa-trash"></i> Xóa</button>
+        <button class="btn btn-info btn-sm" onclick="viewRecipeDetail('${
+          r.id
+        }')"><i class="fas fa-eye"></i> Xem</button>
+      </td>
+    </tr>
+  `
+                  )
+                  .join("")
+              : '<tr><td colspan="5" class="text-center">Không có công thức đã duyệt</td></tr>';
+          })
+          .catch(function (err) {
+            console.error("Lỗi lấy dữ liệu công thức:", err);
+          });
+      }
+      // Duyệt công thức
+      window.approveRecipe = function (id) {
+        var db = firebase.database();
+        db.ref("recipes/" + id)
+          .update({ pending: false })
+          .then(function () {
+            alert("Duyệt công thức thành công!");
+            renderRecipeApproval();
+          });
+      };
+      // Xóa công thức
+      window.deleteRecipe = function (id) {
+        if (!confirm("Bạn chắc chắn muốn xóa công thức này?")) return;
+        var db = firebase.database();
+        db.ref("recipes/" + id)
+          .remove()
+          .then(renderRecipeApproval);
+      };
+      // Xem chi tiết công thức (modal đơn giản)
+      window.viewRecipeDetail = function (id) {
+        var db = firebase.database();
+        db.ref("recipes/" + id)
+          .once("value")
+          .then(function (snapshot) {
+            const r = snapshot.val();
+            if (!r) {
+              alert("Không tìm thấy dữ liệu công thức!");
+              return;
+            }
+            // Lấy tên người đăng
+            let author = "-";
+            if (typeof r.author === "object" && r.author !== null) {
+              author =
+                r.author.username || r.author.name || JSON.stringify(r.author);
+            } else if (typeof r.author === "string") {
+              author = r.author;
+            }
+            // Hiển thị nguyên liệu
+            let ingredientsHtml = "-";
+            if (Array.isArray(r.ingredients) && r.ingredients.length) {
+              ingredientsHtml = r.ingredients
+                .map((i) => {
+                  if (typeof i === "object" && i !== null) {
+                    // Ưu tiên name + amount
+                    if (i.name && i.amount)
+                      return `<li>${i.name} (${i.amount})</li>`;
+                    if (i.name) return `<li>${i.name}</li>`;
+                    return `<li>${Object.values(i).join(" - ")}</li>`;
+                  }
+                  return `<li>${i}</li>`;
+                })
+                .join("");
+            } else if (typeof r.ingredients === "string") {
+              ingredientsHtml = r.ingredients;
+            }
+            // Hiển thị bước làm
+            let stepsHtml = "-";
+            if (Array.isArray(r.steps) && r.steps.length) {
+              stepsHtml = r.steps
+                .map((s, i) => {
+                  if (typeof s === "object" && s !== null) {
+                    // Ưu tiên desc hoặc content
+                    if (s.desc) return `<li>Bước ${i + 1}: ${s.desc}</li>`;
+                    if (s.content)
+                      return `<li>Bước ${i + 1}: ${s.content}</li>`;
+                    return `<li>Bước ${i + 1}: ${Object.values(s).join(
+                      " - "
+                    )}</li>`;
+                  }
+                  return `<li>Bước ${i + 1}: ${s}</li>`;
+                })
+                .join("");
+            } else if (typeof r.steps === "string") {
+              stepsHtml = r.steps;
+            }
+            // Render nội dung modal
+            let html = `
+              <h5 class="modal-title">${r.title || "Chi tiết công thức"}</h5>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+            `;
+            document.querySelector(
+              "#recipeDetailModal .modal-header"
+            ).innerHTML = html;
+            let bodyHtml = `
+              <div><b>Tên món:</b> ${r.title || "-"}</div>
+              <div><b>Người đăng:</b> ${author}</div>
+              <div><b>Ngày đăng:</b> ${
+                r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"
+              }</div>
+              <div><b>Trạng thái:</b> <span class="badge ${
+                r.pending === false ? "bg-success" : "bg-warning text-dark"
+              }">${r.pending === false ? "Đã duyệt" : "Chờ duyệt"}</span></div>
+              <div class="mt-2"><b>Mô tả:</b> <div>${
+                r.description || "-"
+              }</div></div>
+              <div class="mt-2"><b>Nguyên liệu:</b> <ul>${ingredientsHtml}</ul></div>
+              <div class="mt-2"><b>Cách làm:</b> <ol>${stepsHtml}</ol></div>
+              ${
+                r.imageUrl
+                  ? `<div class='mt-2'><img src='${r.imageUrl}' alt='${r.title}' style='max-width:100%;border-radius:8px;'/></div>`
+                  : ""
+              }
+            `;
+            document.querySelector("#recipeDetailModal .modal-body").innerHTML =
+              bodyHtml;
+            // Show modal bằng Bootstrap 5
+            var modal = new bootstrap.Modal(
+              document.getElementById("recipeDetailModal")
+            );
+            modal.show();
+          })
+          .catch(function (err) {
+            alert("Lỗi lấy dữ liệu công thức: " + err.message);
+          });
+      };
     </script>
+    <!-- Modal xem chi tiết công thức -->
+    <div
+      class="modal fade"
+      id="recipeDetailModal"
+      tabindex="-1"
+      aria-labelledby="recipeDetailModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <!-- Tiêu đề modal sẽ được render bằng JS -->
+          </div>
+          <div class="modal-body">
+            <!-- Nội dung chi tiết công thức sẽ được render bằng JS -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Bootstrap JS cho modal -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
   </body>
 </html>

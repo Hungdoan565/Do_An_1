@@ -16,7 +16,7 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/assets/css/pages/add-recipe.css">
+    <link rel="stylesheet" href="/assets/css/pages/add-recipe.css" />
   </head>
 
   <body>
@@ -37,12 +37,55 @@
             <li class="nav-item">
               <a class="nav-link" href="../../index.html">Trang chủ</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="../recipes/list.html">Công thức</a>
+            <!-- Dropdown Công thức -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarRecipeDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Công thức
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarRecipeDropdown">
+                <li>
+                  <a class="dropdown-item" href="../recipes/list.html">
+                    <i class="fas fa-list-ul"></i> Danh sách công thức
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/user/add-recipe.html">
+                    <i class="fas fa-plus-circle"></i> Thêm công thức mới
+                  </a>
+                </li>
+              </ul>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="../blog.html">Blog</a>
+            <!-- Dropdown Blog -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarBlogDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Blog
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarBlogDropdown">
+                <li>
+                  <a class="dropdown-item" href="../blog.html">
+                    <i class="fas fa-book-open"></i> Danh sách blog
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/add-blog.html">
+                    <i class="fas fa-pen-nib"></i> Thêm blog mới
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="../about.html">Về chúng tôi</a>
@@ -195,8 +238,37 @@
                   <img
                     id="previewImage"
                     class="preview-image"
-                    style="display: none"
+                    style="display: none; cursor: pointer"
+                    alt="Preview"
                   />
+                  <!-- Modal xem ảnh lớn -->
+                  <div
+                    class="modal fade"
+                    id="imagePreviewModal"
+                    tabindex="-1"
+                    aria-labelledby="imagePreviewModalLabel"
+                    aria-hidden="true"
+                  >
+                    <div class="modal-dialog modal-dialog-centered">
+                      <div
+                        class="modal-content bg-transparent border-0 shadow-none"
+                      >
+                        <button
+                          type="button"
+                          class="btn-close position-absolute top-0 end-0 m-3 bg-white rounded-circle p-2"
+                          data-bs-dismiss="modal"
+                          aria-label="Đóng"
+                        ></button>
+                        <img
+                          id="modalLargeImage"
+                          src=""
+                          alt="Ảnh lớn"
+                          class="img-fluid rounded shadow"
+                          style="max-height: 80vh; object-fit: contain"
+                        />
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             </div>
@@ -302,7 +374,14 @@
             </div>
 
             <!-- Submit Button -->
-            <div class="text-center mb-5">
+            <div class="text-center mb-5 d-flex justify-content-center gap-3">
+              <button
+                type="button"
+                class="btn btn-outline-primary preview-btn"
+                id="previewRecipeBtn"
+              >
+                <i class="fas fa-eye me-2"></i>Xem trước
+              </button>
               <button type="submit" class="submit-btn">
                 <i class="fas fa-paper-plane me-2"></i>
                 Đăng công thức
@@ -313,7 +392,7 @@
       </div>
     </div>
 
-     <!-- Footer -->
+    <!-- Footer -->
     <footer
       class="footer mt-5 py-5"
       style="
@@ -392,22 +471,30 @@
             <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
             <ul class="list-unstyled">
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=mon-chinh" class="text-white text-decoration-none" 
+                <a
+                  href="/pages/recipes/list.html?category=mon-chinh"
+                  class="text-white text-decoration-none"
                   >Món chính</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=trang-mieng" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=trang-mieng"
+                  class="text-white text-decoration-none"
                   >Món tráng miệng</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=do-uong" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=do-uong"
+                  class="text-white text-decoration-none"
                   >Đồ uống</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=mon-chay" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=mon-chay"
+                  class="text-white text-decoration-none"
                   >Món chay</a
                 >
               </li>
@@ -435,20 +522,127 @@
       </div>
     </footer>
 
+    <!-- Modal Preview Recipe -->
+    <div
+      class="modal fade"
+      id="previewRecipeModal"
+      tabindex="-1"
+      aria-labelledby="previewRecipeModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-lg modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="previewRecipeModalLabel">
+              Xem trước công thức
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Đóng"
+            ></button>
+          </div>
+          <div class="modal-body" id="previewRecipeContent">
+            <!-- Nội dung xem trước sẽ được render bằng JS -->
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Modal Xem Toàn Bộ Mô Tả -->
+    <div
+      class="modal fade"
+      id="descFullModal"
+      tabindex="-1"
+      aria-labelledby="descFullModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="descFullModalLabel">Mô tả đầy đủ</h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Đóng"
+            ></button>
+          </div>
+          <div class="modal-body" id="descFullModalBody"></div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     <script src="/assets/js/firebase-config.js"></script>
     <script src="/assets/js/add-recipe.js"></script>
     <script>
-      // Image upload preview
+      // Kiểm tra user đăng nhập khi vào trang
+      (function () {
+        let currentUser = null;
+        if (window.getCurrentUser) {
+          currentUser = window.getCurrentUser();
+        } else {
+          try {
+            currentUser =
+              JSON.parse(sessionStorage.getItem("currentUser")) ||
+              JSON.parse(localStorage.getItem("currentUser"));
+          } catch (e) {}
+        }
+        if (!currentUser || !currentUser.username) {
+          window.location.href =
+            "/pages/auth/login.html?redirect=/pages/user/add-recipe.html";
+        } else {
+          // Gán username vào đúng vị trí dropdown avatar nếu có
+          const navbarUsername = document.getElementById("navbarUsername");
+          if (navbarUsername) {
+            navbarUsername.textContent = currentUser.username;
+          }
+        }
+      })();
+
+      // Image upload preview & validation
       const imageUpload = document.getElementById("imageUpload");
       const imageInput = document.getElementById("imageInput");
       const previewImage = document.getElementById("previewImage");
-
+      let imageError = null;
+      if (imageUpload && !imageError) {
+        imageError = document.createElement("div");
+        imageError.className = "text-danger small mt-2";
+        imageError.style.display = "none";
+        imageUpload.parentNode.appendChild(imageError);
+      }
       imageUpload.addEventListener("click", () => imageInput.click());
-
       imageInput.addEventListener("change", function () {
+        imageError.style.display = "none";
+        previewImage.style.display = "none";
         const file = this.files[0];
         if (file) {
+          const validTypes = ["image/png", "image/jpeg", "image/jpg"];
+          if (!validTypes.includes(file.type)) {
+            imageError.textContent = "Chỉ chấp nhận ảnh PNG, JPG hoặc JPEG.";
+            imageError.style.display = "block";
+            this.value = "";
+            return;
+          }
+          if (file.size > 5 * 1024 * 1024) {
+            imageError.textContent = "Dung lượng ảnh tối đa 5MB.";
+            imageError.style.display = "block";
+            this.value = "";
+            return;
+          }
           const reader = new FileReader();
           reader.onload = function (e) {
             previewImage.src = e.target.result;
@@ -489,9 +683,111 @@
         stepCard.innerHTML = `
                 <div class="step-number">${stepsCount}</div>
                 <textarea class="form-control" name="stepDesc[]" rows="3" placeholder="Mô tả bước thực hiện"></textarea>
+                <button type="button" class="btn btn-outline-danger btn-sm rounded-circle shadow-sm remove-step-btn ms-2" title="Xóa bước"><i class="fas fa-trash-alt"></i></button>
             `;
         document.getElementById("stepsList").appendChild(stepCard);
+        // Thêm sự kiện xóa bước
+        stepCard
+          .querySelector(".remove-step-btn")
+          .addEventListener("click", function () {
+            removeStep(stepCard);
+          });
+        // Kích hoạt drag & drop cho bước mới
+        enableStepDragDrop();
       });
+
+      // ===== DRAG & DROP STEP-CARD =====
+      function enableStepDragDrop() {
+        const stepsList = document.getElementById("stepsList");
+        if (!stepsList) return;
+        let dragSrc = null;
+        stepsList.querySelectorAll(".step-card").forEach((card) => {
+          card.setAttribute("draggable", "true");
+          card.ondragstart = function (e) {
+            dragSrc = card;
+            card.classList.add("dragging");
+            e.dataTransfer.effectAllowed = "move";
+          };
+          card.ondragend = function () {
+            card.classList.remove("dragging");
+            dragSrc = null;
+            updateStepNumbers();
+            rebindRemoveStepBtn();
+          };
+          card.ondragover = function (e) {
+            e.preventDefault();
+            e.dataTransfer.dropEffect = "move";
+            card.classList.add("drag-over");
+          };
+          card.ondragleave = function () {
+            card.classList.remove("drag-over");
+          };
+          card.ondrop = function (e) {
+            e.preventDefault();
+            card.classList.remove("drag-over");
+            if (dragSrc && dragSrc !== card) {
+              // Nếu thả lên chính nó thì bỏ qua
+              // Nếu thả lên phần tử đầu tiên, cho phép chuyển lên đầu
+              const cards = Array.from(stepsList.children);
+              if (card === cards[0]) {
+                stepsList.insertBefore(dragSrc, card);
+              } else {
+                stepsList.insertBefore(dragSrc, card.nextSibling);
+              }
+              updateStepNumbers();
+              rebindRemoveStepBtn();
+            }
+          };
+        });
+      }
+      function rebindRemoveStepBtn() {
+        // Gán lại sự kiện xóa cho tất cả các nút xóa
+        document
+          .querySelectorAll("#stepsList .remove-step-btn")
+          .forEach((btn) => {
+            btn.onclick = function () {
+              const stepCard = btn.closest(".step-card");
+              if (stepCard) removeStep(stepCard);
+            };
+          });
+      }
+      function removeStep(stepCard) {
+        const stepsList = document.getElementById("stepsList");
+        if (!stepsList) return;
+        const allSteps = stepsList.querySelectorAll(".step-card");
+        if (allSteps.length <= 1) {
+          alert("Phải có ít nhất 1 bước thực hiện.");
+          return;
+        }
+        stepCard.remove();
+        updateStepNumbers();
+        rebindRemoveStepBtn();
+      }
+      function updateStepNumbers() {
+        document
+          .querySelectorAll("#stepsList .step-card")
+          .forEach((step, idx) => {
+            const num = step.querySelector(".step-number");
+            if (num) num.textContent = idx + 1;
+          });
+      }
+      // Kích hoạt drag & drop khi load và khi thêm bước mới
+      (function () {
+        enableStepDragDrop();
+        rebindRemoveStepBtn();
+        // Khi thêm bước mới thì enable lại drag & drop và gán lại nút xóa
+        const addStepBtn = document.getElementById("addStep");
+        if (addStepBtn) {
+          const oldHandler = addStepBtn.onclick;
+          addStepBtn.addEventListener("click", function () {
+            setTimeout(() => {
+              enableStepDragDrop();
+              rebindRemoveStepBtn();
+            }, 10);
+            if (typeof oldHandler === "function") oldHandler();
+          });
+        }
+      })();
 
       // Tag selection logic: lưu các tag đã chọn vào input ẩn
       const tagSelect = document.getElementById("tagSelect");
@@ -540,75 +836,459 @@
         ratingStars.dispatchEvent(new Event("mouseleave"));
       }
 
-      // Form submission
-      document
-        .getElementById("addRecipeForm")
-        .addEventListener("submit", function (e) {
-          e.preventDefault();
-          // Add form submission logic here
-          alert("Công thức đã được đăng thành công!");
-        });
-    </script>
-    <script src="/assets/js/auth.js"></script>
-    <script>
-      // Navbar: Hiển thị nút đăng nhập/đăng ký hoặc tên user + đăng xuất + link admin nếu là admin
-      function renderNavbarUser() {
-        const nav = document.querySelector(".navbar-nav");
-        if (!nav) return;
-        const user = window.getCurrentUser();
-        // Xóa các nav-item user/profile cũ (chỉ giữ lại các nav-item không phải user/profile)
-        nav.querySelectorAll(".nav-item").forEach((e) => e.remove());
-        let html = "";
-        html += `<li class="nav-item"><a class="nav-link" href="/index.html">Trang chủ</a></li>`;
-        html += `<li class="nav-item"><a class="nav-link" href="/pages/recipes/list.html">Công thức</a></li>`;
-        html += `<li class="nav-item"><a class="nav-link" href="/pages/blog.html">Blog</a></li>`;
-        html += `<li class="nav-item"><a class="nav-link" href="/pages/about.html">Về chúng tôi</a></li>`;
-        if (user) {
-          // Dropdown user avatar đồng bộ
-          html += `<li class="nav-item dropdown ms-2">
-            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-              <img src="${
-                user.avatar || "/assets/images/users/avatar.jpg"
-              }" alt="Avatar" class="rounded-circle" width="32" height="32" id="navbarAvatar" />
-              <span id="navbarUsername" class="fw-semibold">${
-                user.username || ""
-              }</span>
-            </a>
-            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
-              <li><a class="dropdown-item" href="/pages/user/profile.html">Trang cá nhân</a></li>
-              ${
-                user.role === "admin"
-                  ? '<li><a class="dropdown-item" href="/pages/admin/dashboard.html">Quản trị</a></li>'
-                  : ""
-              }
-              <li><hr class="dropdown-divider" /></li>
-              <li><a class="dropdown-item text-danger" href="#" id="navbarLogout">Đăng xuất</a></li>
-            </ul>
-          </li>`;
-        } else {
-          html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a></li>`;
-          html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/register.html">Đăng ký</a></li>`;
-        }
-        nav.insertAdjacentHTML("beforeend", html);
-        // Đăng xuất
-        document
-          .getElementById("logoutNav")
-          ?.addEventListener("click", function (e) {
-            e.preventDefault();
-            window.logoutUser();
-            window.location.href = "/index.html";
-          });
-      }
-      document.addEventListener("DOMContentLoaded", renderNavbarUser);
+      // Thêm hiển thị lỗi và xác thực nâng cao cho form đăng công thức
+      (function () {
+        const form = document.getElementById("addRecipeForm");
+        if (!form) return;
 
-      // Điều hướng hợp lý: kiểm tra đăng nhập trước khi cho phép truy cập trang thêm công thức
-      function isLoggedIn() {
-        // Kiểm tra user hiện tại qua auth.js
-        return !!window.getCurrentUser();
+        // Tạo các phần tử báo lỗi cho các trường chính
+        const titleInput = form.querySelector('input[name="title"]');
+        const descInput = form.querySelector('textarea[name="description"]');
+        const timeInput = form.querySelector('input[name="time"]');
+        const servingsInput = form.querySelector('input[name="servings"]');
+
+        // Thêm vùng báo lỗi
+        [titleInput, descInput, timeInput, servingsInput].forEach((input) => {
+          if (input) {
+            const err = document.createElement("div");
+            err.className = "text-danger small mt-1";
+            err.style.display = "none";
+            input.parentNode.appendChild(err);
+            input._err = err;
+          }
+        });
+
+        // Bộ đếm ký tự cho mô tả
+        if (descInput) {
+          const counter = document.createElement("div");
+          counter.className = "text-end text-muted small";
+          counter.style.fontSize = "0.9em";
+          descInput.parentNode.appendChild(counter);
+          const maxLen = 500;
+          descInput.maxLength = maxLen;
+          descInput.addEventListener("input", function () {
+            counter.textContent = `${this.value.length}/${maxLen} ký tự`;
+          });
+          descInput.dispatchEvent(new Event("input"));
+        }
+
+        // Xác thực khi submit
+        form.addEventListener("submit", function (e) {
+          let valid = true;
+          let firstErrorInput = null;
+          let errorMessages = [];
+          [titleInput, descInput, timeInput, servingsInput].forEach((input) => {
+            if (input && input._err) input._err.style.display = "none";
+          });
+          if (titleInput && !titleInput.value.trim()) {
+            titleInput._err.textContent = "Vui lòng nhập tên món ăn.";
+            titleInput._err.style.display = "block";
+            valid = false;
+            if (!firstErrorInput) firstErrorInput = titleInput;
+            errorMessages.push("Vui lòng nhập tên món ăn.");
+          }
+          if (descInput && !descInput.value.trim()) {
+            descInput._err.textContent = "Vui lòng nhập mô tả.";
+            descInput._err.style.display = "block";
+            valid = false;
+            if (!firstErrorInput) firstErrorInput = descInput;
+            errorMessages.push("Vui lòng nhập mô tả.");
+          }
+          if (timeInput && (!timeInput.value || +timeInput.value <= 0)) {
+            timeInput._err.textContent = "Thời gian phải lớn hơn 0.";
+            timeInput._err.style.display = "block";
+            valid = false;
+            if (!firstErrorInput) firstErrorInput = timeInput;
+            errorMessages.push("Thời gian phải lớn hơn 0.");
+          }
+          if (
+            servingsInput &&
+            (!servingsInput.value || +servingsInput.value <= 0)
+          ) {
+            servingsInput._err.textContent = "Khẩu phần phải lớn hơn 0.";
+            servingsInput._err.style.display = "block";
+            valid = false;
+            if (!firstErrorInput) firstErrorInput = servingsInput;
+            errorMessages.push("Khẩu phần phải lớn hơn 0.");
+          }
+          // Kiểm tra nguyên liệu
+          const ingredientNames = form.querySelectorAll(
+            'input[name="ingredientName[]"]'
+          );
+          let hasIngredient = false;
+          ingredientNames.forEach((i) => {
+            if (i.value.trim()) hasIngredient = true;
+          });
+          if (!hasIngredient) {
+            errorMessages.push("Vui lòng nhập ít nhất 1 nguyên liệu.");
+            valid = false;
+          }
+          // Kiểm tra bước thực hiện
+          const stepDescs = form.querySelectorAll(
+            'textarea[name="stepDesc[]"]'
+          );
+          let hasStep = false;
+          stepDescs.forEach((i) => {
+            if (i.value.trim()) hasStep = true;
+          });
+          if (!hasStep) {
+            errorMessages.push("Vui lòng nhập ít nhất 1 bước thực hiện.");
+            valid = false;
+          }
+          if (!valid) {
+            e.preventDefault();
+            // Hiển thị thông báo tổng hợp ở đầu form
+            let alertBox = document.getElementById("formErrorAlert");
+            if (!alertBox) {
+              alertBox = document.createElement("div");
+              alertBox.id = "formErrorAlert";
+              alertBox.className = "alert alert-danger";
+              form.prepend(alertBox);
+            }
+            alertBox.innerHTML = errorMessages
+              .map((msg) => `<div>${msg}</div>`)
+              .join("");
+            alertBox.style.display = "block";
+            if (firstErrorInput) {
+              firstErrorInput.focus();
+              firstErrorInput.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+              });
+            }
+            return false;
+          } else {
+            // Ẩn alert nếu hợp lệ
+            let alertBox = document.getElementById("formErrorAlert");
+            if (alertBox) alertBox.style.display = "none";
+          }
+        });
+      })();
+
+      // Form submission
+      const addRecipeForm = document.getElementById("addRecipeForm");
+      if (addRecipeForm) {
+        const submitBtn = addRecipeForm.querySelector(".submit-btn");
+        let isSubmitting = false;
+        addRecipeForm.addEventListener("submit", async function (e) {
+          e.preventDefault();
+          if (isSubmitting) return false;
+          isSubmitting = true;
+          if (submitBtn) {
+            submitBtn.disabled = true;
+            submitBtn.innerHTML =
+              '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Đang gửi...';
+          }
+          // Lấy dữ liệu form
+          const form = addRecipeForm;
+          const title = form.querySelector('input[name="title"]').value.trim();
+          const desc = form
+            .querySelector('textarea[name="description"]')
+            .value.trim();
+          const time = form.querySelector('input[name="time"]').value.trim();
+          const servings = form
+            .querySelector('input[name="servings"]')
+            .value.trim();
+          const difficulty = form.querySelector(
+            'select[name="difficulty"]'
+          ).value;
+          const calories = form
+            .querySelector('input[name="calories"]')
+            .value.trim();
+          const tags = form
+            .querySelector("#tagsInput")
+            .value.split(",")
+            .filter(Boolean);
+          const rating = form.querySelector("#ratingInput").value;
+          // Ảnh (chỉ lưu tên file, hoặc base64 nếu muốn demo, thực tế nên upload lên storage)
+          let imgBase64 = "";
+          const file = form.querySelector("#imageInput").files[0];
+          if (file) {
+            imgBase64 = await new Promise((resolve) => {
+              const reader = new FileReader();
+              reader.onload = (e) => resolve(e.target.result);
+              reader.readAsDataURL(file);
+            });
+          }
+          // Nguyên liệu
+          const ingredients = Array.from(
+            form.querySelectorAll(".ingredient-item")
+          )
+            .map((item) => {
+              return {
+                name: item
+                  .querySelector('input[name="ingredientName[]"]')
+                  .value.trim(),
+                amount: item
+                  .querySelector('input[name="ingredientAmount[]"]')
+                  .value.trim(),
+              };
+            })
+            .filter((i) => i.name);
+          // Bước thực hiện
+          const steps = Array.from(form.querySelectorAll(".step-card"))
+            .map((card, idx) => {
+              return {
+                number: idx + 1,
+                desc: card
+                  .querySelector('textarea[name="stepDesc[]"]')
+                  .value.trim(),
+              };
+            })
+            .filter((s) => s.desc);
+          // Lấy user hiện tại
+          let currentUser = null;
+          if (window.getCurrentUser) {
+            currentUser = window.getCurrentUser();
+          } else {
+            try {
+              currentUser =
+                JSON.parse(sessionStorage.getItem("currentUser")) ||
+                JSON.parse(localStorage.getItem("currentUser"));
+            } catch (e) {
+              currentUser = null;
+            }
+          }
+          // Chuẩn bị object recipe
+          const recipe = {
+            title,
+            description: desc,
+            time: Number(time),
+            servings: Number(servings),
+            difficulty,
+            calories: calories ? Number(calories) : null,
+            tags,
+            rating: rating ? Number(rating) : null,
+            image: imgBase64, // base64 demo, thực tế nên upload lên storage và lưu url
+            ingredients,
+            steps,
+            createdAt: Date.now(),
+            pending: true, // admin duyệt mới hiển thị
+            author: currentUser
+              ? {
+                  username: currentUser.username,
+                  name: currentUser.name || "",
+                  email: currentUser.email || "",
+                }
+              : "Ẩn danh",
+          };
+          // Lưu lên Firebase
+          try {
+            const db = firebase.database();
+            const newRef = db.ref("recipes").push();
+            await newRef.set(recipe);
+            // Thông báo thành công
+            alert("Công thức đã được gửi thành công! Chờ admin duyệt.");
+            // Reset form
+            addRecipeForm.reset();
+            // Reset preview image
+            const previewImg = document.getElementById("previewImage");
+            if (previewImg) previewImg.style.display = "none";
+          } catch (err) {
+            alert("Có lỗi xảy ra khi gửi công thức. Vui lòng thử lại!");
+          }
+          isSubmitting = false;
+          if (submitBtn) {
+            submitBtn.disabled = false;
+            submitBtn.innerHTML =
+              '<i class="fas fa-paper-plane me-2"></i>Đăng công thức';
+          }
+        });
       }
-      if (!isLoggedIn()) {
-        window.location.href =
-          "/pages/auth/login.html?redirect=/pages/user/add-recipe.html";
+
+      // --- XEM TRƯỚC CÔNG THỨC ---
+      (function () {
+        const previewBtn = document.getElementById("previewRecipeBtn");
+        const previewModal = document.getElementById("previewRecipeModal");
+        const previewContent = document.getElementById("previewRecipeContent");
+        const form = document.getElementById("addRecipeForm");
+        // Modal xem mô tả đầy đủ
+        const descFullModal = document.getElementById("descFullModal");
+        const descFullModalBody = document.getElementById("descFullModalBody");
+        // Focus trap cho modal preview và modal mô tả đầy đủ
+        function trapFocus(modal) {
+          const focusable = modal.querySelectorAll(
+            'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+          );
+          if (!focusable.length) return;
+          const first = focusable[0];
+          const last = focusable[focusable.length - 1];
+          modal.addEventListener("keydown", function (e) {
+            if (e.key === "Tab") {
+              if (e.shiftKey) {
+                if (document.activeElement === first) {
+                  e.preventDefault();
+                  last.focus();
+                }
+              } else {
+                if (document.activeElement === last) {
+                  e.preventDefault();
+                  first.focus();
+                }
+              }
+            }
+            if (e.key === "Escape") {
+              bootstrap.Modal.getInstance(modal)?.hide();
+            }
+          });
+        }
+        if (previewModal) {
+          previewModal.addEventListener("shown.bs.modal", function () {
+            // Focus vào nút đóng đầu tiên
+            const closeBtn = previewModal.querySelector(".btn-close");
+            if (closeBtn) closeBtn.focus();
+            trapFocus(previewModal);
+          });
+        }
+        if (descFullModal) {
+          descFullModal.addEventListener("shown.bs.modal", function () {
+            const closeBtn = descFullModal.querySelector(".btn-close");
+            if (closeBtn) closeBtn.focus();
+            trapFocus(descFullModal);
+          });
+        }
+        previewBtn.addEventListener("click", function () {
+          // Lấy dữ liệu form
+          const title = form.querySelector('input[name="title"]').value.trim();
+          const desc = form
+            .querySelector('textarea[name="description"]')
+            .value.trim();
+          const time = form.querySelector('input[name="time"]').value.trim();
+          const servings = form
+            .querySelector('input[name="servings"]')
+            .value.trim();
+          const difficulty = form.querySelector(
+            'select[name="difficulty"]'
+          ).value;
+          const calories = form
+            .querySelector('input[name="calories"]')
+            .value.trim();
+          const tags = form
+            .querySelector("#tagsInput")
+            .value.split(",")
+            .filter(Boolean);
+          const rating = form.querySelector("#ratingInput").value;
+          // Ảnh
+          let imgSrc = "";
+          const file = form.querySelector("#imageInput").files[0];
+          if (file) {
+            imgSrc = URL.createObjectURL(file);
+          } else {
+            const previewImg = form.querySelector("#previewImage");
+            if (
+              previewImg &&
+              previewImg.src &&
+              previewImg.style.display !== "none"
+            ) {
+              imgSrc = previewImg.src;
+            }
+          }
+          // Nguyên liệu
+          const ingredients = Array.from(
+            form.querySelectorAll(".ingredient-item")
+          )
+            .map((item) => {
+              return {
+                name: item
+                  .querySelector('input[name="ingredientName[]"]')
+                  .value.trim(),
+                amount: item
+                  .querySelector('input[name="ingredientAmount[]"]')
+                  .value.trim(),
+              };
+            })
+            .filter((i) => i.name);
+          // Bước thực hiện
+          const steps = Array.from(form.querySelectorAll(".step-card"))
+            .map((card, idx) => {
+              return {
+                number: idx + 1,
+                desc: card
+                  .querySelector('textarea[name="stepDesc[]"]')
+                  .value.trim(),
+              };
+            })
+            .filter((s) => s.desc);
+          // Render HTML preview
+          // Render tag danh mục món ăn với style 'tag-item active'
+          const tagHtml = tags
+            .map((t) => `<span class='tag-item1 active me-1 mb-1'>${t}</span>`)
+            .join("");
+          // Render ảnh: chỉ hiển thị nếu có ảnh
+          let imgHtml = "";
+          if (imgSrc) {
+            imgHtml = `<img src='${imgSrc}' class='img-fluid rounded mb-3' style='max-height:220px;object-fit:cover;'/>`;
+          }
+          let html = `<div class='row'><div class='col-md-4'>${imgHtml}</div><div class='col-md-8'><h3 class='fw-bold mb-1'>${
+            title || "(Chưa nhập tên món)"
+          }</h3><div class='mb-2 text-muted fs-5 preview-desc'>${
+            desc || "(Chưa nhập mô tả)"
+          }</div><div class='mb-2'><span class='badge bg-primary me-2 fs-6'><i class='fas fa-clock me-1'></i> ${time} phút</span><span class='badge bg-success me-2 fs-6'><i class='fas fa-utensils me-1'></i> ${servings} người</span>`;
+          if (difficulty) {
+            html += `<span class='badge bg-warning text-dark fs-6'><i class='fas fa-tasks me-1'></i> ${difficulty}</span>`;
+          }
+          if (calories) {
+            html += `<span class='badge bg-info text-dark fs-6 ms-2'><i class='fas fa-fire me-1'></i> ${calories} cal</span>`;
+          }
+          html += `</div>`;
+          // Render nguyên liệu
+          if (ingredients.length) {
+            html += `<h5 class='fw-semibold'>Nguyên liệu:</h5><ul class='list-unstyled'>`;
+            ingredients.forEach((ing) => {
+              if (ing.name) {
+                html += `<li class='mb-2'><i class='fas fa-check-circle text-success me-2'></i>${ing.name} ${ing.amount}</li>`;
+              }
+            });
+            html += `</ul>`;
+          }
+          // Render bước thực hiện
+          if (steps.length) {
+            html += `<h5 class='fw-semibold'>Các bước thực hiện:</h5>`;
+            steps.forEach((step) => {
+              html += `<div class='d-flex mb-3'><div class='step-number rounded-circle d-flex align-items-center justify-content-center me-3' style='width: 40px; height: 40px; background-color: #007bff; color: white;'>${step.number}</div><div class='flex-grow-1'>${step.desc}</div></div>`;
+            });
+          }
+          // Render đánh giá
+          if (rating) {
+            html += `<div class='mb-3'><span class='fw-semibold'>Đánh giá của bạn:</span>`;
+            for (let i = 1; i <= 5; i++) {
+              if (i <= rating) {
+                html += `<i class='fas fa-star' style='color: #fab207'></i>`;
+              } else {
+                html += `<i class='far fa-star'></i>`;
+              }
+            }
+            html += `</div>`;
+          }
+          // Gán HTML vào modal preview
+          previewContent.innerHTML = html;
+          // Mở modal preview
+          const modal = new bootstrap.Modal(previewModal);
+          modal.show();
+        });
+      })();
+
+      // Hàm chia sẻ công thức lên mạng xã hội (chưa triển khai)
+      function shareRecipe(title, desc, img) {
+        alert(
+          "Chia sẻ công thức: " +
+            decodeURIComponent(title) +
+            "\nMô tả: " +
+            decodeURIComponent(desc) +
+            "\nHình ảnh: " +
+            img
+        );
+      }
+
+      // Xử lý nút Đăng xuất trong dropdown user
+      const logoutBtn = document.getElementById("navbarLogout");
+      if (logoutBtn) {
+        logoutBtn.onclick = function (e) {
+          e.preventDefault();
+          sessionStorage.removeItem("currentUser");
+          localStorage.removeItem("currentUser");
+          window.location.href = "/pages/auth/login.html";
+        };
       }
     </script>
   </body>

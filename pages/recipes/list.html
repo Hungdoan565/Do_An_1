@@ -19,16 +19,19 @@
     />
     <link rel="stylesheet" href="/assets/css/pages/list.css" />
     <!-- <link rel="stylesheet" href="/assets/css/pages/index.css" /> -->
+    <style>
+      #navbarRecipeDropdown.nav-link::after,
+      #navbarBlogDropdown.nav-link::after {
+        display: none;
+      }
+    </style>
   </head>
 
   <body>
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">
-          
-          Món Ngon Việt Nam
-        </a>
+        <a class="navbar-brand" href="/index.html"> Món Ngon Việt Nam </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -42,14 +45,55 @@
             <li class="nav-item">
               <a class="nav-link" href="/index.html">Trang chủ</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link active" href="/pages/recipes/list.html"
-                >Công thức</a
+            <!-- Dropdown Công thức -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarRecipeDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
               >
+                Công thức
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarRecipeDropdown">
+                <li>
+                  <a class="dropdown-item" href="../recipes/list.html">
+                    <i class="fas fa-list-ul"></i> Danh sách công thức
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/user/add-recipe.html">
+                    <i class="fas fa-plus-circle"></i> Thêm công thức mới
+                  </a>
+                </li>
+              </ul>
             </li>
-
-            <li class="nav-item">
-              <a class="nav-link" href="/pages/blog.html">Blog</a>
+            <!-- Dropdown Blog -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarBlogDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Blog
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarBlogDropdown">
+                <li>
+                  <a class="dropdown-item" href="../blog.html">
+                    <i class="fas fa-book-open"></i> Danh sách blog
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/add-blog.html">
+                    <i class="fas fa-pen-nib"></i> Thêm blog mới
+                  </a>
+                </li>
+              </ul>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="/pages/about.html">Về chúng tôi</a>
@@ -105,7 +149,9 @@
                 class="btn btn-dark px-4 py-2"
                 ><i class="fas fa-plus-circle me-2"></i>Chia sẻ công thức</a
               >
-              <a href="/pages/recipes/featured.html" class="btn btn-outline-light px-4 py-2"
+              <a
+                href="/pages/recipes/featured.html"
+                class="btn btn-outline-light px-4 py-2"
                 ><i class="fas fa-star me-2"></i>Xem công thức nổi bật</a
               >
             </div>
@@ -288,22 +334,30 @@
             <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
             <ul class="list-unstyled">
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=mon-chinh" class="text-white text-decoration-none" 
+                <a
+                  href="/pages/recipes/list.html?category=mon-chinh"
+                  class="text-white text-decoration-none"
                   >Món chính</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=trang-mieng" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=trang-mieng"
+                  class="text-white text-decoration-none"
                   >Món tráng miệng</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=do-uong" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=do-uong"
+                  class="text-white text-decoration-none"
                   >Đồ uống</a
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/recipes/list.html?category=mon-chay" class="text-white text-decoration-none"
+                <a
+                  href="/pages/recipes/list.html?category=mon-chay"
+                  class="text-white text-decoration-none"
                   >Món chay</a
                 >
               </li>

@@ -1,5 +1,5 @@
-// Firebase configuration
-var auth = firebase.auth();
+// Đã loại bỏ các dòng firebase.auth() và provider để tránh lỗi nếu không dùng Firebase Auth thực tế
+// Nếu muốn dùng đăng nhập Google/Github thực, hãy bật Auth trên Firebase và bổ sung lại các dòng này
 
 function registerUser({ username, email, password, role = 'member' }) {
   let users = JSON.parse(localStorage.getItem('users') || '[]');
@@ -60,37 +60,6 @@ function requireRole(role) {
     localStorage.setItem('users', JSON.stringify(users));
   }
 })();
-// Xử lý đăng nhập Google
-var provider = new firebase.auth.GoogleAuthProvider();
-
-document.querySelectorAll(".btn-google, .social-btn.google-btn").forEach(function(btn) {
-  btn.addEventListener("click", async function(e) {
-    e.preventDefault();
-    try {
-      var result = await auth.signInWithPopup(provider);
-      var user = result.user;
-      sessionStorage.setItem(
-        "currentUser",
-        JSON.stringify({
-          uid: user.uid,
-          username: user.displayName || user.email.split("@")[0],
-          email: user.email,
-          photoURL: user.photoURL,
-          role: "member",
-          google: true,
-          createdAt: Date.now(),
-        })
-      );
-      window.location.href = "/index.html";
-    } catch (error) {
-      // Nếu popup bị chặn thì mới báo lỗi, còn lại im lặng
-      if (error.code === "auth/popup-blocked") {
-        alert("Đăng nhập Google thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
-      }
-      console.error("Lỗi đăng nhập Google:", error);
-    }
-  });
-});
 
 // Giám sát trạng thái xác thực
 function setupAuthStateMonitoring() {

@@ -1,19 +1,17 @@
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCzqOJYiXQTe35KpqDpyALCSg4ZX-1UgEQ",
-  authDomain: "recipes-food-a3989.firebaseapp.com",
-  databaseURL: "https://recipes-food-a3989-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "recipes-food-a3989",
-  storageBucket: "recipes-food-a3989.firebasestorage.app",
-  messagingSenderId: "778286523232",
-  appId: "1:778286523232:web:47da38bb305b2e4cbdf405",
-  measurementId: "G-Z3QS5H4C4V"
-};
-
-// Initialize Firebase
-var app = firebase.initializeApp(firebaseConfig);
-var analytics = firebase.analytics();
-window.app = app;
+// Firebase v8 config chuẩn, KHÔNG gọi analytics nếu không dùng
+// Đảm bảo chỉ khởi tạo 1 lần
+if (typeof firebase !== 'undefined' && !firebase.apps.length) {
+  firebase.initializeApp({
+    apiKey: "AIzaSyCzqOJYiXQTe35KpqDpyALCSg4ZX-1UgEQ",
+    authDomain: "recipes-food-a3989.firebaseapp.com",
+    databaseURL: "https://recipes-food-a3989-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "recipes-food-a3989",
+    storageBucket: "recipes-food-a3989.appspot.com",
+    messagingSenderId: "778286523232",
+    appId: "1:778286523232:web:47da38bb305b2e4cbdf405",
+    measurementId: "G-Z3QS5H4C4V"
+  });
+}
 
 // Lấy dữ liệu từ Firebase Realtime Database
 function fetchData(path, callback) {

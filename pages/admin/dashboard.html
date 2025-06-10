@@ -294,6 +294,7 @@
                     <tr>
                       <th>#</th>
                       <th>Tên món</th>
+                      <th>Tác giả</th>
                       <th>Ngày đăng</th>
                       <th>Trạng thái</th>
                       <th>Hành động</th>
@@ -311,6 +312,7 @@
                     <tr>
                       <th>#</th>
                       <th>Tên món</th>
+                      <th>Tác giả</th>
                       <th>Ngày đăng</th>
                       <th>Trạng thái</th>
                       <th>Hành động</th>
@@ -660,61 +662,71 @@
             const tbody = document.getElementById("pendingRecipeTable");
             const thead = tbody.parentElement.querySelector("thead");
             if (thead && !thead.innerHTML.trim()) {
-              thead.innerHTML = `<tr><th>#</th><th>Tên món</th><th>Ngày đăng</th><th>Trạng thái</th><th>Hành động</th></tr>`;
+              thead.innerHTML = `<tr><th>#</th><th>Tên món</th><th>Tác giả</th><th>Ngày đăng</th><th>Trạng thái</th><th>Hành động</th></tr>`;
             }
             tbody.innerHTML = pending.length
               ? pending
                   .map(
                     (r, i) => `
-    <tr>
-      <td>${i + 1}</td>
-      <td>${r.title}</td>
-      <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"}</td>
-      <td><span class="badge bg-warning text-dark">Chờ duyệt</span></td>
-      <td class="table-actions">
-        <button class="btn btn-success btn-sm" onclick="approveRecipe('${
-          r.id
-        }')"><i class="fas fa-check"></i> Duyệt</button>
-        <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${
-          r.id
-        }')"><i class="fas fa-trash"></i> Xóa</button>
-        <button class="btn btn-info btn-sm" onclick="viewRecipeDetail('${
-          r.id
-        }')"><i class="fas fa-eye"></i> Xem</button>
-      </td>
-    </tr>
-  `
+<tr>
+  <td>${i + 1}</td>
+  <td>${r.title}</td>
+  <td>${
+    typeof r.author === "object" && r.author !== null
+      ? r.author.username || r.author.name || JSON.stringify(r.author)
+      : r.author || "-"
+  }</td>
+  <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"}</td>
+  <td><span class="badge bg-warning text-dark">Chờ duyệt</span></td>
+  <td class="table-actions">
+    <button class="btn btn-success btn-sm" onclick="approveRecipe('${
+      r.id
+    }')"><i class="fas fa-check"></i> Duyệt</button>
+    <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${
+      r.id
+    }')"><i class="fas fa-trash"></i> Xóa</button>
+    <button class="btn btn-info btn-sm" onclick="viewRecipeDetail('${
+      r.id
+    }')"><i class="fas fa-eye"></i> Xem</button>
+  </td>
+</tr>
+`
                   )
                   .join("")
-              : '<tr><td colspan="5" class="text-center">Không có công thức chờ duyệt</td></tr>';
+              : '<tr><td colspan="6" class="text-center">Không có công thức chờ duyệt</td></tr>';
             // Bảng đã duyệt
             const tbody2 = document.getElementById("approvedRecipeTable");
             const thead2 = tbody2.parentElement.querySelector("thead");
             if (thead2 && !thead2.innerHTML.trim()) {
-              thead2.innerHTML = `<tr><th>#</th><th>Tên món</th><th>Ngày đăng</th><th>Trạng thái</th><th>Hành động</th></tr>`;
+              thead2.innerHTML = `<tr><th>#</th><th>Tên món</th><th>Tác giả</th><th>Ngày đăng</th><th>Trạng thái</th><th>Hành động</th></tr>`;
             }
             tbody2.innerHTML = approved.length
               ? approved
                   .map(
                     (r, i) => `
-    <tr>
-      <td>${i + 1}</td>
-      <td>${r.title}</td>
-      <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"}</td>
-      <td><span class="badge bg-success">Đã duyệt</span></td>
-      <td class="table-actions">
-        <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${
-          r.id
-        }')"><i class="fas fa-trash"></i> Xóa</button>
-        <button class="btn btn-info btn-sm" onclick="viewRecipeDetail('${
-          r.id
-        }')"><i class="fas fa-eye"></i> Xem</button>
-      </td>
-    </tr>
-  `
+<tr>
+  <td>${i + 1}</td>
+  <td>${r.title}</td>
+  <td>${
+    typeof r.author === "object" && r.author !== null
+      ? r.author.username || r.author.name || JSON.stringify(r.author)
+      : r.author || "-"
+  }</td>
+  <td>${r.createdAt ? new Date(r.createdAt).toLocaleDateString() : "-"}</td>
+  <td><span class="badge bg-success">Đã duyệt</span></td>
+  <td class="table-actions">
+    <button class="btn btn-danger btn-sm" onclick="deleteRecipe('${
+      r.id
+    }')"><i class="fas fa-trash"></i> Xóa</button>
+    <button class="btn btn-info btn-sm" onclick="viewRecipeDetail('${
+      r.id
+    }')"><i class="fas fa-eye"></i> Xem</button>
+  </td>
+</tr>
+`
                   )
                   .join("")
-              : '<tr><td colspan="5" class="text-center">Không có công thức đã duyệt</td></tr>';
+              : '<tr><td colspan="6" class="text-center">Không có công thức đã duyệt</td></tr>';
           })
           .catch(function (err) {
             console.error("Lỗi lấy dữ liệu công thức:", err);
@@ -819,7 +831,13 @@
               <div class="mt-2"><b>Cách làm:</b> <ol>${stepsHtml}</ol></div>
               ${
                 r.imageUrl
-                  ? `<div class='mt-2'><img src='${r.imageUrl}' alt='${r.title}' style='max-width:100%;border-radius:8px;'/></div>`
+                  ? `<div class='mt-2'><img src='${r.imageUrl}' alt='${
+                      r.title || ""
+                    }' style='max-width:100%;border-radius:8px;'/></div>`
+                  : r.image
+                  ? `<div class='mt-2'><img src='${r.image}' alt='${
+                      r.title || ""
+                    }' style='max-width:100%;border-radius:8px;'/></div>`
                   : ""
               }
             `;

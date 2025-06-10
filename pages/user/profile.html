@@ -24,10 +24,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">
-          
-          Món Ngon Việt Nam
-        </a>
+        <a class="navbar-brand" href="/index.html"> Món Ngon Việt Nam </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -539,7 +536,17 @@
             <div class="recipe-meta">
               <span><i class="fas fa-clock"></i> ${recipe.time} phút</span>
               <span><i class="fas fa-star"></i> ${recipe.rating}</span>
-              <span><i class="fas fa-user"></i> ${recipe.author || ""}</span>
+              <span><i class="fas fa-user"></i> ${(() => {
+                // Lấy tên user hiện tại từ sessionStorage
+                try {
+                  const user = JSON.parse(
+                    sessionStorage.getItem("currentUser")
+                  );
+                  return user && user.name ? user.name : "Ẩn danh";
+                } catch {
+                  return "Ẩn danh";
+                }
+              })()}</span>
             </div>
             <div class="recipe-meta mt-2">
               <span><i class="fas fa-signal"></i> ${
@@ -788,7 +795,15 @@
         <div class="recipe-meta">
           <span><i class="fas fa-clock"></i> ${recipe.time || ""} phút</span>
           <span><i class="fas fa-star"></i> ${recipe.rating || 0}</span>
-          <span><i class="fas fa-user"></i> ${recipe.author || ""}</span>
+          <span><i class="fas fa-user"></i> ${(() => {
+            // Lấy tên user hiện tại từ sessionStorage
+            try {
+              const user = JSON.parse(sessionStorage.getItem("currentUser"));
+              return user && user.name ? user.name : "Ẩn danh";
+            } catch {
+              return "Ẩn danh";
+            }
+          })()}</span>
         </div>
         <div class="recipe-meta mt-2">
           <span><i class="fas fa-signal"></i> ${recipe.difficulty || ""}</span>
@@ -1283,50 +1298,78 @@
       }
       function renderMyRecipes() {
         const user = getCurrentUser();
-        if (!user) return;
-        const allRecipes = getAllRecipes();
-        const myRecipes = allRecipes.filter(
-          (r) =>
-            r.authorEmail === user.email ||
-            r.author === user.email ||
-            r.author === user.name
-        );
         const container = document.getElementById("myRecipeList");
-        if (!container) return;
-        setTimeout(() => {
-          if (!myRecipes.length) {
-            container.innerHTML = `<div class='empty-state'><i class='fas fa-utensils'></i><div>Bạn chưa đăng công thức nào!</div></div>`;
-          } else {
-            container.innerHTML = myRecipes
-              .map(
-                (r) => `
-    <div class=\"col-md-4\">
-      <div class=\"recipe-card\" style=\"cursor:pointer\" data-id=\"${
-        r.id
-      }\">\n        <img src=\"${r.image}\" alt=\"${
-                  r.title
-                }\" class=\"recipe-image w-100\">\n        <div class=\"recipe-content\">\n          <h5 class=\"recipe-title\">${
-                  r.title
-                }</h5>\n          <div class=\"recipe-meta\">\n            <span><i class=\"fas fa-clock\"></i> ${
-                  r.time || ""
-                } phút</span>\n            <span><i class=\"fas fa-star\"></i> ${
-                  r.rating || ""
-                }</span>\n            <span><i class=\"fas fa-user\"></i> ${
-                  r.author || ""
-                }</span>\n          </div>\n        </div>\n      </div>\n    </div>\n  `
-              )
-              .join("");
-            container.querySelectorAll(".recipe-card").forEach((card) => {
-              card.onclick = function () {
-                const id = this.getAttribute("data-id");
-                if (id)
-                  window.location.href = `/pages/recipes/detail.html?id=${id}`;
-              };
+        if (!user || !container || typeof firebase === "undefined") return;
+        container.innerHTML = `<div class='text-center w-100 py-5'><div class="spinner-border text-primary"></div></div>`;
+        firebase
+          .database()
+          .ref("recipes")
+          .once("value", function (snapshot) {
+            const recipes = [];
+            snapshot.forEach((child) => {
+              const recipe = child.val();
+              let isMine = false;
+              // Handle author as string or object
+              if (recipe.author) {
+                if (typeof recipe.author === "string") {
+                  // Compare string author to user fields
+                  if (
+                    normalizeVN(recipe.author) === normalizeVN(user.name) ||
+                    normalizeVN(recipe.author) === normalizeVN(user.username) ||
+                    (user.email && recipe.author === user.email)
+                  ) {
+                    isMine = true;
+                  }
+                } else if (typeof recipe.author === "object") {
+                  // Compare object author fields to user fields
+                  if (
+                    (recipe.author.email &&
+                      user.email &&
+                      recipe.author.email === user.email) ||
+                    (recipe.author.name &&
+                      normalizeVN(recipe.author.name) ===
+                        normalizeVN(user.name)) ||
+                    (recipe.author.username &&
+                      normalizeVN(recipe.author.username) ===
+                        normalizeVN(user.username))
+                  ) {
+                    isMine = true;
+                  }
+                }
+              }
+              // Only show approved recipes
+              const isApproved =
+                recipe.status === "approved" ||
+                recipe.status === "Đã duyệt" ||
+                recipe.pending === false;
+              if (isMine && isApproved) {
+                recipes.push({ ...recipe, id: child.key });
+              }
             });
-            // Thêm hiệu ứng fade-in từng card
-            applyFadeInToProfileCards("#myRecipeList");
-          }
-        }, 400);
+            setTimeout(() => {
+              if (!recipes.length) {
+                container.innerHTML = `<div class='empty-state'><i class='fas fa-utensils'></i><div>Bạn chưa đăng công thức nào!</div></div>`;
+              } else {
+                container.innerHTML = recipes
+                  .map(renderProfileRecipeCard)
+                  .map(
+                    (html) =>
+                      `<div class="col-md-3 mb-4 d-flex align-items-stretch">${html}</div>`
+                  )
+                  .join("");
+                container.querySelectorAll(".recipe-card").forEach((card) => {
+                  card.onclick = function () {
+                    const id = this.getAttribute("data-id");
+                    if (id)
+                      window.location.href = `/pages/recipes/detail.html?id=${id}`;
+                  };
+                });
+                if (typeof applyFadeInToProfileCards === "function") {
+                  applyFadeInToProfileCards("#myRecipeList", ".recipe-card");
+                }
+              }
+            }, 400);
+          });
       }
       function renderMyBlogs() {
         const user = getCurrentUser();
@@ -1455,6 +1498,14 @@
 
       function normalizeString(str) {
         return (str || "").toLowerCase().replace(/\s+/g, "").replace(/-/g, "");
+      }
+      function normalizeVN(str) {
+        return (str ? String(str) : "")
+          .toLowerCase()
+          .normalize("NFD")
+          .replace(/[\u0300-\u036f]/g, "") // bỏ dấu tiếng Việt
+          .replace(/\s+/g, " ") // bỏ khoảng trắng thừa
+          .trim();
       }
       function syncUserBlogsFromFirebase() {
         console.log("[DEBUG] syncUserBlogsFromFirebase called");

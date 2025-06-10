@@ -527,6 +527,82 @@ const recipesTrangMieng = [
       }
     ]
   },
+   {
+    "id": "kem-dua",
+    "title": "Kem Dừa",
+    "description": "Kem dừa mát lạnh, thơm béo, topping dừa sấy hấp dẫn",
+    "image": "/assets/images/mon-an/trang-mieng/kemdua.jpg",
+    "time": 15,
+    "rating": 4.8,
+    "author": "Chị Lan",
+    "difficulty": "Dễ",
+    "tags": ["Tráng miệng", "Ngon"],
+    "ingredients": [
+      "Nước cốt dừa - 200ml",
+      "Sữa đặc - 100ml",
+      "Kem tươi - 200ml",
+      "Đường - 50g",
+      "Dừa sấy - 50g"
+    ],
+    "steps": [
+      {
+        "title": "Pha hỗn hợp kem",
+        "desc": "Trộn nước cốt dừa, sữa đặc, đường vào bát, khuấy đều cho đường tan."
+      },
+      {
+        "title": "Đánh kem",
+        "desc": "Đánh kem tươi cho đến khi bông cứng, sau đó trộn nhẹ nhàng với hỗn hợp dừa."
+      },
+      {
+        "title": "Đổ khuôn và đông lạnh",
+        "desc": "Cho hỗn hợp vào khuôn, rắc dừa sấy lên trên, để đông trong ngăn đá ít nhất 4 tiếng."
+      },
+      {
+        "title": "Thưởng thức",
+        "desc": "Lấy kem ra, dùng muỗng múc thành viên, trang trí thêm dừa sấy nếu thích."
+      }
+    ],
+    "comments": [
+      {
+        "user": "Nguyễn Văn A",
+        "avatar": "/assets/images/users/user-1.jpg",
+        "rating": 5,
+        "text": "Kem dừa mát lạnh, thơm béo, rất thích hợp cho ngày hè."
+      },
+      {
+        "user": "Lê Thị B",
+        "avatar": "/assets/images/users/user-2.jpg",
+        "rating": 4,
+        "text": "Món này ăn lạ miệng, rất ngon và bổ dưỡng."
+      }
+    ],
+    "related": [
+      {
+        "id": "tra-sua",
+        "title": "Trà Sữa Trân Châu Đường Đen",
+        "image": "/assets/images/mon-an/thuc-uong/trasua.jpg",
+        "description": "Trà sữa thơm béo, trân châu dai ngọt, vị đường đen đặc trưng",
+        "time": 20,
+        "rating": 4.9
+      },
+      {
+        "id": "sua-chua-nep-cam",
+        "title": "Sữa Chua Nếp Cẩm",
+        "image": "/assets/images/mon-an/trang-mieng/suachuanepcam.jpg",
+        "description": "Sữa chua nếp cẩm thơm ngon, béo ngậy",
+        "time": 20,
+        "rating": 4.7
+      },
+      {
+        "id": "sua-chua-danh-da",
+        "title": "Sữa Chua Đánh Đá",
+        "image": "/assets/images/mon-an/trang-mieng/suachua.jpg",
+        "description": "Sữa chua đánh đá mát lạnh, vị chua ngọt hấp dẫn",
+        "time": 8,
+        "rating": 4.7
+      }
+    ]
+  },
   {
     "id": "sua-chua-danh-da",
     "title": "Sữa Chua Đánh Đá",

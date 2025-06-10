@@ -239,10 +239,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">
-          
-          Món Ngon Việt Nam
-        </a>
+        <a class="navbar-brand" href="/index.html"> Món Ngon Việt Nam </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -266,16 +263,47 @@
             <li class="nav-item">
               <a class="nav-link" href="../about.html">Về chúng tôi</a>
             </li>
-            <li class="nav-item">
-              <a class="nav-link" href="/pages/user/profile.html">
+            <li class="nav-item dropdown ms-2">
+              <a
+                class="nav-link dropdown-toggle d-flex align-items-center gap-2"
+                href="#"
+                id="navbarUserDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
                 <img
                   src="/assets/images/users/avatar.jpg"
                   alt="Avatar"
                   class="rounded-circle"
                   width="32"
                   height="32"
+                  id="navbarAvatar"
                 />
+                <span id="navbarUsername" class="fw-semibold"></span>
               </a>
+              <ul
+                class="dropdown-menu dropdown-menu-end"
+                aria-labelledby="navbarUserDropdown"
+              >
+                <li>
+                  <a class="dropdown-item" href="/pages/user/profile.html">
+                    Trang cá nhân
+                  </a>
+                </li>
+                <li>
+                  <hr class="dropdown-divider" />
+                </li>
+                <li>
+                  <a
+                    class="dropdown-item text-danger"
+                    href="#"
+                    id="navbarLogout"
+                  >
+                    Đăng xuất
+                  </a>
+                </li>
+              </ul>
             </li>
           </ul>
         </div>
@@ -719,13 +747,27 @@
         html += `<li class="nav-item"><a class="nav-link" href="/pages/blog.html">Blog</a></li>`;
         html += `<li class="nav-item"><a class="nav-link" href="/pages/about.html">Về chúng tôi</a></li>`;
         if (user) {
-          html += `<li class="nav-item"><span class="nav-link">👤 ${
-            user.username
-          }${user.role === "admin" ? " (Admin)" : ""}</span></li>`;
-          if (user.role === "admin") {
-            html += `<li class="nav-item"><a class="nav-link" href="/pages/admin/dashboard.html">Quản trị</a></li>`;
-          }
-          html += `<li class="nav-item"><a class="nav-link" href="#" id="logoutNav">Đăng xuất</a></li>`;
+          // Dropdown user avatar đồng bộ
+          html += `<li class="nav-item dropdown ms-2">
+            <a class="nav-link dropdown-toggle d-flex align-items-center gap-2" href="#" id="navbarUserDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <img src="${
+                user.avatar || "/assets/images/users/avatar.jpg"
+              }" alt="Avatar" class="rounded-circle" width="32" height="32" id="navbarAvatar" />
+              <span id="navbarUsername" class="fw-semibold">${
+                user.username || ""
+              }</span>
+            </a>
+            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarUserDropdown">
+              <li><a class="dropdown-item" href="/pages/user/profile.html">Trang cá nhân</a></li>
+              ${
+                user.role === "admin"
+                  ? '<li><a class="dropdown-item" href="/pages/admin/dashboard.html">Quản trị</a></li>'
+                  : ""
+              }
+              <li><hr class="dropdown-divider" /></li>
+              <li><a class="dropdown-item text-danger" href="#" id="navbarLogout">Đăng xuất</a></li>
+            </ul>
+          </li>`;
         } else {
           html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/login.html">Đăng nhập</a></li>`;
           html += `<li class="nav-item"><a class="nav-link" href="/pages/auth/register.html">Đăng ký</a></li>`;

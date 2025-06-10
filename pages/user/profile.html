@@ -18,6 +18,7 @@
     />
     <link rel="stylesheet" href="/assets/css/pages/profile.css" />
     <link rel="stylesheet" href="/assets/css/pages/list.css" />
+    <link rel="stylesheet" href="/assets/css/pages/blog.css" />
   </head>
   <body>
     <!-- Navbar -->
@@ -122,6 +123,9 @@
               <a class="nav-link" data-tab="favorite"
                 ><i class="fas fa-heart me-2"></i>Yêu thích</a
               >
+              <a class="nav-link" data-tab="my-blogs"
+                ><i class="fas fa-blog me-2"></i>Blog của tôi</a
+              >
               <a class="nav-link" data-tab="settings"
                 ><i class="fas fa-cog me-2"></i>Cài đặt</a
               >
@@ -180,6 +184,12 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-3">
+                      <div class="stat-card">
+                        <div class="stat-title">Blog</div>
+                        <div class="stat-value" id="profileBlogCount">0</div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -209,6 +219,15 @@
                 <h4 class="mb-4">Công thức yêu thích</h4>
                 <div class="row" id="favoriteRecipeList">
                   <!-- Render favorite recipe cards here -->
+                </div>
+              </div>
+            </div>
+            <!-- Blog của tôi Tab -->
+            <div class="tab-section" id="tab-my-blogs">
+              <div class="admin-section">
+                <h4 class="mb-4">Blog của tôi</h4>
+                <div class="row" id="myBlogList">
+                  <!-- Render blog cards here -->
                 </div>
               </div>
             </div>
@@ -466,6 +485,9 @@
     <script src="/assets/data/recipes_AnChay.js"></script>
     <script src="/assets/data/recipes_AnVat.js"></script>
     <script src="/assets/data/recipes_KhaiVi.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
     <script>
       // --- Render công thức yêu thích cho tab Yêu thích ---
       function getCurrentUser() {
@@ -503,31 +525,45 @@
           } else {
             container.innerHTML = favRecipes
               .map(
-                (r) => `
-      <div class=\"col-md-4\">
-        <div class=\"recipe-card saved-recipe position-relative\" style=\"cursor:pointer\" data-id=\"${
-          r.id
-        }\">
-          <img src=\"${r.image}\" alt=\"${
-                  r.title
-                }\" class=\"recipe-image w-100\">
-          <div class=\"recipe-content\">
-            <div style=\"display:flex;align-items:center;justify-content:space-between;\">
-              <h5 class=\"recipe-title mb-0\">${r.title}</h5>
-              <button class=\"btn btn-primary btn-sm btn-remove-favorite\" title=\"Xóa\">Xóa</button>
+                (recipe) => `
+      <div class="col-md-3 mb-4 d-flex align-items-stretch" data-aos="fade-up">
+        <div class="recipe-card w-100 position-relative" data-id="${
+          recipe.id
+        }" style="cursor:pointer">
+          <img src="${recipe.image}" class="recipe-image w-100" alt="${
+                  recipe.title
+                }">
+          <div class="recipe-info">
+            <h3 class="recipe-title">${recipe.title}</h3>
+            <p class="text-muted mb-3">${(() => {
+              const words = (recipe.description || "").split(" ");
+              return (
+                words.slice(0, 25).join(" ") + (words.length > 25 ? "..." : "")
+              );
+            })()}</p>
+            <div class="recipe-meta">
+              <span><i class="fas fa-clock"></i> ${recipe.time} phút</span>
+              <span><i class="fas fa-star"></i> ${recipe.rating}</span>
+              <span><i class="fas fa-user"></i> ${recipe.author || ""}</span>
             </div>
-            <div class=\"recipe-meta mt-2\">
-              <span><i class=\"fas fa-clock\"></i> ${r.time || ""} phút</span>
-              <span><i class=\"fas fa-star\"></i> ${r.rating || ""}</span>
-              <span><i class=\"fas fa-user\"></i> ${r.author || ""}</span>
+            <div class="recipe-meta mt-2">
+              <span><i class="fas fa-signal"></i> ${
+                recipe.difficulty || ""
+              }</span>
             </div>
+            <div class="recipe-tags">
+              ${(recipe.tags || [])
+                .map((tag) => `<span class="recipe-tag">${tag}</span>`)
+                .join("")}
+            </div>
+            <button class="btn btn-primary btn-sm btn-remove-favorite position-absolute top-0 end-0 m-2" title="Xóa khỏi yêu thích"><i class="fas fa-times"></i></button>
           </div>
         </div>
       </div>
     `
               )
               .join("");
-            // Thêm sự kiện click vào card để chuyển đến trang chi tiết
+            // Sự kiện click vào card để chuyển đến trang chi tiết
             container.querySelectorAll(".recipe-card").forEach((card) => {
               card.onclick = function (e) {
                 // Nếu click vào nút xóa thì không chuyển trang
@@ -568,7 +604,8 @@
             }
           }
           // Thêm hiệu ứng fade-in từng card
-          applyFadeInToProfileCards("#favoriteRecipeList");
+          applyFadeInToProfileCards &&
+            applyFadeInToProfileCards("#favoriteRecipeList", ".recipe-card");
         }, 400);
       }
       function renderUserInfo() {
@@ -656,6 +693,19 @@
                 "Bạn chưa yêu thích công thức nào"
               );
               // Không thêm stat-action nữa
+            }
+          }
+          // --- BLOG: Thêm mục Blog vào thống kê ---
+          const blogCountEl = document.getElementById("profileBlogCount");
+          if (blogCountEl) {
+            if (user.blogCount && user.blogCount > 0) {
+              blogCountEl.innerHTML = `<i class='fas fa-blog fa-2x text-danger'></i> <span class='stat-number text-muted'>${user.blogCount}</span><a href='/pages/add-blog.html' class='btn btn-primary btn-sm mt-2 d-block'><i class='fas fa-plus me-1'></i>Đăng blog</a>`;
+              blogCountEl.removeAttribute("data-bs-toggle");
+              blogCountEl.removeAttribute("title");
+            } else {
+              blogCountEl.innerHTML = `<i class='fas fa-blog fa-2x text-danger' data-bs-toggle='tooltip' title='Bạn chưa đăng blog nào'></i><div class='stat-number text-muted mt-1'>0</div><a href='/pages/add-blog.html' class='btn btn-primary btn-sm mt-2 '><i class='fas fa-plus me-1'></i>Đăng blog</a>`;
+              blogCountEl.setAttribute("data-bs-toggle", "tooltip");
+              blogCountEl.setAttribute("title", "Bạn chưa đăng blog nào");
             }
           }
         }
@@ -969,30 +1019,47 @@
       }
 
       document.addEventListener("DOMContentLoaded", function () {
+        if (typeof firebase !== "undefined" && firebase.database) {
+          syncUserBlogsFromFirebase();
+        } else {
+          if (typeof syncUserBlogsFromStorage === "function")
+            syncUserBlogsFromStorage();
+        }
         renderUserInfo();
         renderProfileHighlights();
         renderRecentUserRecipes();
         renderMyRecipes();
+        renderMyBlogs();
         // Đảm bảo hiệu ứng luôn chạy khi chuyển tab
         addProfileCardTransitionOnTab("my-recipes", renderMyRecipes);
         addProfileCardTransitionOnTab("favorite", renderFavoriteRecipes);
+        addProfileCardTransitionOnTab("my-blogs", renderMyBlogs);
         // Render khi chuyển tab hoặc load trang
-        document
-          .querySelector('button[data-bs-target="#saved"]')
-          .addEventListener("click", renderFavoriteRecipes);
-        // Nếu tab Yêu thích đang active khi load trang thì render luôn
-        if (document.querySelector("#saved").classList.contains("show"))
+        var savedBtn = document.querySelector(
+          'button[data-bs-target="#saved"]'
+        );
+        if (savedBtn) {
+          savedBtn.addEventListener("click", renderFavoriteRecipes);
+        }
+        if (
+          document.querySelector("#saved") &&
+          document.querySelector("#saved").classList.contains("show")
+        )
           renderFavoriteRecipes();
         document
           .querySelectorAll('.sidebar .nav-link[data-tab="my-recipes"]')
           .forEach(function (link) {
             link.addEventListener("click", renderMyRecipes);
           });
+        document
+          .querySelectorAll('.sidebar .nav-link[data-tab="my-blogs"]')
+          .forEach(function (link) {
+            link.addEventListener("click", renderMyBlogs);
+          });
         // Xử lý chuyển tab khi bấm "Chỉnh sửa hồ sơ"
         var editBtn = document.getElementById("editProfileBtn");
         if (editBtn) {
           editBtn.addEventListener("click", function () {
-            // Kích hoạt tab sidebar
             document
               .querySelectorAll(".sidebar .nav-link")
               .forEach(function (l) {
@@ -1002,7 +1069,6 @@
               '.sidebar .nav-link[data-tab="settings"]'
             );
             if (settingsTab) settingsTab.classList.add("active");
-            // Hiện tab nội dung
             document.querySelectorAll(".tab-section").forEach(function (sec) {
               sec.classList.remove("active");
             });
@@ -1107,24 +1173,39 @@
       if (settingsForm) {
         settingsForm.addEventListener("submit", function (e) {
           e.preventDefault();
-          const email = document.getElementById("settingEmail").value.trim();
-          const name = document.getElementById("settingName").value.trim();
-          const bio = document.getElementById("settingBio").value.trim();
-          const emailError = document.getElementById("emailError");
-          emailError.style.display = "none";
-          if (!validateEmail(email)) {
-            emailError.textContent = "Email không hợp lệ.";
-            emailError.style.display = "block";
-            return;
-          }
           let user = getCurrentUser();
           if (!user) {
             showToast("Không tìm thấy thông tin người dùng.", "danger");
             return;
           }
-          user.name = name;
-          user.email = email;
-          user.bio = bio;
+          // Lấy giá trị các trường, nếu rỗng thì giữ lại giá trị cũ
+          const emailInput = document.getElementById("settingEmail");
+          const nameInput = document.getElementById("settingName");
+          const bioInput = document.getElementById("settingBio");
+          const email =
+            emailInput && emailInput.value.trim()
+              ? emailInput.value.trim()
+              : user.email;
+          const name =
+            nameInput && nameInput.value.trim()
+              ? nameInput.value.trim()
+              : user.name;
+          const bio =
+            bioInput && bioInput.value.trim()
+              ? bioInput.value.trim()
+              : user.bio;
+          const emailError = document.getElementById("emailError");
+          emailError.style.display = "none";
+          // Nếu user đổi email, validate, còn nếu không đổi thì bỏ qua
+          if (email !== user.email && !validateEmail(email)) {
+            emailError.textContent = "Email không hợp lệ.";
+            emailError.style.display = "block";
+            return;
+          }
+          // Chỉ cập nhật trường nào có thay đổi và không rỗng
+          if (name && name !== user.name) user.name = name;
+          if (email && email !== user.email) user.email = email;
+          if (bio !== undefined && bio !== user.bio) user.bio = bio;
           // Xử lý avatar nếu có file mới
           const avatarInput = document.getElementById("settingAvatar");
           if (avatarInput && avatarInput.files && avatarInput.files[0]) {
@@ -1252,6 +1333,59 @@
           }
         }, 400);
       }
+      function renderMyBlogs() {
+        const user = getCurrentUser();
+        const container = document.getElementById("myBlogList");
+        if (!container) return;
+        // Giả sử user.blogs là mảng các blog đã đăng, nếu chưa có thì để []
+        const blogs = user && user.blogs ? user.blogs : [];
+        setTimeout(() => {
+          if (!blogs.length) {
+            container.innerHTML = `<div class='empty-state'><i class='fas fa-blog'></i><div>Bạn chưa đăng blog nào!</div><a href='/pages/add-blog.html'`;
+          } else {
+            container.innerHTML = blogs
+              .map(
+                (post) => `
+      <div class="col-md-3 mb-4" data-aos="fade-up">
+        <a href="/pages/blog-detail.html?id=${
+          post.id
+        }" class="blog-card d-block" data-id="${post.id}">
+          <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
+          <div class="blog-content">
+            <h3 class="blog-title">${post.title}</h3>
+            <div class="blog-meta">
+              <span><i class="fas fa-user"></i> ${post.author}</span>
+              <span><i class="far fa-calendar"></i> ${post.date}</span>
+              <span><i class="far fa-clock"></i> ${post.readTime}</span>
+            </div>
+            <p class="blog-excerpt">${post.excerpt}</p>
+            <div class="blog-tags">
+              ${(post.tags || [])
+                .map((tag) => `<span class="blog-tag">${tag}</span>`)
+                .join("")}
+            </div>
+          </div>
+        </a>
+      </div>
+    `
+              )
+              .join("");
+            // Sự kiện click vào card để chuyển đến trang chi tiết blog (nếu cần fallback cho mobile)
+            container.querySelectorAll(".blog-card").forEach((card) => {
+              card.onclick = function (e) {
+                // Nếu click vào thẻ a thì không cần xử lý
+                if (e.target.tagName === "A") return;
+                const id = this.getAttribute("data-id");
+                if (id)
+                  window.location.href = `/pages/blog-detail.html?id=${id}`;
+              };
+            });
+          }
+          // Thêm hiệu ứng fade-in từng card nếu muốn
+          applyFadeInToProfileCards &&
+            applyFadeInToProfileCards("#myBlogList", ".blog-card");
+        }, 400);
+      }
 
       /**
        * Thêm hiệu ứng fade-in từng card với delay (staggered)
@@ -1302,6 +1436,99 @@
         tabProfileInfoBtn.addEventListener("click", function () {
           renderProfileHighlights();
         });
+      }
+
+      function syncUserBlogsFromStorage() {
+        const user = getCurrentUser();
+        if (!user) return;
+        let allBlogs = [];
+        try {
+          allBlogs = JSON.parse(localStorage.getItem("blogPosts")) || [];
+        } catch {
+          allBlogs = [];
+        }
+        // Lọc blog của user hiện tại (theo email hoặc tên)
+        const myBlogs = allBlogs.filter(
+          (b) =>
+            b.authorEmail === user.email ||
+            b.author === user.email ||
+            b.author === user.name
+        );
+        user.blogs = myBlogs;
+        sessionStorage.setItem("currentUser", JSON.stringify(user));
+      }
+
+      function normalizeString(str) {
+        return (str || "").toLowerCase().replace(/\s+/g, "").replace(/-/g, "");
+      }
+      function syncUserBlogsFromFirebase() {
+        console.log("[DEBUG] syncUserBlogsFromFirebase called");
+        const user = getCurrentUser();
+        console.log("[DEBUG] user:", user);
+        console.log("[DEBUG] typeof firebase:", typeof firebase);
+        console.log(
+          "[DEBUG] firebase.database:",
+          firebase && firebase.database
+        );
+        if (!user || typeof firebase === "undefined" || !firebase.database) {
+          console.log(
+            "[DEBUG] Điều kiện return sớm trong syncUserBlogsFromFirebase"
+          );
+          return;
+        }
+        // Đảm bảo user luôn có trường name
+        if (!user.name) user.name = user.username;
+        // Tạo mảng so sánh, loại bỏ undefined/null
+        const userNames = [user.username, user.name, user.email]
+          .filter(Boolean)
+          .map(normalizeString);
+        const userNamesRaw = [user.username, user.name, user.email].filter(
+          Boolean
+        );
+        firebase
+          .database()
+          .ref("blogs")
+          .once("value")
+          .then((snapshot) => {
+            const blogsObj = snapshot.val() || {};
+            const allBlogs = Object.values(blogsObj);
+            // Debug: log thông tin user và author các blog
+            console.log("User:", user);
+            allBlogs.forEach((b) => {
+              console.log(
+                "Blog:",
+                b.title,
+                "| author:",
+                b.author,
+                "| authorEmail:",
+                b.authorEmail,
+                "| So sánh normalize:",
+                normalizeString(b.author),
+                normalizeString(b.authorEmail),
+                userNames,
+                "| So sánh gốc:",
+                b.author,
+                b.authorEmail,
+                userNamesRaw
+              );
+            });
+            // Lọc blog của user hiện tại (theo author hoặc authorEmail, chỉ lấy blog đã duyệt)
+            const myBlogs = allBlogs.filter(
+              (b) =>
+                b &&
+                (!b.status || b.status === "đã duyệt") &&
+                ((b.author && userNames.includes(normalizeString(b.author))) ||
+                  (b.authorEmail &&
+                    userNames.includes(normalizeString(b.authorEmail))) ||
+                  (b.author && userNamesRaw.includes(b.author)) ||
+                  (b.authorEmail && userNamesRaw.includes(b.authorEmail)))
+            );
+            user.blogs = myBlogs;
+            user.blogCount = myBlogs.length;
+            sessionStorage.setItem("currentUser", JSON.stringify(user));
+            renderUserInfo();
+            renderMyBlogs();
+          });
       }
     </script>
   </body>

@@ -681,6 +681,8 @@
             };
           }
         });
+        // Sau khi render xong, cập nhật trạng thái nút yêu thích
+        setFavoriteState(isRecipeFavorite(recipe.id));
       }
 
       // Ưu tiên lấy từ Firebase nếu có

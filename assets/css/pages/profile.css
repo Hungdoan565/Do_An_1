@@ -232,6 +232,22 @@
         font-weight: 500;
         transition: all 0.3s ease;
       }
+      .btn-icon-remove{
+        background: #fffde8;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 10px;
+        font-weight: 500;
+        transition: all 0.3s ease;
+      }
+      .btn-icon-remove:hover {
+        background: var(--secondary-color);
+        transform: translateY(-2px);
+      }
+      .fas.fa-times {
+        color: #000;
+      }
+
 
       .btn-primary:hover {
         background: var(--secondary-color);

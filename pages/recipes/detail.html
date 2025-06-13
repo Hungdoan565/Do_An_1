@@ -44,7 +44,7 @@
             <li class="nav-item">
               <a class="nav-link" href="../index.html">Trang chủ</a>
             </li>
-           <!-- Dropdown Công thức -->
+            <!-- Dropdown Công thức -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -475,6 +475,9 @@
     <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script src="/assets/js/auth.js"></script>
     <script src="/assets/js/navbar-user.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
     <script>
       // Initialize AOS
       AOS.init({
@@ -503,71 +506,100 @@
       const recipeId = getQueryParam("id");
       const recipeSlug = getQueryParam("slug");
 
-      // 2. Gộp tất cả recipes lại
-      const allRecipes = [
-        ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
-        ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
-        ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
-        ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
-        ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
-        ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
-      ];
-
-      // 3. Tìm công thức theo id hoặc slug
-      let recipe = null;
-      if (recipeId) {
-        recipe = allRecipes.find((r) => r.id && r.id.toString() === recipeId);
-      } else if (recipeSlug) {
-        recipe = allRecipes.find((r) => r.slug === recipeSlug);
-      }
-
-      if (recipe) {
-        // Render động các phần
+      function renderRecipeDetail(recipe) {
+        if (!recipe) return;
+        window.currentRecipe = recipe; // Lưu lại công thức hiện tại để dùng cho favorite
         document.querySelector(".recipe-title").textContent = recipe.title;
         document.querySelector(".recipe-meta").innerHTML = `
-          <span><i class="fas fa-user"></i> ${recipe.author || "Ẩn danh"}</span>
+          <span><i class="fas fa-user"></i> ${
+            typeof recipe.author === "object" && recipe.author !== null
+              ? recipe.author.username ||
+                recipe.author.name ||
+                recipe.author.email ||
+                "Ẩn danh"
+              : recipe.author || "Ẩn danh"
+          }</span>
           <span><i class="fas fa-calendar"></i> ${recipe.date || ""}</span>
           <span><i class="fas fa-clock"></i> ${recipe.time || ""}</span>
-          <span><i class="fas fa-signal"></i> ${recipe.level || ""}</span>
+          <span><i class="fas fa-signal"></i> ${
+            recipe.level || recipe.difficulty || ""
+          }</span>
           <span><i class="fas fa-star"></i> ${
             recipe.rating
               ? recipe.rating + " (" + (recipe.reviews || 0) + " đánh giá)"
               : ""
           }</span>
         `;
-        document.querySelector(".recipe-image img").src =
-          recipe.image || "/assets/images/recipes/default.jpg";
+        // Xử lý ảnh: base64, url, hoặc fallback
+        let imgSrc = recipe.image;
+        if (
+          !imgSrc ||
+          imgSrc === "null" ||
+          imgSrc === "undefined" ||
+          imgSrc.trim() === ""
+        ) {
+          imgSrc = "/assets/images/recipes/default.jpg";
+        }
+        document.querySelector(".recipe-image img").src = imgSrc;
         document.querySelector(".recipe-image img").alt = recipe.title;
         // Nguyên liệu
         const ingredientsList = document.querySelector(".ingredients-list");
+        let ingredientsArr = [];
         if (Array.isArray(recipe.ingredients)) {
-          ingredientsList.innerHTML = recipe.ingredients
-            .map((i) => `<li>${i}</li>`)
+          ingredientsArr = recipe.ingredients;
+        } else if (
+          recipe.ingredients &&
+          typeof recipe.ingredients === "object"
+        ) {
+          ingredientsArr = Object.values(recipe.ingredients);
+        }
+        if (ingredientsArr.length > 0) {
+          ingredientsList.innerHTML = ingredientsArr
+            .map((i) =>
+              typeof i === "string"
+                ? `<li>${i}</li>`
+                : `<li>${
+                    i.name ? i.name + (i.amount ? " - " + i.amount : "") : ""
+                  }</li>`
+            )
             .join("");
+        } else {
+          ingredientsList.innerHTML =
+            '<li class="text-muted">Không có dữ liệu nguyên liệu.</li>';
         }
         // Các bước
         const stepsCol = document.querySelector(".col-lg-8");
+        let stepsArr = [];
         if (Array.isArray(recipe.steps)) {
+          stepsArr = recipe.steps;
+        } else if (recipe.steps && typeof recipe.steps === "object") {
+          stepsArr = Object.values(recipe.steps);
+        }
+        if (stepsArr.length > 0) {
           stepsCol.innerHTML =
             `<h3 class="mb-4">Các bước thực hiện</h3>` +
-            recipe.steps
+            stepsArr
               .map(
                 (step, idx) => `
             <div class="step-card">
               <div class="step-number">${idx + 1}</div>
-              <h5>${step.title || "Bước " + (idx + 1)}</h5>
+              <h5>${step.title || step.number || "Bước " + (idx + 1)}</h5>
               <p>${step.desc || step}</p>
             </div>
           `
               )
               .join("");
+        } else {
+          stepsCol.innerHTML =
+            '<div class="text-muted">Không có dữ liệu các bước thực hiện.</div>';
         }
         // Info card
         const infoCards = document.querySelectorAll(".info-card");
         if (infoCards.length >= 4) {
           infoCards[0].querySelector("p").textContent = recipe.time || "";
           infoCards[1].querySelector("p").textContent = recipe.servings || "";
-          infoCards[2].querySelector("p").textContent = recipe.level || "";
+          infoCards[2].querySelector("p").textContent =
+            recipe.level || recipe.difficulty || "";
           infoCards[3].querySelector("p").textContent = recipe.calories || "";
         }
         // Related recipes (ưu tiên lấy từ trường related nếu có, fallback cùng category)
@@ -651,6 +683,61 @@
         });
       }
 
+      // Ưu tiên lấy từ Firebase nếu có
+      if (recipeId) {
+        if (typeof fetchData === "function") {
+          fetchData("recipes/" + recipeId, function (data) {
+            console.log("Firebase data for recipeId", recipeId, data);
+            // Nếu có dữ liệu object từ Firebase thì luôn render, không fallback
+            if (data && typeof data === "object") {
+              renderRecipeDetail(data);
+            } else {
+              // Fallback sang file tĩnh chỉ khi không có dữ liệu Firebase
+              console.warn(
+                "Không tìm thấy công thức trên Firebase, fallback sang file tĩnh"
+              );
+              const allRecipes = [
+                ...(typeof recipesMonChinh !== "undefined"
+                  ? recipesMonChinh
+                  : []),
+                ...(typeof recipesTrangMieng !== "undefined"
+                  ? recipesTrangMieng
+                  : []),
+                ...(typeof recipesThucUong !== "undefined"
+                  ? recipesThucUong
+                  : []),
+                ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+                ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+                ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+              ];
+              const recipe = allRecipes.find(
+                (r) => r.id && r.id.toString() === recipeId
+              );
+              if (!recipe) {
+                document.querySelector(".recipe-content").innerHTML =
+                  '<div class="alert alert-danger">Không tìm thấy công thức này!</div>';
+              } else {
+                renderRecipeDetail(recipe);
+              }
+            }
+          });
+        }
+      } else if (recipeSlug) {
+        // Nếu có slug thì chỉ lấy từ file tĩnh
+        const allRecipes = [
+          ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+          ...(typeof recipesTrangMieng !== "undefined"
+            ? recipesTrangMieng
+            : []),
+          ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+          ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+          ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+          ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+        ];
+        const recipe = allRecipes.find((r) => r.slug === recipeSlug);
+        renderRecipeDetail(recipe);
+      }
+
       // Print recipe functionality
       document
         .querySelector(".print-btn")
@@ -712,10 +799,10 @@
         }
         const favKey = getFavKey(user);
         let favIds = JSON.parse(localStorage.getItem(favKey) || "[]");
-        const idx = favIds.indexOf(recipe.id);
+        const idx = favIds.indexOf(window.currentRecipe.id);
         let isFav;
         if (idx === -1) {
-          favIds.push(recipe.id);
+          favIds.push(window.currentRecipe.id);
           isFav = true;
         } else {
           favIds.splice(idx, 1);
@@ -723,12 +810,25 @@
         }
         localStorage.setItem(favKey, JSON.stringify(favIds));
         setFavoriteState(isFav);
-        // Nếu có trang profile đang mở, khi quay lại sẽ tự đồng bộ số lượng
       }
       // Khởi tạo trạng thái nút
-      setFavoriteState(isRecipeFavorite(recipe.id));
-      // Sự kiện click
-      document.querySelector(".favorite-btn").onclick = toggleFavorite;
+      document.addEventListener("DOMContentLoaded", function () {
+        if (window.currentRecipe) {
+          setFavoriteState(isRecipeFavorite(window.currentRecipe.id));
+        }
+        const favBtn = document.querySelector(".favorite-btn");
+        if (favBtn) favBtn.onclick = toggleFavorite;
+      });
+
+      // Khai báo allRecipes toàn cục để dùng cho related recipes
+      var allRecipes = [
+        ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+        ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
+        ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+        ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+        ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+        ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+      ];
     </script>
   </body>
 </html>

@@ -396,24 +396,13 @@
     <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script src="/assets/js/auth.js"></script>
     <script src="/assets/js/navbar-user.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
     <script>
-      // Hiển thị nút chia sẻ công thức nếu đã đăng nhập (member/admin)
-      document.addEventListener("DOMContentLoaded", function () {
-        const user = window.getCurrentUser && window.getCurrentUser();
-        if (user && (user.role === "member" || user.role === "admin")) {
-          document.getElementById("addRecipeNavBtn").style.display = "";
-        }
-      });
-    </script>
-    <script>
-      // Initialize AOS
-      AOS.init({
-        duration: 800,
-        once: true,
-      });
-
-      // Gộp tất cả công thức
-      const recipes = [
+      // --- LẤY CÔNG THỨC TỪ FIREBASE VÀ FILE TĨNH ---
+      let firebaseRecipes = [];
+      let staticRecipes = [
         ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
         ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),
         ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
@@ -421,8 +410,111 @@
         ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
         ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
       ];
+      let recipes = [];
 
-      // Map category slug sang tên tiếng Việt
+      function mergeRecipes(firebaseList, staticList) {
+        // Nếu firebaseList rỗng, trả về staticList (giữ nguyên thứ tự cũ)
+        if (!firebaseList || firebaseList.length === 0)
+          return staticList.slice();
+        // Nếu có firebase, ưu tiên firebase lên đầu, loại bỏ trùng id
+        const ids = new Set();
+        const merged = [];
+        firebaseList.forEach((r) => {
+          if (r && r.id && !ids.has(r.id)) {
+            merged.push(r);
+            ids.add(r.id);
+          }
+        });
+        staticList.forEach((r) => {
+          if (r && r.id && !ids.has(r.id)) {
+            merged.push(r);
+            ids.add(r.id);
+          }
+        });
+        return merged;
+      }
+
+      function loadAndRenderRecipes() {
+        if (typeof fetchData === "function") {
+          fetchData(
+            "recipes",
+            function (data) {
+              firebaseRecipes = [];
+              if (data) {
+                firebaseRecipes = Object.entries(data)
+                  .map(([id, r]) => ({ ...r, id }))
+                  .filter(
+                    (r) =>
+                      r &&
+                      (r.pending === false ||
+                        r.pending === "false" ||
+                        r.status?.toLowerCase() === "approved" ||
+                        r.status?.toLowerCase() === "đã duyệt")
+                  );
+                // Sắp xếp mới nhất lên đầu
+                firebaseRecipes.sort(
+                  (a, b) => (b.createdAt || 0) - (a.createdAt || 0)
+                );
+              }
+              recipes = mergeRecipes(firebaseRecipes, staticRecipes);
+              // Sắp xếp: bài đã duyệt lên đầu, trong mỗi nhóm sort theo createdAt mới nhất
+              recipes.sort((a, b) => {
+                // Đã duyệt lên đầu
+                const aApproved =
+                  a.pending === false ||
+                  a.pending === "false" ||
+                  (a.status &&
+                    ["approved", "đã duyệt"].includes(
+                      (a.status + "").toLowerCase()
+                    ));
+                const bApproved =
+                  b.pending === false ||
+                  b.pending === "false" ||
+                  (b.status &&
+                    ["approved", "đã duyệt"].includes(
+                      (b.status + "").toLowerCase()
+                    ));
+                if (aApproved !== bApproved) return bApproved - aApproved;
+                // Trong mỗi nhóm, sort theo createdAt mới nhất
+                return (b.createdAt || 0) - (a.createdAt || 0);
+              });
+              // Nếu sau khi merge mà không có công thức nào (cả firebase và tĩnh đều rỗng), fallback về staticRecipes
+              if (!recipes || recipes.length === 0)
+                recipes = staticRecipes.slice();
+              if (typeof renderRecipes === "function") {
+                filteredRecipes = recipes;
+                currentPage = 1;
+                renderRecipes(currentPage);
+              }
+            },
+            function () {
+              // Nếu fetchData lỗi, fallback về staticRecipes
+              recipes = staticRecipes.slice();
+              if (typeof renderRecipes === "function") {
+                filteredRecipes = recipes;
+                currentPage = 1;
+                renderRecipes(currentPage);
+              }
+            }
+          );
+        } else {
+          // Nếu không có fetchData, fallback về staticRecipes
+          recipes = staticRecipes.slice();
+          if (typeof renderRecipes === "function") {
+            filteredRecipes = recipes;
+            currentPage = 1;
+            renderRecipes(currentPage);
+          }
+        }
+      }
+      // Gọi khi DOM ready
+      if (document.readyState === "loading") {
+        document.addEventListener("DOMContentLoaded", loadAndRenderRecipes);
+      } else {
+        loadAndRenderRecipes();
+      }
+
+      // Gộp tất cả công thức
       const categoryMap = {
         "Tất cả": "all",
         "Món chính": "mon-chinh",
@@ -467,20 +559,31 @@
       let currentPage = 1;
 
       function renderRecipes(page = 1) {
+        console.log("recipes:", recipes);
+        console.log("filteredRecipes:", filteredRecipes);
         const start = (page - 1) * PAGE_SIZE;
         const end = start + PAGE_SIZE;
         const pageRecipes = filteredRecipes.slice(start, end);
+        console.log("pageRecipes:", pageRecipes);
         const recipeGrid = document.getElementById("recipeGrid");
         recipeGrid.innerHTML = pageRecipes
-          .map(
-            (recipe) => `
+          .map((recipe) => {
+            // Xử lý ảnh: nếu là base64 hoặc url thì dùng, nếu không có hoặc là chuỗi rỗng/null/undefined thì dùng ảnh mặc định
+            let imgSrc = recipe.image;
+            if (
+              !imgSrc ||
+              imgSrc === "null" ||
+              imgSrc === "undefined" ||
+              imgSrc.trim() === ""
+            ) {
+              imgSrc = "/assets/images/recipes/default.jpg";
+            }
+            return `
       <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
         <div class="recipe-card w-100" data-id="${
           recipe.id
-        }" style="cursor:pointer">
-          <img src="${recipe.image}" class="recipe-image w-100" alt="${
-              recipe.title
-            }">
+        }" style="cursor:pointer;">
+          <img src="${imgSrc}" class="recipe-image w-100" alt="${recipe.title}">
           <div class="recipe-info">
             <h3 class="recipe-title">${recipe.title}</h3>
             <p class="text-muted mb-3">${(() => {
@@ -492,7 +595,14 @@
             <div class="recipe-meta">
               <span><i class="fas fa-clock"></i> ${recipe.time} phút</span>
               <span><i class="fas fa-star"></i> ${recipe.rating}</span>
-              <span><i class="fas fa-user"></i> ${recipe.author || ""}</span>
+              <span><i class="fas fa-user"></i> ${
+                typeof recipe.author === "object" && recipe.author !== null
+                  ? recipe.author.username ||
+                    recipe.author.name ||
+                    recipe.author.email ||
+                    "Ẩn danh"
+                  : recipe.author || "Ẩn danh"
+              }</span>
             </div>
             <div class="recipe-meta mt-2">
               <span><i class="fas fa-signal"></i> ${
@@ -507,9 +617,18 @@
           </div>
         </div>
       </div>
-    `
-          )
+    `;
+          })
           .join("");
+        // Khởi tạo lại AOS sau khi render
+        if (window.AOS && typeof AOS.init === "function") {
+          AOS.init();
+        }
+        // Log số lượng card thực tế trong DOM
+        setTimeout(() => {
+          const cards = document.querySelectorAll(".recipe-card");
+          console.log("Số lượng .recipe-card trong DOM:", cards.length);
+        }, 100);
         renderPagination();
       }
 

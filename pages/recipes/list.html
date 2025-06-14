@@ -19,9 +19,7 @@
     />
     <link rel="stylesheet" href="/assets/css/pages/list.css" />
     <!-- <link rel="stylesheet" href="/assets/css/pages/index.css" /> -->
-    <style>
-     
-    </style>
+    <style></style>
   </head>
 
   <body>
@@ -615,6 +613,9 @@
                     "Ẩn danh"
                   : recipe.author || "Ẩn danh"
               }</span>
+              <span class="recipe-comments" data-id="${
+                recipe.id
+              }"><i class="far fa-comment"></i> <span class="comment-count">...</span></span>
             </div>
             <div class="recipe-meta mt-2">
               <span><i class="fas fa-signal"></i> ${
@@ -632,6 +633,21 @@
     `;
           })
           .join("");
+        // Lấy số bình luận cho từng công thức
+        pageRecipes.forEach((recipe) => {
+          if (!recipe.id) return;
+          var db = firebase.database();
+          db.ref("comments/" + recipe.id)
+            .once("value")
+            .then(function (snap) {
+              const comments = snap.val() || {};
+              const count = Object.keys(comments).length;
+              const el = document.querySelector(
+                `.recipe-comments[data-id='${recipe.id}'] .comment-count`
+              );
+              if (el) el.textContent = count;
+            });
+        });
         // Khởi tạo lại AOS sau khi render
         if (window.AOS && typeof AOS.init === "function") {
           AOS.init();

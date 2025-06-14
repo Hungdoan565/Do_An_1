@@ -610,8 +610,87 @@
             applyFadeInToProfileCards("#favoriteRecipeList", ".recipe-card");
         }, 400);
       }
+      // Lấy toàn bộ công thức từ Firebase
+      function fetchAllRecipesFromFirebase(callback) {
+        if (typeof firebase === "undefined" || !firebase.database) {
+          callback([]);
+          return;
+        }
+        firebase
+          .database()
+          .ref("/recipes")
+          .once("value", function (snapshot) {
+            const data = snapshot.val();
+            const recipes = [];
+            for (const key in data) {
+              if (data.hasOwnProperty(key)) {
+                const recipe = data[key];
+                recipe.id = key;
+                recipes.push(recipe);
+              }
+            }
+            callback(recipes);
+          });
+      }
+
+      // Render số liệu công thức dựa trên dữ liệu từ Firebase
+      function renderUserInfoWithFirebase() {
+        const user = getCurrentUser();
+        if (!user) return;
+        fetchAllRecipesFromFirebase(function (allRecipes) {
+          // Đếm số công thức của user (hỗ trợ author là object có email)
+          const myRecipeCount = allRecipes.filter(
+            (r) =>
+              (r.author && r.author.email === user.email) ||
+              r.authorEmail === user.email ||
+              r.author === user.email ||
+              r.author === user.name
+          ).length;
+          // Render số liệu lên profile
+          const recipeCountEl = document.getElementById("profileRecipeCount");
+          if (recipeCountEl) {
+            // Chỉ cập nhật số trong .stat-number, giữ nguyên UI gốc
+            let statNumber = recipeCountEl.querySelector(".stat-number");
+            if (!statNumber) {
+              // Nếu chưa có, tạo mới
+              statNumber = document.createElement("span");
+              statNumber.className = "stat-number";
+              recipeCountEl.appendChild(statNumber);
+            }
+            statNumber.textContent = myRecipeCount;
+            // Xóa nút .stat-action cũ nếu có
+            const oldAction = recipeCountEl.querySelector(".stat-action");
+            if (oldAction) oldAction.remove();
+            if (myRecipeCount === 0) {
+              // Thêm nút Đăng ngay bên dưới số
+              const btn = document.createElement("a");
+              btn.href = "/pages/user/add-recipe.html";
+              btn.className = "btn btn-primary btn-sm mt-2 stat-action";
+              btn.innerHTML = "<i class='fas fa-plus me-1'></i>Đăng ngay";
+              recipeCountEl.appendChild(btn);
+              recipeCountEl.setAttribute("data-bs-toggle", "tooltip");
+              recipeCountEl.setAttribute("title", "Bạn chưa có công thức nào");
+            } else {
+              recipeCountEl.removeAttribute("data-bs-toggle");
+              recipeCountEl.removeAttribute("title");
+            }
+          }
+        });
+      }
+
       function renderUserInfo() {
         const user = getCurrentUser();
+        // Đếm lại số công thức thực tế của user
+        let myRecipeCount = 0;
+        if (user) {
+          const allRecipes = getAllRecipes();
+          myRecipeCount = allRecipes.filter(
+            (r) =>
+              r.authorEmail === user.email ||
+              r.author === user.email ||
+              r.author === user.name
+          ).length;
+        }
         // Navbar
         if (user) {
           const navbarAvatar = document.getElementById("navbarAvatar");
@@ -652,8 +731,8 @@
           // Số liệu (nếu có)
           const recipeCountEl = document.getElementById("profileRecipeCount");
           if (recipeCountEl) {
-            if (user.recipeCount && user.recipeCount > 0) {
-              recipeCountEl.innerHTML = `<i class='fas fa-utensils me-1 text-primary'></i> <span class='stat-number'>${user.recipeCount}</span>`;
+            if (myRecipeCount > 0) {
+              recipeCountEl.innerHTML = `<i class='fas fa-utensils me-1 text-primary'></i> <span class='stat-number'>${myRecipeCount}</span>`;
               recipeCountEl.removeAttribute("data-bs-toggle");
               recipeCountEl.removeAttribute("title");
               if (
@@ -668,7 +747,6 @@
               recipeCountEl.innerHTML = `<i class='fas fa-utensils fa-2x text-danger' data-bs-toggle='tooltip' title='Bạn chưa có công thức nào'></i><div class='stat-number text-muted mt-1 '>0</div><a href='/pages/user/add-recipe.html' class='btn btn-primary btn-sm mt-2'><i class='fas fa-plus me-1'></i>Đăng ngay</a>`;
               recipeCountEl.setAttribute("data-bs-toggle", "tooltip");
               recipeCountEl.setAttribute("title", "Bạn chưa có công thức nào");
-              // Không thêm stat-action nữa
             }
           }
           const favoriteCountEl = document.getElementById(
@@ -1035,7 +1113,7 @@
           if (typeof syncUserBlogsFromStorage === "function")
             syncUserBlogsFromStorage();
         }
-        renderUserInfo();
+        renderUserInfoWithFirebase();
         renderProfileHighlights();
         renderRecentUserRecipes();
         renderMyRecipes();
@@ -1576,6 +1654,72 @@
             renderMyBlogs();
           });
       }
+
+      // Render số liệu công thức và yêu thích đồng bộ như blog
+      function updateProfileStats({ recipeCount, favoriteCount, blogCount }) {
+        // Công thức
+        const recipeCountEl = document.getElementById("profileRecipeCount");
+        if (recipeCountEl) {
+          const statNumber = recipeCountEl.querySelector(".stat-number");
+          if (statNumber) {
+            statNumber.textContent = recipeCount;
+          } else {
+            // fallback nếu không có .stat-number (giữ nguyên giao diện)
+            recipeCountEl.innerHTML = `<i class='fas fa-utensils me-1 text-primary'></i> <span class='stat-number'>${recipeCount}</span>`;
+          }
+        }
+        // Yêu thích
+        const favoriteCountEl = document.getElementById("profileFavoriteCount");
+        if (favoriteCountEl) {
+          const statNumber = favoriteCountEl.querySelector(".stat-number");
+          if (statNumber) {
+            statNumber.textContent = favoriteCount;
+          } else {
+            favoriteCountEl.innerHTML = `<i class='fas fa-heart me-1 text-danger'></i> <span class='stat-number'>${favoriteCount}</span>`;
+          }
+        }
+        // Blog
+        const blogCountEl = document.getElementById("profileBlogCount");
+        if (blogCountEl) {
+          const statNumber = blogCountEl.querySelector(".stat-number");
+          if (statNumber) {
+            statNumber.textContent = blogCount;
+          } else {
+            blogCountEl.innerHTML = `<i class='fas fa-blog fa-2x text-danger'></i> <span class='stat-number text-muted'>${blogCount}</span>`;
+          }
+        }
+      }
+
+      // Hàm đồng bộ số liệu profile ngay khi load trang
+      function syncProfileStats() {
+        const user = getCurrentUser();
+        if (!user) return;
+        // Lấy blogCount từ user.blogCount (đã đồng bộ đúng)
+        const blogCount = user.blogCount || 0;
+        // Lấy công thức từ Firebase
+        fetchAllRecipesFromFirebase(function (allRecipes) {
+          const myRecipeCount = allRecipes.filter(
+            (r) =>
+              r.authorEmail === user.email ||
+              r.author === user.email ||
+              r.author === user.name
+          ).length;
+          // Lấy favorite từ localStorage (đồng bộ như tab Yêu thích)
+          const favKey = "favoriteRecipes_" + user.email;
+          const favIds = JSON.parse(localStorage.getItem(favKey) || "[]");
+          updateProfileStats({
+            recipeCount: myRecipeCount,
+            favoriteCount: favIds.length,
+            blogCount,
+          });
+        });
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // ...existing code...
+        syncProfileStats();
+        // ...existing code...
+      });
     </script>
   </body>
 </html>

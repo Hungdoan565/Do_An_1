@@ -34,7 +34,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/index.html">Trang chủ</a>
             </li>
-           <!-- Dropdown Công thức -->
+            <!-- Dropdown Công thức -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -308,6 +308,10 @@
                 '<div class="alert alert-danger">Bài viết không tồn tại!</div>';
               return;
             }
+            // --- TĂNG LƯỢT XEM ---
+            let newViews = (post.views || 0) + 1;
+            db.ref("blogs/" + id).update({ views: newViews });
+            post.views = newViews;
             const isAdmin = user && user.role === "admin";
             if (post.status !== "đã duyệt" && !isAdmin) {
               document.getElementById("blogDetail").innerHTML =
@@ -328,6 +332,9 @@
                 }</span>
                 <span><i class="far fa-calendar"></i> ${post.date || ""}</span>
                 <span><i class="far fa-clock"></i> ${post.readTime || ""}</span>
+                <span><i class="fas fa-eye"></i> Lượt xem: ${
+                  post.views || 1
+                }</span>
               </div>
               <img src="${post.image}" alt="${
               post.title

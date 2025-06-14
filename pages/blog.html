@@ -129,29 +129,8 @@
         <div class="col-lg-8">
           <!-- Search Box -->
           <div
-            class="search-box mb-5 d-flex align-items-center gap-3 flex-nowrap"
+            class="search-box mb-4 d-flex align-items-center gap-3 flex-nowrap"
           >
-            <select
-              class="form-select rounded-pill text-center"
-              id="categoryFilter"
-              style="
-                min-width: 140px;
-                height: 44px;
-                background: #fff;
-                border: 1px solid #e0e0e0;
-                font-size: 1rem;
-              "
-            >
-              <option value="">Tất cả tag</option>
-              <option value="Ẩm thực">Ẩm thực</option>
-              <option value="Món Việt">Món Việt</option>
-              <option value="Ăn chay">Ăn chay</option>
-              <option value="Ăn vặt">Ăn vặt</option>
-              <option value="Healthy">Healthy</option>
-              <option value="Khai vị">Khai vị</option>
-              <option value="Truyền thống">Truyền thống</option>
-              <option value="Đồ uống">Đồ uống</option>
-            </select>
             <div
               class="search-input-group d-flex align-items-center flex-grow-1 bg-light rounded-pill px-3"
               style="height: 48px"
@@ -179,6 +158,26 @@
               <i class="fas fa-search me-2"></i>Tìm kiếm
             </button>
           </div>
+          <!-- Tag Checkbox Group: xuống hàng mới, margin nhỏ -->
+          <div
+            id="tagCheckboxGroup"
+            class="d-flex flex-wrap align-items-center gap-2 mb-3"
+            style="margin-left: 2px"
+          ></div>
+          <!-- Author Filter Dropdown: xuống hàng mới, margin nhỏ -->
+          <div
+            class="mb-3 d-flex align-items-center gap-2"
+            id="authorFilterRow"
+          >
+            <label for="authorFilter" class="mb-0 fw-semibold">Tác giả:</label>
+            <select
+              id="authorFilter"
+              class="form-select w-auto rounded-3 text-center"
+              style="min-width: 160px"
+            >
+              <option value="">Tất cả tác giả</option>
+            </select>
+          </div>
           <!-- Sort Dropdown -->
           <div
             class="sort-section d-flex justify-content-end align-items-center my-3"
@@ -199,8 +198,7 @@
             >
               <option value="">Mặc định</option>
               <option value="newest">Mới nhất</option>
-            
-              
+              <option value="views">Lượt xem nhiều nhất</option>
             </select>
           </div>
 
@@ -592,10 +590,12 @@
         );
         // --- Lấy tất cả tag thực tế từ các bài blog đã duyệt ---
         let allTags = [];
+        let allAuthors = [];
         allApprovedPosts.forEach((post) => {
           if (Array.isArray(post.tags)) allTags = allTags.concat(post.tags);
+          if (post.author) allAuthors.push(post.author);
         });
-        // Chuẩn hóa: Viết hoa chữ cái đầu, các chữ còn lại thường, loại trùng (không phân biệt hoa thường)
+        // Chuẩn hóa tag
         function normalizeTag(tag) {
           tag = tag.trim();
           if (!tag) return "";
@@ -609,18 +609,50 @@
         });
         const uniqueTags = Array.from(tagSet.values());
         uniqueTags.sort((a, b) => a.localeCompare(b, "vi"));
-        // Render lại dropdown tag
-        const catFilter = document.getElementById("categoryFilter");
-        if (catFilter) {
-          let html = '<option value="">Tất cả tag</option>';
-          uniqueTags.forEach((tag) => {
-            html += `<option value="${tag}">${tag}</option>`;
+        // Render lại checkbox tag
+        const tagGroup = document.getElementById("tagCheckboxGroup");
+        if (tagGroup) {
+          tagGroup.innerHTML = uniqueTags
+            .map(
+              (tag, i) =>
+                `<label class='form-check-label me-2 mb-1'><input type='checkbox' class='form-check-input tag-checkbox' value='${tag}'> ${tag}</label>`
+            )
+            .join("");
+        }
+        // Render dropdown tác giả
+        const authorFilter = document.getElementById("authorFilter");
+        if (authorFilter) {
+          const uniqueAuthors = Array.from(new Set(allAuthors.filter(Boolean)));
+          uniqueAuthors.sort((a, b) => a.localeCompare(b, "vi"));
+          let html = '<option value="">Tất cả tác giả</option>';
+          uniqueAuthors.forEach((author) => {
+            html += `<option value="${author}">${author}</option>`;
           });
-          catFilter.innerHTML = html;
+          authorFilter.innerHTML = html;
         }
         renderBlogPosts(allApprovedPosts, blogCurrentPage);
         renderPopularPosts(allApprovedPosts);
       });
+
+      // Hàm lấy timestamp chuẩn cho bài blog
+      function getPostTime(post) {
+        if (post.createdAt && !isNaN(Number(post.createdAt)))
+          return Number(post.createdAt);
+        if (post.date) {
+          // Hỗ trợ cả dạng dd/MM/yyyy và yyyy-MM-dd
+          if (/^\d{2}\/\d{2}\/\d{4}$/.test(post.date)) {
+            const [day, month, year] = post.date.split("/").map(Number);
+            return new Date(year, month - 1, day).getTime();
+          } else if (/^\d{4}-\d{2}-\d{2}/.test(post.date)) {
+            return new Date(post.date).getTime();
+          } else {
+            // Thử parse bình thường
+            const t = Date.parse(post.date);
+            if (!isNaN(t)) return t;
+          }
+        }
+        return 0;
+      }
 
       // Xử lý tìm kiếm và lọc
       function filterAndSearchPosts() {
@@ -628,22 +660,32 @@
           .getElementById("searchInput")
           .value.trim()
           .toLowerCase();
-        const category = document
-          .getElementById("categoryFilter")
-          .value.trim()
-          .toLowerCase();
+        // Lấy các tag đã chọn
+        const checkedTags = Array.from(
+          document.querySelectorAll(".tag-checkbox:checked")
+        ).map((el) => el.value.trim().toLowerCase());
+        // Lấy tác giả đã chọn
+        const author = document.getElementById("authorFilter")?.value.trim();
         let filtered = allApprovedPosts;
         if (keyword) {
           filtered = filtered.filter(
             (post) => post.title && post.title.toLowerCase().includes(keyword)
           );
-        } else if (category) {
+        }
+        if (checkedTags.length > 0) {
           filtered = filtered.filter(
             (post) =>
               post.tags &&
-              post.tags.some((tag) => tag.trim().toLowerCase() === category)
+              post.tags.some((tag) =>
+                checkedTags.includes(tag.trim().toLowerCase())
+              )
           );
         }
+        if (author) {
+          filtered = filtered.filter((post) => post.author === author);
+        }
+        // Luôn sort mới nhất lên đầu
+        filtered.sort((a, b) => getPostTime(b) - getPostTime(a));
         blogCurrentPage = 1;
         renderBlogPosts(filtered, blogCurrentPage);
       }
@@ -656,9 +698,15 @@
         .addEventListener("keyup", function (e) {
           if (e.key === "Enter") filterAndSearchPosts();
         });
-      document
-        .getElementById("categoryFilter")
-        .addEventListener("change", filterAndSearchPosts);
+      // Lắng nghe thay đổi checkbox tag, author (bỏ lắng nghe dateFrom/dateTo)
+      document.addEventListener("change", function (e) {
+        if (
+          e.target.classList.contains("tag-checkbox") ||
+          e.target.id === "authorFilter"
+        ) {
+          filterAndSearchPosts();
+        }
+      });
 
       // --- Đếm số lượng công thức theo category giống index.html ---
       function tagToSlug(tag) {
@@ -735,9 +783,9 @@
         .addEventListener("change", function () {
           const value = this.value;
           if (value === "newest") {
-            blogFilteredPosts.sort(
-              (a, b) => new Date(b.date) - new Date(a.date)
-            );
+            blogFilteredPosts.sort((a, b) => getPostTime(b) - getPostTime(a));
+          } else if (value === "views") {
+            blogFilteredPosts.sort((a, b) => (b.views || 0) - (a.views || 0));
           } else if (value === "rating") {
             blogFilteredPosts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
           } else if (value === "time") {
@@ -746,9 +794,7 @@
             );
           } else {
             // Mặc định: sort theo ngày mới nhất
-            blogFilteredPosts.sort(
-              (a, b) => new Date(b.date) - new Date(a.date)
-            );
+            blogFilteredPosts.sort((a, b) => getPostTime(b) - getPostTime(a));
           }
           blogCurrentPage = 1;
           renderBlogPosts(blogFilteredPosts, blogCurrentPage);

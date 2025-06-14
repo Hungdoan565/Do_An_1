@@ -213,6 +213,20 @@
                 </div>
               </div>
             </div>
+            <div class="row mb-4">
+              <div class="col-md-3">
+                <div class="stat-card">
+                  <div class="stat-title">Công thức đã duyệt</div>
+                  <div class="stat-value" id="statRecipeApproved">0</div>
+                </div>
+              </div>
+              <div class="col-md-3">
+                <div class="stat-card">
+                  <div class="stat-title">Công thức chờ duyệt</div>
+                  <div class="stat-value" id="statRecipePending">0</div>
+                </div>
+              </div>
+            </div>
           </div>
           <!-- Người dùng Tab -->
           <div class="tab-section" id="tab-users">
@@ -382,6 +396,7 @@
       // Thống kê và duyệt bài
       function renderStatsAndPendingBlogs() {
         var db = firebase.database();
+        // Thống kê blog
         db.ref("blogs")
           .once("value")
           .then(function (snapshot) {
@@ -444,12 +459,30 @@
                   )
                   .join("")
               : '<tr><td colspan="6" class="text-center">Không có bài đã duyệt</td></tr>';
-            // Cập nhật biểu đồ trạng thái blog
-            updateBlogStatusChart(
-              approved.length,
-              pending.length,
-              all.length - approved.length - pending.length
-            );
+            // Thống kê công thức
+            db.ref("recipes")
+              .once("value")
+              .then(function (snapshot2) {
+                const recipes = snapshot2.val() || {};
+                const allRecipes = Object.values(recipes);
+                const approvedRecipes = allRecipes.filter(
+                  (r) => r.pending === false
+                );
+                const pendingRecipes = allRecipes.filter(
+                  (r) => r.pending !== false
+                );
+                document.getElementById("statRecipeApproved").textContent =
+                  approvedRecipes.length;
+                document.getElementById("statRecipePending").textContent =
+                  pendingRecipes.length;
+                // Cập nhật biểu đồ trạng thái blog + công thức
+                updateBlogAndRecipeStatusChart(
+                  approved.length,
+                  pending.length,
+                  approvedRecipes.length,
+                  pendingRecipes.length
+                );
+              });
           });
         // Thống kê user
         let users = JSON.parse(localStorage.getItem("users") || "[]");
@@ -556,8 +589,45 @@
           },
         });
       }
+      function updateBlogAndRecipeStatusChart(
+        blogApproved,
+        blogPending,
+        recipeApproved,
+        recipePending
+      ) {
+        const ctx = document.getElementById("blogStatusChart").getContext("2d");
+        if (blogStatusChart) blogStatusChart.destroy();
+        blogStatusChart = new Chart(ctx, {
+          type: "doughnut",
+          data: {
+            labels: [
+              "Blog đã duyệt",
+              "Blog chờ duyệt",
+              "Công thức đã duyệt",
+              "Công thức chờ duyệt",
+            ],
+            datasets: [
+              {
+                data: [
+                  blogApproved,
+                  blogPending,
+                  recipeApproved,
+                  recipePending,
+                ],
+                backgroundColor: ["#d61c4e", "#ffc107", "#8884d8", "#4bc0c0"],
+              },
+            ],
+          },
+          options: {
+            plugins: { legend: { position: "bottom" } },
+            cutout: "65%",
+            responsive: true,
+          },
+        });
+      }
       function updateUserMonthChart(users) {
-        // Giả lập dữ liệu user theo tháng (nếu có trường createdAt dạng yyyy-mm hoặc timestamp)
+        // Loại bỏ admin
+        const filteredUsers = users.filter((u) => u.role !== "admin");
         const months = [
           "01",
           "02",
@@ -574,9 +644,10 @@
         ];
         const now = new Date();
         const year = now.getFullYear();
+        // Đếm user mới theo từng tháng
         const data = months.map(
           (m) =>
-            users.filter((u) => {
+            filteredUsers.filter((u) => {
               let dateStr = "";
               if (typeof u.createdAt === "number") {
                 const d = new Date(u.createdAt);
@@ -599,13 +670,21 @@
               {
                 label: "User mới",
                 data: data,
-                backgroundColor: "#d61c4e",
+                backgroundColor: months.map((m) => "#d61c4e"),
               },
             ],
           },
           options: {
             plugins: { legend: { position: "bottom" } },
             responsive: true,
+            scales: {
+              x: { title: { display: true, text: "Tháng" } },
+              y: {
+                title: { display: true, text: "Số user mới" },
+                beginAtZero: true,
+                precision: 0,
+              },
+            },
           },
         });
       }

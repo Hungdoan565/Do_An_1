@@ -308,10 +308,46 @@
                 '<div class="alert alert-danger">Bài viết không tồn tại!</div>';
               return;
             }
-            // --- TĂNG LƯỢT XEM ---
-            let newViews = (post.views || 0) + 1;
-            db.ref("blogs/" + id).update({ views: newViews });
-            post.views = newViews;
+            // --- TĂNG LƯỢT XEM CHỐNG ẢO VIEW ---
+            function shouldIncreaseView(blogId, user) {
+              if (user && user.uid) {
+                // Đã đăng nhập, lưu theo user
+                const key = `viewedBlogsByUser_${user.uid}`;
+                let viewed = [];
+                try {
+                  viewed = JSON.parse(localStorage.getItem(key)) || [];
+                } catch (e) {
+                  viewed = [];
+                }
+                if (!viewed.includes(blogId)) {
+                  viewed.push(blogId);
+                  localStorage.setItem(key, JSON.stringify(viewed));
+                  return true;
+                }
+                return false;
+              } else {
+                // Chưa đăng nhập, lưu theo trình duyệt
+                const key = "viewedBlogs";
+                let viewed = [];
+                try {
+                  viewed = JSON.parse(localStorage.getItem(key)) || [];
+                } catch (e) {
+                  viewed = [];
+                }
+                if (!viewed.includes(blogId)) {
+                  viewed.push(blogId);
+                  localStorage.setItem(key, JSON.stringify(viewed));
+                  return true;
+                }
+                return false;
+              }
+            }
+            // --- END ---
+            if (shouldIncreaseView(id, user)) {
+              let newViews = (post.views || 0) + 1;
+              db.ref("blogs/" + id).update({ views: newViews });
+              post.views = newViews;
+            }
             const isAdmin = user && user.role === "admin";
             if (post.status !== "đã duyệt" && !isAdmin) {
               document.getElementById("blogDetail").innerHTML =

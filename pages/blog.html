@@ -466,28 +466,29 @@
         document.getElementById("blogPosts").innerHTML = pagePosts
           .map(
             (post) => `
-      <div class="col-md-6 mb-4" data-aos="fade-up">
-        <a href="/pages/blog-detail.html?id=${
-          post.id
-        }" class="blog-card d-block" data-id="${post.id}">
-          <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
-          <div class="blog-content">
-            <h3 class="blog-title">${post.title}</h3>
-            <div class="blog-meta">
-              <span><i class="fas fa-user"></i> ${post.author}</span>
-              <span><i class="far fa-calendar"></i> ${post.date}</span>
-              <span><i class="far fa-clock"></i> ${post.readTime}</span>
-            </div>
-            <p class="blog-excerpt">${post.excerpt}</p>
-            <div class="blog-tags">
-              ${(post.tags || [])
-                .map((tag) => `<span class="blog-tag">${tag}</span>`)
-                .join("")}
-            </div>
-          </div>
-        </a>
+  <div class="col-md-6 mb-4" data-aos="fade-up">
+    <a href="/pages/blog-detail.html?id=${
+      post.id
+    }" class="blog-card d-block" data-id="${post.id}">
+      <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
+      <div class="blog-content">
+        <h3 class="blog-title">${post.title}</h3>
+        <div class="blog-meta">
+          <span><i class="fas fa-user"></i> ${post.author}</span>
+          <span><i class="far fa-calendar"></i> ${post.date}</span>
+          <span><i class="far fa-clock"></i> ${post.readTime}</span>
+          <span><i class="fas fa-eye"></i> ${post.views || 0}</span>
+        </div>
+        <p class="blog-excerpt">${post.excerpt}</p>
+        <div class="blog-tags">
+          ${(post.tags || [])
+            .map((tag) => `<span class="blog-tag">${tag}</span>`)
+            .join("")}
+        </div>
       </div>
-    `
+    </a>
+  </div>
+`
           )
           .join("");
         renderBlogPagination(posts.length, page);

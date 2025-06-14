@@ -664,9 +664,7 @@
             if (myRecipeCount === 0) {
               // Thêm nút Đăng ngay bên dưới số
               const btn = document.createElement("a");
-              btn.href = "/pages/user/add-recipe.html";
-              btn.className = "btn btn-primary btn-sm mt-2 stat-action";
-              btn.innerHTML = "<i class='fas fa-plus me-1'></i>Đăng ngay";
+             
               recipeCountEl.appendChild(btn);
               recipeCountEl.setAttribute("data-bs-toggle", "tooltip");
               recipeCountEl.setAttribute("title", "Bạn chưa có công thức nào");

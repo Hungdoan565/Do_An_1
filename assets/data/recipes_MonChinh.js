@@ -1018,7 +1018,16 @@ const recipesMonChinh = [
       "description": "Bánh flan mềm mịn, béo ngậy với lớp caramel vàng óng ngọt ngào, là món tráng miệng hấp dẫn.",
       "time": 30,
       "rating": 4.6
-    }
+    },
+    {
+       "id": "bo-kho-banh-mi",
+      "title": "Bò Kho Bánh Mì",
+      "image": "/assets/images/mon-an/mon-chinh/bokhobanhmi.jpg",
+      "description": "Bò kho thơm nồng vị sả, thịt bò mềm nhừ, nước sốt sánh mịn, ăn kèm bánh mì giòn tan, là món ăn sáng hoặc bữa chính hấp dẫn.",
+      "time": 80,
+      "rating": 4.8
+    },
+    
   ]
 },
   {

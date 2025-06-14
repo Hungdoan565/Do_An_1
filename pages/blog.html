@@ -116,7 +116,7 @@
     <header class="page-header">
       <div class="container">
         <h1 class="display-4 fw-bold mb-4">Blog Ẩm Thực</h1>
-        <p class="lead" style="font-size: 1.7rem;">
+        <p class="lead" style="font-size: 1.7rem">
           Khám phá văn hóa ẩm thực Việt Nam qua những câu chuyện thú vị
         </p>
       </div>
@@ -178,6 +178,30 @@
             >
               <i class="fas fa-search me-2"></i>Tìm kiếm
             </button>
+          </div>
+          <!-- Sort Dropdown -->
+          <div
+            class="sort-section d-flex justify-content-end align-items-center my-3"
+          >
+            <label for="sortSelect" class="me-2 fw-semibold"
+              >Sắp xếp theo:</label
+            >
+            <select
+              id="sortSelect"
+              class="form-select w-auto rounded-3 text-center"
+              style="
+                min-width: 140px;
+                height: 44px;
+                background: #fff;
+                border: 1px solid #e0e0e0;
+                font-size: 1rem;
+              "
+            >
+              <option value="">Mặc định</option>
+              <option value="newest">Mới nhất</option>
+            
+              
+            </select>
           </div>
 
           <!-- Blog Posts Grid -->
@@ -704,6 +728,31 @@
         if (sidebar) sidebar.innerHTML = html;
       }
       renderSidebarCategories();
+
+      // --- Sắp xếp theo dropdown giống list.html ---
+      document
+        .getElementById("sortSelect")
+        .addEventListener("change", function () {
+          const value = this.value;
+          if (value === "newest") {
+            blogFilteredPosts.sort(
+              (a, b) => new Date(b.date) - new Date(a.date)
+            );
+          } else if (value === "rating") {
+            blogFilteredPosts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+          } else if (value === "time") {
+            blogFilteredPosts.sort(
+              (a, b) => (a.readTime || 9999) - (b.readTime || 9999)
+            );
+          } else {
+            // Mặc định: sort theo ngày mới nhất
+            blogFilteredPosts.sort(
+              (a, b) => new Date(b.date) - new Date(a.date)
+            );
+          }
+          blogCurrentPage = 1;
+          renderBlogPosts(blogFilteredPosts, blogCurrentPage);
+        });
     </script>
   </body>
 </html>

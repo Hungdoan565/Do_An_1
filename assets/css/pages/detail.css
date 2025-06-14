@@ -176,14 +176,9 @@
         transition: all 0.3s ease;
       }
 
-      .save-btn {
+      .print-btn {
         background: var(--primary-color);
         color: white;
-      }
-
-      .print-btn {
-        background: var(--light-gray);
-        color: var(--text-color);
       }
 
       .action-btn:hover {

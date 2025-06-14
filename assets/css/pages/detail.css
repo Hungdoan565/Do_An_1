@@ -315,3 +315,14 @@
       .navbar .username, .navbar .username-box, .navbar .username * {
   color: #d61c4e !important;
 }
+.card-body{
+      border-radius: 20px;
+    box-shadow: 0 4px 25px rgba(0, 0, 0, 0.2);
+}
+.btn_gui{
+  background-color: var(--primary-color);
+  color: white;
+  padding: 6px 12px;
+  margin: 0 15px 0 0;
+  border: 1px solid var(--primary-color);
+}

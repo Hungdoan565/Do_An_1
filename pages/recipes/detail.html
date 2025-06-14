@@ -261,34 +261,20 @@
           </div>
         </div>
 
-        <!-- Comments Section -->
-        <div class="comments-section">
-          <h3 class="mb-4">Bình luận (12)</h3>
-          <div class="comment-card">
-            <div class="comment-header">
-              <img
-                src="/assets/images/users/user-1.jpg"
-                alt="User"
-                class="comment-avatar"
-              />
-              <div>
-                <h6 class="mb-1">Nguyễn Văn A</h6>
-                <div class="rating">
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                  <i class="fas fa-star"></i>
-                </div>
-              </div>
+        <!-- Bình luận -->
+      <div class="row mt-5">
+        <div class="col-lg-8">
+          <div class="card border-0 shadow-sm mb-4">
+            <div class="card-body">
+              <h5 class="fw-bold mb-3">
+                <i class="fas fa-comments me-2 text-success"></i>Bình luận
+              </h5>
+              <div id="commentList" class="mb-3"></div>
+              <div id="commentFormArea"></div>
             </div>
-            <p>
-              Công thức rất chi tiết và dễ làm theo. Nước dùng ngọt, thơm đúng
-              vị phở Nam Định. Cảm ơn tác giả!
-            </p>
           </div>
-          <!-- More comments... -->
         </div>
+      </div>
 
         <!-- Related Recipes -->
         <div class="related-recipes">
@@ -831,6 +817,92 @@
         ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
         ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
       ];
+
+      // --- Bình luận công thức: dùng Firebase, giống blog-detail ---
+      function getRecipeId() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get("id");
+      }
+
+      function renderRecipeCommentsArea(recipeId) {
+        const listEl = document.getElementById("commentList");
+        const formEl = document.getElementById("commentFormArea");
+        // Render danh sách bình luận từ Firebase
+        var db = firebase.database();
+        db.ref("comments/" + recipeId)
+          .once("value")
+          .then(function (snap) {
+            const comments = snap.val() || {};
+            listEl.innerHTML =
+              Object.values(comments).length > 0
+                ? Object.values(comments)
+                    .map(
+                      (c) =>
+                        `<div class="comment-item mb-3"><b>${c.username}</b>: ${c.content}<div class="text-muted small">${c.createdAt}</div></div>`
+                    )
+                    .join("")
+                : "<div class='text-muted'>Chưa có bình luận nào.</div>";
+          });
+        // Render form nhập bình luận nếu đã đăng nhập
+        const user = window.getCurrentUser && window.getCurrentUser();
+        if (user) {
+          formEl.innerHTML = `
+            <form id="commentForm" class="d-flex gap-2">
+              <input type="text" class="form-control" id="commentInput" placeholder="Nhập bình luận..." required />
+              <button class="btn btn_gui btn-primary" type="submit">Gửi</button>
+            </form>
+          `;
+          setTimeout(function () {
+            // Đảm bảo DOM đã cập nhật
+            const commentForm = document.getElementById("commentForm");
+            const commentInput = document.getElementById("commentInput");
+            if (!commentForm || !commentInput) {
+              console.error("Không tìm thấy form hoặc input bình luận!");
+              return;
+            }
+            // Gửi bình luận khi submit form hoặc nhấn Enter
+            commentForm.onsubmit = function (e) {
+              e.preventDefault();
+              const content = commentInput.value.trim();
+              const user = window.getCurrentUser && window.getCurrentUser();
+              if (!user || !user.uid) {
+                alert("Bạn cần đăng nhập lại để bình luận!");
+                return;
+              }
+              if (!content) return;
+              var db = firebase.database();
+              var newRef = db.ref("comments/" + recipeId).push();
+              newRef.set(
+                {
+                  userId: user.uid,
+                  username: user.username || user.email || "Ẩn danh",
+                  content: content,
+                  createdAt: new Date().toLocaleString("vi-VN"),
+                },
+                function () {
+                  commentInput.value = "";
+                  renderRecipeCommentsArea(recipeId);
+                }
+              );
+            };
+            // Đảm bảo nhấn Enter trong input cũng gửi bình luận
+            commentInput.addEventListener("keydown", function (e) {
+              if (e.key === "Enter") {
+                e.preventDefault();
+                commentForm.requestSubmit();
+              }
+            });
+          }, 0);
+        } else {
+          formEl.innerHTML = `<div class='text-muted'>Đăng nhập để bình luận.</div>`;
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        const recipeId = getRecipeId();
+        if (recipeId) renderRecipeCommentsArea(recipeId);
+        // ...existing code...
+      });
     </script>
   </body>
 </html>

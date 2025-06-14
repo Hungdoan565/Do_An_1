@@ -20,10 +20,7 @@
     <link rel="stylesheet" href="/assets/css/pages/list.css" />
     <!-- <link rel="stylesheet" href="/assets/css/pages/index.css" /> -->
     <style>
-      #navbarRecipeDropdown.nav-link::after,
-      #navbarBlogDropdown.nav-link::after {
-        display: none;
-      }
+     
     </style>
   </head>
 
@@ -191,15 +188,30 @@
     <!-- Main Content -->
     <div class="container">
       <!-- Search Box -->
-      <div class="search-box">
+      <div class="search-box position-relative">
         <input
           type="text"
           class="search-input"
           placeholder="Tìm kiếm công thức..."
+          id="searchInput"
+          autocomplete="off"
         />
         <button class="search-btn">
           <i class="fas fa-search me-2"></i>Tìm kiếm
         </button>
+        <!-- Autocomplete dropdown -->
+        <div
+          id="searchAutocomplete"
+          class="autocomplete-dropdown bg-white border rounded shadow-sm"
+          style="
+            position: absolute;
+            z-index: 1000;
+            top: 100%;
+            left: 0;
+            width: 100%;
+            display: none;
+          "
+        ></div>
       </div>
 
       <!-- Sort Dropdown -->
@@ -778,6 +790,87 @@
           });
         }
       });
+    </script>
+    <script>
+      // --- AUTOCOMPLETE TÌM KIẾM CÔNG THỨC ---
+      const searchInput = document.getElementById("searchInput");
+      const autocompleteBox = document.getElementById("searchAutocomplete");
+      let autocompleteItems = [];
+
+      function updateAutocompleteList() {
+        const val = searchInput.value.trim().toLowerCase();
+        if (!val || !recipes || recipes.length === 0) {
+          autocompleteBox.style.display = "none";
+          return;
+        }
+        // Lấy gợi ý từ tên món và tag
+        let suggestions = [];
+        const titleSet = new Set();
+        recipes.forEach((r) => {
+          if (r.title && r.title.toLowerCase().includes(val)) {
+            titleSet.add(r.title);
+          }
+          if (Array.isArray(r.tags)) {
+            r.tags.forEach((tag) => {
+              if (tag.toLowerCase().includes(val)) titleSet.add(tag);
+            });
+          }
+        });
+        suggestions = Array.from(titleSet).slice(0, 8); // Tối đa 8 gợi ý
+        if (suggestions.length === 0) {
+          autocompleteBox.style.display = "none";
+          return;
+        }
+        autocompleteBox.innerHTML = suggestions
+          .map(
+            (s) =>
+              `<div class='autocomplete-item px-3 py-2' style='cursor:pointer;'>${s.replace(
+                new RegExp(val, "gi"),
+                (m) => `<b>${m}</b>`
+              )}</div>`
+          )
+          .join("");
+        autocompleteBox.style.display = "block";
+        autocompleteItems = suggestions;
+      }
+      searchInput.addEventListener("input", updateAutocompleteList);
+      // Ẩn dropdown khi blur
+      searchInput.addEventListener("blur", function () {
+        setTimeout(() => (autocompleteBox.style.display = "none"), 150);
+      });
+      // Xử lý click chọn gợi ý
+      autocompleteBox.addEventListener("mousedown", function (e) {
+        if (e.target.classList.contains("autocomplete-item")) {
+          const text = e.target.textContent;
+          searchInput.value = text;
+          autocompleteBox.style.display = "none";
+          // Gọi hàm tìm kiếm nếu có
+          if (typeof doFilterAndRender === "function") {
+            doFilterAndRender();
+          } else {
+            // Nếu không có, filter thủ công
+            filterByKeyword(text);
+          }
+        }
+      });
+      // Hàm filter thủ công nếu không có doFilterAndRender
+      function filterByKeyword(keyword) {
+        if (!keyword) {
+          filteredRecipes = recipes;
+        } else {
+          filteredRecipes = recipes.filter(
+            (r) =>
+              (r.title &&
+                r.title.toLowerCase().includes(keyword.toLowerCase())) ||
+              (Array.isArray(r.tags) &&
+                r.tags.some((tag) =>
+                  tag.toLowerCase().includes(keyword.toLowerCase())
+                ))
+          );
+        }
+        currentPage = 1;
+        renderRecipes(currentPage);
+      }
     </script>
   </body>
 </html>

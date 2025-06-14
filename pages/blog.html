@@ -132,7 +132,7 @@
             class="search-box mb-4 d-flex align-items-center gap-3 flex-nowrap"
           >
             <div
-              class="search-input-group d-flex align-items-center flex-grow-1 bg-light rounded-pill px-3"
+              class="search-input-group d-flex align-items-center flex-grow-1 bg-light rounded-pill px-3 position-relative"
               style="height: 48px"
             >
               <span class="search-icon me-2 text-secondary"
@@ -149,7 +149,21 @@
                   height: 44px;
                   min-width: 120px;
                 "
+                autocomplete="off"
               />
+              <!-- Autocomplete dropdown đặt trong div cha position-relative -->
+              <div
+                id="searchAutocomplete"
+                class="autocomplete-dropdown bg-white border rounded shadow-sm"
+                style="
+                  position: absolute;
+                  z-index: 1000;
+                  top: 100%;
+                  left: 0;
+                  width: 100%;
+                  display: none;
+                "
+              ></div>
             </div>
             <button
               class="search-btn btn btn-primary rounded-pill px-4 fw-bold d-flex align-items-center me-0"
@@ -800,6 +814,78 @@
           blogCurrentPage = 1;
           renderBlogPosts(blogFilteredPosts, blogCurrentPage);
         });
+
+      // --- AUTOCOMPLETE TÌM KIẾM BLOG ---
+      const searchInput = document.getElementById("searchInput");
+      const autocompleteBox = document.getElementById("searchAutocomplete");
+      let autocompleteItems = [];
+      function updateAutocompleteList() {
+        const val = searchInput.value.trim().toLowerCase();
+        if (!val) {
+          autocompleteBox.style.display = "none";
+          return;
+        }
+        // Lấy gợi ý từ tiêu đề và tag
+        let suggestions = [];
+        const titleSet = new Set();
+        allApprovedPosts.forEach((post) => {
+          if (post.title && post.title.toLowerCase().includes(val)) {
+            titleSet.add(post.title);
+          }
+          if (Array.isArray(post.tags)) {
+            post.tags.forEach((tag) => {
+              if (tag.toLowerCase().includes(val)) titleSet.add(tag);
+            });
+          }
+        });
+        suggestions = Array.from(titleSet).slice(0, 8); // Tối đa 8 gợi ý
+        if (suggestions.length === 0) {
+          autocompleteBox.style.display = "none";
+          return;
+        }
+        autocompleteBox.innerHTML = suggestions
+          .map(
+            (s) =>
+              `<div class='autocomplete-item px-3 py-2' style='cursor:pointer;'>${s.replace(
+                new RegExp(val, "gi"),
+                (m) => `<b>${m}</b>`
+              )}</div>`
+          )
+          .join("");
+        autocompleteBox.style.display = "block";
+        autocompleteItems = suggestions;
+      }
+      searchInput.addEventListener("input", updateAutocompleteList);
+      // Ẩn dropdown khi blur
+      searchInput.addEventListener("blur", function () {
+        setTimeout(() => (autocompleteBox.style.display = "none"), 150);
+      });
+      // Xử lý click chọn gợi ý
+      autocompleteBox.addEventListener("mousedown", function (e) {
+        if (e.target.classList.contains("autocomplete-item")) {
+          const text = e.target.textContent;
+          searchInput.value = text;
+          autocompleteBox.style.display = "none";
+          filterAndSearchPosts();
+        }
+      });
     </script>
+    <style>
+      .autocomplete-dropdown {
+        max-height: 320px;
+        overflow-y: auto;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        border-radius: 0 0 12px 12px;
+        border-top: none;
+        min-width: 180px;
+      }
+      .autocomplete-item {
+        transition: background 0.2s;
+      }
+      .autocomplete-item:hover,
+      .autocomplete-item.active {
+        background: #f3f3f3;
+      }
+    </style>
   </body>
 </html>

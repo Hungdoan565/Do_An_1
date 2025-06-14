@@ -644,3 +644,23 @@
 .navbar .username, .navbar .username-box, .navbar .username * {
   color: #d61c4e !important;
 }
+
+ #navbarRecipeDropdown.nav-link::after,
+      #navbarBlogDropdown.nav-link::after {
+        display: none;
+      }
+      .autocomplete-dropdown {
+        max-height: 320px;
+        overflow-y: auto;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+        border-radius: 0 0 12px 12px;
+        border-top: none;
+        min-width: 180px;
+      }
+      .autocomplete-item {
+        transition: background 0.2s;
+      }
+      .autocomplete-item:hover,
+      .autocomplete-item.active {
+        background: #f3f3f3;
+      }

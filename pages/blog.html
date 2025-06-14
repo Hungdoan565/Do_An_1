@@ -18,75 +18,7 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/pages/blog.css" />
-    <!-- <link rel="stylesheet" href="/assets/css/pages/index.css" /> -->
-    <style>
-      /* ...existing code... */
-      .search-input-group select {
-        border: 1px solid #e0e0e0 !important;
-        background: #fff !important;
-        border-radius: 2rem !important;
-        font-size: 1rem;
-        height: 40px !important;
-        padding-left: 1rem !important;
-        padding-right: 2rem !important;
-        color: #333;
-        min-width: 120px;
-        box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.04);
-        margin-left: 0.5rem;
-        appearance: auto;
-      }
-      .search-input-group select:focus {
-        border: 1.5px solid #d72660 !important;
-        outline: none !important;
-        box-shadow: 0 2px 8px 0 rgba(215, 38, 96, 0.1);
-      }
-      .search-input-group input {
-        font-size: 1rem;
-        background: transparent;
-        border: none;
-        height: 44px;
-        padding-left: 0;
-        color: #333;
-      }
-      .search-input-group {
-        background: #f6f6fa;
-        border-radius: 2rem;
-        border: 1px solid #e0e0e0;
-        min-height: 48px;
-        height: 48px;
-        padding-right: 0.5rem;
-      }
-      .search-box {
-        gap: 12px !important;
-      }
-      .search-input-group {
-        flex: 1 1 0%;
-        min-width: 0;
-      }
-      .form-select#categoryFilter {
-        max-width: 180px;
-      }
-      @media (max-width: 767px) {
-        .search-box {
-          flex-direction: column;
-          align-items: stretch;
-          gap: 0.75rem;
-        }
-        .search-btn {
-          width: 100%;
-        }
-        .search-input-group {
-          width: 100%;
-        }
-        .form-select#categoryFilter {
-          width: 100%;
-        }
-      }
-      #navbarRecipeDropdown.nav-link::after,
-      #navbarBlogDropdown.nav-link::after {
-        display: none;
-      }
-    </style>
+   
   </head>
 
   <body>
@@ -326,7 +258,7 @@
 
             <!-- Popular Posts -->
             <div class="sidebar-card">
-              <h4 class="sidebar-title">Bài Viết Nổi Bật</h4>
+              <h4 class="sidebar-title"><i class="fas fa-fire text-danger me-2"></i>Bài Viết Nổi Bật</h4>
               <div id="popularPosts">
                 <!-- Popular posts will be inserted here by JavaScript -->
               </div>
@@ -590,6 +522,43 @@
         });
       }
 
+      // Render popular posts (bài viết nổi bật)
+      function renderPopularPosts(posts) {
+        // Sắp xếp theo lượt xem (nếu có), nếu không thì lấy mới nhất
+        let sorted = posts.slice();
+        if (sorted.length && sorted[0].hasOwnProperty("views")) {
+          sorted.sort((a, b) => (b.views || 0) - (a.views || 0));
+        } else {
+          sorted.sort((a, b) => new Date(b.date) - new Date(a.date));
+        }
+        const topPosts = sorted.slice(0, 4);
+        const html = topPosts
+          .map(
+            (post) => `
+      <a href="/pages/blog-detail.html?id=${
+        post.id
+      }" class="popular-post-card d-flex align-items-center mb-3 p-2 rounded shadow-sm bg-white text-decoration-none" style="transition:box-shadow .2s;">
+        <img src="${post.image}" alt="${
+              post.title
+            }" class="rounded me-3" style="width:64px;height:64px;object-fit:cover;">
+        <div class="flex-grow-1">
+          <div class="fw-semibold text-dark popular-title" style="font-size:1rem;line-height:1.2;">${
+            post.title
+          }</div>
+          <div class="text-muted small mt-1">
+            <i class="far fa-calendar me-1"></i>${
+              post.date
+            } &nbsp; <i class="far fa-clock me-1"></i>${post.readTime || ""}
+          </div>
+        </div>
+      </a>
+    `
+          )
+          .join("");
+        const container = document.getElementById("popularPosts");
+        if (container) container.innerHTML = html;
+      }
+
       fetchData("blogs", function (blogPostsObj) {
         const blogPosts = blogPostsObj ? Object.values(blogPostsObj) : [];
         // Chỉ lấy bài đã duyệt
@@ -625,6 +594,7 @@
           catFilter.innerHTML = html;
         }
         renderBlogPosts(allApprovedPosts, blogCurrentPage);
+        renderPopularPosts(allApprovedPosts);
       });
 
       // Xử lý tìm kiếm và lọc

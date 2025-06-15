@@ -51,3 +51,16 @@ function saveUserToFirebase(user) {
   };
   db.ref('users/' + user.uid).set(userData);
 }
+
+// Lưu liên hệ vào Firebase Realtime Database (node contacts)
+function saveContactToFirebase(contact, callback, errorCallback) {
+  var db = firebase.database();
+  var newRef = db.ref('contacts').push();
+  newRef.set(contact)
+    .then(function() {
+      if (callback) callback(newRef.key);
+    })
+    .catch(function(error) {
+      if (errorCallback) errorCallback(error);
+    });
+}

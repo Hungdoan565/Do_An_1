@@ -24,10 +24,7 @@
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg fixed-top">
       <div class="container">
-        <a class="navbar-brand" href="/index.html">
-          
-          Món Ngon Việt Nam
-        </a>
+        <a class="navbar-brand" href="/index.html"> Món Ngon Việt Nam </a>
         <button
           class="navbar-toggler"
           type="button"
@@ -41,7 +38,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/index.html">Trang chủ</a>
             </li>
-           <!-- Dropdown Công thức -->
+            <!-- Dropdown Công thức -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -92,9 +89,7 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/assets/images/about/about.jpg"
-                >Về chúng tôi</a
-              >
+              <a class="nav-link active" href="/pages/about.html">Về chúng tôi</a>
             </li>
             <li class="nav-item ms-3">
               <a
@@ -141,7 +136,7 @@
               yêu thích ẩm thực, chia sẻ niềm đam mê nấu nướng và gìn giữ tinh
               hoa ẩm thực Việt Nam.
             </p>
-            <p class="mb-4" style="font-size: 1.25rem;">
+            <p class="mb-4" style="font-size: 1.25rem">
               Chúng tôi tin rằng mỗi món ăn đều mang trong mình một câu chuyện,
               một kỷ niệm và những giá trị văn hóa độc đáo. Thông qua nền tảng
               của mình, chúng tôi mong muốn tạo ra một cộng đồng nơi mọi người
@@ -214,12 +209,12 @@
           <div class="col-md-4" data-aos="fade-up">
             <div class="team-card">
               <img
-                src="/assets/images/about/team-1.jpg"
+                src="/assets/images/about/team1.jpg"
                 class="team-image"
                 alt="Team member"
               />
               <div class="team-info">
-                <h4>Nguyễn Văn A</h4>
+                <h4>J97</h4>
                 <p class="text-muted">Đồng sáng lập & CEO</p>
                 <div class="team-social">
                   <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -232,7 +227,7 @@
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
             <div class="team-card">
               <img
-                src="/assets/images/about/team-2.jpg"
+                src="/assets/images/about/team2.png"
                 class="team-image"
                 alt="Team member"
               />
@@ -250,7 +245,7 @@
           <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
             <div class="team-card">
               <img
-                src="/assets/images/about/team-3.jpg"
+                src="/assets/images/about/team3.png"
                 class="team-image"
                 alt="Team member"
               />
@@ -286,7 +281,7 @@
                 </div>
                 <div>
                   <h5 class="mb-1">Địa chỉ</h5>
-                  <p class="mb-0">123 Đường ABC, Quận XYZ, Hà Nội</p>
+                  <p class="mb-0">123 Đường ABC, Quận Ninh Kiều, Cần Thơ</p>
                 </div>
               </div>
               <div class="contact-item">
@@ -304,19 +299,29 @@
                 </div>
                 <div>
                   <h5 class="mb-1">Email</h5>
-                  <p class="mb-0">lienhe@monngon.vn</p>
+                  <p class="mb-0">lienhe@monngonvietnam.vn</p>
                 </div>
               </div>
             </div>
           </div>
           <div class="col-lg-6" data-aos="fade-left">
-            <form class="bg-white p-4 rounded-3 shadow-sm">
+            <form
+              id="contactForm"
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              class="bg-white p-4 rounded-3 shadow-sm"
+            >
+              <input type="hidden" name="form-name" value="contact" />
               <div class="mb-3">
                 <label class="form-label">Họ và tên</label>
                 <input
                   type="text"
                   class="form-control"
+                  id="contactName"
+                  name="name"
                   placeholder="Nhập họ và tên"
+                  required
                 />
               </div>
               <div class="mb-3">
@@ -324,7 +329,10 @@
                 <input
                   type="email"
                   class="form-control"
+                  id="contactEmail"
+                  name="email"
                   placeholder="Nhập địa chỉ email"
+                  required
                 />
               </div>
               <div class="mb-3">
@@ -332,15 +340,21 @@
                 <input
                   type="text"
                   class="form-control"
+                  id="contactSubject"
+                  name="title"
                   placeholder="Nhập tiêu đề"
+                  required
                 />
               </div>
               <div class="mb-3">
                 <label class="form-label">Nội dung</label>
                 <textarea
                   class="form-control"
+                  id="contactMessage"
+                  name="message"
                   rows="5"
                   placeholder="Nhập nội dung"
+                  required
                 ></textarea>
               </div>
               <button type="submit" class="btn btn-primary w-100">
@@ -416,9 +430,7 @@
                 >
               </li>
               <li class="mb-2">
-                <a
-                  href="/pages/about.html"
-                  class="text-white text-decoration-none"
+                <a href="/pages/about.html" class="text-white text-decoration-none"
                   >Về chúng tôi</a
                 >
               </li>
@@ -486,12 +498,74 @@
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="/assets/js/auth.js"></script>
     <script src="/assets/js/navbar-user.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
     <script>
       // Initialize AOS
       AOS.init({
         duration: 800,
         once: true,
       });
+      // Toast/thông báo đơn giản
+      function showContactToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = `toast align-items-center text-bg-${type} border-0 position-fixed top-0 start-50 translate-middle-x mt-3`;
+        toast.style.zIndex = 9999;
+        toast.style.minWidth = "250px";
+        toast.innerHTML = `<div class="d-flex"><div class="toast-body">${message}</div></div>`;
+        document.body.appendChild(toast);
+        setTimeout(() => toast.remove(), 3000);
+      }
+      // Xử lý submit form liên hệ
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          var name = document.getElementById("contactName").value.trim();
+          var email = document.getElementById("contactEmail").value.trim();
+          var title = document.getElementById("contactSubject").value.trim();
+          var message = document.getElementById("contactMessage").value.trim();
+          // Validate
+          if (!name || !email || !title || !message) {
+            e.preventDefault();
+            showContactToast("Vui lòng nhập đầy đủ thông tin!", "danger");
+            return;
+          }
+          var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(email)) {
+            e.preventDefault();
+            showContactToast("Email không hợp lệ!", "danger");
+            return;
+          }
+          // Nếu không có hàm lưu Firebase thì vẫn cho submit Netlify
+          if (typeof saveContactToFirebase !== "function") return;
+          e.preventDefault(); // Chỉ chặn khi có Firebase
+          var now = new Date();
+          var time = now.toLocaleString("vi-VN", { hour12: false });
+          var contact = {
+            name,
+            email,
+            title,
+            time,
+            message,
+            createdAt: Date.now(),
+          };
+          saveContactToFirebase(
+            contact,
+            function () {
+              // Hiện toast trước khi submit về Netlify
+              showContactToast("Gửi liên hệ thành công!");
+              // Không reset form, chỉ submit về Netlify để đảm bảo dữ liệu không bị mất
+              document.getElementById("contactForm").submit();
+            },
+            function () {
+              showContactToast(
+                "Gửi liên hệ thất bại. Vui lòng thử lại!",
+                "danger"
+              );
+            }
+          );
+        });
     </script>
   </body>
 </html>

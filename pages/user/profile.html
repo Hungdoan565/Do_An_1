@@ -664,7 +664,7 @@
             if (myRecipeCount === 0) {
               // Thêm nút Đăng ngay bên dưới số
               const btn = document.createElement("a");
-             
+
               recipeCountEl.appendChild(btn);
               recipeCountEl.setAttribute("data-bs-toggle", "tooltip");
               recipeCountEl.setAttribute("title", "Bạn chưa có công thức nào");
@@ -1116,6 +1116,7 @@
         renderRecentUserRecipes();
         renderMyRecipes();
         renderMyBlogs();
+        renderFavoriteRecipes(); // <--- Thêm dòng này để luôn render danh sách yêu thích khi vào trang
         // Đảm bảo hiệu ứng luôn chạy khi chuyển tab
         addProfileCardTransitionOnTab("my-recipes", renderMyRecipes);
         addProfileCardTransitionOnTab("favorite", renderFavoriteRecipes);

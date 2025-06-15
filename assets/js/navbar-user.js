@@ -25,8 +25,15 @@ document.addEventListener('DOMContentLoaded', function () {
       </ul>
     </li>`;
   } else {
+    // Kiểm tra nếu có redirect trên URL thì thêm vào link Đăng nhập
+    let loginHref = "/pages/auth/login.html";
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect");
+    if (redirect) {
+      loginHref += "?redirect=" + encodeURIComponent(redirect);
+    }
     html += `<li class="nav-item ms-3">
-      <a class="btn btn-outline-primary px-4 py-2 ms-2" href="/pages/auth/login.html" id="loginBtn">Đăng nhập</a>
+      <a class="btn btn-outline-primary px-4 py-2 ms-2" href="${loginHref}" id="loginBtn">Đăng nhập</a>
       <a class="btn btn-primary px-4 py-2 ms-2" href="/pages/auth/register.html" id="registerBtn">Đăng ký</a>
     </li>`;
   }

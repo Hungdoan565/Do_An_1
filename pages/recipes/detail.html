@@ -780,10 +780,15 @@
       document
         .querySelector(".save-btn")
         .addEventListener("click", function () {
-          // Check if user is logged in
-          const isLoggedIn = false; // Replace with actual auth check
-          if (!isLoggedIn) {
-            window.location.href = "/pages/auth/login.html";
+          // Kiểm tra đăng nhập
+          const user = window.getCurrentUser && window.getCurrentUser();
+          if (!user) {
+            // Lấy URL hiện tại để redirect lại sau login
+            const currentUrl =
+              window.location.pathname + window.location.search;
+            window.location.href =
+              "/pages/auth/login.html?redirect=" +
+              encodeURIComponent(currentUrl);
             return;
           }
           // Add save logic here

@@ -26,6 +26,14 @@ function loginUser({ email, username, password }) {
   }
   if (!user) return { success: false, message: 'Sai email hoặc mật khẩu!' };
   sessionStorage.setItem('currentUser', JSON.stringify(user)); // Lưu cả uid vào session
+  // Xử lý redirect nếu có
+  try {
+    const params = new URLSearchParams(window.location.search);
+    const redirect = params.get("redirect");
+    if (redirect) {
+      setTimeout(function() { window.location.href = redirect; }, 10);
+    }
+  } catch {}
   return { success: true, user };
 }
 

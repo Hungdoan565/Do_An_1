@@ -541,7 +541,7 @@
         if (t.includes("khai vị")) return "khai-vi";
         if (t.includes("món chính")) return "mon-chinh";
         if (t.includes("tráng miệng")) return "trang-mieng";
-        if (t.includes("đồ uống")) return "do-uong";
+        if (t.includes("đồ uống")) return "do_uong";
         if (t.includes("món chay")) return "mon-chay";
         if (t.includes("ăn vặt")) return "an-vat";
         return "";
@@ -633,7 +633,7 @@
     `;
           })
           .join("");
-        // Lấy số bình luận cho từng công thức
+        // Lấy số bình luận cho từng công thức và cập nhật commentCount cho object
         pageRecipes.forEach((recipe) => {
           if (!recipe.id) return;
           var db = firebase.database();
@@ -646,6 +646,8 @@
                 `.recipe-comments[data-id='${recipe.id}'] .comment-count`
               );
               if (el) el.textContent = count;
+              // Cập nhật commentCount cho object để hỗ trợ sort
+              recipe.commentCount = count;
             });
         });
         // Khởi tạo lại AOS sau khi render

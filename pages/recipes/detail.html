@@ -301,6 +301,10 @@
               <i class="fas fa-print"></i>
               In công thức
             </button>
+            <button class="action-btn share-btn" id="shareRecipeBtn">
+              <i class="fas fa-share-alt"></i>
+              Chia sẻ
+            </button>
           </div>
         </div>
 
@@ -494,6 +498,60 @@
       </div>
     </footer>
 
+    <!-- Thêm popup chia sẻ -->
+    <div
+      id="sharePopup"
+      class="share-popup"
+      style="
+        display: none;
+        position: fixed;
+        z-index: 9999;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: rgba(0, 0, 0, 0.18);
+        align-items: center;
+        justify-content: center;
+      "
+    >
+      <div
+        style="
+          background: #fff;
+          padding: 24px 32px;
+          border-radius: 12px;
+          box-shadow: 0 2px 16px rgba(0, 0, 0, 0.12);
+          min-width: 280px;
+          max-width: 90vw;
+        "
+      >
+        <h5 class="mb-3">Chia sẻ công thức</h5>
+        <div class="d-flex gap-3 mb-3">
+          <button class="btn btn-primary btn-sm" id="shareFbBtn">
+            <i class="fab fa-facebook-f me-1"></i>Facebook
+          </button>
+          <button class="btn btn-success btn-sm" id="shareZaloBtn">
+            <img
+              src="https://stc-zaloprofile.zdn.vn/pc/v1/images/zalo_sharelogo.png"
+              style="
+                width: 18px;
+                height: 18px;
+                object-fit: cover;
+                margin-right: 4px;
+              "
+            />Zalo
+          </button>
+          <button class="btn btn-outline-secondary btn-sm" id="copyLinkBtn">
+            <i class="fas fa-link me-1"></i>Copy link
+          </button>
+        </div>
+        <div id="shareLink" class="small text-muted mb-2"></div>
+        <button class="btn btn-light btn-sm w-100" id="closeSharePopup">
+          Đóng
+        </button>
+      </div>
+    </div>
+
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
     <script src="/assets/data/recipes_MonChinh.js"></script>
@@ -534,6 +592,37 @@
       }
       const recipeId = getQueryParam("id");
       const recipeSlug = getQueryParam("slug");
+
+      function showLoadingRecipe() {
+        let overlay = document.getElementById("recipeLoadingOverlay");
+        if (!overlay) {
+          overlay = document.createElement("div");
+          overlay.id = "recipeLoadingOverlay";
+          overlay.style.position = "absolute";
+          overlay.style.top = 0;
+          overlay.style.left = 0;
+          overlay.style.width = "100%";
+          overlay.style.height = "100%";
+          overlay.style.background = "rgba(255,255,255,0.8)";
+          overlay.style.display = "flex";
+          overlay.style.alignItems = "center";
+          overlay.style.justifyContent = "center";
+          overlay.style.zIndex = 1000;
+          overlay.innerHTML =
+            '<div class="text-center py-5"><div class="spinner-border text-primary" role="status"></div><div class="mt-2">Đang tải công thức...</div></div>';
+          const content = document.querySelector(".recipe-content");
+          if (content) {
+            content.style.position = "relative";
+            content.appendChild(overlay);
+          }
+        } else {
+          overlay.style.display = "flex";
+        }
+      }
+      function hideLoadingRecipe() {
+        const overlay = document.getElementById("recipeLoadingOverlay");
+        if (overlay) overlay.style.display = "none";
+      }
 
       function renderRecipeDetail(recipe) {
         if (!recipe) return;
@@ -714,47 +803,38 @@
         setFavoriteState(isRecipeFavorite(recipe.id));
       }
 
-      // Ưu tiên lấy từ Firebase nếu có
+      // --- Ưu tiên lấy từ Firebase nếu có ---
       if (recipeId) {
+        showLoadingRecipe();
         if (typeof fetchData === "function") {
+          let fallbackCalled = false;
+          let fallbackTimeout = setTimeout(function () {
+            if (!fallbackCalled) {
+              fallbackCalled = true;
+              hideLoadingRecipe();
+              fallbackToStaticRecipe();
+            }
+          }, 5000);
           fetchData("recipes/" + recipeId, function (data) {
-            console.log("Firebase data for recipeId", recipeId, data);
-            // Nếu có dữ liệu object từ Firebase thì luôn render, không fallback
+            clearTimeout(fallbackTimeout);
+            if (fallbackCalled) return;
+            hideLoadingRecipe();
             if (data && typeof data === "object") {
               renderRecipeDetail(data);
             } else {
-              // Fallback sang file tĩnh chỉ khi không có dữ liệu Firebase
-              console.warn(
-                "Không tìm thấy công thức trên Firebase, fallback sang file tĩnh"
-              );
-              const allRecipes = [
-                ...(typeof recipesMonChinh !== "undefined"
-                  ? recipesMonChinh
-                  : []),
-                ...(typeof recipesTrangMieng !== "undefined"
-                  ? recipesTrangMieng
-                  : []),
-                ...(typeof recipesThucUong !== "undefined"
-                  ? recipesThucUong
-                  : []),
-                ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
-                ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
-                ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
-              ];
-              const recipe = allRecipes.find(
-                (r) => r.id && r.id.toString() === recipeId
-              );
-              if (!recipe) {
-                document.querySelector(".recipe-content").innerHTML =
-                  '<div class="alert alert-danger">Không tìm thấy công thức này!</div>';
-              } else {
-                renderRecipeDetail(recipe);
-              }
+              fallbackCalled = true;
+              fallbackToStaticRecipe();
             }
           });
+        } else {
+          hideLoadingRecipe();
+          fallbackToStaticRecipe();
         }
       } else if (recipeSlug) {
-        // Nếu có slug thì chỉ lấy từ file tĩnh
+        fallbackToStaticRecipe();
+      }
+
+      function fallbackToStaticRecipe() {
         const allRecipes = [
           ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
           ...(typeof recipesTrangMieng !== "undefined"
@@ -765,8 +845,18 @@
           ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
           ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
         ];
-        const recipe = allRecipes.find((r) => r.slug === recipeSlug);
-        renderRecipeDetail(recipe);
+        let recipe = null;
+        if (recipeId) {
+          recipe = allRecipes.find((r) => r.id && r.id.toString() === recipeId);
+        } else if (recipeSlug) {
+          recipe = allRecipes.find((r) => r.slug === recipeSlug);
+        }
+        if (!recipe) {
+          document.querySelector(".recipe-content").innerHTML =
+            '<div class="alert alert-danger">Không tìm thấy công thức này!</div>';
+        } else {
+          renderRecipeDetail(recipe);
+        }
       }
 
       // Print recipe functionality
@@ -1022,6 +1112,71 @@
           }, 500);
         }, 2500);
       }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        // --- CHIA SẺ CÔNG THỨC ---
+        const shareBtn = document.getElementById("shareRecipeBtn");
+        const sharePopup = document.getElementById("sharePopup");
+        const closeSharePopup = document.getElementById("closeSharePopup");
+        const shareFbBtn = document.getElementById("shareFbBtn");
+        const shareZaloBtn = document.getElementById("shareZaloBtn");
+        const copyLinkBtn = document.getElementById("copyLinkBtn");
+        const shareLink = document.getElementById("shareLink");
+        if (shareBtn) {
+          shareBtn.onclick = function () {
+            const url = window.location.href;
+            // Web Share API (mobile)
+            if (navigator.share) {
+              navigator
+                .share({
+                  title: document.title,
+                  text:
+                    document.querySelector(".recipe-title")?.textContent ||
+                    "Công thức ngon",
+                  url,
+                })
+                .catch(() => {});
+            } else {
+              // Hiện popup chia sẻ
+              if (sharePopup) {
+                sharePopup.style.display = "flex";
+                shareLink.textContent = url;
+              }
+            }
+          };
+        }
+        if (closeSharePopup)
+          closeSharePopup.onclick = () => (sharePopup.style.display = "none");
+        if (shareFbBtn)
+          shareFbBtn.onclick = function () {
+            const url = encodeURIComponent(window.location.href);
+            window.open(
+              `https://www.facebook.com/sharer/sharer.php?u=${url}`,
+              "_blank",
+              "width=600,height=400"
+            );
+          };
+        if (shareZaloBtn)
+          shareZaloBtn.onclick = function () {
+            const url = encodeURIComponent(window.location.href);
+            window.open(
+              `https://zalo.me/share/url?url=${url}`,
+              "_blank",
+              "width=600,height=600"
+            );
+          };
+        if (copyLinkBtn)
+          copyLinkBtn.onclick = function () {
+            const url = window.location.href;
+            navigator.clipboard.writeText(url).then(function () {
+              showToast("Đã copy link công thức!", "success");
+            });
+          };
+        if (sharePopup)
+          sharePopup.onclick = function (e) {
+            if (e.target === sharePopup) sharePopup.style.display = "none";
+          };
+      });
     </script>
   </body>
 </html>

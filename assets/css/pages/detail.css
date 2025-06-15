@@ -321,3 +321,19 @@
   margin: 0 15px 0 0;
   border: 1px solid var(--primary-color);
 }
+.share-popup {
+  display: none;
+  position: fixed;
+  z-index: 9999;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: rgba(0,0,0,0.18);
+  align-items: center;
+  justify-content: center;
+}
+.share-popup[style*="display: flex"] {
+  display: flex !important;
+}
+.share-popup .btn img {
+  vertical-align: middle;
+  margin-top: -2px;
+}

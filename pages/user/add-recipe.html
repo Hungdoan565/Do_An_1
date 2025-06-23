@@ -208,14 +208,42 @@
                         <option value="Khó">Khó</option>
                       </select>
                     </div>
-                    <div class="col-md-6 mb-4">
-                      <label class="form-label">Calories</label>
+                    <div class="col-md-6 mb-4 position-relative">
+                      <label class="form-label"
+                        >Calories
+                        <i
+                          class="fas fa-info-circle text-info ms-1"
+                          tabindex="0"
+                          data-bs-toggle="tooltip"
+                          data-bs-placement="top"
+                          title="Calories sẽ tự động tính sau khi bạn nhập nguyên liệu và khẩu phần. Nếu bạn nhập thủ công, hệ thống sẽ cảnh báo nếu khác biệt lớn."
+                        ></i>
+                      </label>
                       <input
                         type="number"
                         class="form-control"
                         name="calories"
+                        id="caloriesInput"
                         placeholder="Số calories"
+                        min="0"
+                        step="any"
                       />
+                      <div
+                        id="caloriesAutoInfo"
+                        class="form-text text-success"
+                        style="display: none"
+                      ></div>
+                      <!-- Bảng calories từng nguyên liệu, tối đa 3-5 nguyên liệu đầu, có nút Xem thêm nếu nhiều -->
+                      <div
+                        id="ingredientCaloriesTable"
+                        class="mt-2"
+                        style="display: none"
+                      ></div>
+                      <div
+                        id="caloriesWarning"
+                        class="text-warning small mt-1"
+                        style="display: none"
+                      ></div>
                     </div>
                   </div>
                 </div>
@@ -283,6 +311,7 @@
                     class="form-control"
                     name="ingredientName[]"
                     placeholder="Tên nguyên liệu"
+                    list="ingredientSuggestions"
                   />
                   <input
                     type="text"
@@ -299,6 +328,8 @@
                 <i class="fas fa-plus"></i>
                 Thêm nguyên liệu
               </button>
+              <!-- Thêm datalist cho autocomplete nguyên liệu -->
+              <datalist id="ingredientSuggestions"></datalist>
             </div>
 
             <!-- Steps Section -->
@@ -456,7 +487,9 @@
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/about.html" class="text-white text-decoration-none"
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
                   >Về chúng tôi</a
                 >
               </li>
@@ -585,7 +618,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     <script src="/assets/js/firebase-config.js"></script>
-    <script src="/assets/js/add-recipe.js"></script>
+    <script type="module" src="/assets/js/add-recipe.js"></script>
     <script>
       // Kiểm tra user đăng nhập khi vào trang
       (function () {
@@ -657,7 +690,7 @@
           const ingredientItem = document.createElement("div");
           ingredientItem.className = "ingredient-item";
           ingredientItem.innerHTML = `
-                <input type="text" class="form-control" name="ingredientName[]" placeholder="Tên nguyên liệu">
+                <input type="text" class="form-control" name="ingredientName[]" placeholder="Tên nguyên liệu" list="ingredientSuggestions">
                 <input type="text" class="form-control" name="ingredientAmount[]" placeholder="Số lượng">
                 <button type="button" class="remove-btn"><i class="fas fa-times"></i></button>
             `;

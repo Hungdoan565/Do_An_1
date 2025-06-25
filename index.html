@@ -23,58 +23,35 @@
       href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
       rel="stylesheet"
     />
-    <style>
-      .featured-slider-nav {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        margin-top: 20px; /* Add some space between the recipes and buttons */
-        gap: 16px; /* Space between the buttons */
-      }
-
-      .featured-slider-btn {
-        width: 60px; /* Increased size */
-        height: 60px; /* Increased size */
-        border-radius: 50%;
-        background: #fff;
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.12);
-        border: 2px solid #d61c4e;
-        color: #d61c4e;
-        font-size: 2rem; /* Increased icon size */
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: background 0.2s, color 0.2s;
-      }
-
-      .featured-slider-btn:hover {
-        background: #d61c4e;
-        color: #fff;
-      }
-
-      /* Adjust for smaller screens */
-      @media (max-width: 991px) {
-        .featured-slider-btn {
-          width: 50px; /* Slightly smaller for mobile */
-          height: 50px;
-          font-size: 1.75rem;
-        }
-      }
-
-      /* Hiệu ứng mượt cho slider featured */
-      #featured-row.featured-fade-out {
-        opacity: 0;
-        transform: translateY(30px) scale(0.98);
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-      #featured-row.featured-fade-in {
-        opacity: 1;
-        transform: translateY(0) scale(1);
-        transition: opacity 0.4s cubic-bezier(0.4, 0, 0.2, 1),
-          transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-      }
-    </style>
+    <!-- META NÂNG CAO CHO SEO & SOCIAL -->
+    <meta
+      property="og:title"
+      content="Món Ngon Việt Nam - Khám Phá Ẩm Thực Việt"
+    />
+    <meta
+      property="og:description"
+      content="Khám phá hàng trăm công thức nấu ăn truyền thống và hiện đại, chia sẻ bởi cộng đồng yêu bếp Việt Nam."
+    />
+    <meta
+      property="og:image"
+      content="https://monngonvietnam.netlify.app/assets/images/hero/pho.jpg"
+    />
+    <meta property="og:url" content="https://monngonvietnam.netlify.app/" />
+    <meta property="og:type" content="website" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta
+      name="twitter:title"
+      content="Món Ngon Việt Nam - Khám Phá Ẩm Thực Việt"
+    />
+    <meta
+      name="twitter:description"
+      content="Khám phá hàng trăm công thức nấu ăn truyền thống và hiện đại, chia sẻ bởi cộng đồng yêu bếp Việt Nam."
+    />
+    <meta
+      name="twitter:image"
+      content="https://monngonvietnam.netlify.app/assets/images/hero/pho.jpg"
+    />
+    <link rel="sitemap" type="application/xml" href="/sitemap.xml" />
   </head>
 
   <body>

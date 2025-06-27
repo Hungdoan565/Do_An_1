@@ -18,6 +18,23 @@
       rel="stylesheet"
     />
     <link rel="stylesheet" href="/assets/css/pages/blog.css" />
+    <link rel="stylesheet" href="/assets/css/pages/list.css" />
+    <style>
+      @media (max-width: 600px) {
+        .search-box {
+          max-width: 100% !important;
+          padding-left: 12px !important;
+          padding-right: 12px !important;
+        }
+        .search-input-custom {
+          min-width: 0 !important;
+          font-size: 1rem !important;
+        }
+        .search-box form {
+          gap: 8px !important;
+        }
+      }
+    </style>
   </head>
 
   <body>
@@ -112,13 +129,110 @@
       </div>
     </nav>
 
-    <!-- Page Header -->
-    <header class="page-header">
-      <div class="container">
-        <h1 class="display-4 fw-bold mb-4">Blog Ẩm Thực</h1>
-        <p class="lead" style="font-size: 1.7rem">
-          Khám phá văn hóa ẩm thực Việt Nam qua những câu chuyện thú vị
-        </p>
+    <!-- Page Header (Hero) -->
+    <header
+      class="page-header position-relative"
+      style="background: none; padding: 0; margin-top: 76px"
+    >
+      <div class="d-flex justify-content-center w-100" style="background: none">
+        <div
+          class="blog-hero-img-wrapper d-flex flex-column justify-content-center align-items-center position-relative"
+          style="
+            max-width: 1295px;
+            width: 100%;
+            min-height: 320px;
+            height: 340px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 32px rgba(0, 0, 0, 0.08);
+          "
+        >
+          <!-- Carousel Hero Images -->
+          <div
+            id="blogHeroCarousel"
+            class="carousel slide w-100 h-100 position-absolute top-0 start-0"
+            data-bs-ride="carousel"
+            data-bs-interval="2700"
+            style="z-index: 1"
+          >
+            <div class="carousel-inner w-100 h-100">
+              <div class="carousel-item active w-100 h-100">
+                <img
+                  src="/assets/images/blog/nau-pho.jpg"
+                  class="d-block w-100 h-100 blog-hero-img"
+                  alt="Blog Hero 1"
+                  style="object-fit: cover; filter: brightness(0.7)"
+                />
+              </div>
+              <div class="carousel-item w-100 h-100">
+                <img
+                  src="/assets/images/blog/top5.jpg"
+                  class="d-block w-100 h-100 blog-hero-img"
+                  alt="Blog Hero 2"
+                  style="object-fit: cover; filter: brightness(0.7)"
+                />
+              </div>
+              <div class="carousel-item w-100 h-100">
+                <img
+                  src="/assets/images/blog/banh-trung-thu.jpg"
+                  class="d-block w-100 h-100 blog-hero-img"
+                  alt="Blog Hero 3"
+                  style="object-fit: cover; filter: brightness(0.7)"
+                />
+              </div>
+            </div>
+          </div>
+          <div
+            class="blog-hero-overlay position-absolute top-0 start-0 w-100 h-100"
+            style="
+              background: linear-gradient(
+                120deg,
+                rgba(218, 94, 127, 0.55),
+                rgba(247, 126, 33, 0.45)
+              );
+              z-index: 2;
+            "
+          ></div>
+          <div
+            class="container position-relative text-center d-flex flex-column justify-content-center align-items-center"
+            style="z-index: 3"
+          >
+            <h1
+              class="display-4 fw-bold mb-3 text-white"
+              style="text-shadow: 0 2px 16px rgba(0, 0, 0, 0.25)"
+            >
+              Blog Ẩm Thực
+            </h1>
+            <p
+              class="lead mb-4 text-white"
+              style="
+                font-size: 1.4rem;
+                text-shadow: 0 2px 8px rgba(0, 0, 0, 0.18);
+              "
+            >
+              <i
+                class="fas fa-book-open me-2 text-white"
+                style="font-size: 1.5em"
+              ></i
+              >Khám phá văn hóa ẩm thực Việt Nam qua những câu chuyện thú vị, bí
+              quyết bếp núc và trải nghiệm cá nhân từ cộng đồng yêu bếp.
+            </p>
+            <div class="d-flex flex-wrap justify-content-center gap-3 mb-4">
+              <a
+                href="/pages/add-blog.html"
+                class="btn btn-outline-light px-4 py-2 fw-semibold shadow-sm"
+              >
+                <i class="fas fa-pen-nib me-2 text-dark"></i>Đăng bài blog
+              </a>
+              <a
+                href="#popularPosts"
+                class="btn btn-outline-light px-4 py-2 fw-semibold shadow-sm"
+              >
+                <i class="fas fa-star me-2 text-warning"></i>Xem bài nổi bật
+              </a>
+            </div>
+          </div>
+        </div>
       </div>
     </header>
 
@@ -127,58 +241,78 @@
       <div class="row">
         <!-- Blog Posts -->
         <div class="col-lg-8">
-          <!-- Search Box -->
+          <!-- Search Box (Redesigned) -->
           <div
-            class="search-box mb-4 d-flex align-items-center gap-3 flex-nowrap"
+            class="search-box mb-4 w-100"
+            style="max-width: 580px; margin: 0 auto 1.5rem auto"
           >
-            <div
-              class="search-input-group d-flex align-items-center flex-grow-1 bg-light rounded-pill px-3 position-relative"
-              style="height: 48px"
+            <form
+              class="d-flex flex-column flex-md-row align-items-stretch gap-2"
+              onsubmit="event.preventDefault(); filterAndSearchPosts();"
             >
-              <span class="search-icon me-2 text-secondary"
-                ><i class="fas fa-search"></i
-              ></span>
-              <input
-                type="text"
-                class="search-input border-0 bg-transparent flex-grow-1"
-                placeholder="Tìm kiếm bài viết..."
-                id="searchInput"
+              <div class="position-relative flex-grow-1" style="min-width: 0">
+                <input
+                  type="text"
+                  class="form-control search-input-custom"
+                  placeholder="Tìm kiếm bài viết..."
+                  id="searchInput"
+                  autocomplete="off"
+                  style="
+                    padding-left: 44px;
+                    height: 48px;
+                    border-radius: 14px;
+                    background: #fff;
+                    border: 1.5px solid #e9647a;
+                    font-size: 1.08rem;
+                    box-shadow: 0 2px 12px rgba(233, 100, 122, 0.06);
+                    min-width: 360px;
+                    width: 100%;
+                  "
+                />
+                <span
+                  class="search-icon position-absolute top-50 start-0 translate-middle-y ps-3"
+                  style="color: #e9647a; font-size: 1.2em; pointer-events: none"
+                >
+                  <i class="fas fa-search"></i>
+                </span>
+                <!-- Autocomplete dropdown -->
+                <div
+                  id="searchAutocomplete"
+                  class="autocomplete-dropdown bg-white border rounded shadow-sm"
+                  style="
+                    position: absolute;
+                    z-index: 1000;
+                    top: 100%;
+                    left: 0;
+                    width: 100%;
+                    display: none;
+                  "
+                ></div>
+              </div>
+              <button
+                type="submit"
+                class="btn search-btn-custom d-flex align-items-center justify-content-center fw-bold"
                 style="
-                  outline: none;
-                  box-shadow: none;
-                  height: 44px;
-                  min-width: 120px;
+                  height: 48px;
+                  min-width: 100px;
+                  border-radius: 14px;
+                  background: var(--primary-color);
+                  color: #fff;
+                  font-size: 1.08rem;
+                  border: none;
+                  box-shadow: 0 2px 12px 0 rgba(233, 100, 122, 0.1);
+                  transition: background 0.18s;
                 "
-                autocomplete="off"
-              />
-              <!-- Autocomplete dropdown đặt trong div cha position-relative -->
-              <div
-                id="searchAutocomplete"
-                class="autocomplete-dropdown bg-white border rounded shadow-sm"
-                style="
-                  position: absolute;
-                  z-index: 1000;
-                  top: 100%;
-                  left: 0;
-                  width: 100%;
-                  display: none;
-                "
-              ></div>
-            </div>
-            <button
-              class="search-btn btn btn-primary rounded-pill px-4 fw-bold d-flex align-items-center me-0"
-              style="height: 48px; white-space: nowrap"
-            >
-              <i class="fas fa-search me-2"></i>Tìm kiếm
-            </button>
+              >
+                <i class="fas fa-search me-2"></i>Tìm kiếm
+              </button>
+            </form>
           </div>
-          <!-- Tag Checkbox Group: xuống hàng mới, margin nhỏ -->
           <div
             id="tagCheckboxGroup"
             class="d-flex flex-wrap align-items-center gap-2 mb-3"
             style="margin-left: 2px"
           ></div>
-          <!-- Author Filter Dropdown: xuống hàng mới, margin nhỏ -->
           <div
             class="mb-3 d-flex align-items-center gap-2"
             id="authorFilterRow"
@@ -224,7 +358,7 @@
           <!-- Pagination -->
           <nav
             aria-label="Page navigation"
-            class="d-flex justify-content-center mt-5"
+            class="d-flex justify-content-center mt-4 mb-5"
           >
             <ul class="pagination">
               <li class="page-item">
@@ -313,6 +447,16 @@
           </div>
         </div>
       </div>
+      <!-- Sidebar Toggle Button & Overlay for mobile -->
+      <button
+        class="sidebar-toggle-btn"
+        id="sidebarToggleBtn"
+        aria-label="Mở danh mục"
+        style="display: none"
+      >
+        <i class="fas fa-bars"></i>
+      </button>
+      <div class="sidebar-overlay" id="sidebarOverlay"></div>
     </div>
 
     <!-- Footer -->
@@ -379,7 +523,9 @@
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/about.html" class="text-white text-decoration-none"
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
                   >Về chúng tôi</a
                 >
               </li>
@@ -467,6 +613,7 @@
       const BLOG_PAGE_SIZE = 4;
       let blogCurrentPage = 1;
       let blogFilteredPosts = [];
+      let currentSort = "newest"; // Mặc định sort mới nhất
 
       // Lấy dữ liệu blog động từ file JSON
       let allApprovedPosts = [];
@@ -482,9 +629,13 @@
     <a href="/pages/blog-detail.html?id=${
       post.id
     }" class="blog-card d-block" data-id="${post.id}">
-      <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
+      <img src="${post.image}" class="blog-image w-100" alt="${
+              post.title
+            }" loading="lazy" />
       <div class="blog-content">
-        <h3 class="blog-title">${post.title}</h3>
+        <h3 class="blog-title" style="font-weight:700; transition:color 0.18s;">${
+          post.title
+        }</h3>
         <div class="blog-meta">
           <span><i class="fas fa-user"></i> ${post.author}</span>
           <span><i class="far fa-calendar"></i> ${post.date}</span>
@@ -494,7 +645,10 @@
         <p class="blog-excerpt">${post.excerpt}</p>
         <div class="blog-tags">
           ${(post.tags || [])
-            .map((tag) => `<span class="blog-tag">${tag}</span>`)
+            .map(
+              (tag) =>
+                `<span class="blog-tag" style="background-color:var(--primary-color);color:#fff;border:1px solid #ddd;border-radius:20px;padding:5px 17px;margin:5px;font-size:0.96em;">${tag}</span>`
+            )
             .join("")}
         </div>
       </div>
@@ -697,15 +851,43 @@
         if (author) {
           filtered = filtered.filter((post) => post.author === author);
         }
-        // Luôn sort mới nhất lên đầu
-        filtered.sort((a, b) => getPostTime(b) - getPostTime(a));
+        // Sắp xếp theo currentSort
+        if (currentSort === "views") {
+          filtered.sort((a, b) => (b.views || 0) - (a.views || 0));
+        } else if (currentSort === "rating") {
+          filtered.sort((a, b) => (b.rating || 0) - (a.rating || 0));
+        } else if (currentSort === "time") {
+          filtered.sort((a, b) => (a.readTime || 9999) - (b.readTime || 9999));
+        } else {
+          // Mặc định: sort theo ngày mới nhất
+          filtered.sort((a, b) => getPostTime(b) - getPostTime(a));
+        }
         blogCurrentPage = 1;
-        renderBlogPosts(filtered, blogCurrentPage);
+        // Hiển thị trạng thái loading khi tìm kiếm (phần 6)
+        document.getElementById("blogPosts").innerHTML =
+          '<div class="w-100 text-center py-5"><div class="spinner-border text-danger" role="status"><span class="visually-hidden">Đang tải...</span></div></div>';
+        setTimeout(function () {
+          if (filtered.length === 0) {
+            document.getElementById("blogPosts").innerHTML =
+              '<div class="w-100 text-center py-5"><i class="fas fa-search fa-2x text-secondary mb-3"></i><div class="fw-semibold text-muted">Không tìm thấy bài viết phù hợp</div></div>';
+            renderBlogPagination(0, 1);
+          } else {
+            renderBlogPosts(filtered, blogCurrentPage);
+          }
+        }, 350); // Giả lập loading 350ms
       }
 
       document
-        .querySelector(".search-btn")
-        .addEventListener("click", filterAndSearchPosts);
+        .getElementById("sortSelect")
+        .addEventListener("change", function () {
+          currentSort = this.value || "newest";
+          filterAndSearchPosts();
+        });
+      // Đảm bảo nút tìm kiếm đúng selector
+      const searchBtn = document.querySelector(".search-btn-custom");
+      if (searchBtn) {
+        searchBtn.addEventListener("click", filterAndSearchPosts);
+      }
       document
         .getElementById("searchInput")
         .addEventListener("keyup", function (e) {
@@ -794,23 +976,8 @@
       document
         .getElementById("sortSelect")
         .addEventListener("change", function () {
-          const value = this.value;
-          if (value === "newest") {
-            blogFilteredPosts.sort((a, b) => getPostTime(b) - getPostTime(a));
-          } else if (value === "views") {
-            blogFilteredPosts.sort((a, b) => (b.views || 0) - (a.views || 0));
-          } else if (value === "rating") {
-            blogFilteredPosts.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-          } else if (value === "time") {
-            blogFilteredPosts.sort(
-              (a, b) => (a.readTime || 9999) - (b.readTime || 9999)
-            );
-          } else {
-            // Mặc định: sort theo ngày mới nhất
-            blogFilteredPosts.sort((a, b) => getPostTime(b) - getPostTime(a));
-          }
-          blogCurrentPage = 1;
-          renderBlogPosts(blogFilteredPosts, blogCurrentPage);
+          currentSort = this.value || "newest";
+          filterAndSearchPosts();
         });
 
       // --- AUTOCOMPLETE TÌM KIẾM BLOG ---
@@ -867,23 +1034,30 @@
           filterAndSearchPosts();
         }
       });
+
+      // Sidebar toggle for mobile
+      const sidebar = document.querySelector(".sidebar");
+      const sidebarToggleBtn = document.getElementById("sidebarToggleBtn");
+      const sidebarOverlay = document.getElementById("sidebarOverlay");
+      function updateSidebarToggleBtn() {
+        if (window.innerWidth < 992) {
+          sidebarToggleBtn.style.display = "block";
+        } else {
+          sidebarToggleBtn.style.display = "none";
+          sidebar.classList.remove("show");
+          sidebarOverlay.classList.remove("active");
+        }
+      }
+      window.addEventListener("resize", updateSidebarToggleBtn);
+      document.addEventListener("DOMContentLoaded", updateSidebarToggleBtn);
+      sidebarToggleBtn.addEventListener("click", function () {
+        sidebar.classList.toggle("show");
+        sidebarOverlay.classList.toggle("active");
+      });
+      sidebarOverlay.addEventListener("click", function () {
+        sidebar.classList.remove("show");
+        sidebarOverlay.classList.remove("active");
+      });
     </script>
-    <style>
-      .autocomplete-dropdown {
-        max-height: 320px;
-        overflow-y: auto;
-        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-        border-radius: 0 0 12px 12px;
-        border-top: none;
-        min-width: 180px;
-      }
-      .autocomplete-item {
-        transition: background 0.2s;
-      }
-      .autocomplete-item:hover,
-      .autocomplete-item.active {
-        background: #f3f3f3;
-      }
-    </style>
   </body>
 </html>

@@ -772,8 +772,8 @@
   .sidebar-toggle-btn {
     display: block;
     position: fixed;
-    bottom: 64px; /* Đẩy lên cao hơn, tránh footer */
-    right: 24px;
+    bottom: 30px; 
+    right: 0px;
     z-index: 1060;
     background: #d61c4e;
     color: #fff;

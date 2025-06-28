@@ -223,7 +223,7 @@
         border-radius: 18px;
         box-shadow: 0 2px 16px 0 rgba(0, 0, 0, 0.06);
         padding: 1.1rem 2rem;
-        margin: 0 auto 1.5rem auto;
+        margin: 30px auto 1.5rem auto;
         max-width: 520px;
         display: flex;
         align-items: center;
@@ -671,6 +671,7 @@
       /* Responsive search box and input group for mobile */
 @media (max-width: 600px) {
   .search-box {
+    margin-top: 20px;
     flex-wrap: wrap !important;
     padding: 0.7rem 0.7rem !important;
     gap: 0.5rem !important;
@@ -809,5 +810,9 @@
 @media (max-width: 480px) {
   .footer {
     display: none !important;
+  }
+  /* Chỉ áp dụng padding-top cho .page-header-list trên mobile ở TRANG LIST */
+body.page-header-list .page-header-list {
+    padding-top: 70px !important;
   }
 }

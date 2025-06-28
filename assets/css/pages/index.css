@@ -48,6 +48,17 @@ body {
   color: var(--text-color) !important;
 }
 
+/* Đảm bảo navbar-item luôn hiện rõ trên mọi nền */
+.navbar:not(.scrolled) .nav-link,
+.navbar:not(.scrolled) .navbar-nav .btn {
+  color: var(--text-color) !important;
+}
+
+.navbar.scrolled .nav-link,
+.navbar.scrolled .navbar-nav .btn {
+  color: var(--text-color) !important;
+}
+
 .nav-link::after {
   content: '';
   position: absolute;

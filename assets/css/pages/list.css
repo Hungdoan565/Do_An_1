@@ -772,17 +772,17 @@
   .sidebar-toggle-btn {
     display: block;
     position: fixed;
-    bottom: 30px; 
-    right: 0px;
+    bottom: 18px; 
+    right: 8px;
     z-index: 1060;
     background: #d61c4e;
     color: #fff;
     border: none;
     border-radius: 50%;
-    width: 64px; /* Tăng vùng chạm */
-    height: 64px;
+    width: 44px; /* Tăng vùng chạm */
+    height: 44px;
     box-shadow: 0 4px 24px rgba(214,28,78,0.18), 0 1.5px 8px rgba(0,0,0,0.10);
-    font-size: 2rem;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -804,4 +804,10 @@
 }
 @media (min-width: 992px) {
   .sidebar-toggle-btn, .sidebar-overlay { display: none !important; }
+}
+
+@media (max-width: 480px) {
+  .footer {
+    display: none !important;
+  }
 }

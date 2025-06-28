@@ -118,11 +118,11 @@ body {
 }
 
 .hero-subtitle {
-  font-size: 1.25rem;
-  font-weight: 600;
+  font-size: 1.8rem;
+  font-weight: 800;
   text-transform: uppercase;
   letter-spacing: 3px;
-  margin-bottom: 3rem;
+  margin-bottom: 1.9rem;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease;
@@ -707,5 +707,12 @@ body {
   }
   body {
     padding-top: 60px;
+  }
+}
+
+/* Ẩn footer trên mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .footer {
+    display: none !important;
   }
 }

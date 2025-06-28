@@ -289,3 +289,9 @@
       .navbar .username, .navbar .username-box, .navbar .username * {
         color: #d61c4e !important;
       }
+
+      @media (max-width: 480px) {
+  .footer {
+    display: none !important;
+  }
+}

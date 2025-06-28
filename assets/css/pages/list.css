@@ -772,21 +772,35 @@
   .sidebar-toggle-btn {
     display: block;
     position: fixed;
-    bottom: 24px;
+    bottom: 64px; /* Đẩy lên cao hơn, tránh footer */
     right: 24px;
     z-index: 1060;
     background: #d61c4e;
     color: #fff;
     border: none;
     border-radius: 50%;
-    width: 54px;
-    height: 54px;
-    box-shadow: 0 2px 12px rgba(214,28,78,0.13);
+    width: 64px; /* Tăng vùng chạm */
+    height: 64px;
+    box-shadow: 0 4px 24px rgba(214,28,78,0.18), 0 1.5px 8px rgba(0,0,0,0.10);
     font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: box-shadow 0.18s, background 0.18s, color 0.18s, bottom 0.18s;
+    outline: none;
+    cursor: pointer;
+    /* Tăng vùng chạm thực tế */
+    padding: 0;
+    touch-action: manipulation;
   }
+  .sidebar-toggle-btn:active,
+  .sidebar-toggle-btn:focus,
+  .sidebar-toggle-btn:hover {
+    background: #b71c3a;
+    color: #fff;
+    box-shadow: 0 8px 32px rgba(214,28,78,0.22), 0 2px 12px rgba(0,0,0,0.13);
+  }
+  /* Đảm bảo nút không bị footer che khi cuộn tới cuối trang (nâng cao, nếu cần JS sẽ xử lý ẩn/hiện) */
 }
 @media (min-width: 992px) {
   .sidebar-toggle-btn, .sidebar-overlay { display: none !important; }

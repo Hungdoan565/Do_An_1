@@ -647,7 +647,7 @@
           ${(post.tags || [])
             .map(
               (tag) =>
-                `<span class="blog-tag" style="background-color:var(--primary-color);color:#fff;border:1px solid #ddd;border-radius:20px;padding:5px 17px;margin:5px;font-size:0.96em;">${tag}</span>`
+                `<span class="blog-tag">${tag}</span>`
             )
             .join("")}
         </div>

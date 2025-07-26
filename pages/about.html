@@ -1,447 +1,592 @@
 <!DOCTYPE html>
 <html lang="vi">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Về Chúng Tôi - Món Ngon Việt Nam</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+    />
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/assets/css/pages/about.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Về Chúng Tôi - Món Ngon Việt Nam</title>
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
-  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
-  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700&display=swap"
-    rel="stylesheet" />
-  <link rel="stylesheet" href="/assets/css/pages/about.css" />
-</head>
-
-<body>
-  <!-- Navbar -->
-  <nav class="navbar navbar-expand-lg fixed-top">
-    <div class="container">
-      <a class="navbar-brand" href="/index.html"> Món Ngon Việt Nam </a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav ms-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" href="/index.html">Trang chủ</a>
-          </li>
-          <!-- Dropdown Công thức -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarRecipeDropdown" role="button"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Công thức
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarRecipeDropdown">
-              <li>
-                <a class="dropdown-item" href="../recipes/list.html">
-                  <i class="fas fa-list-ul"></i> Danh sách công thức
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="/pages/user/add-recipe.html">
-                  <i class="fas fa-plus-circle"></i> Thêm công thức mới
-                </a>
-              </li>
-            </ul>
-          </li>
-          <!-- Dropdown Blog -->
-          <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" href="#" id="navbarBlogDropdown" role="button" data-bs-toggle="dropdown"
-              aria-expanded="false">
-              Blog
-            </a>
-            <ul class="dropdown-menu" aria-labelledby="navbarBlogDropdown">
-              <li>
-                <a class="dropdown-item" href="../blog.html">
-                  <i class="fas fa-book-open"></i> Danh sách blog
-                </a>
-              </li>
-              <li>
-                <a class="dropdown-item" href="/pages/add-blog.html">
-                  <i class="fas fa-pen-nib"></i> Thêm blog mới
-                </a>
-              </li>
-            </ul>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" href="/pages/about.html">Về chúng tôi</a>
-          </li>
-          <li class="nav-item ms-3">
-            <a class="btn btn-outline-primary px-4 py-2 ms-2" href="/pages/auth/login.html" id="loginBtn">
-              Đăng nhập
-            </a>
-            <a class="btn btn-primary px-4 py-2 ms-2" href="/pages/auth/register.html" id="registerBtn">
-              Đăng ký
-            </a>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </nav>
-
-  <!-- Page Header -->
-  <header class="page-header">
-    <div class="container">
-      <h1 class="display-4 fw-bold mb-4">Về Chúng Tôi</h1>
-      <p class="lead">Khám phá câu chuyện và sứ mệnh của Món Ngon Việt Nam</p>
-    </div>
-  </header>
-
-  <!-- About Section -->
-  <section class="about-section">
-    <div class="container">
-      <div class="row align-items-center">
-        <div class="col-lg-6" data-aos="fade-right">
-          <div class="about-image">
-            <img src="/assets/images/about/About_Us.jpg" alt="Về chúng tôi" />
-          </div>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+      <div class="container">
+        <a class="navbar-brand" href="/index.html"> Món Ngon Việt Nam </a>
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto align-items-center">
+            <li class="nav-item">
+              <a class="nav-link" href="/index.html">Trang chủ</a>
+            </li>
+            <!-- Dropdown Công thức -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarRecipeDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Công thức
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarRecipeDropdown">
+                <li>
+                  <a class="dropdown-item" href="../recipes/list.html">
+                    <i class="fas fa-list-ul"></i> Danh sách công thức
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/user/add-recipe.html">
+                    <i class="fas fa-plus-circle"></i> Thêm công thức mới
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <!-- Dropdown Blog -->
+            <li class="nav-item dropdown">
+              <a
+                class="nav-link dropdown-toggle"
+                href="#"
+                id="navbarBlogDropdown"
+                role="button"
+                data-bs-toggle="dropdown"
+                aria-expanded="false"
+              >
+                Blog
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarBlogDropdown">
+                <li>
+                  <a class="dropdown-item" href="../blog.html">
+                    <i class="fas fa-book-open"></i> Danh sách blog
+                  </a>
+                </li>
+                <li>
+                  <a class="dropdown-item" href="/pages/add-blog.html">
+                    <i class="fas fa-pen-nib"></i> Thêm blog mới
+                  </a>
+                </li>
+              </ul>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link active" href="/pages/about.html"
+                >Về chúng tôi</a
+              >
+            </li>
+            <li class="nav-item ms-3">
+              <a
+                class="btn btn-outline-primary px-4 py-2 ms-2"
+                href="/pages/auth/login.html"
+                id="loginBtn"
+              >
+                Đăng nhập
+              </a>
+              <a
+                class="btn btn-primary px-4 py-2 ms-2"
+                href="/pages/auth/register.html"
+                id="registerBtn"
+              >
+                Đăng ký
+              </a>
+            </li>
+          </ul>
         </div>
-        <div class="col-lg-6" data-aos="fade-left">
-          <h2 class="section-title">Câu Chuyện Của Chúng Tôi</h2>
-          <p class="lead mb-4">
-            Món Ngon Việt Nam được thành lập với mong muốn kết nối những người
-            yêu thích ẩm thực, chia sẻ niềm đam mê nấu nướng và gìn giữ tinh
-            hoa ẩm thực Việt Nam.
-          </p>
-          <p class="mb-4" style="font-size: 1.25rem">
-            Chúng tôi tin rằng mỗi món ăn đều mang trong mình một câu chuyện,
-            một kỷ niệm và những giá trị văn hóa độc đáo. Thông qua nền tảng
-            của mình, chúng tôi mong muốn tạo ra một cộng đồng nơi mọi người
-            có thể chia sẻ, học hỏi và cùng nhau phát triển.
-          </p>
-          <div class="row g-4 mt-4">
-            <div class="col-md-6">
-              <div class="feature-card">
-                <div class="feature-icon">
-                  <i class="fas fa-users"></i>
+      </div>
+    </nav>
+
+    <!-- Page Header -->
+    <header class="page-header">
+      <div class="container">
+        <h1 class="display-4 fw-bold mb-4">Về Chúng Tôi</h1>
+        <p class="lead">Khám phá câu chuyện và sứ mệnh của Món Ngon Việt Nam</p>
+      </div>
+    </header>
+
+    <!-- About Section -->
+    <section class="about-section">
+      <div class="container">
+        <div class="row align-items-center">
+          <div class="col-lg-6" data-aos="fade-right">
+            <div class="about-image">
+              <img src="/assets/images/about/About_Us.jpg" alt="Về chúng tôi" />
+            </div>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <h2 class="section-title">Câu Chuyện Của Chúng Tôi</h2>
+            <p class="lead mb-4">
+              Món Ngon Việt Nam được thành lập với mong muốn kết nối những người
+              yêu thích ẩm thực, chia sẻ niềm đam mê nấu nướng và gìn giữ tinh
+              hoa ẩm thực Việt Nam.
+            </p>
+            <p class="mb-4" style="font-size: 1.25rem">
+              Chúng tôi tin rằng mỗi món ăn đều mang trong mình một câu chuyện,
+              một kỷ niệm và những giá trị văn hóa độc đáo. Thông qua nền tảng
+              của mình, chúng tôi mong muốn tạo ra một cộng đồng nơi mọi người
+              có thể chia sẻ, học hỏi và cùng nhau phát triển.
+            </p>
+            <div class="row g-4 mt-4">
+              <div class="col-md-6">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-users"></i>
+                  </div>
+                  <h4 class="mb-3">Cộng Đồng</h4>
+                  <p>
+                    Kết nối những người yêu thích ẩm thực trên khắp Việt Nam
+                  </p>
                 </div>
-                <h4 class="mb-3">Cộng Đồng</h4>
-                <p>
-                  Kết nối những người yêu thích ẩm thực trên khắp Việt Nam
-                </p>
               </div>
-            </div>
-            <div class="col-md-6">
-              <div class="feature-card">
-                <div class="feature-icon">
-                  <i class="fas fa-book-open"></i>
+              <div class="col-md-6">
+                <div class="feature-card">
+                  <div class="feature-icon">
+                    <i class="fas fa-book-open"></i>
+                  </div>
+                  <h4 class="mb-3">Kiến Thức</h4>
+                  <p>Chia sẻ bí quyết nấu ăn và kiến thức ẩm thực</p>
                 </div>
-                <h4 class="mb-3">Kiến Thức</h4>
-                <p>Chia sẻ bí quyết nấu ăn và kiến thức ẩm thực</p>
               </div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Stats Section -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-md-3">
-          <div class="stat-card" data-aos="fade-up">
-            <div class="stat-number">50K+</div>
-            <div class="stat-title">Thành viên</div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
-            <div class="stat-number">1000+</div>
-            <div class="stat-title">Công thức</div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
-            <div class="stat-number">500+</div>
-            <div class="stat-title">Bài viết</div>
-          </div>
-        </div>
-        <div class="col-md-3">
-          <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
-            <div class="stat-number">100K+</div>
-            <div class="stat-title">Lượt tương tác</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Team Section -->
-  <section class="team-section">
-    <div class="container">
-      <h2 class="section-title text-center mb-5">Đội Ngũ Của Chúng Tôi</h2>
-      <div class="row g-4">
-        <div class="col-md-4" data-aos="fade-up">
-          <div class="team-card">
-            <img src="/assets/images/about/team1.jpg" class="team-image" alt="Team member" />
-            <div class="team-info">
-              <h4>J97</h4>
-              <p class="text-muted">Đồng sáng lập & CEO</p>
-              <div class="team-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
+    <!-- Stats Section -->
+    <section class="stats-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-3">
+            <div class="stat-card" data-aos="fade-up">
+              <div class="stat-number">50K+</div>
+              <div class="stat-title">Thành viên</div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
-          <div class="team-card">
-            <img src="/assets/images/about/team2.png" class="team-image" alt="Team member" />
-            <div class="team-info">
-              <h4>Trần Thị B</h4>
-              <p class="text-muted">Bếp trưởng</p>
-              <div class="team-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
+          <div class="col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="100">
+              <div class="stat-number">1000+</div>
+              <div class="stat-title">Công thức</div>
             </div>
           </div>
-        </div>
-        <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
-          <div class="team-card">
-            <img src="/assets/images/about/team3.png" class="team-image" alt="Team member" />
-            <div class="team-info">
-              <h4>Lê Văn C</h4>
-              <p class="text-muted">Quản lý cộng đồng</p>
-              <div class="team-social">
-                <a href="#"><i class="fab fa-facebook-f"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-linkedin-in"></i></a>
-              </div>
+          <div class="col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="200">
+              <div class="stat-number">500+</div>
+              <div class="stat-title">Bài viết</div>
+            </div>
+          </div>
+          <div class="col-md-3">
+            <div class="stat-card" data-aos="fade-up" data-aos-delay="300">
+              <div class="stat-number">100K+</div>
+              <div class="stat-title">Lượt tương tác</div>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Contact Section -->
-  <section class="contact-section">
-    <div class="container">
-      <div class="row">
-        <div class="col-lg-6" data-aos="fade-right">
-          <h2 class="section-title">Liên Hệ</h2>
-          <p class="lead mb-5">
-            Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi hoặc đề xuất
-            nào.
-          </p>
-          <div class="contact-info">
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-map-marker-alt"></i>
-              </div>
-              <div>
-                <h5 class="mb-1">Địa chỉ</h5>
-                <p class="mb-0">123 Đường ABC, Quận Ninh Kiều, Cần Thơ</p>
-              </div>
-            </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-phone"></i>
-              </div>
-              <div>
-                <h5 class="mb-1">Điện thoại</h5>
-                <p class="mb-0">0123.456.789</p>
+    <!-- Team Section -->
+    <section class="team-section">
+      <div class="container">
+        <h2 class="section-title text-center mb-5">Đội Ngũ Của Chúng Tôi</h2>
+        <div class="row g-4">
+          <div class="col-md-4" data-aos="fade-up">
+            <div class="team-card">
+              <img
+                src="/assets/images/about/team1.jpg"
+                class="team-image"
+                alt="Team member"
+              />
+              <div class="team-info">
+                <h4>J97</h4>
+                <p class="text-muted">Đồng sáng lập & CEO</p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
               </div>
             </div>
-            <div class="contact-item">
-              <div class="contact-icon">
-                <i class="fas fa-envelope"></i>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="100">
+            <div class="team-card">
+              <img
+                src="/assets/images/about/team2.png"
+                class="team-image"
+                alt="Team member"
+              />
+              <div class="team-info">
+                <h4>Trần Thị B</h4>
+                <p class="text-muted">Bếp trưởng</p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
               </div>
-              <div>
-                <h5 class="mb-1">Email</h5>
-                <p class="mb-0">lienhe@monngonvietnam.vn</p>
+            </div>
+          </div>
+          <div class="col-md-4" data-aos="fade-up" data-aos-delay="200">
+            <div class="team-card">
+              <img
+                src="/assets/images/about/team3.png"
+                class="team-image"
+                alt="Team member"
+              />
+              <div class="team-info">
+                <h4>Lê Văn C</h4>
+                <p class="text-muted">Quản lý cộng đồng</p>
+                <div class="team-social">
+                  <a href="#"><i class="fab fa-facebook-f"></i></a>
+                  <a href="#"><i class="fab fa-twitter"></i></a>
+                  <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
               </div>
             </div>
           </div>
         </div>
-        <div class="col-lg-6" data-aos="fade-left">
-          <form id="contactForm" name="contact" method="POST" data-netlify="true"
-            class="bg-white p-4 rounded-3 shadow-sm">
-            <input type="hidden" name="form-name" value="contact" />
-            <div class="mb-3">
-              <label class="form-label">Họ và tên</label>
-              <input type="text" class="form-control" id="contactName" name="name" placeholder="Nhập họ và tên"
-                required />
+      </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-6" data-aos="fade-right">
+            <h2 class="section-title">Liên Hệ</h2>
+            <p class="lead mb-5">
+              Hãy liên hệ với chúng tôi nếu bạn có bất kỳ câu hỏi hoặc đề xuất
+              nào.
+            </p>
+            <div class="contact-info">
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-map-marker-alt"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Địa chỉ</h5>
+                  <p class="mb-0">123 Đường ABC, Quận Ninh Kiều, Cần Thơ</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-phone"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Điện thoại</h5>
+                  <p class="mb-0">0123.456.789</p>
+                </div>
+              </div>
+              <div class="contact-item">
+                <div class="contact-icon">
+                  <i class="fas fa-envelope"></i>
+                </div>
+                <div>
+                  <h5 class="mb-1">Email</h5>
+                  <p class="mb-0">lienhe@monngonvietnam.vn</p>
+                </div>
+              </div>
             </div>
-            <div class="mb-3">
-              <label class="form-label">Email</label>
-              <input type="email" class="form-control" id="contactEmail" name="email" placeholder="Nhập địa chỉ email"
-                required />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Tiêu đề</label>
-              <input type="text" class="form-control" id="contactSubject" name="title" placeholder="Nhập tiêu đề"
-                required />
-            </div>
-            <div class="mb-3">
-              <label class="form-label">Nội dung</label>
-              <textarea class="form-control" id="contactMessage" name="message" rows="5" placeholder="Nhập nội dung"
-                required></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary w-100">
-              Gửi tin nhắn
-            </button>
-          </form>
+          </div>
+          <div class="col-lg-6" data-aos="fade-left">
+            <form
+              id="contactForm"
+              name="contact"
+              method="POST"
+              data-netlify="true"
+              class="bg-white p-4 rounded-3 shadow-sm"
+            >
+              <input type="hidden" name="form-name" value="contact" />
+              <div class="mb-3">
+                <label class="form-label">Họ và tên</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="contactName"
+                  name="name"
+                  placeholder="Nhập họ và tên"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Email</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  id="contactEmail"
+                  name="email"
+                  placeholder="Nhập địa chỉ email"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Tiêu đề</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="contactSubject"
+                  name="title"
+                  placeholder="Nhập tiêu đề"
+                  required
+                />
+              </div>
+              <div class="mb-3">
+                <label class="form-label">Nội dung</label>
+                <textarea
+                  class="form-control"
+                  id="contactMessage"
+                  name="message"
+                  rows="5"
+                  placeholder="Nhập nội dung"
+                  required
+                ></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary w-100">
+                Gửi tin nhắn
+              </button>
+            </form>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  <!-- Footer -->
-  <footer class="footer mt-5 py-5" style="
+    <!-- Footer -->
+    <footer
+      class="footer mt-5 py-5"
+      style="
         background: linear-gradient(
           45deg,
           var(--primary-color),
           var(--secondary-color)
         );
-      ">
-    <div class="container">
-      <div class="row g-4">
-        <div class="col-lg-4">
-          <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
-          <p class="mb-4 text-white">
-            Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
-            Việt Nam, nơi kết nối những người đam mê ẩm thực.
-          </p>
-          <div class="social-links d-flex gap-3">
-            <a href="#"
-              class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
-              style="width: 44px; height: 44px"><i class="fab fa-facebook-f"></i></a>
-            <a href="#"
-              class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
-              style="width: 44px; height: 44px"><i class="fab fa-instagram"></i></a>
-            <a href="#"
-              class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
-              style="width: 44px; height: 44px"><i class="fab fa-youtube"></i></a>
-            <a href="#"
-              class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
-              style="width: 44px; height: 44px"><i class="fab fa-tiktok"></i></a>
+      "
+    >
+      <div class="container">
+        <div class="row g-4">
+          <div class="col-lg-4">
+            <h5 class="mb-3 fw-bold text-white">Về Chúng Tôi</h5>
+            <p class="mb-4 text-white">
+              Món Ngon Việt Nam là cộng đồng chia sẻ công thức nấu ăn lớn nhất
+              Việt Nam, nơi kết nối những người đam mê ẩm thực.
+            </p>
+            <div class="social-links d-flex gap-3">
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-facebook-f"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-instagram"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-youtube"></i
+              ></a>
+              <a
+                href="#"
+                class="d-flex align-items-center justify-content-center rounded-circle bg-white bg-opacity-10 text-white fs-5"
+                style="width: 44px; height: 44px"
+                ><i class="fab fa-tiktok"></i
+              ></a>
+            </div>
+          </div>
+          <div class="col-lg-2">
+            <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html"
+                  class="text-white text-decoration-none"
+                  >Công thức</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/blog.html"
+                  class="text-white text-decoration-none"
+                  >Blog</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
+                  >Về chúng tôi</a
+                >
+              </li>
+              <li class="mb-2">
+                <a href="#" class="text-white text-decoration-none">Liên hệ</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
+            <ul class="list-unstyled">
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html?category=mon-chinh"
+                  class="text-white text-decoration-none"
+                  >Món chính</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html?category=trang-mieng"
+                  class="text-white text-decoration-none"
+                  >Món tráng miệng</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html?category=thuc-uong"
+                  class="text-white text-decoration-none"
+                  >Đồ uống</a
+                >
+              </li>
+              <li class="mb-2">
+                <a
+                  href="/pages/recipes/list.html?category=mon-chay"
+                  class="text-white text-decoration-none"
+                  >Món chay</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div class="col-lg-3">
+            <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
+            <ul class="list-unstyled text-white">
+              <li class="mb-2">
+                <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-phone me-2"></i> 0123.456.789
+              </li>
+              <li class="mb-2">
+                <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
+              </li>
+            </ul>
           </div>
         </div>
-        <div class="col-lg-2">
-          <h5 class="mb-3 fw-bold text-white">Khám Phá</h5>
-          <ul class="list-unstyled">
-            <li class="mb-2">
-              <a href="/pages/recipes/list.html" class="text-white text-decoration-none">Công thức</a>
-            </li>
-            <li class="mb-2">
-              <a href="/pages/blog.html" class="text-white text-decoration-none">Blog</a>
-            </li>
-            <li class="mb-2">
-              <a href="/pages/about.html" class="text-white text-decoration-none">Về chúng tôi</a>
-            </li>
-            <li class="mb-2">
-              <a href="#" class="text-white text-decoration-none">Liên hệ</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-3">
-          <h5 class="mb-3 fw-bold text-white">Danh Mục</h5>
-          <ul class="list-unstyled">
-            <li class="mb-2">
-              <a href="/pages/recipes/list.html?category=mon-chinh" class="text-white text-decoration-none">Món
-                chính</a>
-            </li>
-            <li class="mb-2">
-              <a href="/pages/recipes/list.html?category=trang-mieng" class="text-white text-decoration-none">Món tráng
-                miệng</a>
-            </li>
-            <li class="mb-2">
-              <a href="/pages/recipes/list.html?category=thuc-uong" class="text-white text-decoration-none">Đồ uống</a>
-            </li>
-            <li class="mb-2">
-              <a href="/pages/recipes/list.html?category=mon-chay" class="text-white text-decoration-none">Món chay</a>
-            </li>
-          </ul>
-        </div>
-        <div class="col-lg-3">
-          <h5 class="mb-3 fw-bold text-white">Liên Hệ</h5>
-          <ul class="list-unstyled text-white">
-            <li class="mb-2">
-              <i class="fas fa-envelope me-2"></i> lienhe@monngon.vn
-            </li>
-            <li class="mb-2">
-              <i class="fas fa-phone me-2"></i> 0123.456.789
-            </li>
-            <li class="mb-2">
-              <i class="fas fa-map-marker-alt me-2"></i> Hà Nội, Việt Nam
-            </li>
-          </ul>
+        <hr class="my-4 bg-white" />
+        <div class="text-center text-white">
+          <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
         </div>
       </div>
-      <hr class="my-4 bg-white" />
-      <div class="text-center text-white">
-        <p class="mb-0">© 2024 Món Ngon Việt Nam. Đã đăng ký bản quyền.</p>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
-  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
-  <script src="/assets/js/auth.js"></script>
-  <script src="/assets/js/navbar-user.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
-  <!-- MailJS CDN -->
-  <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
-  <script src="/assets/js/firebase-config.js"></script>
-  <script>
-    // Initialize AOS
-    AOS.init({
-      duration: 800,
-      once: true,
-    });
-    // Toast/thông báo đơn giản
-    function showContactToast(message, type = "success") {
-      const toast = document.createElement("div");
-      toast.className = `toast align-items-center text-bg-${type} border-0 position-fixed top-0 start-50 translate-middle-x mt-3`;
-      toast.style.zIndex = 9999;
-      toast.style.minWidth = "250px";
-      toast.innerHTML = `<div class=\"d-flex\"><div class=\"toast-body\">${message}</div></div>`;
-      document.body.appendChild(toast);
-      setTimeout(() => toast.remove(), 3000);
-    }
-
-    // Cấu hình MailJS
-    emailjs.init("QPL1vIafIdKujDFKV");
-
-    document.getElementById("contactForm").addEventListener("submit", function (e) {
-      e.preventDefault();
-      var name = document.getElementById("contactName").value.trim();
-      var email = document.getElementById("contactEmail").value.trim();
-      var title = document.getElementById("contactSubject").value.trim();
-      var message = document.getElementById("contactMessage").value.trim();
-      // Validate
-      if (!name || !email || !title || !message) {
-        showContactToast("Vui lòng nhập đầy đủ thông tin!", "danger");
-        return;
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script src="/assets/js/auth.js"></script>
+    <script src="/assets/js/navbar-user.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <!-- MailJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script src="/assets/js/firebase-config.js"></script>
+    <script>
+      // Initialize AOS
+      AOS.init({
+        duration: 800,
+        once: true,
+      });
+      // Toast/thông báo đơn giản
+      function showContactToast(message, type = "success") {
+        const toast = document.createElement("div");
+        toast.className = `custom-toast show align-items-center border-0 position-fixed top-0 end-0 mt-4 me-4`;
+        toast.style.zIndex = 9999;
+        toast.style.minWidth = "340px";
+        toast.style.maxWidth = "90vw";
+        toast.style.padding = "18px 32px";
+        toast.style.fontSize = "1.15rem";
+        toast.style.fontWeight = "600";
+        toast.style.borderRadius = "16px";
+        toast.style.boxShadow =
+          "0 8px 32px rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.13)";
+        toast.style.background = "#00d27b";
+        toast.style.color = "#fff";
+        toast.style.transition =
+          "transform 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1)";
+        toast.style.transform = "translateX(100px) scale(0.98)";
+        toast.style.opacity = "0";
+        toast.innerHTML = `<div class=\"d-flex align-items-center\"><i class=\"fas fa-check-circle me-3\"></i><div class=\"toast-body\">${message}</div></div>`;
+        document.body.appendChild(toast);
+        setTimeout(() => {
+          toast.style.transform = "translateX(0) scale(1)";
+          toast.style.opacity = "1";
+        }, 10);
+        setTimeout(() => {
+          toast.style.transform = "translateX(100px) scale(0.98)";
+          toast.style.opacity = "0";
+          setTimeout(() => toast.remove(), 400);
+        }, 3000);
       }
-      var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(email)) {
-        showContactToast("Email không hợp lệ!", "danger");
-        return;
-      }
-      // Gửi email qua MailJS
-      emailjs.send("service_sgwu2g1", "template_mqrkdwq", {
-        from_name: name,
-        from_email: email,
-        subject: title,
-        message: message
-      })
-        .then(function (response) {
-          showContactToast("Gửi liên hệ thành công!");
-          document.getElementById("contactForm").reset();
-        }, function (error) {
-          showContactToast("Gửi liên hệ thất bại. Vui lòng thử lại!", "danger");
+
+      // Cấu hình MailJS
+      emailjs.init("QPL1vIafIdKujDFKV");
+
+      document
+        .getElementById("contactForm")
+        .addEventListener("submit", function (e) {
+          e.preventDefault();
+          var name = document.getElementById("contactName").value.trim();
+          var email = document.getElementById("contactEmail").value.trim();
+          var title = document.getElementById("contactSubject").value.trim();
+          var message = document.getElementById("contactMessage").value.trim();
+          // Validate
+          if (!name || !email || !title || !message) {
+            showContactToast("Vui lòng nhập đầy đủ thông tin!", "danger");
+            return;
+          }
+          var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+          if (!emailPattern.test(email)) {
+            showContactToast("Email không hợp lệ!", "danger");
+            return;
+          }
+          // Gửi email qua MailJS
+          emailjs
+            .send("service_sgwu2g1", "template_mqrkdwq", {
+              from_name: name,
+              from_email: email,
+              subject: title,
+              message: message,
+            })
+            .then(
+              function (response) {
+                showContactToast("Liên hệ đã được gửi đi thành công!");
+                document.getElementById("contactForm").reset();
+              },
+              function (error) {
+                showContactToast(
+                  "Gửi liên hệ thất bại. Vui lòng thử lại!",
+                  "danger"
+                );
+              }
+            );
         });
-    });
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

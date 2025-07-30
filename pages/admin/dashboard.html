@@ -354,8 +354,25 @@
           <!-- Cài đặt Tab -->
           <div class="tab-section" id="tab-settings">
             <div class="admin-section">
-              <h4 class="mb-4">Cài đặt hệ thống</h4>
-              <p class="text-muted">Chức năng này đang phát triển...</p>
+              <h4 class="mb-4">Quản lý thông báo hệ thống</h4>
+              <form id="addNotificationForm" class="mb-4">
+                <div class="mb-3">
+                  <label class="form-label">Nội dung thông báo</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="notificationContent"
+                    required
+                    maxlength="200"
+                    placeholder="Nhập nội dung thông báo..."
+                  />
+                </div>
+                <button type="submit" class="btn btn-primary">
+                  Thêm thông báo
+                </button>
+              </form>
+              <h5 class="mb-3">Danh sách thông báo</h5>
+              <div id="notificationList"></div>
             </div>
           </div>
         </div>
@@ -379,6 +396,13 @@
             .querySelectorAll(".tab-section")
             .forEach((sec) => sec.classList.remove("active"));
           document.getElementById("tab-" + tab).classList.add("active");
+          if (tab === "duyet-cong-thuc") {
+            renderRecipeApproval();
+          }
+          // Thêm dòng này để load thông báo khi vào tab Cài đặt
+          if (tab === "settings") {
+            renderNotifications();
+          }
         });
       });
       // Kiểm tra quyền admin
@@ -931,6 +955,116 @@
           .catch(function (err) {
             alert("Lỗi lấy dữ liệu công thức: " + err.message);
           });
+      };
+      // Thêm thông báo
+      document.getElementById("addNotificationForm").onsubmit = function (e) {
+        e.preventDefault();
+        const content = document
+          .getElementById("notificationContent")
+          .value.trim();
+        if (!content) return;
+        var db = firebase.database();
+        var newRef = db.ref("system_notifications").push();
+        newRef.set(
+          { content, createdAt: Date.now(), isActive: true },
+          function () {
+            document.getElementById("notificationContent").value = "";
+            renderNotifications();
+          }
+        );
+      };
+      // Quản lý thông báo hệ thống
+      function renderNotifications() {
+        var db = firebase.database();
+        db.ref("system_notifications")
+          .once("value")
+          .then(function (snapshot) {
+            const notifs = snapshot.val() || {};
+            const notifArr = Object.entries(notifs).map(([id, n]) => ({
+              id,
+              ...n,
+            }));
+            const listDiv = document.getElementById("notificationList");
+            if (!notifArr.length) {
+              listDiv.innerHTML =
+                '<div class="text-muted">Chưa có thông báo nào.</div>';
+              return;
+            }
+            listDiv.innerHTML = `<ul class='list-group'>${notifArr
+              .map(
+                (n) => `
+                  <li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <span>${n.content}</span>
+                    <div>
+                      <button class='btn btn-sm btn-outline-secondary me-2' onclick='editNotification("${
+                        n.id
+                      }", "${encodeURIComponent(n.content)}")'>Sửa</button>
+                      <button class='btn btn-sm btn-outline-danger' onclick='deleteNotification("${
+                        n.id
+                      }")'>Xóa</button>
+                    </div>
+                  </li>`
+              )
+              .join("")}</ul>`;
+          });
+      }
+      // Sửa thông báo
+      window.editNotification = function (id, oldContent) {
+        // Hiển thị modal nhập nội dung mới
+        let modal = document.getElementById("editNotificationModal");
+        if (!modal) {
+          modal = document.createElement("div");
+          modal.id = "editNotificationModal";
+          modal.className = "modal fade";
+          modal.tabIndex = -1;
+          modal.innerHTML = `
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Sửa thông báo</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" class="form-control" id="editNotificationInput" maxlength="200" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="saveEditNotificationBtn">Lưu</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+        }
+        setTimeout(function () {
+          document.getElementById("editNotificationInput").value =
+            decodeURIComponent(oldContent);
+          var bsModal = new bootstrap.Modal(modal);
+          bsModal.show();
+          document.getElementById("saveEditNotificationBtn").onclick =
+            function () {
+              const newContent = document
+                .getElementById("editNotificationInput")
+                .value.trim();
+              if (!newContent) return alert("Nội dung không được để trống!");
+              var db = firebase.database();
+              db.ref("system_notifications/" + id).update(
+                { content: newContent, createdAt: Date.now() },
+                function () {
+                  bsModal.hide();
+                  renderNotifications();
+                }
+              );
+            };
+        }, 100);
+      };
+      // Xóa thông báo
+      window.deleteNotification = function (id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa thông báo này?")) return;
+        var db = firebase.database();
+        db.ref("system_notifications/" + id).remove(function () {
+          renderNotifications();
+        });
       };
     </script>
     <!-- Modal xem chi tiết công thức -->

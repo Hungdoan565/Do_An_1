@@ -50,7 +50,7 @@
             <li class="nav-item">
               <a class="nav-link" href="/index.html">Trang chủ</a>
             </li>
-           <!-- Dropdown Công thức -->
+            <!-- Dropdown Công thức -->
             <li class="nav-item dropdown">
               <a
                 class="nav-link dropdown-toggle"
@@ -132,6 +132,43 @@
         </div>
       </div>
     </nav>
+    <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+    <div
+      id="systemNotificationBar"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        text-align: center;
+        padding: 12px 0;
+        background: rgba(255, 85, 85, 0.7);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.5s, opacity 0.5s;
+      "
+    >
+      <span id="systemNotificationText" style="font-size: 1.1em"></span>
+      <button
+        id="closeNotificationBar"
+        style="
+          position: absolute;
+          right: 18px;
+          top: 8px;
+          background: none;
+          border: none;
+          color: #fff;
+          font-size: 1.3em;
+          cursor: pointer;
+        "
+      >
+        &times;
+      </button>
+    </div>
     <!-- Header -->
     <header class="featured-page-header mt-5">
       <div class="container">
@@ -326,8 +363,8 @@
     <script src="/assets/data/recipes_KhaiVi.js"></script>
     <script src="/assets/js/auth.js"></script>
     <script src="/assets/js/navbar-user.js"></script>
+    <script src="/assets/js/notification-bar.js"></script>
     <script>
-     
       const recipes = [
         ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
         ...(typeof recipesTrangMieng !== "undefined" ? recipesTrangMieng : []),

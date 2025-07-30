@@ -351,6 +351,44 @@
         </div>
       </form>
     </div>
+    <!-- Modal thông báo chặn đăng blog -->
+    <div
+      class="modal fade"
+      id="addBlogBlockedModal"
+      tabindex="-1"
+      aria-labelledby="addBlogBlockedLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBlogBlockedLabel">
+              Không thể đăng blog
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Đóng"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-danger fw-bold">
+              Admin đã tắt chức năng đăng blog. Vui lòng thử lại sau!
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Footer -->
     <footer
       class="footer mt-5 py-5"
@@ -776,5 +814,31 @@
     </script>
     <script src="/assets/js/navbar-user.js"></script>
     <script src="/assets/js/notification-bar.js"></script>
+    <script>
+      // Theo dõi trạng thái allowBlog realtime
+      document.addEventListener("DOMContentLoaded", function () {
+        var db = firebase.database();
+        var firstCheck = true;
+        db.ref("blog_config/allowBlog").on("value", function (snapshot) {
+          var allowBlog = snapshot.val();
+          if (allowBlog === false) {
+            // Nếu lần đầu vào trang thì hiện modal, sau đó chuyển hướng
+            if (firstCheck) {
+              var modal = new bootstrap.Modal(
+                document.getElementById("addBlogBlockedModal")
+              );
+              modal.show();
+              setTimeout(function () {
+                window.location.href = "/pages/blog.html?blocked=1";
+              }, 1000); // Hiện modal 1s rồi chuyển hướng
+              firstCheck = false;
+            } else {
+              // Nếu đang thao tác mà admin vừa tắt, chuyển hướng ngay
+              window.location.href = "/pages/blog.html?blocked=1";
+            }
+          }
+        });
+      });
+    </script>
   </body>
 </html>

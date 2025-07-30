@@ -606,7 +606,17 @@
       }
 
       // Phân trang
-      const PAGE_SIZE = 6;
+      let PAGE_SIZE = 6; // Mặc định
+      fetchData &&
+        fetchData("blog_config", function (config) {
+          PAGE_SIZE =
+            config && config.recipePerPage ? parseInt(config.recipePerPage) : 6;
+          // Nếu đã có danh sách công thức, render lại theo page size mới
+          if (filteredRecipes && filteredRecipes.length) {
+            renderRecipes(currentPage);
+            renderPagination();
+          }
+        });
       let currentPage = 1;
 
       function renderRecipes(page = 1) {

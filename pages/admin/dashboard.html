@@ -354,25 +354,82 @@
           <!-- Cài đặt Tab -->
           <div class="tab-section" id="tab-settings">
             <div class="admin-section">
-              <h4 class="mb-4">Quản lý thông báo hệ thống</h4>
-              <form id="addNotificationForm" class="mb-4">
-                <div class="mb-3">
-                  <label class="form-label">Nội dung thông báo</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="notificationContent"
-                    required
-                    maxlength="200"
-                    placeholder="Nhập nội dung thông báo..."
-                  />
-                </div>
-                <button type="submit" class="btn btn-primary">
-                  Thêm thông báo
-                </button>
-              </form>
-              <h5 class="mb-3">Danh sách thông báo</h5>
-              <div id="notificationList"></div>
+              <ul class="nav nav-pills mb-4" id="settingsSubTabs">
+                <li class="nav-item">
+                  <a class="nav-link active" data-subtab="notification" href="#"
+                    >Thông báo</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-subtab="config" href="#">Cấu hình</a>
+                </li>
+              </ul>
+              <div
+                class="settings-subtab-section"
+                id="settings-subtab-notification"
+              >
+                <h5 class="mb-3">Quản lý thông báo hệ thống</h5>
+                <form id="addNotificationForm" class="mb-4">
+                  <div class="mb-3">
+                    <label class="form-label">Nội dung thông báo</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="notificationContent"
+                      required
+                      maxlength="200"
+                      placeholder="Nhập nội dung thông báo..."
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Thêm thông báo
+                  </button>
+                </form>
+                <h6 class="mb-3">Danh sách thông báo</h6>
+                <div id="notificationList"></div>
+              </div>
+              <div
+                class="settings-subtab-section"
+                id="settings-subtab-config"
+                style="display: none"
+              >
+                <h5 class="mb-3">Cấu hình hệ thống</h5>
+                <form id="systemConfigForm" class="mb-4">
+                  <div class="mb-3">
+                    <label class="form-label">Số lượng blog/trang</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="configBlogPerPage"
+                      min="1"
+                      max="50"
+                      value="10"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Số lượng công thức/trang</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="configRecipePerPage"
+                      min="1"
+                      max="50"
+                      value="12"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Cho phép đăng blog</label>
+                    <select class="form-select" id="configAllowBlog">
+                      <option value="true">Bật</option>
+                      <option value="false">Tắt</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-success">
+                    Lưu cấu hình
+                  </button>
+                  <span id="systemConfigStatus" class="ms-3"></span>
+                </form>
+              </div>
             </div>
           </div>
         </div>
@@ -1065,6 +1122,69 @@
         db.ref("system_notifications/" + id).remove(function () {
           renderNotifications();
         });
+      };
+      // Tab con cho Cài đặt
+      const settingsSubTabs = document.querySelectorAll(
+        "#settingsSubTabs .nav-link"
+      );
+      const subTabSections = document.querySelectorAll(
+        ".settings-subtab-section"
+      );
+      settingsSubTabs.forEach(function (tab) {
+        tab.addEventListener("click", function (e) {
+          e.preventDefault();
+          settingsSubTabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          const subtab = tab.getAttribute("data-subtab");
+          subTabSections.forEach((sec) => (sec.style.display = "none"));
+          document.getElementById("settings-subtab-" + subtab).style.display =
+            "block";
+          if (subtab === "notification") renderNotifications();
+          if (subtab === "config") loadSystemConfig();
+        });
+      });
+      // Hàm load cấu hình hệ thống
+      function loadSystemConfig() {
+        var db = firebase.database();
+        db.ref("blog_config")
+          .once("value")
+          .then(function (snapshot) {
+            const config = snapshot.val() || {};
+            document.getElementById("configBlogPerPage").value =
+              config.blogPerPage || 10;
+            document.getElementById("configRecipePerPage").value =
+              config.recipePerPage || 12;
+            document.getElementById("configAllowBlog").value = String(
+              config.allowBlog !== false
+            );
+          });
+      }
+      // Lưu cấu hình hệ thống
+      document.getElementById("systemConfigForm").onsubmit = function (e) {
+        e.preventDefault();
+        var db = firebase.database();
+        const blogPerPage =
+          parseInt(document.getElementById("configBlogPerPage").value) || 10;
+        const recipePerPage =
+          parseInt(document.getElementById("configRecipePerPage").value) || 12;
+        const allowBlog =
+          document.getElementById("configAllowBlog").value === "true";
+        db.ref("blog_config").set(
+          { blogPerPage, recipePerPage, allowBlog },
+          function (err) {
+            const statusDiv = document.getElementById("systemConfigStatus");
+            if (err) {
+              statusDiv.textContent = "Lưu cấu hình thất bại!";
+              statusDiv.className = "text-danger";
+            } else {
+              statusDiv.textContent = "Đã lưu cấu hình!";
+              statusDiv.className = "text-success";
+            }
+            setTimeout(function () {
+              statusDiv.textContent = "";
+            }, 2500);
+          }
+        );
       };
     </script>
     <!-- Modal xem chi tiết công thức -->

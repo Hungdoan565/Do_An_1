@@ -237,14 +237,12 @@
               </div>
             </div>
             <div class="mb-4 p-4 bg-white rounded shadow-sm">
-              <h6 class="fw-bold mb-3 border-bottom pb-2">Tags</h6>
+              <h6 class="fw-bold mb-3 border-bottom pb-2">Tags Blog</h6>
               <div id="tag-list" class="mb-3"></div>
-              <input
-                type="text"
-                class="form-control mb-2"
-                id="tag-input"
-                placeholder="Nhập tag mới và nhấn Enter"
-              />
+              <small class="text-muted"
+                >Chọn tối đa 5 tag mô tả nội dung blog. Nếu thiếu tag, hãy liên
+                hệ admin để bổ sung.</small
+              >
             </div>
             <div class="mb-4 p-4 bg-white rounded shadow-sm">
               <h6 class="fw-bold mb-3 border-bottom pb-2">Tối ưu hóa SEO</h6>
@@ -542,59 +540,47 @@
           "Truyền thống",
           "Đồ uống",
         ];
-        var tagList = document.getElementById("tag-list");
-        var tagInput = document.getElementById("tag-input");
+        // Lấy danh sách tag blog từ Firebase
+        function fetchBlogTags(callback) {
+          var db = firebase.database();
+          db.ref("tags_blog")
+            .once("value")
+            .then(function (snapshot) {
+              var tags = snapshot.val() || {};
+              var tagArr = Object.values(tags)
+                .map((t) => t.name)
+                .filter(Boolean);
+              callback(tagArr);
+            });
+        }
         var selectedTags = [];
         function renderTags() {
-          tagList.innerHTML = popularTags
-            .map(
-              (tag) =>
-                `<span class="position-relative d-inline-block me-2 mb-2">
-          <button type="button" class="tag-chip btn rounded-pill px-3 py-1 ${
-            selectedTags.includes(tag) ? "active" : ""
-          }">${tag}</button>
-          ${
-            selectedTags.includes(tag)
-              ? `<button type="button" class="btn btn-sm btn-danger tag-remove-btn position-absolute top-0 end-0 translate-middle p-0" style="width:20px;height:20px;line-height:1;font-size:14px;border-radius:50%">&times;</button>`
-              : ""
-          }
-        </span>`
-            )
-            .join("");
-          // Sự kiện chọn tag
-          Array.from(tagList.querySelectorAll(".tag-chip")).forEach(
-            (btn, i) => {
+          fetchBlogTags(function (tagArr) {
+            var tagList = document.getElementById("tag-list");
+            tagList.innerHTML = tagArr.length
+              ? tagArr
+                  .map(
+                    (tag) =>
+                      `<button type="button" class="tag-chip btn rounded-pill px-3 py-1 mb-2 me-2 ${
+                        selectedTags.includes(tag) ? "active" : ""
+                      }">${tag}</button>`
+                  )
+                  .join("")
+              : '<span class="text-muted">Chưa có tag nào. Liên hệ admin để bổ sung.</span>';
+            Array.from(tagList.querySelectorAll(".tag-chip")).forEach((btn) => {
               btn.onclick = function () {
-                var tag = popularTags[i];
-                if (selectedTags.includes(tag))
+                var tag = btn.textContent;
+                if (selectedTags.includes(tag)) {
                   selectedTags = selectedTags.filter((t) => t !== tag);
-                else selectedTags.push(tag);
+                } else {
+                  if (selectedTags.length < 5) selectedTags.push(tag);
+                }
                 renderTags();
               };
-            }
-          );
-          // Sự kiện xóa tag
-          Array.from(tagList.querySelectorAll(".tag-remove-btn")).forEach(
-            (btn, i) => {
-              btn.onclick = function (e) {
-                e.stopPropagation();
-                var tag = popularTags[i];
-                selectedTags = selectedTags.filter((t) => t !== tag);
-                renderTags();
-              };
-            }
-          );
+            });
+          });
         }
         renderTags();
-        tagInput.addEventListener("keydown", function (e) {
-          if (e.key === "Enter" && tagInput.value.trim()) {
-            e.preventDefault(); // Ngăn submit form khi nhập tag
-            var newTag = tagInput.value.trim();
-            if (!selectedTags.includes(newTag)) selectedTags.push(newTag);
-            tagInput.value = "";
-            renderTags();
-          }
-        });
         // Xử lý chọn ảnh
         var dropArea = document.getElementById("image-drop-area");
         var fileInput = document.getElementById("image");

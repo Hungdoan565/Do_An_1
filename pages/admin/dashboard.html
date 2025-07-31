@@ -363,6 +363,11 @@
                 <li class="nav-item">
                   <a class="nav-link" data-subtab="config" href="#">Cấu hình</a>
                 </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-subtab="categories" href="#"
+                    >Danh mục & Tags</a
+                  >
+                </li>
               </ul>
               <div
                 class="settings-subtab-section"
@@ -429,6 +434,75 @@
                   </button>
                   <span id="systemConfigStatus" class="ms-3"></span>
                 </form>
+              </div>
+              <div
+                class="settings-subtab-section"
+                id="settings-subtab-categories"
+                style="display: none"
+              >
+                <h5 class="mb-3">Quản lý Danh mục & Tags</h5>
+                <div class="row g-4">
+                  <div class="col-md-4">
+                    <div class="card shadow-sm rounded">
+                      <div class="card-body">
+                        <h6 class="fw-bold mb-3">Danh mục món ăn</h6>
+                        <div id="categoryList"></div>
+                        <form id="addCategoryForm" class="d-flex mt-2">
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="newCategoryInput"
+                            placeholder="Thêm danh mục..."
+                            required
+                          />
+                          <button type="submit" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card shadow-sm rounded">
+                      <div class="card-body">
+                        <h6 class="fw-bold mb-3">Tags Blog</h6>
+                        <div id="tagList"></div>
+                        <form id="addTagForm" class="d-flex mt-2">
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="newTagInput"
+                            placeholder="Thêm tag blog..."
+                            required
+                          />
+                          <button type="submit" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card shadow-sm rounded">
+                      <div class="card-body">
+                        <h6 class="fw-bold mb-3">Tags Công Thức</h6>
+                        <div id="recipeTagList"></div>
+                        <form id="addRecipeTagForm" class="d-flex mt-2">
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="newRecipeTagInput"
+                            placeholder="Thêm tag công thức..."
+                            required
+                          />
+                          <button type="submit" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -1186,6 +1260,167 @@
           }
         );
       };
+      // --- ĐỒNG BỘ DANH MỤC & TAGS ---
+      function renderCategoryList() {
+        var db = firebase.database();
+        db.ref("categories")
+          .once("value")
+          .then(function (snapshot) {
+            const categories = snapshot.val() || {};
+            const categoryListDiv = document.getElementById("categoryList");
+            categoryListDiv.innerHTML = "";
+            if (!Object.keys(categories).length) {
+              categoryListDiv.innerHTML =
+                '<div class="text-muted">Chưa có danh mục nào.</div>';
+              return;
+            }
+            Object.entries(categories).forEach(([id, cat]) => {
+              const isActive = cat.active !== false;
+              const div = document.createElement("div");
+              div.className =
+                "d-flex justify-content-between align-items-center mb-2";
+              div.innerHTML = `
+                <div><strong class="${isActive ? "" : "text-muted"}">${
+                cat.name
+              }${!isActive ? " (Đã ẩn)" : ""}</strong></div>
+                <div>
+                  <button class="btn btn-sm btn-${
+                    isActive ? "warning" : "success"
+                  }" onclick="toggleCategoryActive('${id}', ${!isActive})">
+                    ${
+                      isActive
+                        ? "<i class='fas fa-eye-slash'></i> Ẩn"
+                        : "<i class='fas fa-eye'></i> Hiện"
+                    }
+                  </button>
+                </div>
+              `;
+              categoryListDiv.appendChild(div);
+            });
+          });
+      }
+      window.toggleCategoryActive = function (id, active) {
+        var db = firebase.database();
+        db.ref("categories/" + id)
+          .update({ active: active })
+          .then(renderCategoryList);
+      };
+      document.getElementById("addCategoryForm").onsubmit = function (e) {
+        e.preventDefault();
+        const newCategory = document
+          .getElementById("newCategoryInput")
+          .value.trim();
+        if (!newCategory) return;
+        var db = firebase.database();
+        var newCategoryRef = db.ref("categories").push();
+        newCategoryRef.set(
+          { name: newCategory, active: true, createdAt: Date.now() },
+          function () {
+            document.getElementById("newCategoryInput").value = "";
+            renderCategoryList();
+          }
+        );
+      };
+      function renderTagList() {
+        var db = firebase.database();
+        db.ref("tags_blog")
+          .once("value")
+          .then(function (snapshot) {
+            const tags = snapshot.val() || {};
+            const tagListDiv = document.getElementById("tagList");
+            tagListDiv.innerHTML = "";
+            if (!Object.keys(tags).length) {
+              tagListDiv.innerHTML =
+                '<div class="text-muted">Chưa có tag nào.</div>';
+              return;
+            }
+            Object.entries(tags).forEach(([id, tag]) => {
+              const div = document.createElement("div");
+              div.className =
+                "d-flex justify-content-between align-items-center mb-2";
+              div.innerHTML = `
+                <div><strong>${tag.name}</strong></div>
+                <div><button class="btn btn-sm btn-danger" onclick="deleteTag('${id}')"><i class="fas fa-trash"></i> Xóa</button></div>
+              `;
+              tagListDiv.appendChild(div);
+            });
+          });
+      }
+      window.deleteTag = function (id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa tag này?")) return;
+        var db = firebase.database();
+        db.ref("tags_blog/" + id)
+          .remove()
+          .then(renderTagList);
+      };
+      document.getElementById("addTagForm").onsubmit = function (e) {
+        e.preventDefault();
+        const newTag = document.getElementById("newTagInput").value.trim();
+        if (!newTag) return;
+        var db = firebase.database();
+        var newTagRef = db.ref("tags_blog").push();
+        newTagRef.set({ name: newTag, createdAt: Date.now() }, function () {
+          document.getElementById("newTagInput").value = "";
+          renderTagList();
+        });
+      };
+      function renderRecipeTagList() {
+        var db = firebase.database();
+        db.ref("tags_recipe")
+          .once("value")
+          .then(function (snapshot) {
+            const recipeTags = snapshot.val() || {};
+            const recipeTagListDiv = document.getElementById("recipeTagList");
+            recipeTagListDiv.innerHTML = "";
+            if (!Object.keys(recipeTags).length) {
+              recipeTagListDiv.innerHTML =
+                '<div class="text-muted">Chưa có tag công thức nào.</div>';
+              return;
+            }
+            Object.entries(recipeTags).forEach(([id, tag]) => {
+              const div = document.createElement("div");
+              div.className =
+                "d-flex justify-content-between align-items-center mb-2";
+              div.innerHTML = `
+                <div><strong>${tag.name}</strong></div>
+                <div><button class="btn btn-sm btn-danger" onclick="deleteRecipeTag('${id}')"><i class="fas fa-trash"></i> Xóa</button></div>
+              `;
+              recipeTagListDiv.appendChild(div);
+            });
+          });
+      }
+      window.deleteRecipeTag = function (id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa tag công thức này?")) return;
+        var db = firebase.database();
+        db.ref("tags_recipe/" + id)
+          .remove()
+          .then(renderRecipeTagList);
+      };
+      document.getElementById("addRecipeTagForm").onsubmit = function (e) {
+        e.preventDefault();
+        const newRecipeTag = document
+          .getElementById("newRecipeTagInput")
+          .value.trim();
+        if (!newRecipeTag) return;
+        var db = firebase.database();
+        var newRecipeTagRef = db.ref("tags_recipe").push();
+        newRecipeTagRef.set(
+          { name: newRecipeTag, createdAt: Date.now() },
+          function () {
+            document.getElementById("newRecipeTagInput").value = "";
+            renderRecipeTagList();
+          }
+        );
+      };
+      // Khi vào tab, tự động load danh sách
+      function loadCategoriesAndTags() {
+        renderCategoryList();
+        renderTagList();
+        renderRecipeTagList();
+      }
+      document
+        .querySelector('[data-subtab="categories"]')
+        .addEventListener("click", loadCategoriesAndTags);
     </script>
     <!-- Modal xem chi tiết công thức -->
     <div

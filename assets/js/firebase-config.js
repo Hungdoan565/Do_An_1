@@ -64,3 +64,40 @@ function saveContactToFirebase(contact, callback, errorCallback) {
       if (errorCallback) errorCallback(error);
     });
 }
+
+// Lấy danh mục món ăn (categories) chỉ active=true
+function fetchActiveCategories(callback) {
+  var db = firebase.database();
+  db.ref('categories').once('value').then(function(snapshot) {
+    const categories = snapshot.val() || {};
+    // Chỉ lấy các mục active=true
+    const activeCats = Object.entries(categories)
+      .filter(([id, cat]) => cat.active !== false)
+      .map(([id, cat]) => ({ id, ...cat }));
+    callback(activeCats);
+  });
+}
+
+// Lấy tags công thức chỉ active=true
+function fetchActiveRecipeTags(callback) {
+  var db = firebase.database();
+  db.ref('tags_recipe').once('value').then(function(snapshot) {
+    const tags = snapshot.val() || {};
+    const activeTags = Object.entries(tags)
+      .filter(([id, tag]) => tag.active !== false)
+      .map(([id, tag]) => ({ id, ...tag }));
+    callback(activeTags);
+  });
+}
+
+// Lấy tags blog chỉ active=true
+function fetchActiveBlogTags(callback) {
+  var db = firebase.database();
+  db.ref('tags_blog').once('value').then(function(snapshot) {
+    const tags = snapshot.val() || {};
+    const activeTags = Object.entries(tags)
+      .filter(([id, tag]) => tag.active !== false)
+      .map(([id, tag]) => ({ id, ...tag }));
+    callback(activeTags);
+  });
+}

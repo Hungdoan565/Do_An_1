@@ -582,7 +582,7 @@
         if (t.includes("khai vị")) return "khai-vi";
         if (t.includes("món chính")) return "mon-chinh";
         if (t.includes("tráng miệng")) return "trang-mieng";
-        if (t.includes("đồ uống")) return "do-uong";
+        if (t.includes("đồ uống")) return "do_uong";
         if (t.includes("món chay")) return "mon-chay";
         if (t.includes("ăn vặt")) return "an-vat";
         return "";
@@ -591,18 +591,35 @@
       let filteredRecipes = recipes;
 
       function filterRecipesByCategory(category) {
-        if (category === "Tất cả") {
-          filteredRecipes = recipes;
-        } else {
-          const slug = categoryMap[category];
-          filteredRecipes = recipes.filter(
-            (r) =>
-              Array.isArray(r.tags) &&
-              r.tags.some((tag) => tagToSlug(tag) === slug)
-          );
-        }
-        currentPage = 1;
-        renderRecipes(currentPage);
+        // Lấy danh sách danh mục active từ Firebase
+        fetchActiveCategories(function (categories) {
+          const activeNames = categories.map((cat) => {
+            let name = cat.name.trim().toLowerCase();
+            if (name.startsWith("món ")) name = name.replace(/^món /, "");
+            return name;
+          });
+          if (category === "Tất cả") {
+            filteredRecipes = recipes;
+          } else {
+            let catNameLower = category.trim().toLowerCase();
+            if (catNameLower.startsWith("món "))
+              catNameLower = catNameLower.replace(/^món /, "");
+            filteredRecipes = recipes.filter(
+              (r) =>
+                Array.isArray(r.tags) &&
+                r.tags.some((tag) => {
+                  let tagLower = tag.trim().toLowerCase();
+                  if (tagLower.startsWith("món "))
+                    tagLower = tagLower.replace(/^món /, "");
+                  return (
+                    tagLower === catNameLower && activeNames.includes(tagLower)
+                  );
+                })
+            );
+          }
+          currentPage = 1;
+          renderRecipes(currentPage);
+        });
       }
 
       // Phân trang
@@ -810,9 +827,51 @@
         });
       });
 
+      // Lấy danh mục/tags active từ Firebase và render filter-btn (Realtime)
+      function renderActiveCategoryFiltersRealtime() {
+        var db = firebase.database();
+        db.ref("categories").on("value", function (snapshot) {
+          const categories = snapshot.val() || {};
+          const activeCats = Object.entries(categories)
+            .filter(([id, cat]) => cat.active !== false)
+            .map(([id, cat]) => ({ id, ...cat }));
+          const filterSection = document.querySelector(
+            ".filter-section .d-flex"
+          );
+          if (filterSection) {
+            filterSection.innerHTML = "";
+            // Thêm nút "Tất cả"
+            const allBtn = document.createElement("button");
+            allBtn.className = "filter-btn active";
+            allBtn.textContent = "Tất cả";
+            filterSection.appendChild(allBtn);
+            activeCats.forEach((cat) => {
+              const btn = document.createElement("button");
+              btn.className = "filter-btn";
+              btn.textContent = cat.name;
+              filterSection.appendChild(btn);
+            });
+            // Gán lại sự kiện filter
+            const filterBtns = filterSection.querySelectorAll(".filter-btn");
+            filterBtns.forEach((btn) => {
+              btn.addEventListener("click", function () {
+                filterBtns.forEach((b) => b.classList.remove("active"));
+                this.classList.add("active");
+                filterRecipesByCategory(this.textContent.trim());
+              });
+            });
+          }
+          // Tự động filter lại theo danh mục đang chọn
+          const activeBtn = document.querySelector(".filter-btn.active");
+          if (activeBtn) filterRecipesByCategory(activeBtn.textContent.trim());
+        });
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        renderActiveCategoryFiltersRealtime();
+      });
+
       renderRecipes(currentPage);
-    </script>
-    <script>
+
       // --- TỰ ĐỘNG FILTER THEO QUERY CATEGORY ---
       (function () {
         const params = new URLSearchParams(window.location.search);
@@ -844,8 +903,7 @@
           filterRecipesByCategory(categoryName);
         }
       })();
-    </script>
-    <script>
+
       // --- CLICK VÀO CARD ĐỂ ĐI ĐẾN TRANG CHI TIẾT ---
       document.addEventListener("DOMContentLoaded", function () {
         const grid = document.getElementById("recipeGrid");
@@ -862,8 +920,7 @@
           });
         }
       });
-    </script>
-    <script>
+
       // --- AUTOCOMPLETE TÌM KIẾM CÔNG THỨC ---
       const searchInput = document.getElementById("searchInput");
       const autocompleteBox = document.getElementById("searchAutocomplete");

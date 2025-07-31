@@ -30,7 +30,7 @@
           setTimeout(function() {
             bar.style.opacity = '0';
             setTimeout(function(){ bar.style.display = 'none'; }, 500);
-          }, 5000);
+          }, 3000);
         }
       });
     }

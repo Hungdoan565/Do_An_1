@@ -347,3 +347,34 @@ function fillIngredientDatalist() {
   });
 }
 window.addEventListener('DOMContentLoaded', fillIngredientDatalist);
+// Sau khi DOM ready, load danh mục/tags từ Firebase (chỉ active=true)
+document.addEventListener('DOMContentLoaded', function () {
+  // Danh mục
+  fetchActiveCategories(function(categories) {
+    const tagSelect = document.getElementById('tagSelect');
+    if (tagSelect) {
+      tagSelect.innerHTML = '';
+      categories.forEach(cat => {
+        const btn = document.createElement('button');
+        btn.type = 'button';
+        btn.className = 'tag-item';
+        btn.dataset.value = cat.name;
+        btn.textContent = cat.name;
+        tagSelect.appendChild(btn);
+      });
+      // Gán lại sự kiện chọn tag
+      const tagsInput = document.getElementById('tagsInput');
+      tagSelect.querySelectorAll('.tag-item').forEach((tag) => {
+        tag.addEventListener('click', function () {
+          this.classList.toggle('active');
+          const selected = Array.from(
+            tagSelect.querySelectorAll('.tag-item.active')
+          ).map((t) => t.dataset.value);
+          tagsInput.value = selected.join(',');
+        });
+      });
+    }
+  });
+  // Tags công thức (nếu có UI riêng cho tags)
+  // fetchActiveRecipeTags(function(tags) { ... });
+});

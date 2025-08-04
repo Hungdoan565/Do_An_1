@@ -22,7 +22,7 @@ if (form) {
         formData[el.name] = el.value;
       }
     });
-    // Tạo object công thức mới, tự động gán ngày hiện tại nếu chưa có
+    // Đã gỡ trường tags_recipe
     const recipe = createRecipeObject(formData);
     // Lưu lên Firebase
     if (typeof addRecipeToFirebase === 'function') {
@@ -375,6 +375,5 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
-  // Tags công thức (nếu có UI riêng cho tags)
-  // fetchActiveRecipeTags(function(tags) { ... });
+  // Đã gỡ logic tags_recipe
 });

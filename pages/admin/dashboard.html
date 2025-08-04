@@ -442,7 +442,7 @@
               >
                 <h5 class="mb-3">Quản lý Danh mục & Tags</h5>
                 <div class="row g-4">
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="card shadow-sm rounded">
                       <div class="card-body">
                         <h6 class="fw-bold mb-3">Danh mục món ăn</h6>
@@ -462,7 +462,7 @@
                       </div>
                     </div>
                   </div>
-                  <div class="col-md-4">
+                  <div class="col-md-6">
                     <div class="card shadow-sm rounded">
                       <div class="card-body">
                         <h6 class="fw-bold mb-3">Tags Blog</h6>
@@ -473,26 +473,6 @@
                             class="form-control me-2"
                             id="newTagInput"
                             placeholder="Thêm tag blog..."
-                            required
-                          />
-                          <button type="submit" class="btn btn-primary">
-                            Thêm
-                          </button>
-                        </form>
-                      </div>
-                    </div>
-                  </div>
-                  <div class="col-md-4">
-                    <div class="card shadow-sm rounded">
-                      <div class="card-body">
-                        <h6 class="fw-bold mb-3">Tags Công Thức</h6>
-                        <div id="recipeTagList"></div>
-                        <form id="addRecipeTagForm" class="d-flex mt-2">
-                          <input
-                            type="text"
-                            class="form-control me-2"
-                            id="newRecipeTagInput"
-                            placeholder="Thêm tag công thức..."
                             required
                           />
                           <button type="submit" class="btn btn-primary">
@@ -1364,59 +1344,10 @@
           renderTagList();
         });
       };
-      function renderRecipeTagList() {
-        var db = firebase.database();
-        db.ref("tags_recipe")
-          .once("value")
-          .then(function (snapshot) {
-            const recipeTags = snapshot.val() || {};
-            const recipeTagListDiv = document.getElementById("recipeTagList");
-            recipeTagListDiv.innerHTML = "";
-            if (!Object.keys(recipeTags).length) {
-              recipeTagListDiv.innerHTML =
-                '<div class="text-muted">Chưa có tag công thức nào.</div>';
-              return;
-            }
-            Object.entries(recipeTags).forEach(([id, tag]) => {
-              const div = document.createElement("div");
-              div.className =
-                "d-flex justify-content-between align-items-center mb-2";
-              div.innerHTML = `
-                <div><strong>${tag.name}</strong></div>
-                <div><button class="btn btn-sm btn-danger" onclick="deleteRecipeTag('${id}')"><i class="fas fa-trash"></i> Xóa</button></div>
-              `;
-              recipeTagListDiv.appendChild(div);
-            });
-          });
-      }
-      window.deleteRecipeTag = function (id) {
-        if (!confirm("Bạn có chắc chắn muốn xóa tag công thức này?")) return;
-        var db = firebase.database();
-        db.ref("tags_recipe/" + id)
-          .remove()
-          .then(renderRecipeTagList);
-      };
-      document.getElementById("addRecipeTagForm").onsubmit = function (e) {
-        e.preventDefault();
-        const newRecipeTag = document
-          .getElementById("newRecipeTagInput")
-          .value.trim();
-        if (!newRecipeTag) return;
-        var db = firebase.database();
-        var newRecipeTagRef = db.ref("tags_recipe").push();
-        newRecipeTagRef.set(
-          { name: newRecipeTag, createdAt: Date.now() },
-          function () {
-            document.getElementById("newRecipeTagInput").value = "";
-            renderRecipeTagList();
-          }
-        );
-      };
       // Khi vào tab, tự động load danh sách
       function loadCategoriesAndTags() {
         renderCategoryList();
         renderTagList();
-        renderRecipeTagList();
       }
       document
         .querySelector('[data-subtab="categories"]')

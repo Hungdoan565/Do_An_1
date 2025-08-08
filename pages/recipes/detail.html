@@ -209,13 +209,7 @@
     <header class="recipe-header">
       <div class="container">
         <h1 class="recipe-title"></h1>
-        <div class="recipe-meta">
-          <span><i class="fas fa-user"></i> </span>
-          <span><i class="fas fa-calendar"></i> </span>
-          <span><i class="fas fa-clock"></i> </span>
-          <span><i class="fas fa-signal"></i> </span>
-          <span><i class="fas fa-star"></i> </span>
-        </div>
+        <div class="recipe-meta"></div>
       </div>
     </header>
 
@@ -237,7 +231,7 @@
                 "
               >
                 <img
-                  src="/assets/images/"
+                  src=""
                   alt=""
                   style="
                     width: 100%;
@@ -253,79 +247,36 @@
             <div class="info-card">
               <i class="fas fa-clock"></i>
               <h5>Thời gian</h5>
-              <p class="mb-0">45 phút</p>
+              <p class="mb-0"></p>
             </div>
             <div class="info-card">
               <i class="fas fa-users"></i>
               <h5>Khẩu phần</h5>
-              <p class="mb-0">4 người</p>
+              <p class="mb-0"></p>
             </div>
             <div class="info-card">
               <i class="fas fa-signal"></i>
               <h5>Độ khó</h5>
-              <p class="mb-0">Trung bình</p>
+              <p class="mb-0"></p>
             </div>
             <div class="info-card">
               <i class="fas fa-fire"></i>
               <h5>Calories</h5>
-              <p class="mb-0">520 kcal</p>
+              <p class="mb-0"></p>
             </div>
           </div>
 
           <div class="row">
             <div class="col-lg-4">
               <h3 class="mb-4">Nguyên liệu</h3>
-              <ul class="ingredients-list">
-                <li>Xương bò - 1kg</li>
-                <li>Thịt bò phi lê - 500g</li>
-                <li>Bánh phở - 1kg</li>
-                <li>Hành tây - 2 củ</li>
-                <li>Gừng - 100g</li>
-                <li>Hoa hồi - 3 cái</li>
-                <li>Quế - 2 cây</li>
-                <li>Hành lá, ngò - 100g</li>
-                <li>Giá đỗ - 200g</li>
-                <li>Gia vị: muối, đường, nước mắm</li>
-              </ul>
+              <ul class="ingredients-list"></ul>
             </div>
             <div class="col-lg-8">
-              <h3 class="mb-4">Các bước thực hiện</h3>
-              <div class="step-card">
-                <div class="step-number">1</div>
-                <h5>Chuẩn bị nước dùng</h5>
-                <p>
-                  Xương bò rửa sạch, chần qua nước sôi. Sau đó cho vào nồi nước
-                  lạnh, thêm hành tây, gừng đã nướng thơm. Nấu với lửa nhỏ trong
-                  6-8 tiếng.
-                </p>
-              </div>
-              <div class="step-card">
-                <div class="step-number">2</div>
-                <h5>Ướp và thái thịt</h5>
-                <p>
-                  Thịt bò phi lê thái mỏng, ướp với chút muối, tiêu. Để trong tủ
-                  lạnh ít nhất 30 phút.
-                </p>
-              </div>
-              <div class="step-card">
-                <div class="step-number">3</div>
-                <h5>Nêm nếm nước dùng</h5>
-                <p>
-                  Cho hoa hồi, quế vào nước dùng. Nêm nếm với muối, đường, nước
-                  mắm vừa ăn. Nước dùng phải trong và ngọt thanh.
-                </p>
-              </div>
-              <div class="step-card">
-                <div class="step-number">4</div>
-                <h5>Trình bày và thưởng thức</h5>
-                <p>
-                  Trụng bánh phở, xếp thịt bò, chan nước dùng sôi. Dùng kèm với
-                  giá đỗ, hành lá, ngò, chanh, ớt.
-                </p>
-              </div>
+              <!-- Các bước thực hiện sẽ được render động bằng JS -->
             </div>
           </div>
 
+          <div class="recipe-tags mb-3"></div>
           <div class="recipe-actions">
             <button class="action-btn favorite-btn">
               <i class="fas fa-heart"></i>
@@ -629,6 +580,9 @@
         const urlParams = new URLSearchParams(window.location.search);
         return urlParams.get(param);
       }
+      // KHAI BÁO BIẾN TOÀN CỤC ĐỂ TRÁNH LỖI
+      const recipeId = getQueryParam("id");
+      const recipeSlug = getQueryParam("slug");
 
       function showLoadingRecipe() {
         let overlay = document.getElementById("recipeLoadingOverlay");

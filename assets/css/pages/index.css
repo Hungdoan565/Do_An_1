@@ -51,7 +51,7 @@ body {
 /* Đảm bảo navbar-item luôn hiện rõ trên mọi nền */
 .navbar:not(.scrolled) .nav-link,
 .navbar:not(.scrolled) .navbar-nav .btn {
-  color: var(--text-color) !important;
+  color: white !important;
 }
 
 .navbar.scrolled .nav-link,

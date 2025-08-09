@@ -24,45 +24,7 @@
         display: none;
       }
     </style>
-    <style>
-      @media print {
-        header,
-        nav,
-        footer,
-        .sidebar,
-        .related-recipes,
-        .recipe-actions,
-        .row.mt-5,
-        .btn,
-        .action-btn,
-        .print-btn,
-        .save-btn,
-        .favorite-btn {
-          display: none !important;
-        }
-        .recipe-content {
-          width: 100% !important;
-          margin: 0 !important;
-          box-shadow: none !important;
-        }
-        .container {
-          max-width: 100% !important;
-        }
-        /* Hiện hình ảnh món ăn trong bản in */
-        .recipe-image {
-          display: block !important;
-          max-width: 400px !important;
-          margin: 0 auto 24px auto !important;
-        }
-        .recipe-image img {
-          display: block !important;
-          width: 100% !important;
-          height: auto !important;
-          border-radius: 16px !important;
-          box-shadow: none !important;
-        }
-      }
-    </style>
+   
   </head>
 
   <body>
@@ -444,7 +406,9 @@
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/about.html" class="text-white text-decoration-none"
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
                   >Về chúng tôi</a
                 >
               </li>
@@ -955,7 +919,7 @@
         ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
       ];
 
-      // --- Bình luận công thức: dùng Firebase, giống blog-detail ---
+      // --- Bình luận công thức: nâng cấp giống blog-detail ---
       function getRecipeId() {
         const params = new URLSearchParams(window.location.search);
         return params.get("id");
@@ -965,74 +929,315 @@
         const listEl = document.getElementById("commentList");
         const formEl = document.getElementById("commentFormArea");
         var db = firebase.database();
+        let replyState = window._replyState || {
+          parentId: null,
+          parentUser: null,
+        };
         db.ref("comments/" + recipeId)
           .once("value")
           .then(function (snap) {
             const comments = snap.val() || {};
-            const user = window.getCurrentUser && window.getCurrentUser();
-            listEl.innerHTML =
-              Object.keys(comments).length > 0
-                ? Object.entries(comments)
-                    .map(([cid, c]) => {
-                      let canDelete = false;
-                      if (user) {
-                        if (c.userId === user.uid || user.role === "admin")
-                          canDelete = true;
-                      }
-                      return `<div class="comment-item mb-3 d-flex align-items-start justify-content-between">
-            <div>
-              <b>${c.username}</b>: ${c.content}
-              <div class="text-muted small">${c.createdAt}</div>
-            </div>
-            ${
-              canDelete
-                ? `<button class='btn btn-link p-0 ms-2 btn-delete-comment' data-id='${cid}' title='Xóa bình luận'><i class='fas fa-trash text-danger'></i></button>`
-                : ""
+            // Hiển thị số bình luận
+            const commentCount = Object.values(comments).length;
+            const commentTitle = document.querySelector(
+              ".card-body h5.text-success"
+            );
+            if (commentTitle) {
+              commentTitle.innerHTML = `<i class='fas fa-comments'></i> Bình luận <span class='badge bg-success bg-opacity-10 text-success ms-2' style='font-size:1rem;'>${commentCount}</span>`;
             }
-          </div>`;
+            const user = window.getCurrentUser && window.getCurrentUser();
+            // Phân loại comment cha/con (cho phép reply vào bất kỳ comment nào)
+            const commentArr = Object.entries(comments).map(([cid, c]) => ({
+              ...c,
+              cid,
+            }));
+            // Map comment theo cid để dễ truy xuất
+            const commentMap = {};
+            commentArr.forEach((c) => {
+              commentMap[c.cid] = c;
+            });
+            // Hàm render replies cho 1 comment (đệ quy tối đa 2 cấp)
+            function renderReplies(parentCid, level = 1) {
+              if (level > 2) return "";
+              const replies = commentArr.filter(
+                (r) => r.parentId === parentCid
+              );
+              if (!replies.length) return "";
+              return `
+                <div class="reply-list ms-4 mt-2">
+                  ${replies
+                    .map((r) => {
+                      const avatar = r.avatar
+                        ? `<img src='${r.avatar}' class='author-avatar me-2' alt='avatar' aria-label='Avatar' />`
+                        : `<span class='author-avatar me-2 d-inline-flex align-items-center justify-content-center bg-light' style='width:32px;height:32px;'><i class='fas fa-user text-secondary'></i></span>`;
+                      const likes = r.likes ? Object.keys(r.likes).length : 0;
+                      const liked = user && r.likes && r.likes[user.uid];
+                      return `
+                      <div class="comment-item d-flex gap-2 align-items-start bg-white border ms-2 mb-2" data-cid="${
+                        r.cid
+                      }" style="box-shadow:none;padding:10px 14px;">
+                        <div class="flex-shrink-0">${avatar}</div>
+                        <div style="flex:1;">
+                          <div class="d-flex align-items-center gap-2 mb-1">
+                            <span class="fw-bold">${r.username}</span>
+                            <span class="text-muted small">${r.createdAt}</span>
+                          </div>
+                          <div class="mb-1">${r.content}</div>
+                          <div class="d-flex align-items-center gap-3 mt-1">
+                            <button class="btn btn-link p-0 like-btn${
+                              liked ? " text-danger" : ""
+                            }" style="font-size:1.1em;" title="Thả tym" aria-label="Thả tym">
+                              <i class="fa${liked ? "s" : "r"} fa-heart"></i>
+                            </button>
+                            <span class="small text-muted like-count" style="cursor:pointer;" data-cid="${
+                              r.cid
+                            }">${likes} lượt thích</span>
+                            <button class="btn btn-link p-0 reply-btn text-decoration-underline small" style="color:#888;">Trả lời</button>
+                            <button class="btn btn-link p-0 more-btn" style="color:#888;" title="Tùy chọn" aria-label="Tùy chọn"><i class="fas fa-ellipsis-h"></i></button>
+                          </div>
+                          ${renderReplies(r.cid, level + 1)}
+                        </div>
+                      </div>
+                    `;
+                    })
+                    .join("")}
+                </div>
+              `;
+            }
+            listEl.innerHTML =
+              commentArr.filter((c) => !c.parentId).length > 0
+                ? commentArr
+                    .filter((c) => !c.parentId)
+                    .map((c) => {
+                      const cid = c.cid;
+                      const likes = c.likes ? Object.keys(c.likes).length : 0;
+                      const liked = user && c.likes && c.likes[user.uid];
+                      const avatar = c.avatar
+                        ? `<img src='${c.avatar}' class='author-avatar me-2' alt='avatar' aria-label='Avatar' />`
+                        : `<span class='author-avatar me-2 d-inline-flex align-items-center justify-content-center bg-light' style='width:36px;height:36px;'><i class='fas fa-user text-secondary'></i></span>`;
+                      return `
+                        <div class="comment-item mb-3 d-flex gap-2 align-items-start" data-cid="${cid}">
+                          <div class="flex-shrink-0">${avatar}</div>
+                          <div style="flex:1;">
+                            <div class="d-flex align-items-center gap-2 mb-1">
+                              <span class="fw-bold">${c.username}</span>
+                              <span class="text-muted small">${
+                                c.createdAt
+                              }</span>
+                            </div>
+                            <div class="mb-1">${c.content}</div>
+                            <div class="d-flex align-items-center gap-3 mt-1">
+                              <button class="btn btn-link p-0 like-btn${
+                                liked ? " text-danger" : ""
+                              }" style="font-size:1.1em;" title="Thả tym" aria-label="Thả tym">
+                                <i class="fa${liked ? "s" : "r"} fa-heart"></i>
+                              </button>
+                              <span class="small text-muted like-count" style="cursor:pointer;" data-cid="${cid}">${likes} lượt thích</span>
+                              <button class="btn btn-link p-0 reply-btn text-decoration-underline small" style="color:#888;">Trả lời</button>
+                              <button class="btn btn-link p-0 more-btn" style="color:#888;" title="Tùy chọn" aria-label="Tùy chọn"><i class="fas fa-ellipsis-h"></i></button>
+                            </div>
+                            ${renderReplies(cid, 1)}
+                          </div>
+                        </div>
+                      `;
                     })
                     .join("")
                 : "<div class='text-muted'>Chưa có bình luận nào.</div>";
-            // Gán sự kiện xóa
+            // Modal danh sách người đã tym
+            if (!document.getElementById("likeListModal")) {
+              const modal = document.createElement("div");
+              modal.id = "likeListModal";
+              modal.className = "modal fade";
+              modal.tabIndex = -1;
+              modal.innerHTML = `
+                <div class="modal-dialog modal-dialog-centered">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h5 class="modal-title"><i class='fas fa-heart text-danger'></i> Danh sách đã thả tym</h5>
+                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body" id="likeListModalBody">
+                      <div class="text-center text-muted">Đang tải...</div>
+                    </div>
+                  </div>
+                </div>
+              `;
+              document.body.appendChild(modal);
+            }
+            // Gán sự kiện like, xóa, reply, more, xem danh sách tym
             setTimeout(function () {
-              listEl
-                .querySelectorAll(".btn-delete-comment")
-                .forEach(function (btn) {
-                  btn.onclick = function () {
-                    if (!confirm("Bạn có chắc chắn muốn xóa bình luận này?"))
-                      return;
-                    const cid = btn.getAttribute("data-id");
-                    db.ref("comments/" + recipeId + "/" + cid)
+              // Like
+              listEl.querySelectorAll(".like-btn").forEach(function (btn) {
+                btn.onclick = function (e) {
+                  const commentDiv = btn.closest(".comment-item");
+                  const cid = commentDiv && commentDiv.getAttribute("data-cid");
+                  if (!user || !cid) return;
+                  const likeRef = db.ref(
+                    `comments/${recipeId}/${cid}/likes/${user.uid}`
+                  );
+                  if (btn.classList.contains("text-danger")) {
+                    likeRef
                       .remove()
-                      .then(function () {
-                        showToast("Đã xóa bình luận!", "success");
-                        renderRecipeCommentsArea(recipeId);
-                      })
-                      .catch(function () {
-                        showToast("Lỗi khi xóa bình luận!", "error");
+                      .then(() => renderRecipeCommentsArea(recipeId));
+                  } else {
+                    likeRef
+                      .set(true)
+                      .then(() => renderRecipeCommentsArea(recipeId));
+                  }
+                };
+              });
+              // Xem danh sách người đã tym
+              listEl.querySelectorAll(".like-count").forEach(function (span) {
+                span.onclick = function () {
+                  const cid = span.getAttribute("data-cid");
+                  if (!cid) return;
+                  const modal = new bootstrap.Modal(
+                    document.getElementById("likeListModal")
+                  );
+                  const modalBody =
+                    document.getElementById("likeListModalBody");
+                  modalBody.innerHTML =
+                    '<div class="text-center text-muted">Đang tải...</div>';
+                  db.ref(`comments/${recipeId}/${cid}/likes`)
+                    .once("value")
+                    .then(function (snap) {
+                      const likes = snap.val() || {};
+                      const userIds = Object.keys(likes);
+                      if (userIds.length === 0) {
+                        modalBody.innerHTML =
+                          '<div class="text-center text-muted">Chưa có ai thả tym.</div>';
+                        return;
+                      }
+                      Promise.all(
+                        userIds.map((uid) =>
+                          db.ref("users/" + uid).once("value")
+                        )
+                      ).then((results) => {
+                        modalBody.innerHTML = userIds
+                          .map((uid, idx) => {
+                            const u = results[idx].val() || {};
+                            const avatar = u.avatar
+                              ? `<img src='${u.avatar}' class='author-avatar me-2' style='width:32px;height:32px;' alt='avatar' />`
+                              : `<span class='author-avatar me-2 d-inline-flex align-items-center justify-content-center bg-light' style='width:32px;height:32px;'><i class='fas fa-user text-secondary'></i></span>`;
+                            let displayName =
+                              u.username || u.email || "Ẩn danh";
+                            return `<div class='d-flex align-items-center gap-2 mb-2'>${avatar}<span class='fw-bold'>${displayName}</span></div>`;
+                          })
+                          .join("");
                       });
-                  };
-                });
+                    });
+                  modal.show();
+                };
+              });
+              // More (menu xóa, báo cáo...)
+              listEl.querySelectorAll(".more-btn").forEach(function (btn) {
+                btn.onclick = function (e) {
+                  const commentDiv = btn.closest(".comment-item");
+                  const cid = commentDiv && commentDiv.getAttribute("data-cid");
+                  if (!user || !cid) return;
+                  let menu = document.createElement("div");
+                  menu.className =
+                    "comment-menu position-absolute bg-white border rounded shadow-sm p-2";
+                  menu.style.zIndex = 1000;
+                  menu.innerHTML = `
+                    ${
+                      user &&
+                      (user.uid === comments[cid].userId ||
+                        user.role === "admin")
+                        ? `<div class='menu-item text-danger' style='cursor:pointer;'>Xóa bình luận</div>`
+                        : ""
+                    }
+                    <div class='menu-item text-secondary' style='cursor:pointer;'>Báo cáo</div>
+                  `;
+                  document
+                    .querySelectorAll(".comment-menu")
+                    .forEach((m) => m.remove());
+                  btn.parentElement.appendChild(menu);
+                  menu.querySelectorAll(".menu-item").forEach(function (item) {
+                    item.onclick = function () {
+                      if (item.textContent.includes("Xóa")) {
+                        _pendingDeleteCommentId = cid;
+                        var modal = new bootstrap.Modal(
+                          document.getElementById("confirmDeleteCommentModal")
+                        );
+                        modal.show();
+                      } else if (item.textContent.includes("Báo cáo")) {
+                        alert(
+                          "Cảm ơn bạn đã báo cáo. Chức năng này sẽ được xử lý sau!"
+                        );
+                      }
+                      menu.remove();
+                    };
+                  });
+                  setTimeout(() => {
+                    document.addEventListener("click", function handler(ev) {
+                      if (!menu.contains(ev.target) && ev.target !== btn) {
+                        menu.remove();
+                        document.removeEventListener("click", handler);
+                      }
+                    });
+                  }, 10);
+                };
+              });
+              // Gán lại sự kiện xác nhận xóa sau khi render
+              setupDeleteCommentModal(recipeId, comments);
+              // Reply
+              listEl.querySelectorAll(".reply-btn").forEach(function (btn) {
+                btn.onclick = function () {
+                  const commentDiv = btn.closest(".comment-item");
+                  const cid = commentDiv && commentDiv.getAttribute("data-cid");
+                  const username =
+                    commentDiv &&
+                    commentDiv.querySelector(".fw-bold")?.textContent;
+                  if (!cid || !username) return;
+                  window._replyState = { parentId: cid, parentUser: username };
+                  renderRecipeCommentsArea(recipeId);
+                  setTimeout(() => {
+                    const input = document.getElementById("commentInput");
+                    if (input) {
+                      input.value = `@${username} `;
+                      input.focus();
+                    }
+                  }, 100);
+                };
+              });
             }, 0);
           });
         // Render form nhập bình luận nếu đã đăng nhập
         const user = window.getCurrentUser && window.getCurrentUser();
+        replyState = window._replyState || { parentId: null, parentUser: null };
         if (user) {
           formEl.innerHTML = `
+            ${
+              replyState.parentId
+                ? `<div class='mb-2 small text-primary'>Đang trả lời <b>@${replyState.parentUser}</b> <button type='button' class='btn btn-link btn-sm p-0 ms-2 cancel-reply' title='Hủy trả lời' aria-label='Hủy trả lời'><i class='fas fa-times'></i></button></div>`
+                : ""
+            }
             <form id="commentForm" class="d-flex gap-2">
               <input type="text" class="form-control" id="commentInput" placeholder="Nhập bình luận..." required />
-              <button class="btn btn_gui btn-primary" type="submit">Gửi</button>
+              <button class="btn btn-primary" type="submit">Gửi</button>
             </form>
           `;
           setTimeout(function () {
-            // Đảm bảo DOM đã cập nhật
             const commentForm = document.getElementById("commentForm");
             const commentInput = document.getElementById("commentInput");
+            // Hủy trả lời
+            const cancelBtn = document.querySelector(".cancel-reply");
+            if (cancelBtn) {
+              cancelBtn.onclick = function () {
+                window._replyState = { parentId: null, parentUser: null };
+                renderRecipeCommentsArea(recipeId);
+              };
+            }
             if (!commentForm || !commentInput) {
               console.error("Không tìm thấy form hoặc input bình luận!");
               return;
             }
-            // Gửi bình luận khi submit form hoặc nhấn Enter
+            // Nếu đang trả lời thì chèn @username
+            if (replyState.parentId && replyState.parentUser) {
+              commentInput.value = `@${replyState.parentUser} `;
+              commentInput.focus();
+            }
             commentForm.onsubmit = function (e) {
               e.preventDefault();
               const content = commentInput.value.trim();
@@ -1048,17 +1253,19 @@
                 {
                   userId: user.uid,
                   username: user.username || user.email || "Ẩn danh",
+                  avatar: user.avatar || "",
                   content: content,
                   createdAt: new Date().toLocaleString("vi-VN"),
+                  likes: {},
+                  parentId: replyState.parentId || null,
                 },
                 function () {
                   commentInput.value = "";
-                  showToast("Đã gửi bình luận!", "success");
+                  window._replyState = { parentId: null, parentUser: null };
                   renderRecipeCommentsArea(recipeId);
                 }
               );
             };
-            // Đảm bảo nhấn Enter trong input cũng gửi bình luận
             commentInput.addEventListener("keydown", function (e) {
               if (e.key === "Enter") {
                 e.preventDefault();
@@ -1071,10 +1278,68 @@
         }
       }
 
+      // Modal xác nhận xóa bình luận
+      if (!document.getElementById("confirmDeleteCommentModal")) {
+        const modal = document.createElement("div");
+        modal.id = "confirmDeleteCommentModal";
+        modal.className = "modal fade";
+        modal.tabIndex = -1;
+        modal.innerHTML = `
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content text-center p-4" style="border-radius: 18px">
+              <div class="mb-3">
+                <span style="font-size: 3rem; color: #f7b84b"><i class="fas fa-exclamation-circle"></i></span>
+              </div>
+              <h4 class="mb-2" style="font-weight: 600">Xóa bình luận?</h4>
+              <div class="mb-4 text-muted">
+                Bạn có chắc muốn xóa bình luận này? Hành động này không thể hoàn tác!
+              </div>
+              <div class="d-flex justify-content-center gap-3">
+                <button type="button" class="btn btn-danger px-4" id="confirmDeleteCommentBtn">Xóa</button>
+                <button type="button" class="btn btn-secondary px-4" data-bs-dismiss="modal">Hủy</button>
+              </div>
+            </div>
+          </div>
+        `;
+        document.body.appendChild(modal);
+      }
+      let _pendingDeleteCommentId = null;
+      function setupDeleteCommentModal(recipeId, comments) {
+        document
+          .querySelectorAll(".comment-menu .menu-item.text-danger")
+          .forEach(function (item) {
+            item.onclick = function () {
+              const menu = item.closest(".comment-menu");
+              const commentDiv = menu && menu.closest(".comment-item");
+              const cid = commentDiv && commentDiv.getAttribute("data-cid");
+              if (!cid) return;
+              _pendingDeleteCommentId = cid;
+              var modal = new bootstrap.Modal(
+                document.getElementById("confirmDeleteCommentModal")
+              );
+              modal.show();
+            };
+          });
+        document.getElementById("confirmDeleteCommentBtn").onclick =
+          function () {
+            if (!_pendingDeleteCommentId) return;
+            var db = firebase.database();
+            db.ref(`comments/${recipeId}/${_pendingDeleteCommentId}`)
+              .remove()
+              .then(function () {
+                _pendingDeleteCommentId = null;
+                var modal = bootstrap.Modal.getInstance(
+                  document.getElementById("confirmDeleteCommentModal")
+                );
+                if (modal) modal.hide();
+                renderRecipeCommentsArea(recipeId);
+              });
+          };
+      }
+
       document.addEventListener("DOMContentLoaded", function () {
         const recipeId = getRecipeId();
         if (recipeId) renderRecipeCommentsArea(recipeId);
-        // ...existing code...
       });
 
       // Toast message

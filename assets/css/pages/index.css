@@ -465,10 +465,10 @@ body {
       .navbar-nav .btn-outline-primary {
         border: 2px solid var(--primary-color);
         color: var(--primary-color);
-        background: white;
+        background: var(--primary-color);
       }
       .navbar-nav .btn-outline-primary:hover {
-        background: var(--primary-color);
+        background: #1abc9c;
         color: white;
       }
       .navbar-nav .btn-primary {

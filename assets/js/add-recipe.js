@@ -22,7 +22,7 @@ if (form) {
         formData[el.name] = el.value;
       }
     });
-    // Đã gỡ trường tags_recipe
+    // Gỡ trường tags_recipe
     const recipe = createRecipeObject(formData);
     // Lưu lên Firebase
     if (typeof addRecipeToFirebase === 'function') {
@@ -375,5 +375,5 @@ document.addEventListener('DOMContentLoaded', function () {
       });
     }
   });
-  // Đã gỡ logic tags_recipe
 });
+

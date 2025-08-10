@@ -545,108 +545,131 @@
         const favIds = favKey
           ? JSON.parse(localStorage.getItem(favKey) || "[]")
           : [];
-        const allRecipes = getAllRecipes();
-        const favRecipes = allRecipes.filter((r) => favIds.includes(r.id));
         const container = document.getElementById("favoriteRecipeList");
         if (!container) return;
-        setTimeout(() => {
-          if (!favRecipes.length) {
-            container.innerHTML = `<div class='empty-state'><i class='fas fa-heart-broken'></i><div>Bạn chưa yêu thích công thức nào!</div></div>`;
-          } else {
-            container.innerHTML = favRecipes
-              .map(
-                (recipe) => `
-      <div class="col-md-3 mb-4 d-flex align-items-stretch" data-aos="fade-up">
-        <div class="recipe-card w-100 position-relative" data-id="${
-          recipe.id
-        }" style="cursor:pointer">
-          <img src="${recipe.image}" class="recipe-image w-100" alt="${
-                  recipe.title
-                }">
-          <div class="recipe-info">
-            <h3 class="recipe-title">${recipe.title}</h3>
-            <p class="text-muted mb-3">${(() => {
-              const words = (recipe.description || "").split(" ");
-              return (
-                words.slice(0, 25).join(" ") + (words.length > 25 ? "..." : "")
-              );
-            })()}</p>
-            <div class="recipe-meta">
-              <span><i class="fas fa-clock"></i> ${recipe.time} phút</span>
-              <span><i class="fas fa-star"></i> ${recipe.rating}</span>
-              <span><i class="fas fa-user"></i> ${(() => {
-                // Lấy tên user hiện tại từ sessionStorage
-                try {
-                  const user = JSON.parse(
-                    sessionStorage.getItem("currentUser")
-                  );
-                  return user && user.name ? user.name : "Ẩn danh";
-                } catch {
-                  return "Ẩn danh";
-                }
-              })()}</span>
-            </div>
-            <div class="recipe-meta mt-2">
-              <span><i class="fas fa-signal"></i> ${
-                recipe.difficulty || ""
-              }</span>
-            </div>
-            <div class="recipe-tags">
-              ${(recipe.tags || [])
-                .map((tag) => `<span class="recipe-tag">${tag}</span>`)
-                .join("")}
-            </div>
-            <button class="btn btn-icon-remove btn-sm btn-remove-favorite position-absolute top-0 end-0 m-2" title="Xóa khỏi yêu thích"><i class="fas fa-times"></i></button>
-          </div>
-        </div>
-      </div>
-    `
-              )
-              .join("");
-            // Sự kiện click vào card để chuyển đến trang chi tiết
-            container.querySelectorAll(".recipe-card").forEach((card) => {
-              card.onclick = function (e) {
-                // Nếu click vào nút xóa thì không chuyển trang
-                if (e.target.closest(".btn-remove-favorite")) return;
-                const id = this.getAttribute("data-id");
-                if (id)
-                  window.location.href = `/pages/recipes/detail.html?id=${id}`;
-              };
+        fetchAllRecipesFromFirebase(function (firebaseRecipes) {
+          const staticRecipes = [
+            ...(typeof recipesMonChinh !== "undefined" ? recipesMonChinh : []),
+            ...(typeof recipesTrangMieng !== "undefined"
+              ? recipesTrangMieng
+              : []),
+            ...(typeof recipesThucUong !== "undefined" ? recipesThucUong : []),
+            ...(typeof recipesAnChay !== "undefined" ? recipesAnChay : []),
+            ...(typeof recipesAnVat !== "undefined" ? recipesAnVat : []),
+            ...(typeof recipesKhaiVi !== "undefined" ? recipesKhaiVi : []),
+          ];
+          function mergeRecipes(firebaseList, staticList) {
+            if (!firebaseList || firebaseList.length === 0)
+              return staticList.slice();
+            const ids = new Set();
+            const merged = [];
+            firebaseList.forEach((r) => {
+              if (r && r.id && !ids.has(r.id)) {
+                merged.push(r);
+                ids.add(r.id);
+              }
             });
-            // Sự kiện xóa khỏi yêu thích
-            container
-              .querySelectorAll(".btn-remove-favorite")
-              .forEach((btn) => {
-                btn.onclick = function (e) {
-                  e.stopPropagation();
-                  const card = this.closest(".recipe-card");
-                  const id = card.getAttribute("data-id");
-                  if (!id) return;
-                  // Xóa khỏi localStorage
-                  const idx = favIds.indexOf(id);
-                  if (idx !== -1) {
-                    favIds.splice(idx, 1);
-                    localStorage.setItem(favKey, JSON.stringify(favIds));
-                    showToast("Đã xóa khỏi yêu thích!", "success");
-                    renderFavoriteRecipes();
-                  }
+            staticList.forEach((r) => {
+              if (r && r.id && !ids.has(r.id)) {
+                merged.push(r);
+                ids.add(r.id);
+              }
+            });
+            return merged;
+          }
+          const allRecipes = mergeRecipes(firebaseRecipes, staticRecipes);
+          const favRecipes = allRecipes.filter((r) => favIds.includes(r.id));
+          setTimeout(() => {
+            if (!favRecipes.length) {
+              container.innerHTML = `<div class='empty-state'><i class='fas fa-heart-broken'></i><div>Bạn chưa yêu thích công thức nào!</div></div>`;
+            } else {
+              container.innerHTML = favRecipes
+                .map(
+                  (recipe) => `
+  <div class="col-md-3 mb-4 d-flex align-items-stretch" data-aos="fade-up">
+    <div class="recipe-card w-100 position-relative" data-id="${
+      recipe.id
+    }" style="cursor:pointer">
+      <img src="${recipe.image}" class="recipe-image w-100" alt="${
+                    recipe.title
+                  }">
+      <div class="recipe-info">
+        <h3 class="recipe-title">${recipe.title}</h3>
+        <p class="text-muted mb-3">${(() => {
+          const words = (recipe.description || "").split(" ");
+          return (
+            words.slice(0, 25).join(" ") + (words.length > 25 ? "..." : "")
+          );
+        })()}</p>
+        <div class="recipe-meta">
+          <span><i class="fas fa-clock"></i> ${recipe.time} phút</span>
+          <span><i class="fas fa-star"></i> ${recipe.rating}</span>
+          <span><i class="fas fa-user"></i> ${(() => {
+            try {
+              const user = JSON.parse(sessionStorage.getItem("currentUser"));
+              return user && user.name ? user.name : "Ẩn danh";
+            } catch {
+              return "Ẩn danh";
+            }
+          })()}</span>
+        </div>
+        <div class="recipe-meta mt-2">
+          <span><i class="fas fa-signal"></i> ${recipe.difficulty || ""}</span>
+        </div>
+        <div class="recipe-tags">
+          ${(recipe.tags || [])
+            .map((tag) => `<span class="recipe-tag">${tag}</span>`)
+            .join("")}
+        </div>
+        <button class="btn btn-icon-remove btn-sm btn-remove-favorite position-absolute top-0 end-0 m-2" title="Xóa khỏi yêu thích"><i class="fas fa-times"></i></button>
+      </div>
+    </div>
+  </div>
+`
+                )
+                .join("");
+              // Sự kiện click vào card để chuyển đến trang chi tiết
+              container.querySelectorAll(".recipe-card").forEach((card) => {
+                card.onclick = function (e) {
+                  if (e.target.closest(".btn-remove-favorite")) return;
+                  const id = this.getAttribute("data-id");
+                  if (id)
+                    window.location.href = `/pages/recipes/detail.html?id=${id}`;
                 };
               });
-          }
-          // Sau khi lấy favIds, cập nhật số lượng công thức yêu thích lên profileFavoriteCount nếu có
-          const favoriteCountEl = document.getElementById(
-            "profileFavoriteCount"
-          );
-          if (favoriteCountEl) {
-            const statNumber = favoriteCountEl.querySelector(".stat-number");
-            if (statNumber) {
-              statNumber.textContent = favIds.length;
+              // Sự kiện xóa khỏi yêu thích
+              container
+                .querySelectorAll(".btn-remove-favorite")
+                .forEach((btn) => {
+                  btn.onclick = function (e) {
+                    e.stopPropagation();
+                    const card = this.closest(".recipe-card");
+                    const id = card.getAttribute("data-id");
+                    if (!id) return;
+                    const idx = favIds.indexOf(id);
+                    if (idx !== -1) {
+                      favIds.splice(idx, 1);
+                      localStorage.setItem(favKey, JSON.stringify(favIds));
+                      showToast("Đã xóa khỏi yêu thích!", "success");
+                      renderFavoriteRecipes();
+                    }
+                  };
+                });
             }
-          }
-          // Thêm hiệu ứng fade-in từng card
-          applyFadeInToProfileCards &&
-            applyFadeInToProfileCards("#favoriteRecipeList", ".recipe-card");
-        }, 400);
+            // Sau khi lấy favIds, cập nhật số lượng công thức yêu thích lên profileFavoriteCount nếu có
+            const favoriteCountEl = document.getElementById(
+              "profileFavoriteCount"
+            );
+            if (favoriteCountEl) {
+              const statNumber = favoriteCountEl.querySelector(".stat-number");
+              if (statNumber) {
+                statNumber.textContent = favIds.length;
+              }
+            }
+            applyFadeInToProfileCards &&
+              applyFadeInToProfileCards("#favoriteRecipeList", ".recipe-card");
+          }, 400);
+        });
       }
       // Lấy toàn bộ công thức từ Firebase
       function fetchAllRecipesFromFirebase(callback) {

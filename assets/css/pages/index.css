@@ -51,7 +51,7 @@ body {
 /* Đảm bảo navbar-item luôn hiện rõ trên mọi nền */
 .navbar:not(.scrolled) .nav-link,
 .navbar:not(.scrolled) .navbar-nav .btn {
-  color: white !important;
+  color: white;
 }
 
 .navbar.scrolled .nav-link,
@@ -183,6 +183,8 @@ body {
   background: var(--primary-color);
   border: none;
   margin-right: 15px;
+  border-radius: 15px;
+  padding: 9px;
 }
 
 .btn-outline {
@@ -327,7 +329,7 @@ body {
 
 .card-body a {
   text-decoration: none;
-  color: var(--text-color);
+  color: white;
 }
 
 .featured-card .card-body {
@@ -362,6 +364,8 @@ body {
   transition: all 0.3s ease;
   height: 100%;
   background: white;
+  display: flex;
+  flex-direction: column;
 }
 
 .blog-card:hover {
@@ -377,12 +381,38 @@ body {
 
 .blog-card .card-body {
   padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
 }
 
 .blog-card .card-title {
   font-weight: 600;
   margin-bottom: 1rem;
   font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.blog-card .card-body .card-text {
+  flex: 1 1 auto;
+  margin-bottom: 1rem;
+}
+
+.blog-card .card-body .blog-meta {
+  flex-shrink: 0;
+}
+
+.blog-card .card-body .btn {
+  margin-top: auto;
+  align-self: flex-start;
+  min-width: 120px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  padding: 0 20px;
+  font-weight: 600;
+  border-radius: 8px;
 }
 
 .blog-meta {

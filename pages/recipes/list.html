@@ -126,11 +126,52 @@
       </div>
     </nav>
 
+    <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+    <div
+      id="systemNotificationBar"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        text-align: center;
+        padding: 12px 0;
+        background: rgba(255, 85, 85, 0.7);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.5s, opacity 0.5s;
+      "
+    >
+      <span id="systemNotificationText" style="font-size: 1.1em"></span>
+      <button
+        id="closeNotificationBar"
+        style="
+          position: absolute;
+          right: 18px;
+          top: 8px;
+          background: none;
+          border: none;
+          color: #fff;
+          font-size: 1.3em;
+          cursor: pointer;
+        "
+      >
+        &times;
+      </button>
+    </div>
+
     <!-- Page Header -->
     <header class="page-header">
       <div class="container">
         <div class="row align-items-center flex-column flex-md-row">
-          <div class="col-md-6 text-center text-md-start mb-4 mb-md-0" style="margin-top: 30px;">
+          <div
+            class="col-md-6 text-center text-md-start mb-4 mb-md-0"
+            style="margin-top: 30px"
+          >
             <h1 class="display-4 fw-bold mb-3">Khám Phá Công Thức</h1>
             <p class="lead mb-4">
               <i class="fas fa-utensils me-2"></i>Hàng ngàn công thức nấu ăn từ
@@ -329,7 +370,9 @@
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/about.html" class="text-white text-decoration-none"
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
                   >Về chúng tôi</a
                 >
               </li>
@@ -539,7 +582,7 @@
         if (t.includes("khai vị")) return "khai-vi";
         if (t.includes("món chính")) return "mon-chinh";
         if (t.includes("tráng miệng")) return "trang-mieng";
-        if (t.includes("đồ uống")) return "do-uong";
+        if (t.includes("đồ uống")) return "do_uong";
         if (t.includes("món chay")) return "mon-chay";
         if (t.includes("ăn vặt")) return "an-vat";
         return "";
@@ -548,31 +591,55 @@
       let filteredRecipes = recipes;
 
       function filterRecipesByCategory(category) {
-        if (category === "Tất cả") {
-          filteredRecipes = recipes;
-        } else {
-          const slug = categoryMap[category];
-          filteredRecipes = recipes.filter(
-            (r) =>
-              Array.isArray(r.tags) &&
-              r.tags.some((tag) => tagToSlug(tag) === slug)
-          );
-        }
-        currentPage = 1;
-        renderRecipes(currentPage);
+        // Lấy danh sách danh mục active từ Firebase
+        fetchActiveCategories(function (categories) {
+          const activeNames = categories.map((cat) => {
+            let name = cat.name.trim().toLowerCase();
+            if (name.startsWith("món ")) name = name.replace(/^món /, "");
+            return name;
+          });
+          if (category === "Tất cả") {
+            filteredRecipes = recipes;
+          } else {
+            let catNameLower = category.trim().toLowerCase();
+            if (catNameLower.startsWith("món "))
+              catNameLower = catNameLower.replace(/^món /, "");
+            filteredRecipes = recipes.filter(
+              (r) =>
+                Array.isArray(r.tags) &&
+                r.tags.some((tag) => {
+                  let tagLower = tag.trim().toLowerCase();
+                  if (tagLower.startsWith("món "))
+                    tagLower = tagLower.replace(/^món /, "");
+                  return (
+                    tagLower === catNameLower && activeNames.includes(tagLower)
+                  );
+                })
+            );
+          }
+          currentPage = 1;
+          renderRecipes(currentPage);
+        });
       }
 
       // Phân trang
-      const PAGE_SIZE = 6;
+      let PAGE_SIZE = 6; // Mặc định
+      fetchData &&
+        fetchData("blog_config", function (config) {
+          PAGE_SIZE =
+            config && config.recipePerPage ? parseInt(config.recipePerPage) : 6;
+          // Nếu đã có danh sách công thức, render lại theo page size mới
+          if (filteredRecipes && filteredRecipes.length) {
+            renderRecipes(currentPage);
+            renderPagination();
+          }
+        });
       let currentPage = 1;
 
       function renderRecipes(page = 1) {
-        console.log("recipes:", recipes);
-        console.log("filteredRecipes:", filteredRecipes);
         const start = (page - 1) * PAGE_SIZE;
         const end = start + PAGE_SIZE;
         const pageRecipes = filteredRecipes.slice(start, end);
-        console.log("pageRecipes:", pageRecipes);
         const recipeGrid = document.getElementById("recipeGrid");
         recipeGrid.innerHTML = pageRecipes
           .map((recipe) => {
@@ -586,6 +653,13 @@
             ) {
               imgSrc = "/assets/images/recipes/default.jpg";
             }
+            const tagsHtml = (recipe.tags || [])
+              .map(
+                (tag) =>
+                  `<span class="recipe-tag" style="border-radius:12px;padding:8px 20px;margin:6px;font-size:0.92em;">${tag}</span>`
+              )
+              .join("");
+            // Đã gỡ tags_recipe
             return `
       <div class="col-md-6 col-lg-4 d-flex align-items-stretch" data-aos="fade-up">
         <div class="recipe-card w-100" data-id="${
@@ -622,7 +696,10 @@
             </div>
             <div class="recipe-tags">
               ${(recipe.tags || [])
-                .map((tag) => `<span class="recipe-tag" style="border-radius:12px;padding:8px 20px;margin:6px;font-size:0.92em;">${tag}</span>`)
+                .map(
+                  (tag) =>
+                    `<span class="recipe-tag" style="border-radius:12px;padding:8px 20px;margin:6px;font-size:0.92em;">${tag}</span>`
+                )
                 .join("")}
             </div>
           </div>
@@ -652,11 +729,6 @@
         if (window.AOS && typeof AOS.init === "function") {
           AOS.init();
         }
-        // Log số lượng card thực tế trong DOM
-        setTimeout(() => {
-          const cards = document.querySelectorAll(".recipe-card");
-          console.log("Số lượng .recipe-card trong DOM:", cards.length);
-        }, 100);
         renderPagination();
       }
 
@@ -754,6 +826,48 @@
         });
       });
 
+      // Lấy danh mục/tags active từ Firebase và render filter-btn (Realtime)
+      function renderActiveCategoryFiltersRealtime() {
+        var db = firebase.database();
+        db.ref("categories").on("value", function (snapshot) {
+          const categories = snapshot.val() || {};
+          const activeCats = Object.entries(categories)
+            .filter(([id, cat]) => cat.active !== false)
+            .map(([id, cat]) => ({ id, ...cat }));
+          const filterSection = document.querySelector(
+            ".filter-section .d-flex"
+          );
+          if (filterSection) {
+            filterSection.innerHTML = "";
+            // Thêm nút "Tất cả"
+            const allBtn = document.createElement("button");
+            allBtn.className = "filter-btn active";
+            allBtn.textContent = "Tất cả";
+            filterSection.appendChild(allBtn);
+            activeCats.forEach((cat) => {
+              const btn = document.createElement("button");
+              btn.className = "filter-btn";
+              btn.textContent = cat.name;
+              filterSection.appendChild(btn);
+            });
+            // Gán lại sự kiện filter
+            const filterBtns = filterSection.querySelectorAll(".filter-btn");
+            filterBtns.forEach((btn) => {
+              btn.addEventListener("click", function () {
+                filterBtns.forEach((b) => b.classList.remove("active"));
+                this.classList.add("active");
+                filterRecipesByCategory(this.textContent.trim());
+              });
+            });
+          }
+          // Tự động filter lại theo danh mục đang chọn
+          const activeBtn = document.querySelector(".filter-btn.active");
+          if (activeBtn) filterRecipesByCategory(activeBtn.textContent.trim());
+        });
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        renderActiveCategoryFiltersRealtime();
+      });
       renderRecipes(currentPage);
     </script>
     <script>
@@ -888,5 +1002,6 @@
         renderRecipes(currentPage);
       }
     </script>
+    <script src="/assets/js/notification-bar.js"></script>
   </body>
 </html>

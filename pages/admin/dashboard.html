@@ -354,8 +354,136 @@
           <!-- Cài đặt Tab -->
           <div class="tab-section" id="tab-settings">
             <div class="admin-section">
-              <h4 class="mb-4">Cài đặt hệ thống</h4>
-              <p class="text-muted">Chức năng này đang phát triển...</p>
+               <ul class="nav nav-pills mb-4" id="settingsSubTabs">
+                <li class="nav-item">
+                  <a class="nav-link active" data-subtab="notification" href="#"
+                    >Thông báo</a
+                  >
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" data-subtab="config" href="#">Cấu hình</a>
+                </li>
+                 <li class="nav-item">
+                  <a class="nav-link" data-subtab="categories" href="#"
+                    >Danh mục & Tags</a
+                  >
+                </li>
+              </ul>
+              <div
+                class="settings-subtab-section"
+                id="settings-subtab-notification"
+              >
+                <h5 class="mb-3">Quản lý thông báo hệ thống</h5>
+                <form id="addNotificationForm" class="mb-4">
+                  <div class="mb-3">
+                    <label class="form-label">Nội dung thông báo</label>
+                    <input
+                      type="text"
+                      class="form-control"
+                      id="notificationContent"
+                      required
+                      maxlength="200"
+                      placeholder="Nhập nội dung thông báo..."
+                    />
+                  </div>
+                  <button type="submit" class="btn btn-primary">
+                    Thêm thông báo
+                  </button>
+                </form>
+                <h6 class="mb-3">Danh sách thông báo</h6>
+                <div id="notificationList"></div>
+              </div>
+              <div
+                class="settings-subtab-section"
+                id="settings-subtab-config"
+                style="display: none"
+              >
+                <h5 class="mb-3">Cấu hình hệ thống</h5>
+                <form id="systemConfigForm" class="mb-4">
+                  <div class="mb-3">
+                    <label class="form-label">Số lượng blog/trang</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="configBlogPerPage"
+                      min="1"
+                      max="50"
+                      value="10"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Số lượng công thức/trang</label>
+                    <input
+                      type="number"
+                      class="form-control"
+                      id="configRecipePerPage"
+                      min="1"
+                      max="50"
+                      value="12"
+                    />
+                  </div>
+                  <div class="mb-3">
+                    <label class="form-label">Cho phép đăng blog</label>
+                    <select class="form-select" id="configAllowBlog">
+                      <option value="true">Bật</option>
+                      <option value="false">Tắt</option>
+                    </select>
+                  </div>
+                  <button type="submit" class="btn btn-success">
+                    Lưu cấu hình
+                  </button>
+                  <span id="systemConfigStatus" class="ms-3"></span>
+                </form>
+              </div>
+              <div
+                class="settings-subtab-section"
+                id="settings-subtab-categories"
+                style="display: none"
+              >
+                <h5 class="mb-3">Quản lý Danh mục & Tags</h5>
+                <div class="row g-4">
+                  <div class="col-md-6">
+                    <div class="card shadow-sm rounded">
+                      <div class="card-body">
+                        <h6 class="fw-bold mb-3">Danh mục món ăn</h6>
+                        <div id="categoryList"></div>
+                        <form id="addCategoryForm" class="d-flex mt-2">
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="newCategoryInput"
+                            placeholder="Thêm danh mục..."
+                            required
+                          />
+                          <button type="submit" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="card shadow-sm rounded">
+                      <div class="card-body">
+                        <h6 class="fw-bold mb-3">Tags Blog</h6>
+                        <div id="tagList"></div>
+                        <form id="addTagForm" class="d-flex mt-2">
+                          <input
+                            type="text"
+                            class="form-control me-2"
+                            id="newTagInput"
+                            placeholder="Thêm tag blog..."
+                            required
+                          />
+                          <button type="submit" class="btn btn-primary">
+                            Thêm
+                          </button>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -379,6 +507,13 @@
             .querySelectorAll(".tab-section")
             .forEach((sec) => sec.classList.remove("active"));
           document.getElementById("tab-" + tab).classList.add("active");
+          if (tab === "duyet-cong-thuc") {
+            renderRecipeApproval();
+          }
+          // Thêm dòng này để load thông báo khi vào tab Cài đặt
+          if (tab === "settings") {
+            renderNotifications();
+          }
         });
       });
       // Kiểm tra quyền admin
@@ -932,6 +1067,293 @@
             alert("Lỗi lấy dữ liệu công thức: " + err.message);
           });
       };
+       // Thêm thông báo
+      document.getElementById("addNotificationForm").onsubmit = function (e) {
+        e.preventDefault();
+        const content = document
+          .getElementById("notificationContent")
+          .value.trim();
+        if (!content) return;
+        var db = firebase.database();
+        var newRef = db.ref("system_notifications").push();
+        newRef.set(
+          { content, createdAt: Date.now(), isActive: true },
+          function () {
+            document.getElementById("notificationContent").value = "";
+            renderNotifications();
+          }
+        );
+      };
+      // Quản lý thông báo hệ thống
+      function renderNotifications() {
+        var db = firebase.database();
+        db.ref("system_notifications")
+          .once("value")
+          .then(function (snapshot) {
+            const notifs = snapshot.val() || {};
+            const notifArr = Object.entries(notifs).map(([id, n]) => ({
+              id,
+              ...n,
+            }));
+            const listDiv = document.getElementById("notificationList");
+            if (!notifArr.length) {
+              listDiv.innerHTML =
+                '<div class="text-muted">Chưa có thông báo nào.</div>';
+              return;
+            }
+            listDiv.innerHTML = `<ul class='list-group'>${notifArr
+              .map(
+                (n) => `
+                  <li class='list-group-item d-flex justify-content-between align-items-center'>
+                    <span>${n.content}</span>
+                    <div>
+                      <button class='btn btn-sm btn-outline-secondary me-2' onclick='editNotification("${
+                        n.id
+                      }", "${encodeURIComponent(n.content)}")'>Sửa</button>
+                      <button class='btn btn-sm btn-outline-danger' onclick='deleteNotification("${
+                        n.id
+                      }")'>Xóa</button>
+                    </div>
+                  </li>`
+              )
+              .join("")}</ul>`;
+          });
+      }
+      // Sửa thông báo
+      window.editNotification = function (id, oldContent) {
+        // Hiển thị modal nhập nội dung mới
+        let modal = document.getElementById("editNotificationModal");
+        if (!modal) {
+          modal = document.createElement("div");
+          modal.id = "editNotificationModal";
+          modal.className = "modal fade";
+          modal.tabIndex = -1;
+          modal.innerHTML = `
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Sửa thông báo</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Đóng"></button>
+                </div>
+                <div class="modal-body">
+                  <input type="text" class="form-control" id="editNotificationInput" maxlength="200" />
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-primary" id="saveEditNotificationBtn">Lưu</button>
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Hủy</button>
+                </div>
+              </div>
+            </div>
+          `;
+          document.body.appendChild(modal);
+        }
+        setTimeout(function () {
+          document.getElementById("editNotificationInput").value =
+            decodeURIComponent(oldContent);
+          var bsModal = new bootstrap.Modal(modal);
+          bsModal.show();
+          document.getElementById("saveEditNotificationBtn").onclick =
+            function () {
+              const newContent = document
+                .getElementById("editNotificationInput")
+                .value.trim();
+              if (!newContent) return alert("Nội dung không được để trống!");
+              var db = firebase.database();
+              db.ref("system_notifications/" + id).update(
+                { content: newContent, createdAt: Date.now() },
+                function () {
+                  bsModal.hide();
+                  renderNotifications();
+                }
+              );
+            };
+        }, 100);
+      };
+      // Xóa thông báo
+      window.deleteNotification = function (id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa thông báo này?")) return;
+        var db = firebase.database();
+        db.ref("system_notifications/" + id).remove(function () {
+          renderNotifications();
+        });
+      };
+      // Tab con cho Cài đặt
+      const settingsSubTabs = document.querySelectorAll(
+        "#settingsSubTabs .nav-link"
+      );
+      const subTabSections = document.querySelectorAll(
+        ".settings-subtab-section"
+      );
+      settingsSubTabs.forEach(function (tab) {
+        tab.addEventListener("click", function (e) {
+          e.preventDefault();
+          settingsSubTabs.forEach((t) => t.classList.remove("active"));
+          tab.classList.add("active");
+          const subtab = tab.getAttribute("data-subtab");
+          subTabSections.forEach((sec) => (sec.style.display = "none"));
+          document.getElementById("settings-subtab-" + subtab).style.display =
+            "block";
+          if (subtab === "notification") renderNotifications();
+          if (subtab === "config") loadSystemConfig();
+        });
+      });
+      // Hàm load cấu hình hệ thống
+      function loadSystemConfig() {
+        var db = firebase.database();
+        db.ref("blog_config")
+          .once("value")
+          .then(function (snapshot) {
+            const config = snapshot.val() || {};
+            document.getElementById("configBlogPerPage").value =
+              config.blogPerPage || 10;
+            document.getElementById("configRecipePerPage").value =
+              config.recipePerPage || 12;
+            document.getElementById("configAllowBlog").value = String(
+              config.allowBlog !== false
+            );
+          });
+      }
+      // Lưu cấu hình hệ thống
+      document.getElementById("systemConfigForm").onsubmit = function (e) {
+        e.preventDefault();
+        var db = firebase.database();
+        const blogPerPage =
+          parseInt(document.getElementById("configBlogPerPage").value) || 10;
+        const recipePerPage =
+          parseInt(document.getElementById("configRecipePerPage").value) || 12;
+        const allowBlog =
+          document.getElementById("configAllowBlog").value === "true";
+        db.ref("blog_config").set(
+          { blogPerPage, recipePerPage, allowBlog },
+          function (err) {
+            const statusDiv = document.getElementById("systemConfigStatus");
+            if (err) {
+              statusDiv.textContent = "Lưu cấu hình thất bại!";
+              statusDiv.className = "text-danger";
+            } else {
+              statusDiv.textContent = "Đã lưu cấu hình!";
+              statusDiv.className = "text-success";
+            }
+            setTimeout(function () {
+              statusDiv.textContent = "";
+            }, 2500);
+          }
+        );
+      };
+
+       // --- ĐỒNG BỘ DANH MỤC & TAGS ---
+      function renderCategoryList() {
+        var db = firebase.database();
+        db.ref("categories")
+          .once("value")
+          .then(function (snapshot) {
+            const categories = snapshot.val() || {};
+            const categoryListDiv = document.getElementById("categoryList");
+            categoryListDiv.innerHTML = "";
+            if (!Object.keys(categories).length) {
+              categoryListDiv.innerHTML =
+                '<div class="text-muted">Chưa có danh mục nào.</div>';
+              return;
+            }
+            Object.entries(categories).forEach(([id, cat]) => {
+              const isActive = cat.active !== false;
+              const div = document.createElement("div");
+              div.className =
+                "d-flex justify-content-between align-items-center mb-2";
+              div.innerHTML = `
+                <div><strong class="${isActive ? "" : "text-muted"}">${
+                cat.name
+              }${!isActive ? " (Đã ẩn)" : ""}</strong></div>
+                <div>
+                  <button class="btn btn-sm btn-${
+                    isActive ? "warning" : "success"
+                  }" onclick="toggleCategoryActive('${id}', ${!isActive})">
+                    ${
+                      isActive
+                        ? "<i class='fas fa-eye-slash'></i> Ẩn"
+                        : "<i class='fas fa-eye'></i> Hiện"
+                    }
+                  </button>
+                </div>
+              `;
+              categoryListDiv.appendChild(div);
+            });
+          });
+      }
+      window.toggleCategoryActive = function (id, active) {
+        var db = firebase.database();
+        db.ref("categories/" + id)
+          .update({ active: active })
+          .then(renderCategoryList);
+      };
+      document.getElementById("addCategoryForm").onsubmit = function (e) {
+        e.preventDefault();
+        const newCategory = document
+          .getElementById("newCategoryInput")
+          .value.trim();
+        if (!newCategory) return;
+        var db = firebase.database();
+        var newCategoryRef = db.ref("categories").push();
+        newCategoryRef.set(
+          { name: newCategory, active: true, createdAt: Date.now() },
+          function () {
+            document.getElementById("newCategoryInput").value = "";
+            renderCategoryList();
+          }
+        );
+      };
+      function renderTagList() {
+        var db = firebase.database();
+        db.ref("tags_blog")
+          .once("value")
+          .then(function (snapshot) {
+            const tags = snapshot.val() || {};
+            const tagListDiv = document.getElementById("tagList");
+            tagListDiv.innerHTML = "";
+            if (!Object.keys(tags).length) {
+              tagListDiv.innerHTML =
+                '<div class="text-muted">Chưa có tag nào.</div>';
+              return;
+            }
+            Object.entries(tags).forEach(([id, tag]) => {
+              const div = document.createElement("div");
+              div.className =
+                "d-flex justify-content-between align-items-center mb-2";
+              div.innerHTML = `
+                <div><strong>${tag.name}</strong></div>
+                <div><button class="btn btn-sm btn-danger" onclick="deleteTag('${id}')"><i class="fas fa-trash"></i> Xóa</button></div>
+              `;
+              tagListDiv.appendChild(div);
+            });
+          });
+      }
+      window.deleteTag = function (id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa tag này?")) return;
+        var db = firebase.database();
+        db.ref("tags_blog/" + id)
+          .remove()
+          .then(renderTagList);
+      };
+      document.getElementById("addTagForm").onsubmit = function (e) {
+        e.preventDefault();
+        const newTag = document.getElementById("newTagInput").value.trim();
+        if (!newTag) return;
+        var db = firebase.database();
+        var newTagRef = db.ref("tags_blog").push();
+        newTagRef.set({ name: newTag, createdAt: Date.now() }, function () {
+          document.getElementById("newTagInput").value = "";
+          renderTagList();
+        });
+      };
+    
+      // Khi vào tab, tự động load danh sách
+      function loadCategoriesAndTags() {
+        renderCategoryList();
+        renderTagList();
+      }
+      document
+        .querySelector('[data-subtab="categories"]')
+        .addEventListener("click", loadCategoriesAndTags);
     </script>
     <!-- Modal xem chi tiết công thức -->
     <div

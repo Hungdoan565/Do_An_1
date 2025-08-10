@@ -20,6 +20,15 @@
       href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"
     />
   </head>
+    <style>
+    .navbar .nav-link {
+      color: var(--text-color) !important;
+    }
+    .card-body a {
+    text-decoration: none;
+    color: var(--accent-color);
+    }
+  </style>
   <body>
     <!-- Navbar (có thể copy từ blog.html) -->
     <nav class="navbar navbar-expand-lg fixed-top">
@@ -527,7 +536,9 @@
             }
             document.getElementById("blogDetail").innerHTML = `
               ${warning}
-              <h1 class="fw-bold mb-3">${post.title}</h1>
+              <h1 class="fw-bold mb-3" style="margin-top:30px;">${
+                post.title
+              }</h1>
               <div class="blog-meta-info">
                 <span><class="author-avatar me-2"> <span style="color:#d61c4e;"><i class="fas fa-user"></i></span> ${
                   post.author || "Ẩn danh"
@@ -549,7 +560,9 @@
                   )
                   .join("")}
               </div>
-              <div class="fs-5 mb-4">${post.excerpt || ""}</div>
+              <div class="fs-5 mb-4" style="margin-left:0.9rem">${
+                post.excerpt || ""
+              }</div>
               <div class="blog-content fs-5 mb-5">${post.content || ""}</div>
             `;
             // Gợi ý bài liên quan (cùng tag hoặc random)
@@ -615,8 +628,10 @@
           .once("value")
           .then(function (snap) {
             const comments = snap.val() || {};
-            // Hiển thị số bình luận
-            const commentCount = Object.values(comments).length;
+            // Tạo mảng commentArr từ dữ liệu thực tế (chỉ các comment còn tồn tại)
+            const commentArr = Object.entries(comments).map(([cid, c]) => ({ ...c, cid }));
+            // Đếm tổng số bình luận thực tế đang hiển thị
+            const commentCount = commentArr.length;
             const commentTitle = document.querySelector(
               ".card-body h5.text-success"
             );
@@ -624,11 +639,6 @@
               commentTitle.innerHTML = `<i class='fas fa-comments'></i> Bình luận <span class='badge bg-success bg-opacity-10 text-success ms-2' style='font-size:1rem;'>${commentCount}</span>`;
             }
             const user = window.getCurrentUser && window.getCurrentUser();
-            // Phân loại comment cha/con (cho phép reply vào bất kỳ comment nào)
-            const commentArr = Object.entries(comments).map(([cid, c]) => ({
-              ...c,
-              cid,
-            }));
             // Map comment theo cid để dễ truy xuất
             const commentMap = {};
             commentArr.forEach((c) => {

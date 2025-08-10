@@ -548,3 +548,39 @@
           border: 1.5px solid #d72660;
         }
       }
+      /* Bình luận cấp 2: căn hàng ngang tên, ngày, Trả lời trên mobile */
+@media (max-width: 600px) {
+  .reply-list .comment-item {
+    flex-direction: column;
+  }
+  .reply-list .comment-item > div[style*="flex:1"] {
+    width: 100%;
+  }
+  .reply-list .comment-item .d-flex.align-items-center.gap-2.mb-1 {
+    flex-wrap: wrap;
+    gap: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  .reply-list .comment-item .d-flex.align-items-center.gap-3.mt-1 {
+    flex-wrap: wrap;
+    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+  }
+  /* Đảm bảo nội dung bình luận tự xuống dòng, không gây tràn và xuất hiện thanh cuộn ngang */
+.reply-list .comment-item .mb-1,
+.comment-item .mb-1 {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-line;
+}
+
+/* Nếu có khung comment hoặc reply-list, đảm bảo không bị overflow-x */
+.reply-list, .comment-item {
+  overflow-x: auto;
+  max-width: 100%;
+}
+}

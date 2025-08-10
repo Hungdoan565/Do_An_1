@@ -129,6 +129,46 @@
       </div>
     </nav>
 
+    <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+    <div
+      id="systemNotificationBar"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        text-align: center;
+        padding: 12px 0;
+        background: rgba(255, 85, 85, 0.7);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.5s, opacity 0.5s;
+      "
+    >
+      <span id="systemNotificationText" style="font-size: 1.1em"></span>
+      <button
+        id="closeNotificationBar"
+        style="
+          position: absolute;
+          right: 18px;
+          top: 8px;
+          background: none;
+          border: none;
+          color: #fff;
+          font-size: 1.3em;
+          cursor: pointer;
+        "
+      >
+        &times;
+      </button>
+    </div>
+    <!-- Import notification-bar.js dùng chung cho banner thông báo -->
+    <script src="/assets/js/notification-bar.js"></script>
+
     <!-- Page Header (Hero) -->
     <header
       class="page-header position-relative"
@@ -589,6 +629,45 @@
       </div>
     </footer>
 
+     <!-- Modal thông báo chặn đăng blog -->
+    <div
+      class="modal fade"
+      id="addBlogBlockedModal"
+      tabindex="-1"
+      aria-labelledby="addBlogBlockedLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addBlogBlockedLabel">
+              Không thể đăng blog
+            </h5>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Đóng"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div class="text-danger fw-bold">
+              Admin đã tắt chức năng đăng blog. Vui lòng thử lại sau!
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-analytics.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
@@ -610,7 +689,16 @@
         once: true,
       });
 
-      const BLOG_PAGE_SIZE = 4;
+      let BLOG_PAGE_SIZE = 4; // Khai báo duy nhất ở đầu file
+      fetchData("blog_config", function (config) {
+        BLOG_PAGE_SIZE =
+          config && config.blogPerPage ? parseInt(config.blogPerPage) : 4;
+        // Nếu đã có danh sách blog, render lại theo page size mới
+        if (allApprovedPosts && allApprovedPosts.length) {
+          renderBlogPosts(allApprovedPosts, blogCurrentPage);
+          renderBlogPagination(allApprovedPosts.length, blogCurrentPage);
+        }
+      });
       let blogCurrentPage = 1;
       let blogFilteredPosts = [];
       let currentSort = "newest"; // Mặc định sort mới nhất
@@ -645,10 +733,7 @@
         <p class="blog-excerpt">${post.excerpt}</p>
         <div class="blog-tags">
           ${(post.tags || [])
-            .map(
-              (tag) =>
-                `<span class="blog-tag">${tag}</span>`
-            )
+             .map((tag) => `<span class="blog-tag">${tag}</span>`)
             .join("")}
         </div>
       </div>
@@ -1057,6 +1142,49 @@
       sidebarOverlay.addEventListener("click", function () {
         sidebar.classList.remove("show");
         sidebarOverlay.classList.remove("active");
+      });
+       document.addEventListener("DOMContentLoaded", function () {
+        // Chặn nút đăng blog ở header
+        const headerBtn = document.querySelector(
+          'a[href="/pages/add-blog.html"].btn-outline-light'
+        );
+        if (headerBtn) {
+          headerBtn.addEventListener("click", function (e) {
+            fetchData("blog_config", function (config) {
+              if (!config || config.allowBlog === false) {
+                e.preventDefault();
+                var modal = new bootstrap.Modal(
+                  document.getElementById("addBlogBlockedModal")
+                );
+                modal.show();
+              }
+            });
+          });
+        }
+        // Chặn nút đăng blog ở sidebar
+        const sidebarBtn = document.querySelector(
+          '.sidebar-card a.btn-success[href="/pages/add-blog.html"]'
+        );
+        if (sidebarBtn) {
+          sidebarBtn.addEventListener("click", function (e) {
+            fetchData("blog_config", function (config) {
+              if (!config || config.allowBlog === false) {
+                e.preventDefault();
+                var modal = new bootstrap.Modal(
+                  document.getElementById("addBlogBlockedModal")
+                );
+                modal.show();
+              }
+            });
+          });
+        }
+        // Hiển thị modal nếu bị chuyển hướng từ trang đăng blog
+        if (window.location.search.includes("blocked=1")) {
+          var modal = new bootstrap.Modal(
+            document.getElementById("addBlogBlockedModal")
+          );
+          modal.show();
+        }
       });
     </script>
   </body>

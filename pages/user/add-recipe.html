@@ -137,6 +137,44 @@
       </div>
     </nav>
 
+    <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+    <div
+      id="systemNotificationBar"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        text-align: center;
+        padding: 12px 0;
+        background: rgba(255, 85, 85, 0.7);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.5s, opacity 0.5s;
+      "
+    >
+      <span id="systemNotificationText" style="font-size: 1.1em"></span>
+      <button
+        id="closeNotificationBar"
+        style="
+          position: absolute;
+          right: 18px;
+          top: 8px;
+          background: none;
+          border: none;
+          color: #fff;
+          font-size: 1.3em;
+          cursor: pointer;
+        "
+      >
+        &times;
+      </button>
+    </div>
+
     <!-- Page Header -->
     <header class="page-header">
       <div class="container">
@@ -350,39 +388,6 @@
                 <i class="fas fa-plus"></i>
                 Thêm bước
               </button>
-            </div>
-
-            <!-- Tags Section (Phân loại) -->
-            <div class="form-section">
-              <h3 class="section-title">Phân loại</h3>
-              <label class="form-label"
-                >Chọn các danh mục phù hợp với món ăn</label
-              >
-              <div class="tag-select" id="tagSelect">
-                <button type="button" class="tag-item" data-value="Món chính">
-                  Món chính
-                </button>
-                <button
-                  type="button"
-                  class="tag-item"
-                  data-value="Món tráng miệng"
-                >
-                  Món tráng miệng
-                </button>
-                <button type="button" class="tag-item" data-value="Đồ uống">
-                  Đồ uống
-                </button>
-                <button type="button" class="tag-item" data-value="Món chay">
-                  Món chay
-                </button>
-                <button type="button" class="tag-item" data-value="Ăn vặt">
-                  Ăn vặt
-                </button>
-                <button type="button" class="tag-item" data-value="Món khai vị">
-                  Món khai vị
-                </button>
-              </div>
-              <input type="hidden" name="tags" id="tagsInput" />
             </div>
 
             <!-- Rating Section (Trực quan) -->
@@ -619,6 +624,7 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
     <script src="/assets/js/firebase-config.js"></script>
     <script type="module" src="/assets/js/add-recipe.js"></script>
+    <script src="/assets/js/notification-bar.js"></script>
     <script>
       // Kiểm tra user đăng nhập khi vào trang
       (function () {
@@ -1010,30 +1016,26 @@
             submitBtn.innerHTML =
               '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>Đang gửi...';
           }
-          // Lấy dữ liệu form
+          // Lấy dữ liệu form an toàn
           const form = addRecipeForm;
-          const title = form.querySelector('input[name="title"]').value.trim();
-          const desc = form
-            .querySelector('textarea[name="description"]')
-            .value.trim();
-          const time = form.querySelector('input[name="time"]').value.trim();
-          const servings = form
-            .querySelector('input[name="servings"]')
-            .value.trim();
-          const difficulty = form.querySelector(
-            'select[name="difficulty"]'
-          ).value;
-          const calories = form
-            .querySelector('input[name="calories"]')
-            .value.trim();
-          const tags = form
-            .querySelector("#tagsInput")
-            .value.split(",")
-            .filter(Boolean);
-          const rating = form.querySelector("#ratingInput").value;
+          const getVal = (sel) => {
+            const el = form.querySelector(sel);
+            return el ? el.value.trim() : "";
+          };
+          const title = getVal('input[name="title"]');
+          const desc = getVal('textarea[name="description"]');
+          const time = getVal('input[name="time"]');
+          const servings = getVal('input[name="servings"]');
+          const difficulty = getVal('select[name="difficulty"]');
+          const calories = getVal('input[name="calories"]');
+          const tags = (
+            form.querySelector("#tagsInput")?.value.split(",") || []
+          ).filter(Boolean);
+          const rating = getVal("#ratingInput");
           // Ảnh (chỉ lưu tên file, hoặc base64 nếu muốn demo, thực tế nên upload lên storage)
           let imgBase64 = "";
-          const file = form.querySelector("#imageInput").files[0];
+          const fileInput = form.querySelector("#imageInput");
+          const file = fileInput && fileInput.files ? fileInput.files[0] : null;
           if (file) {
             imgBase64 = await new Promise((resolve) => {
               const reader = new FileReader();
@@ -1046,24 +1048,25 @@
             form.querySelectorAll(".ingredient-item")
           )
             .map((item) => {
+              const nameEl = item.querySelector(
+                'input[name="ingredientName[]"]'
+              );
+              const amountEl = item.querySelector(
+                'input[name="ingredientAmount[]"]'
+              );
               return {
-                name: item
-                  .querySelector('input[name="ingredientName[]"]')
-                  .value.trim(),
-                amount: item
-                  .querySelector('input[name="ingredientAmount[]"]')
-                  .value.trim(),
+                name: nameEl ? nameEl.value.trim() : "",
+                amount: amountEl ? amountEl.value.trim() : "",
               };
             })
             .filter((i) => i.name);
           // Bước thực hiện
           const steps = Array.from(form.querySelectorAll(".step-card"))
             .map((card, idx) => {
+              const descEl = card.querySelector('textarea[name="stepDesc[]"]');
               return {
                 number: idx + 1,
-                desc: card
-                  .querySelector('textarea[name="stepDesc[]"]')
-                  .value.trim(),
+                desc: descEl ? descEl.value.trim() : "",
               };
             })
             .filter((s) => s.desc);
@@ -1179,29 +1182,25 @@
           });
         }
         previewBtn.addEventListener("click", function () {
-          // Lấy dữ liệu form
-          const title = form.querySelector('input[name="title"]').value.trim();
-          const desc = form
-            .querySelector('textarea[name="description"]')
-            .value.trim();
-          const time = form.querySelector('input[name="time"]').value.trim();
-          const servings = form
-            .querySelector('input[name="servings"]')
-            .value.trim();
-          const difficulty = form.querySelector(
-            'select[name="difficulty"]'
-          ).value;
-          const calories = form
-            .querySelector('input[name="calories"]')
-            .value.trim();
-          const tags = form
-            .querySelector("#tagsInput")
-            .value.split(",")
-            .filter(Boolean);
-          const rating = form.querySelector("#ratingInput").value;
+          // Lấy dữ liệu form an toàn
+          const getVal = (sel) => {
+            const el = form.querySelector(sel);
+            return el ? el.value.trim() : "";
+          };
+          const title = getVal('input[name="title"]');
+          const desc = getVal('textarea[name="description"]');
+          const time = getVal('input[name="time"]');
+          const servings = getVal('input[name="servings"]');
+          const difficulty = getVal('select[name="difficulty"]');
+          const calories = getVal('input[name="calories"]');
+          const tags = (
+            form.querySelector("#tagsInput")?.value.split(",") || []
+          ).filter(Boolean);
+          const rating = getVal("#ratingInput");
           // Ảnh
           let imgSrc = "";
-          const file = form.querySelector("#imageInput").files[0];
+          const fileInput = form.querySelector("#imageInput");
+          const file = fileInput && fileInput.files ? fileInput.files[0] : null;
           if (file) {
             imgSrc = URL.createObjectURL(file);
           } else {
@@ -1219,24 +1218,25 @@
             form.querySelectorAll(".ingredient-item")
           )
             .map((item) => {
+              const nameEl = item.querySelector(
+                'input[name="ingredientName[]"]'
+              );
+              const amountEl = item.querySelector(
+                'input[name="ingredientAmount[]"]'
+              );
               return {
-                name: item
-                  .querySelector('input[name="ingredientName[]"]')
-                  .value.trim(),
-                amount: item
-                  .querySelector('input[name="ingredientAmount[]"]')
-                  .value.trim(),
+                name: nameEl ? nameEl.value.trim() : "",
+                amount: amountEl ? amountEl.value.trim() : "",
               };
             })
             .filter((i) => i.name);
           // Bước thực hiện
           const steps = Array.from(form.querySelectorAll(".step-card"))
             .map((card, idx) => {
+              const descEl = card.querySelector('textarea[name="stepDesc[]"]');
               return {
                 number: idx + 1,
-                desc: card
-                  .querySelector('textarea[name="stepDesc[]"]')
-                  .value.trim(),
+                desc: descEl ? descEl.value.trim() : "",
               };
             })
             .filter((s) => s.desc);

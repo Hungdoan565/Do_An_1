@@ -1,16 +1,16 @@
 // Hàm lọc công thức cho trang list
 // options: { keyword, category, ingredients, favorite, time, difficulty, rating, sortBy }
-function filterRecipes({
-  recipes,
-  keyword = '',
-  category = '',
-  ingredients = [],
-  favorite = false,
-  time = null, // { min, max }
-  difficulty = '',
-  rating = null, // { min, max }
-  sortBy = '' // 'newest' | 'rating' | 'time'
-}) {
+function filterRecipes(options) {
+  const recipes = options.recipes;
+  const keyword = options.keyword || '';
+  const category = options.category || '';
+  const ingredients = options.ingredients || [];
+  const favorite = options.favorite || false;
+  const time = options.time || null;
+  const difficulty = options.difficulty || '';
+  const rating = options.rating || null;
+  const sortBy = options.sortBy || '';
+  const activeCategories = options.activeCategories || [];
   let filtered = recipes.filter(recipe => {
     // Lọc theo từ khóa (chỉ tiêu đề và tags, cho phép chứa từ khóa, không phân biệt hoa thường)
     if (keyword) {
@@ -19,14 +19,14 @@ function filterRecipes({
       const inTags = (recipe.tags||[]).some(tag => tag.toLowerCase().includes(kw));
       if (!(inTitle || inTags)) return false;
     }
-    // Lọc theo danh mục
+       // Lọc theo danh mục, chỉ cho phép các danh mục active
     if (category) {
       if (!Array.isArray(recipe.tags) || !recipe.tags.some(tag => tag.toLowerCase().includes(category.toLowerCase()))) return false;
-    }
-    // Lọc theo nguyên liệu (tất cả nguyên liệu đều phải có)
-    if (ingredients && ingredients.length > 0) {
-      const recipeIngredients = (recipe.ingredients||[]).map(i => i.toLowerCase());
-      if (!ingredients.every(ing => recipeIngredients.some(i => i.includes(ing.toLowerCase())))) return false;
+    // Nếu truyền vào activeCategories, chỉ cho phép các tag thuộc danh mục active
+      if (activeCategories.length > 0) {
+        const valid = recipe.tags.some(tag => activeCategories.includes(tag));
+        if (!valid) return false;
+      }
     }
     // Lọc theo yêu thích
     if (favorite && !recipe.favorite) return false;

@@ -112,6 +112,44 @@
       </div>
     </nav>
 
+      <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+    <div
+      id="systemNotificationBar"
+      style="
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 9999;
+        text-align: center;
+        padding: 12px 0;
+        background: rgba(255, 85, 85, 0.7);
+        color: #fff;
+        font-weight: 600;
+        border-radius: 0 0 12px 12px;
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+        transition: transform 0.5s, opacity 0.5s;
+      "
+    >
+      <span id="systemNotificationText" style="font-size: 1.1em"></span>
+      <button
+        id="closeNotificationBar"
+        style="
+          position: absolute;
+          right: 18px;
+          top: 8px;
+          background: none;
+          border: none;
+          color: #fff;
+          font-size: 1.3em;
+          cursor: pointer;
+        "
+      >
+        &times;
+      </button>
+    </div>
+    
     <!-- Page Header -->
     <header class="page-header">
       <div class="container">
@@ -501,6 +539,9 @@
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
     <script src="/assets/js/firebase-config.js"></script>
+    <script src="/assets/js/notification-bar.js"></script>
+    <!-- MailJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
       // Initialize AOS
       AOS.init({
@@ -513,58 +554,50 @@
         toast.className = `toast align-items-center text-bg-${type} border-0 position-fixed top-0 start-50 translate-middle-x mt-3`;
         toast.style.zIndex = 9999;
         toast.style.minWidth = "250px";
-        toast.innerHTML = `<div class="d-flex"><div class="toast-body">${message}</div></div>`;
+        toast.innerHTML = `<div class=\"d-flex\"><div class=\"toast-body\">${message}</div></div>`;
         document.body.appendChild(toast);
         setTimeout(() => toast.remove(), 3000);
       }
-      // Xử lý submit form liên hệ
+       // Cấu hình MailJS
+      emailjs.init("QPL1vIafIdKujDFKV");
       document
         .getElementById("contactForm")
         .addEventListener("submit", function (e) {
+          e.preventDefault();
           var name = document.getElementById("contactName").value.trim();
           var email = document.getElementById("contactEmail").value.trim();
           var title = document.getElementById("contactSubject").value.trim();
           var message = document.getElementById("contactMessage").value.trim();
           // Validate
           if (!name || !email || !title || !message) {
-            e.preventDefault();
             showContactToast("Vui lòng nhập đầy đủ thông tin!", "danger");
             return;
           }
           var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
           if (!emailPattern.test(email)) {
-            e.preventDefault();
             showContactToast("Email không hợp lệ!", "danger");
             return;
           }
-          // Nếu không có hàm lưu Firebase thì vẫn cho submit Netlify
-          if (typeof saveContactToFirebase !== "function") return;
-          e.preventDefault(); // Chỉ chặn khi có Firebase
-          var now = new Date();
-          var time = now.toLocaleString("vi-VN", { hour12: false });
-          var contact = {
-            name,
-            email,
-            title,
-            time,
-            message,
-            createdAt: Date.now(),
-          };
-          saveContactToFirebase(
-            contact,
-            function () {
-              // Hiện toast trước khi submit về Netlify
-              showContactToast("Gửi liên hệ thành công!");
-              // Không reset form, chỉ submit về Netlify để đảm bảo dữ liệu không bị mất
-              document.getElementById("contactForm").submit();
-            },
-            function () {
-              showContactToast(
-                "Gửi liên hệ thất bại. Vui lòng thử lại!",
-                "danger"
-              );
-            }
-          );
+           // Gửi email qua MailJS
+          emailjs
+            .send("service_sgwu2g1", "template_mqrkdwq", {
+              from_name: name,
+              from_email: email,
+              subject: title,
+              message: message,
+            })
+            .then(
+              function (response) {
+                alert("Email đã được gửi thành công!");
+                document.getElementById("contactForm").reset();
+              },
+              function (error) {
+                showContactToast(
+                  "Gửi liên hệ thất bại. Vui lòng thử lại!",
+                  "danger"
+                );
+              }
+            );
         });
     </script>
   </body>

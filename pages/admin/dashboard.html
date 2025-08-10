@@ -354,7 +354,7 @@
           <!-- Cài đặt Tab -->
           <div class="tab-section" id="tab-settings">
             <div class="admin-section">
-              <ul class="nav nav-pills mb-4" id="settingsSubTabs">
+               <ul class="nav nav-pills mb-4" id="settingsSubTabs">
                 <li class="nav-item">
                   <a class="nav-link active" data-subtab="notification" href="#"
                     >Thông báo</a
@@ -363,7 +363,7 @@
                 <li class="nav-item">
                   <a class="nav-link" data-subtab="config" href="#">Cấu hình</a>
                 </li>
-                <li class="nav-item">
+                 <li class="nav-item">
                   <a class="nav-link" data-subtab="categories" href="#"
                     >Danh mục & Tags</a
                   >
@@ -1067,7 +1067,7 @@
             alert("Lỗi lấy dữ liệu công thức: " + err.message);
           });
       };
-      // Thêm thông báo
+       // Thêm thông báo
       document.getElementById("addNotificationForm").onsubmit = function (e) {
         e.preventDefault();
         const content = document
@@ -1240,7 +1240,7 @@
           }
         );
       };
-      // --- ĐỒNG BỘ DANH MỤC & TAGS ---
+       // --- ĐỒNG BỘ DANH MỤC & TAGS ---
       function renderCategoryList() {
         var db = firebase.database();
         db.ref("categories")
@@ -1344,6 +1344,7 @@
           renderTagList();
         });
       };
+    
       // Khi vào tab, tự động load danh sách
       function loadCategoriesAndTags() {
         renderCategoryList();

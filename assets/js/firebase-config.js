@@ -101,3 +101,4 @@ function fetchActiveBlogTags(callback) {
     callback(activeTags);
   });
 }
+

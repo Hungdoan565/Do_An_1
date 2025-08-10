@@ -816,3 +816,66 @@ body.page-header-list .page-header-list {
     padding-top: 70px !important;
   }
 }
+@media (max-width: 600px) {
+  .featured-vertical-card {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    padding: 12px 8px !important;
+    margin-bottom: 18px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.04) !important;
+    gap: 8px !important;
+    min-width: 0 !important;
+  }
+  .featured-vertical-card .featured-rank {
+    font-size: 1.3rem !important;
+    min-width: 32px !important;
+    margin-bottom: 4px !important;
+    margin-right: 0 !important;
+    text-align: left !important;
+  }
+  .featured-vertical-card .featured-thumb {
+    width: 90px !important;
+    height: 70px !important;
+    object-fit: cover !important;
+    border-radius: 8px !important;
+    margin-bottom: 8px !important;
+    margin-right: 0 !important;
+  }
+  .featured-vertical-card h4, .featured-vertical-card .recipe-title {
+    font-size: 1.08rem !important;
+    font-weight: 700 !important;
+    margin-bottom: 4px !important;
+    line-height: 1.2 !important;
+  }
+  .featured-vertical-card .badge {
+    font-size: 0.85em !important;
+    padding: 2px 8px !important;
+    margin-left: 4px !important;
+    margin-bottom: 4px !important;
+  }
+  .featured-vertical-card .mb-2, .featured-vertical-card .recipe-desc {
+    font-size: 0.97rem !important;
+    margin-bottom: 6px !important;
+    color: #444 !important;
+  }
+  .featured-vertical-card .recipe-meta {
+    font-size: 0.93rem !important;
+    gap: 8px !important;
+    flex-wrap: wrap !important;
+    margin-bottom: 6px !important;
+  }
+  .featured-vertical-card .btn {
+    width: 100% !important;
+    font-size: 0.98rem !important;
+    margin-bottom: 4px !important;
+    border-radius: 8px !important;
+    padding: 8px 0 !important;
+  }
+  .featured-vertical-card .btn-fav {
+    width: 100% !important;
+    margin-top: 2px !important;
+    border-radius: 8px !important;
+    font-size: 1rem !important;
+  }
+}

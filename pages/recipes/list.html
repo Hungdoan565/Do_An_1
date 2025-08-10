@@ -637,12 +637,9 @@
       let currentPage = 1;
 
       function renderRecipes(page = 1) {
-        console.log("recipes:", recipes);
-        console.log("filteredRecipes:", filteredRecipes);
         const start = (page - 1) * PAGE_SIZE;
         const end = start + PAGE_SIZE;
         const pageRecipes = filteredRecipes.slice(start, end);
-        console.log("pageRecipes:", pageRecipes);
         const recipeGrid = document.getElementById("recipeGrid");
         recipeGrid.innerHTML = pageRecipes
           .map((recipe) => {
@@ -698,7 +695,12 @@
               }</span>
             </div>
             <div class="recipe-tags">
-              ${tagsHtml}
+              ${(recipe.tags || [])
+                .map(
+                  (tag) =>
+                    `<span class="recipe-tag" style="border-radius:12px;padding:8px 20px;margin:6px;font-size:0.92em;">${tag}</span>`
+                )
+                .join("")}
             </div>
           </div>
         </div>
@@ -727,11 +729,6 @@
         if (window.AOS && typeof AOS.init === "function") {
           AOS.init();
         }
-        // Log số lượng card thực tế trong DOM
-        setTimeout(() => {
-          const cards = document.querySelectorAll(".recipe-card");
-          console.log("Số lượng .recipe-card trong DOM:", cards.length);
-        }, 100);
         renderPagination();
       }
 
@@ -871,7 +868,7 @@
       document.addEventListener("DOMContentLoaded", function () {
         renderActiveCategoryFiltersRealtime();
       });
-
+    
       renderRecipes(currentPage);
 
       // --- TỰ ĐỘNG FILTER THEO QUERY CATEGORY ---

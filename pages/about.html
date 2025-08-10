@@ -114,7 +114,11 @@
       </div>
     </nav>
 
+<<<<<<< HEAD
     <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+=======
+      <!-- Banner thông báo hệ thống chuyên nghiệp (import dùng chung) -->
+>>>>>>> Comeback_commit_UpdateUI
     <div
       id="systemNotificationBar"
       style="
@@ -151,7 +155,11 @@
         &times;
       </button>
     </div>
+<<<<<<< HEAD
 
+=======
+    
+>>>>>>> Comeback_commit_UpdateUI
     <!-- Page Header -->
     <header class="page-header">
       <div class="container">
@@ -546,6 +554,8 @@
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="/assets/js/firebase-config.js"></script>
     <script src="/assets/js/notification-bar.js"></script>
+    <!-- MailJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script>
       // Initialize AOS
       AOS.init({
@@ -557,21 +567,9 @@
         const toast = document.createElement("div");
         toast.className = `custom-toast show align-items-center border-0 position-fixed top-0 end-0 mt-4 me-4`;
         toast.style.zIndex = 9999;
-        toast.style.minWidth = "340px";
-        toast.style.maxWidth = "90vw";
-        toast.style.padding = "18px 32px";
-        toast.style.fontSize = "1.15rem";
-        toast.style.fontWeight = "600";
-        toast.style.borderRadius = "16px";
-        toast.style.boxShadow =
-          "0 8px 32px rgba(0,0,0,0.18), 0 2px 12px rgba(0,0,0,0.13)";
-        toast.style.background = "#00d27b";
-        toast.style.color = "#fff";
-        toast.style.transition =
-          "transform 0.4s cubic-bezier(.4,0,.2,1), opacity 0.4s cubic-bezier(.4,0,.2,1)";
-        toast.style.transform = "translateX(100px) scale(0.98)";
-        toast.style.opacity = "0";
-        toast.innerHTML = `<div class=\"d-flex align-items-center\"><i class=\"fas fa-check-circle me-3\"></i><div class=\"toast-body\">${message}</div></div>`;
+
+        toast.style.minWidth = "250px";
+        toast.innerHTML = `<div class=\"d-flex\"><div class=\"toast-body\">${message}</div></div>`;
         document.body.appendChild(toast);
         setTimeout(() => {
           toast.style.transform = "translateX(0) scale(1)";
@@ -583,10 +581,8 @@
           setTimeout(() => toast.remove(), 400);
         }, 3000);
       }
-
-      // Cấu hình MailJS
+       // Cấu hình MailJS
       emailjs.init("QPL1vIafIdKujDFKV");
-
       document
         .getElementById("contactForm")
         .addEventListener("submit", function (e) {
@@ -605,7 +601,7 @@
             showContactToast("Email không hợp lệ!", "danger");
             return;
           }
-          // Gửi email qua MailJS
+           // Gửi email qua MailJS
           emailjs
             .send("service_sgwu2g1", "template_mqrkdwq", {
               from_name: name,
@@ -615,7 +611,7 @@
             })
             .then(
               function (response) {
-                showContactToast("Liên hệ đã được gửi đi thành công!");
+                alert("Email đã được gửi thành công!");
                 document.getElementById("contactForm").reset();
               },
               function (error) {

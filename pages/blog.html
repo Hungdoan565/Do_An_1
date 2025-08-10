@@ -629,7 +629,8 @@
       </div>
     </footer>
 
-    <!-- Modal thông báo chặn đăng blog -->
+     <!-- Modal thông báo chặn đăng blog -->
+
     <div
       class="modal fade"
       id="addBlogBlockedModal"
@@ -734,7 +735,7 @@
         <p class="blog-excerpt">${post.excerpt}</p>
         <div class="blog-tags">
           ${(post.tags || [])
-            .map((tag) => `<span class="blog-tag">${tag}</span>`)
+             .map((tag) => `<span class="blog-tag">${tag}</span>`)
             .join("")}
         </div>
       </div>
@@ -1144,8 +1145,7 @@
         sidebar.classList.remove("show");
         sidebarOverlay.classList.remove("active");
       });
-
-      document.addEventListener("DOMContentLoaded", function () {
+       document.addEventListener("DOMContentLoaded", function () {
         // Chặn nút đăng blog ở header
         const headerBtn = document.querySelector(
           'a[href="/pages/add-blog.html"].btn-outline-light'

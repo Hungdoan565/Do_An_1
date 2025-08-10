@@ -387,6 +387,7 @@
         </div>
       </div>
     </div>
+
     <!-- Footer -->
     <footer
       class="footer mt-5 py-5"
@@ -523,24 +524,31 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
     <script>
+        // Đưa các biến ra phạm vi toàn cục
+      var quill;
+      var popularTags = [
+        "Ẩm thực",
+        "Món Việt",
+        "Ăn chay",
+        "Ăn vặt",
+        "Healthy",
+        "Khai vị",
+        "Truyền thống",
+        "Đồ uống",
+      ];
+      var selectedTags = [];
+      var tagList;
+      var previewImg;
+
       document.addEventListener("DOMContentLoaded", function () {
         // Khởi tạo Quill
-        var quill = new Quill("#editor", {
+        quill = new Quill("#editor", {
           theme: "snow",
           placeholder: "Nhập nội dung bài viết...",
         });
-        // Tag phổ biến
-        var popularTags = [
-          "Ẩm thực",
-          "Món Việt",
-          "Ăn chay",
-          "Ăn vặt",
-          "Healthy",
-          "Khai vị",
-          "Truyền thống",
-          "Đồ uống",
-        ];
-        // Lấy danh sách tag blog từ Firebase
+        tagList = document.getElementById("tag-list");
+        previewImg = document.getElementById("image-preview");
+        // --- TAG BLOG: LẤY TỪ FIREBASE ---
         function fetchBlogTags(callback) {
           var db = firebase.database();
           db.ref("tags_blog")
@@ -553,17 +561,16 @@
               callback(tagArr);
             });
         }
-        var selectedTags = [];
         function renderTags() {
-          fetchBlogTags(function (tagArr) {
-            var tagList = document.getElementById("tag-list");
+            fetchBlogTags(function (tagArr) {
+            if (!tagList) return;
             tagList.innerHTML = tagArr.length
               ? tagArr
                   .map(
                     (tag) =>
-                      `<button type="button" class="tag-chip btn rounded-pill px-3 py-1 mb-2 me-2 ${
+                      `<button type=\"button\" class=\"tag-chip btn rounded-pill px-3 py-1 mb-2 me-2 ${
                         selectedTags.includes(tag) ? "active" : ""
-                      }">${tag}</button>`
+                      }\">${tag}</button>`
                   )
                   .join("")
               : '<span class="text-muted">Chưa có tag nào. Liên hệ admin để bổ sung.</span>';
@@ -572,41 +579,33 @@
                 var tag = btn.textContent;
                 if (selectedTags.includes(tag)) {
                   selectedTags = selectedTags.filter((t) => t !== tag);
-                } else {
+                 } else {
                   if (selectedTags.length < 5) selectedTags.push(tag);
                 }
                 renderTags();
               };
             });
           });
+
+          // Sự kiện xóa tag
+          Array.from(tagList.querySelectorAll(".tag-remove-btn")).forEach(
+            (btn, i) => {
+              btn.onclick = function (e) {
+                e.stopPropagation();
+                var tag = popularTags[i];
+                selectedTags = selectedTags.filter((t) => t !== tag);
+                renderTags();
+              };
+            }
+          );
         }
         renderTags();
-        // Xử lý chọn ảnh
-        var dropArea = document.getElementById("image-drop-area");
-        var fileInput = document.getElementById("image");
-        var previewImg = document.getElementById("image-preview");
-        dropArea.addEventListener("click", () => fileInput.click());
-        fileInput.addEventListener("change", function () {
-          if (fileInput.files && fileInput.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function (e) {
-              previewImg.src = e.target.result;
-              previewImg.style.display = "block";
-            };
-            reader.readAsDataURL(fileInput.files[0]);
-          }
-        });
-        // Tab chuyển tiếp
-        document.getElementById("toSeoTab").onclick = function () {
-          var tab = new bootstrap.Tab(document.getElementById("seo-tab"));
-          tab.show();
-        };
+        // --- XỬ LÝ NÚT XEM LẠI ---
         document.getElementById("backToMain").onclick = function () {
           var tab = new bootstrap.Tab(document.getElementById("main-tab"));
           tab.show();
         };
         document.getElementById("toReviewTab").onclick = function () {
-          // Lấy dữ liệu và render lên tab tổng kết
           document.getElementById("reviewTitle").innerText = document
             .getElementById("title")
             .value.trim();
@@ -641,133 +640,186 @@
           var tab = new bootstrap.Tab(document.getElementById("review-tab"));
           tab.show();
         };
-        document.getElementById("backToSeo").onclick = function () {
-          var tab = new bootstrap.Tab(document.getElementById("seo-tab"));
-          tab.show();
-        };
-        // Lấy tag thực tế từ các bài blog đã có
-        function fetchAllBlogTags(callback) {
-          var db = firebase.database();
-          db.ref("blogs")
-            .once("value")
-            .then(function (snapshot) {
-              var blogs = snapshot.val() || {};
-              var allTags = [];
-              Object.values(blogs).forEach(function (blog) {
-                if (Array.isArray(blog.tags)) {
-                  allTags = allTags.concat(blog.tags);
-                }
-              });
-              // Loại trùng, loại rỗng, chuẩn hóa
-              allTags = Array.from(
-                new Set(allTags.map((t) => t.trim()).filter(Boolean))
-              );
-              callback(allTags);
-            });
+        });
+      // Xử lý chọn ảnh
+      var dropArea = document.getElementById("image-drop-area");
+      var fileInput = document.getElementById("image");
+      var previewImg = document.getElementById("image-preview");
+      dropArea.addEventListener("click", () => fileInput.click());
+      fileInput.addEventListener("change", function () {
+        if (fileInput.files && fileInput.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+            previewImg.src = e.target.result;
+            previewImg.style.display = "block";
+          };
+          reader.readAsDataURL(fileInput.files[0]);
         }
-        // Kết hợp tag phổ biến và tag thực tế
-        function updatePopularTags() {
-          fetchAllBlogTags(function (realTags) {
-            // Giữ lại thứ tự tag phổ biến, thêm tag mới vào cuối
-            var merged = popularTags.slice();
-            realTags.forEach(function (tag) {
-              if (!merged.includes(tag)) merged.push(tag);
+      });
+      // Tab chuyển tiếp
+      document.getElementById("toSeoTab").onclick = function () {
+        var tab = new bootstrap.Tab(document.getElementById("seo-tab"));
+        tab.show();
+      };
+      document.getElementById("backToMain").onclick = function () {
+        var tab = new bootstrap.Tab(document.getElementById("main-tab"));
+        tab.show();
+      };
+      document.getElementById("toReviewTab").onclick = function () {
+        // Lấy dữ liệu và render lên tab tổng kết
+        document.getElementById("reviewTitle").innerText = document
+          .getElementById("title")
+          .value.trim();
+        document.getElementById("reviewExcerpt").innerText = document
+          .getElementById("excerpt")
+          .value.trim();
+        document.getElementById("reviewContent").innerHTML =
+          quill.root.innerHTML;
+        document.getElementById("reviewTags").innerHTML = selectedTags
+          .map((tag) => `<span class='tag-chip active me-1'>${tag}</span>`)
+          .join(" ");
+        var img =
+          previewImg.src && previewImg.style.display !== "none"
+            ? previewImg.src
+            : "";
+        var reviewImg = document.getElementById("reviewImage");
+        if (img) {
+          reviewImg.src = img;
+          reviewImg.style.display = "block";
+        } else {
+          reviewImg.style.display = "none";
+        }
+        document.getElementById("reviewMetaTitle").innerText = document
+          .getElementById("metaTitle")
+          .value.trim();
+        document.getElementById("reviewMetaDesc").innerText = document
+          .getElementById("metaDesc")
+          .value.trim();
+        document.getElementById("reviewSlug").innerText = document
+          .getElementById("slug")
+          .value.trim();
+        var tab = new bootstrap.Tab(document.getElementById("review-tab"));
+        tab.show();
+      };
+      document.getElementById("backToSeo").onclick = function () {
+        var tab = new bootstrap.Tab(document.getElementById("seo-tab"));
+        tab.show();
+      };
+      // Lấy tag thực tế từ các bài blog đã có
+      function fetchAllBlogTags(callback) {
+        var db = firebase.database();
+        db.ref("blogs")
+          .once("value")
+          .then(function (snapshot) {
+            var blogs = snapshot.val() || {};
+            var allTags = [];
+            Object.values(blogs).forEach(function (blog) {
+              if (Array.isArray(blog.tags)) {
+                allTags = allTags.concat(blog.tags);
+              }
             });
-            popularTags = merged;
-            renderTags();
+           // Loại trùng, loại rỗng, chuẩn hóa
+            allTags = Array.from(
+              new Set(allTags.map((t) => t.trim()).filter(Boolean))
+            );
+            callback(allTags);
           });
         }
-        updatePopularTags();
-        // Submit form chỉ ở tab tổng kết
-        document.getElementById("addBlogForm").onsubmit = function (e) {
-          e.preventDefault();
-          // Lấy dữ liệu
-          var title = document.getElementById("title").value.trim();
-          var excerpt = document.getElementById("excerpt").value.trim();
-          var content = quill.root.innerHTML;
-          var tags = selectedTags.slice();
-          var imageInput = document.getElementById("image");
-          var imageUrl = "";
-          if (imageInput.files && imageInput.files[0]) {
-            imageUrl = document.getElementById("image-preview").src;
-          }
-          var metaTitle = document.getElementById("metaTitle").value.trim();
-          var metaDesc = document.getElementById("metaDesc").value.trim();
-          var slug = document.getElementById("slug").value.trim();
-          // Lấy user từ sessionStorage qua window.getCurrentUser()
-          var user = null;
-          if (typeof window.getCurrentUser === "function") {
-            user = window.getCurrentUser();
-          }
-          if (!user) {
-            alert("Bạn cần đăng nhập để đăng bài!");
-            return;
-          }
-          // Validate đơn giản
-          if (
-            !title ||
-            !excerpt ||
-            !content ||
-            tags.length === 0 ||
-            !imageUrl
-          ) {
-            alert("Vui lòng nhập đầy đủ thông tin, chọn ảnh và tag!");
-            return;
-          }
-          // Chuẩn bị dữ liệu
-          var plainText = content.replace(/<[^>]+>/g, "").trim();
-          var readTime = Math.max(1, Math.round(plainText.length / 600));
-          var postData = {
-            title: title,
-            excerpt: excerpt,
-            content: content,
-            tags: tags,
-            image: imageUrl,
-            date: new Date().toLocaleDateString("vi-VN"),
-            author: user.username || user.email || "Ẩn danh",
-            metaTitle: metaTitle,
-            metaDesc: metaDesc,
-            slug: slug,
-            readTime: readTime + " phút đọc",
-            status: "chờ duyệt", // Thêm trạng thái chờ duyệt
-          };
-          // Lưu blog với key blogN
-          var db = firebase.database();
-          db.ref("blogs")
-            .once("value")
-            .then(function (snapshot) {
-              var blogs = snapshot.val() || {};
-              var maxN = 0;
-              Object.keys(blogs).forEach(function (key) {
-                var match = key.match(/^blog(\d+)$/);
-                if (match) {
-                  var n = parseInt(match[1], 10);
-                  if (n > maxN) maxN = n;
-                }
-              });
-              var newKey = "blog" + (maxN + 1);
-              postData.id = newKey; // Thêm trường id vào postData
-              db.ref("blogs/" + newKey).set(postData, function (error) {
-                if (error) {
-                  alert("Đăng bài thất bại. Vui lòng thử lại!");
-                } else {
-                  alert("Đăng bài thành công! Vui lòng chờ duyệt.");
-                  document.getElementById("addBlogForm").reset();
-                  document.getElementById("image-preview").style.display =
-                    "none";
-                  quill.setContents([]);
-                  selectedTags = [];
-                  renderTags();
-                  // Quay về tab đầu tiên
-                  var tab = new bootstrap.Tab(
-                    document.getElementById("main-tab")
-                  );
-                  tab.show();
-                }
-              });
+         // Kết hợp tag phổ biến và tag thực tế
+      function updatePopularTags() {
+        fetchAllBlogTags(function (realTags) {
+          // Giữ lại thứ tự tag phổ biến, thêm tag mới vào cuối
+          var merged = popularTags.slice();
+          realTags.forEach(function (tag) {
+            if (!merged.includes(tag)) merged.push(tag);
+          });
+          popularTags = merged;
+          renderTags();
+        });
+      }
+      updatePopularTags();
+      // Submit form chỉ ở tab tổng kết
+      document.getElementById("addBlogForm").onsubmit = function (e) {
+        e.preventDefault();
+        // Lấy dữ liệu
+        var title = document.getElementById("title").value.trim();
+        var excerpt = document.getElementById("excerpt").value.trim();
+        var content = quill.root.innerHTML;
+        var tags = selectedTags.slice();
+        var imageInput = document.getElementById("image");
+        var imageUrl = "";
+        if (imageInput.files && imageInput.files[0]) {
+          imageUrl = document.getElementById("image-preview").src;
+        }
+         var metaTitle = document.getElementById("metaTitle").value.trim();
+        var metaDesc = document.getElementById("metaDesc").value.trim();
+        var slug = document.getElementById("slug").value.trim();
+        // Lấy user từ sessionStorage qua window.getCurrentUser()
+        var user = null;
+        if (typeof window.getCurrentUser === "function") {
+          user = window.getCurrentUser();
+        }
+        if (!user) {
+          alert("Bạn cần đăng nhập để đăng bài!");
+          return;
+        }
+        // Validate đơn giản
+        if (!title || !excerpt || !content || tags.length === 0 || !imageUrl) {
+          alert("Vui lòng nhập đầy đủ thông tin, chọn ảnh và tag!");
+          return;
+        }
+        // Chuẩn bị dữ liệu
+        var plainText = content.replace(/<[^>]+>/g, "").trim();
+        var readTime = Math.max(1, Math.round(plainText.length / 600));
+        var postData = {
+          title: title,
+          excerpt: excerpt,
+          content: content,
+          tags: tags,
+          image: imageUrl,
+          date: new Date().toLocaleDateString("vi-VN"),
+          author: user.username || user.email || "Ẩn danh",
+          metaTitle: metaTitle,
+          metaDesc: metaDesc,
+          slug: slug,
+          readTime: readTime + " phút đọc",
+          status: "chờ duyệt", // Thêm trạng thái chờ duyệt
+      };
+      // Lưu blog với key blogN
+        var db = firebase.database();
+        db.ref("blogs")
+          .once("value")
+          .then(function (snapshot) {
+            var blogs = snapshot.val() || {};
+            var maxN = 0;
+            Object.keys(blogs).forEach(function (key) {
+              var match = key.match(/^blog(\d+)$/);
+              if (match) {
+                var n = parseInt(match[1], 10);
+                if (n > maxN) maxN = n;
+              }
             });
-        };
-      });
+            var newKey = "blog" + (maxN + 1);
+            postData.id = newKey; // Thêm trường id vào postData
+            db.ref("blogs/" + newKey).set(postData, function (error) {
+              if (error) {
+                alert("Đăng bài thất bại. Vui lòng thử lại!");
+              } else {
+                alert("Đăng bài thành công! Vui lòng chờ duyệt.");
+                document.getElementById("addBlogForm").reset();
+                document.getElementById("image-preview").style.display = "none";
+                quill.setContents([]);
+                selectedTags = [];
+                renderTags();
+                // Quay về tab đầu tiên
+                var tab = new bootstrap.Tab(
+                  document.getElementById("main-tab")
+                );
+                tab.show();
+              }
+            });
+          });
+      };
     </script>
     <script>
       // Kiểm tra user đăng nhập khi vào trang

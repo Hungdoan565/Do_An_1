@@ -19,19 +19,14 @@ function filterRecipes(options) {
       const inTags = (recipe.tags||[]).some(tag => tag.toLowerCase().includes(kw));
       if (!(inTitle || inTags)) return false;
     }
-    // Lọc theo danh mục, chỉ cho phép các danh mục active
+       // Lọc theo danh mục, chỉ cho phép các danh mục active
     if (category) {
       if (!Array.isArray(recipe.tags) || !recipe.tags.some(tag => tag.toLowerCase().includes(category.toLowerCase()))) return false;
-      // Nếu truyền vào activeCategories, chỉ cho phép các tag thuộc danh mục active
+    // Nếu truyền vào activeCategories, chỉ cho phép các tag thuộc danh mục active
       if (activeCategories.length > 0) {
         const valid = recipe.tags.some(tag => activeCategories.includes(tag));
         if (!valid) return false;
       }
-    }
-    // Lọc theo nguyên liệu (tất cả nguyên liệu đều phải có)
-    if (ingredients && ingredients.length > 0) {
-      const recipeIngredients = (recipe.ingredients||[]).map(i => i.toLowerCase());
-      if (!ingredients.every(ing => recipeIngredients.some(i => i.includes(ing.toLowerCase())))) return false;
     }
     // Lọc theo yêu thích
     if (favorite && !recipe.favorite) return false;

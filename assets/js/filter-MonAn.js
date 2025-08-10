@@ -23,6 +23,7 @@ function filterRecipes(options) {
     if (category) {
       if (!Array.isArray(recipe.tags) || !recipe.tags.some(tag => tag.toLowerCase().includes(category.toLowerCase()))) return false;
     // Nếu truyền vào activeCategories, chỉ cho phép các tag thuộc danh mục active
+
       if (activeCategories.length > 0) {
         const valid = recipe.tags.some(tag => activeCategories.includes(tag));
         if (!valid) return false;

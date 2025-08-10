@@ -89,7 +89,9 @@
               </ul>
             </li>
             <li class="nav-item">
-              <a class="nav-link active" href="/pages/about.html">Về chúng tôi</a>
+              <a class="nav-link active" href="/pages/about.html"
+                >Về chúng tôi</a
+              >
             </li>
             <li class="nav-item ms-3">
               <a
@@ -149,7 +151,7 @@
         &times;
       </button>
     </div>
-    
+
     <!-- Page Header -->
     <header class="page-header">
       <div class="container">
@@ -468,7 +470,9 @@
                 >
               </li>
               <li class="mb-2">
-                <a href="/pages/about.html" class="text-white text-decoration-none"
+                <a
+                  href="/pages/about.html"
+                  class="text-white text-decoration-none"
                   >Về chúng tôi</a
                 >
               </li>
@@ -538,10 +542,13 @@
     <script src="/assets/js/navbar-user.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+    <!-- MailJS CDN -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
     <script src="/assets/js/firebase-config.js"></script>
     <script src="/assets/js/notification-bar.js"></script>
     <!-- MailJS CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
     <script>
       // Initialize AOS
       AOS.init({
@@ -551,12 +558,20 @@
       // Toast/thông báo đơn giản
       function showContactToast(message, type = "success") {
         const toast = document.createElement("div");
-        toast.className = `toast align-items-center text-bg-${type} border-0 position-fixed top-0 start-50 translate-middle-x mt-3`;
+        toast.className = `custom-toast show align-items-center border-0 position-fixed top-0 end-0 mt-4 me-4`;
         toast.style.zIndex = 9999;
         toast.style.minWidth = "250px";
         toast.innerHTML = `<div class=\"d-flex\"><div class=\"toast-body\">${message}</div></div>`;
         document.body.appendChild(toast);
-        setTimeout(() => toast.remove(), 3000);
+        setTimeout(() => {
+          toast.style.transform = "translateX(0) scale(1)";
+          toast.style.opacity = "1";
+        }, 10);
+        setTimeout(() => {
+          toast.style.transform = "translateX(100px) scale(0.98)";
+          toast.style.opacity = "0";
+          setTimeout(() => toast.remove(), 400);
+        }, 3000);
       }
        // Cấu hình MailJS
       emailjs.init("QPL1vIafIdKujDFKV");

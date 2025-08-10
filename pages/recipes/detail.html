@@ -165,17 +165,12 @@
         &times;
       </button>
     </div>
+
     <!-- Recipe Header -->
     <header class="recipe-header">
       <div class="container">
         <h1 class="recipe-title"></h1>
-        <div class="recipe-meta">
-          <span><i class="fas fa-user"></i> </span>
-          <span><i class="fas fa-calendar"></i> </span>
-          <span><i class="fas fa-clock"></i> </span>
-          <span><i class="fas fa-signal"></i> </span>
-          <span><i class="fas fa-star"></i> </span>
-        </div>
+        <div class="recipe-meta"></div>
       </div>
     </header>
 
@@ -197,7 +192,7 @@
                 "
               >
                 <img
-                  src="/assets/images/"
+                  src=""
                   alt=""
                   style="
                     width: 100%;
@@ -213,79 +208,36 @@
             <div class="info-card">
               <i class="fas fa-clock"></i>
               <h5>Thời gian</h5>
-              <p class="mb-0">45 phút</p>
+              <p class="mb-0"></p>
             </div>
             <div class="info-card">
               <i class="fas fa-users"></i>
               <h5>Khẩu phần</h5>
-              <p class="mb-0">4 người</p>
+              <p class="mb-0"></p>
             </div>
             <div class="info-card">
               <i class="fas fa-signal"></i>
               <h5>Độ khó</h5>
-              <p class="mb-0">Trung bình</p>
+              <p class="mb-0"></p>
             </div>
             <div class="info-card">
               <i class="fas fa-fire"></i>
               <h5>Calories</h5>
-              <p class="mb-0">520 kcal</p>
+              <p class="mb-0"></p>
             </div>
           </div>
 
           <div class="row">
             <div class="col-lg-4">
               <h3 class="mb-4">Nguyên liệu</h3>
-              <ul class="ingredients-list">
-                <li>Xương bò - 1kg</li>
-                <li>Thịt bò phi lê - 500g</li>
-                <li>Bánh phở - 1kg</li>
-                <li>Hành tây - 2 củ</li>
-                <li>Gừng - 100g</li>
-                <li>Hoa hồi - 3 cái</li>
-                <li>Quế - 2 cây</li>
-                <li>Hành lá, ngò - 100g</li>
-                <li>Giá đỗ - 200g</li>
-                <li>Gia vị: muối, đường, nước mắm</li>
-              </ul>
+              <ul class="ingredients-list"></ul>
             </div>
             <div class="col-lg-8">
-              <h3 class="mb-4">Các bước thực hiện</h3>
-              <div class="step-card">
-                <div class="step-number">1</div>
-                <h5>Chuẩn bị nước dùng</h5>
-                <p>
-                  Xương bò rửa sạch, chần qua nước sôi. Sau đó cho vào nồi nước
-                  lạnh, thêm hành tây, gừng đã nướng thơm. Nấu với lửa nhỏ trong
-                  6-8 tiếng.
-                </p>
-              </div>
-              <div class="step-card">
-                <div class="step-number">2</div>
-                <h5>Ướp và thái thịt</h5>
-                <p>
-                  Thịt bò phi lê thái mỏng, ướp với chút muối, tiêu. Để trong tủ
-                  lạnh ít nhất 30 phút.
-                </p>
-              </div>
-              <div class="step-card">
-                <div class="step-number">3</div>
-                <h5>Nêm nếm nước dùng</h5>
-                <p>
-                  Cho hoa hồi, quế vào nước dùng. Nêm nếm với muối, đường, nước
-                  mắm vừa ăn. Nước dùng phải trong và ngọt thanh.
-                </p>
-              </div>
-              <div class="step-card">
-                <div class="step-number">4</div>
-                <h5>Trình bày và thưởng thức</h5>
-                <p>
-                  Trụng bánh phở, xếp thịt bò, chan nước dùng sôi. Dùng kèm với
-                  giá đỗ, hành lá, ngò, chanh, ớt.
-                </p>
-              </div>
+              <!-- Các bước thực hiện sẽ được render động bằng JS -->
             </div>
           </div>
 
+          <div class="recipe-tags mb-3"></div>
           <div class="recipe-actions">
             <button class="action-btn favorite-btn">
               <i class="fas fa-heart"></i>
@@ -309,10 +261,15 @@
         <!-- Bình luận -->
         <div class="row mt-5">
           <div class="col-lg-8">
-            <div class="card border-0 shadow-sm mb-4">
-              <div class="card-body">
-                <h5 class="fw-bold mb-3">
-                  <i class="fas fa-comments me-2 text-success"></i>Bình luận
+            <div
+              class="card border-0 shadow-lg mb-4 rounded-4 animate__animated animate__fadeInUp"
+            >
+              <div class="card-body p-4">
+                <h5
+                  class="fw-bold mb-4 d-flex align-items-center gap-2 text-success"
+                >
+                  <i class="fas fa-comments"></i>
+                  Bình luận
                 </h5>
                 <div id="commentList" class="mb-3"></div>
                 <div id="commentFormArea"></div>
@@ -971,12 +928,12 @@
       ];
 
       // --- Bình luận công thức: nâng cấp giống blog-detail ---
+
       function getRecipeId() {
         const params = new URLSearchParams(window.location.search);
         return params.get("id");
       }
-
-      function renderRecipeCommentsArea(recipeId) {
+      function renderCommentsArea(recipeId) {
         const listEl = document.getElementById("commentList");
         const formEl = document.getElementById("commentFormArea");
         var db = firebase.database();
@@ -1413,84 +1370,122 @@
           toast.style.display = "none";
           document.body.appendChild(toast);
         }
-        toast.textContent = message;
-        toast.style.background = type === "success" ? "#28a745" : "#dc3545";
-        toast.style.display = "block";
-        toast.style.opacity = 1;
-        setTimeout(() => {
-          toast.style.transition = "opacity 0.5s";
-          toast.style.opacity = 0;
-          setTimeout(() => {
-            toast.style.display = "none";
-            toast.style.transition = "";
-          }, 500);
-        }, 2500);
+        var modal = new bootstrap.Modal(document.getElementById("likersModal"));
+        modal.show();
       }
-
-      document.addEventListener("DOMContentLoaded", function () {
-        // --- CHIA SẺ CÔNG THỨC ---
-        const shareBtn = document.getElementById("shareRecipeBtn");
-        const sharePopup = document.getElementById("sharePopup");
-        const closeSharePopup = document.getElementById("closeSharePopup");
-        const shareFbBtn = document.getElementById("shareFbBtn");
-        const shareZaloBtn = document.getElementById("shareZaloBtn");
-        const copyLinkBtn = document.getElementById("copyLinkBtn");
-        const shareLink = document.getElementById("shareLink");
-        if (shareBtn) {
-          shareBtn.onclick = function () {
-            const url = window.location.href;
-            // Web Share API (mobile)
-            if (navigator.share) {
-              navigator
-                .share({
-                  title: document.title,
-                  text:
-                    document.querySelector(".recipe-title")?.textContent ||
-                    "Công thức ngon",
-                  url,
-                })
-                .catch(() => {});
-            } else {
-              // Hiện popup chia sẻ
-              if (sharePopup) {
-                sharePopup.style.display = "flex";
-                shareLink.textContent = url;
-              }
-            }
-          };
-        }
-        if (closeSharePopup)
-          closeSharePopup.onclick = () => (sharePopup.style.display = "none");
-        if (shareFbBtn)
-          shareFbBtn.onclick = function () {
-            const url = encodeURIComponent(window.location.href);
-            window.open(
-              `https://www.facebook.com/sharer/sharer.php?u=${url}`,
-              "_blank",
-              "width=600,height=400"
-            );
-          };
-        if (shareZaloBtn)
-          shareZaloBtn.onclick = function () {
-            const url = encodeURIComponent(window.location.href);
-            window.open(
-              `https://zalo.me/share/url?url=${url}`,
-              "_blank",
-              "width=600,height=600"
-            );
-          };
-        if (copyLinkBtn)
-          copyLinkBtn.onclick = function () {
-            const url = window.location.href;
-            navigator.clipboard.writeText(url).then(function () {
-              showToast("Đã copy link công thức!", "success");
+      // Xác nhận xóa bình luận
+      let _pendingDeleteCommentId = null;
+      function setupDeleteCommentModal(recipeId, comments) {
+        // Chỉ gán sự kiện nếu nút xác nhận xóa tồn tại
+        const btn = document.getElementById("confirmDeleteCommentBtn");
+        if (!btn) return;
+        document
+          .querySelectorAll(".comment-menu .menu-item.text-danger")
+          .forEach(function (item) {
+            item.onclick = function () {
+              const menu = item.closest(".comment-menu");
+              const commentDiv = menu && menu.closest(".comment-item");
+              const cid = commentDiv && commentDiv.getAttribute("data-cid");
+              if (!cid) return;
+              window._pendingDeleteCommentId = cid;
+              var modal = new bootstrap.Modal(
+                document.getElementById("confirmDeleteCommentModal")
+              );
+              modal.show();
+            };
+          });
+        btn.onclick = function () {
+          if (!window._pendingDeleteCommentId) return;
+          var db = firebase.database();
+          db.ref(`comments/${recipeId}/${window._pendingDeleteCommentId}`)
+            .remove()
+            .then(function () {
+              window._pendingDeleteCommentId = null;
+              var modal1 = bootstrap.Modal.getInstance(
+                document.getElementById("confirmDeleteCommentModal")
+              );
+              if (modal1) modal1.hide();
+              var modal2 = new bootstrap.Modal(
+                document.getElementById("deletedCommentModal")
+              );
+              modal2.show();
+              renderCommentsArea(recipeId);
             });
-          };
-        if (sharePopup)
-          sharePopup.onclick = function (e) {
-            if (e.target === sharePopup) sharePopup.style.display = "none";
-          };
+        };
+      }
+      document.addEventListener("DOMContentLoaded", function () {
+        const recipeId = getRecipeId();
+        renderCommentsArea(recipeId);
       });
     </script>
+
+    <!-- Modal xác nhận xóa bình luận -->
+    <div
+      class="modal fade"
+      id="confirmDeleteCommentModal"
+      tabindex="-1"
+      aria-labelledby="confirmDeleteCommentLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4" style="border-radius: 18px">
+          <div class="mb-3">
+            <span style="font-size: 3rem; color: #f7b84b"
+              ><i class="fas fa-exclamation-circle"></i
+            ></span>
+          </div>
+          <h4 class="mb-2" style="font-weight: 600">Xóa bình luận?</h4>
+          <div class="mb-4 text-muted">
+            Bạn có chắc muốn xóa bình luận này? Hành động này không thể hoàn
+            tác!
+          </div>
+          <div class="d-flex justify-content-center gap-3">
+            <button
+              type="button"
+              class="btn btn-danger px-4"
+              id="confirmDeleteCommentBtn"
+            >
+              Xóa
+            </button>
+            <button
+              type="button"
+              class="btn btn-secondary px-4"
+              data-bs-dismiss="modal"
+            >
+              Hủy
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- Modal thông báo đã xóa -->
+    <div
+      class="modal fade"
+      id="deletedCommentModal"
+      tabindex="-1"
+      aria-labelledby="deletedCommentLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-center p-4" style="border-radius: 18px">
+          <div class="mb-3">
+            <span style="font-size: 3rem; color: #28a745"
+              ><i class="fas fa-check-circle"></i
+            ></span>
+          </div>
+          <h4 class="mb-2" style="font-weight: 600">Đã xóa bình luận</h4>
+          <div class="mb-4 text-muted">Bình luận đã được xóa thành công.</div>
+          <div class="d-flex justify-content-center gap-3">
+            <button
+              type="button"
+              class="btn btn-success px-4"
+              data-bs-dismiss="modal"
+            >
+              Đóng
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

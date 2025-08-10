@@ -8,6 +8,7 @@ const ingredientsCalories = [
   { name: "Cá thu", calories: 189 },
   { name: "Tôm", calories: 99 },
   { name: "Trứng gà", calories: 155 },
+  { name: "Trứng vịt", calories: 168 },
   { name: "Trứng cút", calories: 158 },
   { name: "Đậu phụ", calories: 76 },
   { name: "Đậu xanh", calories: 105 },

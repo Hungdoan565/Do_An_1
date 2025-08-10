@@ -65,7 +65,6 @@ function saveContactToFirebase(contact, callback, errorCallback) {
     });
 }
 
-
 // Lấy danh mục món ăn (categories) chỉ active=true
 function fetchActiveCategories(callback) {
   var db = firebase.database();
@@ -102,3 +101,4 @@ function fetchActiveBlogTags(callback) {
     callback(activeTags);
   });
 }
+

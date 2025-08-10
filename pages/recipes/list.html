@@ -869,8 +869,7 @@
         renderActiveCategoryFiltersRealtime();
       });
       renderRecipes(currentPage);
-    </script>
-    <script>
+
       // --- TỰ ĐỘNG FILTER THEO QUERY CATEGORY ---
       (function () {
         const params = new URLSearchParams(window.location.search);
@@ -902,8 +901,7 @@
           filterRecipesByCategory(categoryName);
         }
       })();
-    </script>
-    <script>
+
       // --- CLICK VÀO CARD ĐỂ ĐI ĐẾN TRANG CHI TIẾT ---
       document.addEventListener("DOMContentLoaded", function () {
         const grid = document.getElementById("recipeGrid");
@@ -920,8 +918,7 @@
           });
         }
       });
-    </script>
-    <script>
+
       // --- AUTOCOMPLETE TÌM KIẾM CÔNG THỨC ---
       const searchInput = document.getElementById("searchInput");
       const autocompleteBox = document.getElementById("searchAutocomplete");

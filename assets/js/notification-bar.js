@@ -2,7 +2,9 @@
   document.addEventListener('DOMContentLoaded', function () {
     if (typeof firebase !== 'undefined' && firebase.database) {
       var db = firebase.database();
+
      // Lắng nghe realtime khi có thông báo mới
+
       db.ref('system_notifications').orderByChild('createdAt').limitToLast(1).on('value', function(snapshot) {
         const notifs = snapshot.val() || {};
         const notifArr = Object.entries(notifs).map(([id, n]) => ({ id, ...n }));
@@ -28,7 +30,9 @@
           text.style.color = '#fff';
           text.style.display = 'inline-block';
           text.style.whiteSpace = 'nowrap';
+
            // Xóa giới hạn hiển thị 2 lần, luôn hiển thị khi có thông báo mới
+
           document.getElementById('closeNotificationBar').onclick = function() {
             bar.style.opacity = '0';
             setTimeout(function(){ bar.style.display = 'none'; }, 500);

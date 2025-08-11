@@ -183,8 +183,6 @@ body {
   background: var(--primary-color);
   border: none;
   margin-right: 15px;
-  border-radius: 15px;
-  padding: 9px;
 }
 
 .btn-outline {

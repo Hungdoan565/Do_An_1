@@ -1650,18 +1650,8 @@
           .trim();
       }
       function syncUserBlogsFromFirebase() {
-        console.log("[DEBUG] syncUserBlogsFromFirebase called");
         const user = getCurrentUser();
-        console.log("[DEBUG] user:", user);
-        console.log("[DEBUG] typeof firebase:", typeof firebase);
-        console.log(
-          "[DEBUG] firebase.database:",
-          firebase && firebase.database
-        );
         if (!user || typeof firebase === "undefined" || !firebase.database) {
-          console.log(
-            "[DEBUG] Điều kiện return sớm trong syncUserBlogsFromFirebase"
-          );
           return;
         }
         // Đảm bảo user luôn có trường name
@@ -1681,24 +1671,7 @@
             const blogsObj = snapshot.val() || {};
             const allBlogs = Object.values(blogsObj);
             // Debug: log thông tin user và author các blog
-            console.log("User:", user);
             allBlogs.forEach((b) => {
-              console.log(
-                "Blog:",
-                b.title,
-                "| author:",
-                b.author,
-                "| authorEmail:",
-                b.authorEmail,
-                "| So sánh normalize:",
-                normalizeString(b.author),
-                normalizeString(b.authorEmail),
-                userNames,
-                "| So sánh gốc:",
-                b.author,
-                b.authorEmail,
-                userNamesRaw
-              );
             });
             // Lọc blog của user hiện tại (theo author hoặc authorEmail, chỉ lấy blog đã duyệt)
             const myBlogs = allBlogs.filter(

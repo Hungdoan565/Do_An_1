@@ -327,7 +327,7 @@ body {
 
 .card-body a {
   text-decoration: none;
-  color: white;
+  color: var(--accent-color);
 }
 
 .featured-card .card-body {

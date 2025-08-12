@@ -1516,7 +1516,6 @@
               // Handle author as string or object
               if (recipe.author) {
                 if (typeof recipe.author === "string") {
-                  // Compare string author to user fields
                   if (
                     normalizeVN(recipe.author) === normalizeVN(user.name) ||
                     normalizeVN(recipe.author) === normalizeVN(user.username) ||
@@ -1525,7 +1524,6 @@
                     isMine = true;
                   }
                 } else if (typeof recipe.author === "object") {
-                  // Compare object author fields to user fields
                   if (
                     (recipe.author.email &&
                       user.email &&
@@ -1555,17 +1553,59 @@
                 container.innerHTML = `<div class='empty-state'><i class='fas fa-utensils'></i><div>Bạn chưa đăng công thức nào!</div></div>`;
               } else {
                 container.innerHTML = recipes
-                  .map(renderProfileRecipeCard)
                   .map(
-                    (html) =>
-                      `<div class="col-md-3 mb-4 d-flex align-items-stretch">${html}</div>`
+                    (recipe) => `
+<div class="col-md-3 mb-4 d-flex align-items-stretch">
+  <div class="recipe-card w-100 position-relative" data-id="${recipe.id}" style="cursor:pointer">
+    <img src="${recipe.image}" class="recipe-image w-100" alt="${recipe.title}">
+    <div class="recipe-info">
+      <h3 class="recipe-title">${recipe.title}</h3>
+      <p class="text-muted mb-2" style="min-height:38px;font-size:0.97rem;">${(() => {
+        const words = (recipe.description || "").split(" ");
+        return (
+          words.slice(0, 20).join(" ") + (words.length > 20 ? "..." : "")
+        );
+      })()}</p>
+      <div class="recipe-meta">
+        <span><i class="fas fa-clock"></i> ${recipe.time || ""} phút</span>
+        <span><i class="fas fa-star"></i> ${recipe.rating || 0}</span>
+        <span><i class="fas fa-user"></i> ${user.name || user.username || user.email || "Ẩn danh"}</span>
+      </div>
+      <div class="recipe-meta mt-2">
+        <span><i class="fas fa-signal"></i> ${recipe.difficulty || ""}</span>
+      </div>
+      <div class="recipe-tags mt-1">
+        ${(recipe.tags || []).map((tag) => `<span class='recipe-tag'>${tag}</span>`).join(" ")}
+      </div>
+      <button class="btn btn-icon-remove btn-sm btn-remove-recipe position-absolute top-0 end-0 m-2" title="Xóa công thức"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+</div>
+`
                   )
                   .join("");
+                // Sự kiện click vào card để chuyển đến trang chi tiết
                 container.querySelectorAll(".recipe-card").forEach((card) => {
-                  card.onclick = function () {
+                  card.onclick = function (e) {
+                    if (e.target.closest(".btn-remove-recipe")) return;
                     const id = this.getAttribute("data-id");
                     if (id)
                       window.location.href = `/pages/recipes/detail.html?id=${id}`;
+                  };
+                });
+                // Sự kiện xóa công thức
+                container.querySelectorAll(".btn-remove-recipe").forEach((btn) => {
+                  btn.onclick = function (e) {
+                    e.stopPropagation();
+                    const card = this.closest(".recipe-card");
+                    const id = card.getAttribute("data-id");
+                    if (!id) return;
+                    if (!confirm("Bạn có chắc chắn muốn xóa công thức này?")) return;
+                    firebase.database().ref("recipes/" + id).remove().then(() => {
+                      showToast("Đã xóa công thức!", "success");
+                      renderMyRecipes();
+                      syncProfileStats();
+                    });
                   };
                 });
                 if (typeof applyFadeInToProfileCards === "function") {
@@ -1579,53 +1619,68 @@
         const user = getCurrentUser();
         const container = document.getElementById("myBlogList");
         if (!container) return;
-        // Giả sử user.blogs là mảng các blog đã đăng, nếu chưa có thì để []
         const blogs = user && user.blogs ? user.blogs : [];
         setTimeout(() => {
           if (!blogs.length) {
-            container.innerHTML = `<div class='empty-state'><i class='fas fa-blog'></i><div>Bạn chưa đăng blog nào!</div><a href='/pages/add-blog.html'`;
+            container.innerHTML = `<div class='empty-state'><i class='fas fa-blog'></i><div>Bạn chưa đăng blog nào!</div></div>`;
           } else {
             container.innerHTML = blogs
               .map(
                 (post) => `
-      <div class="col-md-3 mb-4" data-aos="fade-up">
-        <a href="/pages/blog-detail.html?id=${
-          post.id
-        }" class="blog-card d-block" data-id="${post.id}">
-          <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
-          <div class="blog-content">
-            <h3 class="blog-title">${post.title}</h3>
-            <div class="blog-meta">
-              <span><i class="fas fa-user"></i> ${post.author}</span>
-              <span><i class="far fa-calendar"></i> ${post.date}</span>
-              <span><i class="far fa-clock"></i> ${post.readTime}</span>
-            </div>
-            <p class="blog-excerpt">${post.excerpt}</p>
-            <div class="blog-tags">
-              ${(post.tags || [])
-                .map((tag) => `<span class="blog-tag">${tag}</span>`)
-                .join("")}
-            </div>
-          </div>
-        </a>
+<div class="col-md-3 mb-4 d-flex align-items-stretch">
+  <div class="blog-card w-100 position-relative" data-id="${post.id}" style="cursor:pointer">
+    <img src="${post.image}" class="blog-image w-100" alt="${post.title}">
+    <div class="blog-content">
+      <h3 class="blog-title">${post.title}</h3>
+      <div class="blog-meta">
+        <span><i class="fas fa-user"></i> ${post.author}</span>
+        <span><i class="far fa-calendar"></i> ${post.date}</span>
+        <span><i class="far fa-clock"></i> ${post.readTime}</span>
       </div>
-    `
+      <p class="blog-excerpt">${post.excerpt}</p>
+      <div class="blog-tags">
+        ${(post.tags || []).map((tag) => `<span class="blog-tag">${tag}</span>`).join("")}
+      </div>
+      <button class="btn btn-icon-remove btn-sm btn-remove-blog position-absolute top-0 end-0 m-2" title="Xóa blog"><i class="fas fa-times"></i></button>
+    </div>
+  </div>
+</div>
+`
               )
               .join("");
-            // Sự kiện click vào card để chuyển đến trang chi tiết blog (nếu cần fallback cho mobile)
+            // Sự kiện click vào card để chuyển đến trang chi tiết blog
             container.querySelectorAll(".blog-card").forEach((card) => {
               card.onclick = function (e) {
-                // Nếu click vào thẻ a thì không cần xử lý
-                if (e.target.tagName === "A") return;
+                if (e.target.closest(".btn-remove-blog")) return;
                 const id = this.getAttribute("data-id");
                 if (id)
                   window.location.href = `/pages/blog-detail.html?id=${id}`;
               };
             });
+            // Sự kiện xóa blog
+            container.querySelectorAll(".btn-remove-blog").forEach((btn) => {
+              btn.onclick = function (e) {
+                e.stopPropagation();
+                const card = this.closest(".blog-card");
+                const id = card.getAttribute("data-id");
+                if (!id) return;
+                if (!confirm("Bạn có chắc chắn muốn xóa blog này?")) return;
+                firebase.database().ref("blogs/" + id).remove().then(() => {
+                  showToast("Đã xóa blog!", "success");
+                  // Đồng bộ lại blogs từ Firebase
+                  if (typeof syncUserBlogsFromFirebase === "function") {
+                    syncUserBlogsFromFirebase();
+                  } else {
+                    renderMyBlogs();
+                  }
+                  syncProfileStats();
+                });
+              };
+            });
+            if (typeof applyFadeInToProfileCards === "function") {
+              applyFadeInToProfileCards("#myBlogList", ".blog-card");
+            }
           }
-          // Thêm hiệu ứng fade-in từng card nếu muốn
-          applyFadeInToProfileCards &&
-            applyFadeInToProfileCards("#myBlogList", ".blog-card");
         }, 400);
       }
 
@@ -1736,8 +1791,8 @@
         const myBlogs = allBlogs.filter(
           (b) =>
             b.authorEmail === user.email ||
-            b.author === user.email ||
-            b.author === user.name
+          b.author === user.email ||
+          b.author === user.name
         );
         user.blogs = myBlogs;
         sessionStorage.setItem("currentUser", JSON.stringify(user));

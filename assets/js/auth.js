@@ -1,5 +1,5 @@
-// Đã loại bỏ các dòng firebase.auth() và provider để tránh lỗi nếu không dùng Firebase Auth thực tế
-// Nếu muốn dùng đăng nhập Google/Github thực, hãy bật Auth trên Firebase và bổ sung lại các dòng này
+// Khởi tạo Firebase Auth 
+var auth = firebase.auth();
 
 function registerUser({ username, email, password, role = 'member' }) {
   let users = JSON.parse(localStorage.getItem('users') || '[]');

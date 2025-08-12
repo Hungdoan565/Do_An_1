@@ -1562,18 +1562,35 @@
       })();
     </script>
     <script>
-window.deleteRecipe = function(id) {
-  if (!confirm('Bạn có chắc chắn muốn xóa công thức này?')) return;
-  var db = firebase.database();
-  db.ref('recipes/' + id).remove()
-    .then(function() {
-      if (typeof renderRecipeApproval === 'function') renderRecipeApproval();
-      alert('Đã xóa công thức!');
-    })
-    .catch(function(err) {
-      alert('Lỗi xóa công thức: ' + err.message);
-    });
-};
-</script>
+      window.deleteRecipe = function (id) {
+        if (!confirm("Bạn có chắc chắn muốn xóa công thức này?")) return;
+        var db = firebase.database();
+        db.ref("recipes/" + id)
+          .remove()
+          .then(function () {
+            if (typeof renderRecipeApproval === "function")
+              renderRecipeApproval();
+            alert("Đã xóa công thức!");
+          })
+          .catch(function (err) {
+            alert("Lỗi xóa công thức: " + err.message);
+          });
+      };
+    </script>
+    <script>
+      window.approveRecipe = function (id) {
+        var db = firebase.database();
+        db.ref("recipes/" + id)
+          .update({ pending: false, status: "Đã duyệt" })
+          .then(function () {
+            alert("Đã duyệt công thức!");
+            if (typeof renderRecipeApproval === "function")
+              renderRecipeApproval();
+          })
+          .catch(function (err) {
+            alert("Lỗi duyệt công thức: " + err.message);
+          });
+      };
+    </script>
   </body>
 </html>

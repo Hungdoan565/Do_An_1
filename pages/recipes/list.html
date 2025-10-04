@@ -488,7 +488,7 @@
       function loadAndRenderRecipes() {
         if (typeof fetchData === "function") {
           fetchData(
-            "recipes",
+            "recipe_config",
             function (data) {
               firebaseRecipes = [];
               if (data) {

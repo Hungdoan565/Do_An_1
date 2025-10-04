@@ -835,8 +835,8 @@
         if (container) container.innerHTML = html;
       }
 
-      fetchData("blogs", function (blogPostsObj) {
-        const blogPosts = blogPostsObj ? Object.values(blogPostsObj) : [];
+        fetchData("blog_config", function (data) {
+        const blogPosts = data ? Object.values(data) : [];
         // Chỉ lấy bài đã duyệt
         allApprovedPosts = blogPosts.filter(
           (post) => post.status === "đã duyệt"

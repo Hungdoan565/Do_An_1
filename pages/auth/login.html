@@ -300,10 +300,10 @@
           let result;
           if (/^\S+@\S+\.\S+$/.test(loginId)) {
             // Đăng nhập bằng email
-            result = window.loginUser({ email: loginId, password });
+            result = loginUser({ email: loginId, password });
           } else {
             // Đăng nhập bằng username
-            result = window.loginUser({ username: loginId, password });
+            result = loginUser({ username: loginId, password });
           }
           if (result.success) {
             const user = result.user;

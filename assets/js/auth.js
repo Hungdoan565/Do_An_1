@@ -69,44 +69,41 @@ function requireRole(role) {
   }
 })();
 
-// Giám sát trạng thái xác thực
-function setupAuthStateMonitoring() {
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // Người dùng đã đăng nhập - có thể cập nhật UI nếu cần
-      console.log("Đã đăng nhập với:", user.email);
-
-      // Lưu thông tin người dùng nếu chưa có
-      if (!localStorage.getItem("codemaster_user")) {
-        localStorage.setItem(
-          "codemaster_user",
-          JSON.stringify({
-            uid: user.uid,
-            email: user.email,
-            displayName: user.displayName || user.email.split("@")[0],
-            photoURL: user.photoURL,
-          })
-        );
-      }
-
-      // Cập nhật UI nếu cần
-      // ...
-    } else {
-      // Người dùng chưa đăng nhập
-      console.log("Chưa đăng nhập");
-
-      // Cập nhật UI nếu cần
-      // ...
-    }
-  });
-}
+// Giám sát trạng thái xác thực (commented out vì không dùng Firebase Auth)
+// function setupAuthStateMonitoring() {
+//   onAuthStateChanged(auth, (user) => {
+//     if (user) {
+//       console.log("Đã đăng nhập với:", user.email);
+//       if (!localStorage.getItem("codemaster_user")) {
+//         localStorage.setItem(
+//           "codemaster_user",
+//           JSON.stringify({
+//             uid: user.uid,
+//             email: user.email,
+//             displayName: user.displayName || user.email.split("@")[0],
+//             photoURL: user.photoURL,
+//           })
+//         );
+//       }
+//     } else {
+//       console.log("Chưa đăng nhập");
+//     }
+//   });
+// }
 
 // Đăng nhập Google (dùng cho login/register)
 window.googleSignIn = async function() {
-  var provider = new firebase.auth.GoogleAuthProvider();
   try {
-    var result = await auth.signInWithPopup(provider);
+    // Kiểm tra Firebase Auth có khả dụng không
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+      alert('Firebase Auth chưa được cấu hình đúng cách!');
+      return;
+    }
+    
+    var provider = new firebase.auth.GoogleAuthProvider();
+    var result = await firebase.auth().signInWithPopup(provider);
     var user = result.user;
+    
     sessionStorage.setItem(
       "currentUser",
       JSON.stringify({
@@ -123,6 +120,8 @@ window.googleSignIn = async function() {
   } catch (error) {
     if (error.code === "auth/popup-blocked") {
       alert("Đăng nhập Google thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
+    } else {
+      alert("Đăng nhập Google thất bại: " + error.message);
     }
     console.error("Lỗi đăng nhập Google:", error);
   }
@@ -130,13 +129,21 @@ window.googleSignIn = async function() {
 
 // Đăng nhập GitHub (dùng cho login/register)
 window.githubSignIn = async function() {
-  var provider = new firebase.auth.GithubAuthProvider();
   try {
-    var result = await auth.signInWithPopup(provider);
+    // Kiểm tra Firebase Auth có khả dụng không
+    if (typeof firebase === 'undefined' || !firebase.auth) {
+      alert('Firebase Auth chưa được cấu hình đúng cách!');
+      return;
+    }
+    
+    var provider = new firebase.auth.GithubAuthProvider();
+    var result = await firebase.auth().signInWithPopup(provider);
     var user = result.user;
+    
     sessionStorage.setItem(
       "currentUser",
       JSON.stringify({
+        uid: user.uid,
         username: user.displayName || user.email?.split("@")[0] || user.uid,
         email: user.email || '',
         photoURL: user.photoURL,
@@ -149,6 +156,8 @@ window.githubSignIn = async function() {
   } catch (error) {
     if (error.code === "auth/popup-blocked") {
       alert("Đăng nhập GitHub thất bại: Cửa sổ đăng nhập bị chặn. Vui lòng cho phép popup.");
+    } else {
+      alert("Đăng nhập GitHub thất bại: " + error.message);
     }
     console.error("Lỗi đăng nhập GitHub:", error);
   }

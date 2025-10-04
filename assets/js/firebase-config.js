@@ -24,8 +24,8 @@ function fetchData(path, callback) {
 // Ghi dữ liệu vào Firebase Realtime Database
 function addRecipeToFirebase(recipe, callback, errorCallback) {
   var db = firebase.database();
-  // Tạo id tự động bằng push
-  var newRef = db.ref('recipes').push();
+  // Tạo id tự động bằng push - GHI VÀO recipe_config thay vì recipes
+  var newRef = db.ref('recipe_config').push();
   newRef.set(recipe)
     .then(function() {
       if (callback) callback(newRef.key);

@@ -1,0 +1,430 @@
+/**
+ * Skeleton Loading States
+ * Hiển thị placeholder khi đang load content
+ */
+
+/* Base skeleton styles */
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    #f0f0f0 25%,
+    #e0e0e0 50%,
+    #f0f0f0 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+  border-radius: 4px;
+}
+
+@keyframes skeleton-loading {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/* Dark mode skeleton */
+.skeleton-dark {
+  background: linear-gradient(
+    90deg,
+    #2a2a2a 25%,
+    #3a3a3a 50%,
+    #2a2a2a 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-loading 1.5s ease-in-out infinite;
+}
+
+/* Skeleton shapes */
+.skeleton-text {
+  height: 16px;
+  margin-bottom: 8px;
+  border-radius: 4px;
+}
+
+.skeleton-text-lg {
+  height: 24px;
+  margin-bottom: 12px;
+}
+
+.skeleton-text-sm {
+  height: 12px;
+  margin-bottom: 6px;
+}
+
+.skeleton-title {
+  height: 32px;
+  width: 60%;
+  margin-bottom: 16px;
+  border-radius: 6px;
+}
+
+.skeleton-avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+}
+
+.skeleton-avatar-lg {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+}
+
+.skeleton-avatar-sm {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+}
+
+.skeleton-image {
+  width: 100%;
+  height: 200px;
+  border-radius: 8px;
+}
+
+.skeleton-button {
+  width: 120px;
+  height: 40px;
+  border-radius: 20px;
+}
+
+.skeleton-badge {
+  width: 60px;
+  height: 24px;
+  border-radius: 12px;
+  display: inline-block;
+}
+
+/* Recipe Card Skeleton */
+.skeleton-recipe-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  padding: 0;
+}
+
+.skeleton-recipe-card .skeleton-image {
+  height: 200px;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.skeleton-recipe-card-content {
+  padding: 16px;
+}
+
+.skeleton-recipe-card-content .skeleton-title {
+  width: 80%;
+  height: 24px;
+  margin-bottom: 12px;
+}
+
+.skeleton-recipe-card-content .skeleton-text {
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+.skeleton-recipe-card-content .skeleton-text:last-child {
+  width: 70%;
+}
+
+.skeleton-recipe-card-footer {
+  padding: 0 16px 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.skeleton-recipe-card-meta {
+  display: flex;
+  gap: 12px;
+}
+
+.skeleton-recipe-card-meta .skeleton-badge {
+  width: 70px;
+}
+
+/* Blog Card Skeleton */
+.skeleton-blog-card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+}
+
+.skeleton-blog-card .skeleton-image {
+  width: 200px;
+  height: 150px;
+  flex-shrink: 0;
+}
+
+.skeleton-blog-card-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.skeleton-blog-card-content .skeleton-title {
+  width: 90%;
+}
+
+.skeleton-blog-card-content .skeleton-text {
+  width: 100%;
+}
+
+.skeleton-blog-card-footer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* Profile Skeleton */
+.skeleton-profile {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.skeleton-profile-info {
+  flex: 1;
+}
+
+.skeleton-profile-info .skeleton-title {
+  width: 200px;
+  height: 24px;
+  margin-bottom: 8px;
+}
+
+.skeleton-profile-info .skeleton-text {
+  width: 300px;
+}
+
+/* Comment Skeleton */
+.skeleton-comment {
+  display: flex;
+  gap: 12px;
+  padding: 16px;
+  background: white;
+  border-radius: 8px;
+  margin-bottom: 12px;
+}
+
+.skeleton-comment-content {
+  flex: 1;
+}
+
+.skeleton-comment-content .skeleton-text:first-child {
+  width: 150px;
+  height: 14px;
+  margin-bottom: 8px;
+}
+
+.skeleton-comment-content .skeleton-text {
+  width: 100%;
+}
+
+/* List Skeleton */
+.skeleton-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.skeleton-list-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: white;
+  border-radius: 8px;
+}
+
+.skeleton-list-item-content {
+  flex: 1;
+}
+
+/* Grid Skeleton */
+.skeleton-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+}
+
+/* Table Skeleton */
+.skeleton-table {
+  width: 100%;
+}
+
+.skeleton-table-row {
+  display: flex;
+  gap: 16px;
+  padding: 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.skeleton-table-cell {
+  flex: 1;
+}
+
+/* Pulse animation variant */
+.skeleton-pulse {
+  animation: skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Wave animation variant */
+.skeleton-wave {
+  position: relative;
+  overflow: hidden;
+}
+
+.skeleton-wave::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.3),
+    transparent
+  );
+  animation: skeleton-wave 1.5s ease-in-out infinite;
+}
+
+@keyframes skeleton-wave {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+/* Lazy loading states */
+.lazy-loading {
+  opacity: 0.6;
+  filter: blur(5px);
+  transition: all 0.3s ease;
+}
+
+.lazy-loaded {
+  opacity: 1;
+  filter: blur(0);
+  animation: fadeIn 0.5s ease;
+}
+
+.lazy-error {
+  opacity: 0.5;
+  filter: grayscale(100%);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Progressive image loading */
+.progressive-image {
+  position: relative;
+  overflow: hidden;
+  background-color: #f0f0f0;
+  background-size: cover;
+  background-position: center;
+}
+
+.progressive-loading {
+  filter: blur(10px);
+  transform: scale(1.1);
+}
+
+.progressive-loaded {
+  filter: blur(0);
+  transform: scale(1);
+  transition: all 0.5s ease;
+}
+
+/* Hide content while loading */
+.loading-hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.loading-visible {
+  opacity: 1;
+  pointer-events: auto;
+  animation: fadeIn 0.3s ease;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .skeleton-blog-card {
+    flex-direction: column;
+  }
+  
+  .skeleton-blog-card .skeleton-image {
+    width: 100%;
+    height: 200px;
+  }
+  
+  .skeleton-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Utility classes */
+.skeleton-container {
+  padding: 20px;
+}
+
+.skeleton-container > * + * {
+  margin-top: 20px;
+}
+
+/* Multiple line skeleton */
+.skeleton-lines {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.skeleton-lines .skeleton-text:nth-child(1) {
+  width: 100%;
+}
+
+.skeleton-lines .skeleton-text:nth-child(2) {
+  width: 95%;
+}
+
+.skeleton-lines .skeleton-text:nth-child(3) {
+  width: 80%;
+}
